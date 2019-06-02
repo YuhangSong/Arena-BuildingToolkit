@@ -18,9 +18,10 @@ Some features mentioned in the paper may be not yet available, since we are tryi
 ## Project Structure
 
 All games and abstraction layers share one Unity project.
-Each game is held in an independent folder, with the game's name as the folder name.
-The folder ArenaSDK holds all the abstraction layers and share code, assets and utils.
-Code style is kept as consistent as possible to the Unity ML-Agents.
+Each game is held in an independent folder in ```ArenaSDK/GameSet/``, with the game's name as the folder name.
+The folder ```ArenaSDK``` holds all the abstraction layers and share code, assets and utils.
+
+* Games outside ```ArenaSDK/``` have not been merged into the new codebase yet, do not use them.
 
 ## Build Your Game
 
