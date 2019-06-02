@@ -119,3 +119,17 @@ as well as the engine behind Arena, without which the platform would be impossib
 ## Acknowledgement
 
 We give special thanks to the [Whiteson Research Lab](http://whirl.cs.ox.ac.uk/) and [ML-Agents team](https://unity3d.com/machine-learning/), with which the discussion shaped the vision of the project a lot.
+Also, we use some free packages from [Unity Assets Store](https://assetstore.unity.com/) list in [the reference section](#references), the code of which is publically available in the Unity Assets Store.
+We thank them for their generosity and contribution to the community.
+
+We also use two packages that is not free (list in [the reference section](#references)), thus, the code of these two packages is not included in the code release.
+But the compiled binary files are released in [Arena-Baselines](https://github.com/YuhangSong/Arena-Baselines).
+
+## References
+* [Tower Defense Template](https://assetstore.unity.com/packages/essentials/tutorial-projects/107692)
+* [Low Poly Crates](https://assetstore.unity.com/packages/3d/props/80037)
+* [Low Polygon Soccer Ball](https://assetstore.unity.com/packages/3d/84382)
+* [Space Robot Kyle](https://assetstore.unity.com/packages/3d/characters/robots/4696)
+* [Ragdoll and Transition to Mecanim](https://assetstore.unity.com/packages/templates/systems/ragdoll-and-transition-to-mecanim-38568)
+* [Free Little Games Asset Pack](https://assetstore.unity.com/packages/3d/props/free-little-games-asset-pack-125089)
+* 
