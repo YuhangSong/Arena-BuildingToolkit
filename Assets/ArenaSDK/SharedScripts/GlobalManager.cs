@@ -978,7 +978,6 @@ namespace Arena
             } else {
                 Debug.Log("AgentSwitchType is set by each ArenaTeam");
             }
-            ResetTurnBasedGame();
         }
 
         /// <summary>

@@ -291,15 +291,20 @@ namespace Arena {
                     + Player.GetComponentsInChildren<Rigidbody>().Length);
             }
             if (AllowTurn) {
-                if (Player.GetComponentInChildren<Rigidbody>().constraints !=
-                  (RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ))
+                if ((Player.GetComponentInChildren<Rigidbody>().constraints !=
+                  (RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ)) &&
+                  (Player.GetComponentInChildren<Rigidbody>().constraints !=
+                  (RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ
+                  | RigidbodyConstraints.FreezePositionY)))
                 {
                     LogWarningFreezeRotationXZ();
                 }
             } else {
-                if (Player.GetComponentInChildren<Rigidbody>().constraints !=
+                if ((Player.GetComponentInChildren<Rigidbody>().constraints !=
                   (RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ
-                  | RigidbodyConstraints.FreezeRotationY))
+                  | RigidbodyConstraints.FreezeRotationY)) && (Player.GetComponentInChildren<Rigidbody>().constraints !=
+                  (RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ
+                  | RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezePositionY)))
                 {
                     LogWarningFreezeRotationXZ();
                 }

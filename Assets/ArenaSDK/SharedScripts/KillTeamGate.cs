@@ -40,12 +40,14 @@ namespace Arena {
         private void
         TrigEvent(GameObject other)
         {
-            if (other.gameObject.CompareTag(TrigTag)) {
-                if (KillingTeamID > 0) {
+            if (other.CompareTag(TrigTag)) {
+                if (KillingTeamID >= 0) {
                     globalManager.KillTeam(KillingTeamID);
                 } else {
+                    print(globalManager);
+
                     globalManager.KillTeam(
-                        other.gameObject.GetComponentInParent<ArenaTeam>().getTeamID()
+                        other.GetComponentInParent<ArenaTeam>().getTeamID()
                     );
                 }
             }

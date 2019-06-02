@@ -17,12 +17,6 @@ namespace Arena
         private float NumBullet;
         private bool Reloading;
 
-        // PlayerReinitializor = new TransformReinitializor(
-        //     Player,
-        //     Vector3.zero, new Vector3(3f, 0f, 6f),
-        //     Vector3.zero, new Vector3(0f, 0f, 0f),
-        //     Vector3.zero, Vector3.zero);
-
         public override void
         AgentReset()
         {
