@@ -1,0 +1,52 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 41e9bda8f3cf1492fa74926a530f6f70, type: 3}
+  m_Name: PlayerA
+  m_EditorClassIdentifier: 
+  brainParameters:
+    vectorObservationSize: 0
+    numStackedVectorObservations: 1
+    vectorActionSize: 06000000
+    cameraResolutions:
+    - width: 84
+      height: 84
+      blackAndWhite: 1
+    vectorActionDescriptions:
+    - 
+    vectorActionSpaceType: 0
+  keyContinuousPlayerActions:
+  - key: 97
+    index: 0
+    value: -0.5
+  - key: 100
+    index: 0
+    value: 0.5
+  axisContinuousPlayerActions: []
+  discretePlayerActions:
+  - key: 113
+    branchIndex: 0
+    value: 0
+  - key: 97
+    branchIndex: 0
+    value: 1
+  - key: 100
+    branchIndex: 0
+    value: 2
+  - key: 119
+    branchIndex: 0
+    value: 3
+  - key: 115
+    branchIndex: 0
+    value: 4
+  - key: 32
+    branchIndex: 0
+    value: 5
