@@ -1,0 +1,160 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!21 &2100000
+Material:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: BGR_Water
+  m_Shader: {fileID: 4800000, guid: ff4f7c50660ba9b4495472673ef5af91, type: 3}
+  m_ShaderKeywords: 
+  m_LightmapFlags: 5
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _BumpMap:
+        m_Texture: {fileID: 2800000, guid: 74423cbef99ad234e9191594e6c27a06, type: 3}
+        m_Scale: {x: 50, y: 50}
+        m_Offset: {x: 0, y: 0}
+    - _BumpMap2:
+        m_Texture: {fileID: 2800000, guid: 34894f0cefebc01468c18d5579f2d9e4, type: 3}
+        m_Scale: {x: 10, y: 10}
+        m_Offset: {x: 0, y: 0}
+    - _Cube:
+        m_Texture: {fileID: 8900000, guid: 3b5eaa969aa89fb45b025e2ff7d7695a, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DetailBump:
+        m_Texture: {fileID: 2800000, guid: 1d12cc523f65e9f49aa29548fe4402cd, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Fresnel:
+        m_Texture: {fileID: 2800000, guid: 6aca893bbdb380e40be322de5b27e134, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MainTex:
+        m_Texture: {fileID: 2800000, guid: 08fee7c705165d84294fc4eb7c8a3a10, type: 3}
+        m_Scale: {x: 25, y: 25}
+        m_Offset: {x: 0, y: 0}
+    - _ParallaxMap:
+        m_Texture: {fileID: 2800000, guid: 2c912b5ea76df334684f8f50f436bf17, type: 3}
+        m_Scale: {x: 10, y: 10}
+        m_Offset: {x: 0, y: 0}
+    - _RefCube:
+        m_Texture: {fileID: 8900000, guid: 5b4361bda0746024eb47ad645b331d56, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _ReflectionTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 10, y: 10}
+        m_Offset: {x: 0, y: 0}
+    - _ReflectiveColor:
+        m_Texture: {fileID: 2800000, guid: 5b5c5575fd4c74abd9f7b30862fb76a3, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _RefractionTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Roughness:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _SSSMask:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _ShoreTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _SpTexture:
+        m_Texture: {fileID: 2800000, guid: 208a65f29c0658d4e832620aee4ca6bb, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Spec:
+        m_Texture: {fileID: 2800000, guid: 63874c619d1a80d4ba50571680d86a31, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _layer1Tex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Floats:
+    - _BumpIntensity: 1
+    - _BumpLerp: 0.5
+    - _DetailInt: 0.4
+    - _DetailTile: 10
+    - _DetailTiling: 10
+    - _Emis: 0.05
+    - _Fresnel: 1
+    - _FresnelScale: 0.75
+    - _GerstnerIntensity: 1
+    - _Glossiness: 2.1641788
+    - _InvertValue: 0
+    - _Opacity: 0.75
+    - _Parallax: 0.0313
+    - _Power: 0
+    - _RefInt: 0.7
+    - _RefIntensity: 1
+    - _ReflDistort: 0
+    - _RefrDistort: 0
+    - _RimPower: 4
+    - _RimWidth: 3
+    - _SSSIntensity: 0.5
+    - _SSSPower: 1
+    - _ScrollSpeed: 0.4
+    - _Shift: 0
+    - _Shininess: 0.6012862
+    - _Smoothness: 1
+    - _Smth: 0.95
+    - _SpecContrast: 2
+    - _SpecIntensity: 2.3
+    - _Transparency: 0.95
+    - _WaveFreq: 20
+    - _WaveHeight: 0.25
+    - _WavePower: 1.4029856
+    - _WaveScale: 0.058
+    - _fogEnd: 400
+    - _fogStart: 20
+    - _layer1Tile: 10
+    m_Colors:
+    - WaveSpeed: {r: 19, g: 9, b: -16, a: -7}
+    - _AnimationDirection: {r: 1, g: 1, b: 1, a: 1}
+    - _AnimationTiling: {r: 2.2, g: 2.2, b: -1.1, a: -1.1}
+    - _BaseColor: {r: 0.54, g: 0.95, b: 0.99, a: 0.5}
+    - _BumpDirection: {r: 1, g: 1, b: -1, a: 1}
+    - _BumpTiling: {r: 1, g: 1, b: -2, a: 3}
+    - _Color: {r: 0.7861892, g: 0.791, b: 0.62569845, a: 1}
+    - _ColorTint: {r: 0.74509805, g: 0.7023594, b: 0.5727028, a: 1}
+    - _DistortParams: {r: 1, g: 1, b: 2, a: 1.15}
+    - _Emission: {r: 0, g: 0, b: 0, a: 0}
+    - _Foam: {r: 0.1, g: 0.375, b: 0, a: 0}
+    - _GAmplitude: {r: 0.3, g: 0.35, b: 0.25, a: 0.25}
+    - _GDirectionAB: {r: 0.3, g: 0.85, b: 0.85, a: 0.25}
+    - _GDirectionCD: {r: 0.1, g: 0.9, b: 0.5, a: 0.5}
+    - _GFrequency: {r: 1.3, g: 1.35, b: 1.25, a: 1.25}
+    - _GSpeed: {r: 1.2, g: 1.375, b: 1.1, a: 1.5}
+    - _GSteepness: {r: 1, g: 1, b: 1, a: 1}
+    - _HorizonColor: {r: 0.172, g: 0.463, b: 0.435, a: 1}
+    - _InvFadeParemeter: {r: 0.15, g: 0.15, b: 0.5, a: 1}
+    - _MainColor: {r: 0.56618226, g: 0.6117647, b: 0.56872165, a: 0}
+    - _ReflectColor: {r: 1, g: 1, b: 1, a: 0.5}
+    - _ReflectionColor: {r: 0.54, g: 0.95, b: 0.99, a: 0.5}
+    - _ReflectionTint: {r: 0.20392157, g: 0.1646609, b: 0.09116493, a: 1}
+    - _RefrColor: {r: 0.24913493, g: 0.35294116, b: 0.24985082, a: 1}
+    - _RimColor: {r: 1, g: 1, b: 1, a: 1}
+    - _SSSColor: {r: 0, g: 0, b: 0, a: 0}
+    - _SpColor: {r: 0.25882354, g: 0.2304037, b: 0.2304037, a: 0}
+    - _SpecColor: {r: 1, g: 1, b: 1, a: 0}
+    - _SpecularColor: {r: 0.72, g: 0.72, b: 0.72, a: 1}
+    - _WaveSpeed: {r: 19, g: 9, b: -16, a: -7}
+    - _WorldLightDir: {r: 0, g: 0.1, b: -0.5, a: 0}
+    - _fogColor: {r: 0.29211843, g: 0.4276772, b: 0.5686275, a: 1}
