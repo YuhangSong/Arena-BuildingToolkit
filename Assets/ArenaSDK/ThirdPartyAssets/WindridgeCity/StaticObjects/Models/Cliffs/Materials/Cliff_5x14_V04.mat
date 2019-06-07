@@ -1,0 +1,169 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!21 &2100000
+Material:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: Cliff_5x14_V04
+  m_Shader: {fileID: 45, guid: 0000000000000000f000000000000000, type: 0}
+  m_ShaderKeywords: _NORMALMAP
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _AlbedoArray:
+        m_Texture: {fileID: 18700000, guid: d2205eedeca439d419fb0aeaeb8dc8a0, type: 2}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _AnimatedAlbedo:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _AnimatedEmission:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _BumpMap:
+        m_Texture: {fileID: 2800000, guid: 2a89659c76b141b459c2d05a34ce27a7, type: 3}
+        m_Scale: {x: 8, y: 8}
+        m_Offset: {x: 0, y: 0}
+    - _BumpMapVariant:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DetailAlbedoMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 8, y: 8}
+        m_Offset: {x: 0, y: 0}
+    - _DetailMask:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DetailNormalMap:
+        m_Texture: {fileID: 2800000, guid: 266a3d34eb4a1d34781e984c9cd5306a, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DirtWetnessTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _EmissionMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MainTex:
+        m_Texture: {fileID: 2800000, guid: df74e665134dd40468c79765b4858343, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MainTexVariant:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MetallicGlossMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _NoiseTexture:
+        m_Texture: {fileID: 2800000, guid: 8bd0ca4ed90f87f4ca58cbef0b190373, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _NormalArray:
+        m_Texture: {fileID: 18700000, guid: 5449dee4e688ab54fa284331ab558485, type: 2}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _OcclusionMap:
+        m_Texture: {fileID: 2800000, guid: 3515ebde6104a5d48aca7698ac8f2de9, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _PackedArray:
+        m_Texture: {fileID: 18700000, guid: 74c4a87ba9ada394d8607a416153f4c9, type: 2}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _PackedBaseMap:
+        m_Texture: {fileID: 2800000, guid: d53dcc06371e54644912d995563d7932, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _ParallaxMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _SpecGlossMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _SpecGlossMapVariant:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _TransmissionThicknessMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _VariantMask:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Floats:
+    - _AnimatedRandomRowOffset: 1
+    - _BumpScale: 1
+    - _CullMode: 2
+    - _Cutoff: 0.5
+    - _DebugDisableDetail: 0
+    - _DetailAlbedoGrayscaleStrength: 1.3
+    - _DetailArrayMaxIndex: 4
+    - _DetailMode: 0
+    - _DetailNormalMapScale: 0
+    - _DstBlend: 0
+    - _ExtraNormalShadowBias: 0
+    - _GlossMapScale: 1
+    - _Glossiness: 0.219
+    - _GlossyReflections: 1
+    - _HasAnimatedAlbedo: 0
+    - _HasAnimatedEmission: 0
+    - _HasTransmission: 1
+    - _LightProbeScale: 1
+    - _MetaDiffuseScale: 1
+    - _MetaEmissionScale: 1
+    - _MetaMetallicSoup: 1
+    - _MetaSpecularScale: 1
+    - _MetaUseCustom: 0
+    - _Metallic: 0
+    - _Mode: 0
+    - _NoiseUVScale: 75
+    - _OcclusionStrength: 0.731
+    - _Parallax: 0.02
+    - _ReflectionProbeBoost: 1
+    - _SmoothnessTextureChannel: 0
+    - _SpecularHighlights: 1
+    - _SrcBlend: 1
+    - _Translucency: 0
+    - _TransmissionThicknessScale: 1
+    - _UVDetailMask: 0
+    - _UVSec: 0
+    - _UseDitheredEdges: 1
+    - _UseFullAlbedo: 0
+    - _VertexOcclusionPower: 1
+    - _WindHeightClamp: 1
+    - _WindHeightScale: 0
+    - _ZWrite: 1
+    m_Colors:
+    - _AnimatedFrameSize: {r: 0.125, g: 0.25, b: 0, a: 0}
+    - _AnimatedRowsColsTotal: {r: 8, g: 4, b: 0, a: 0}
+    - _AnimatedUVRange: {r: 0.5, g: 0.05, b: 0.05, a: 0.1}
+    - _AnimatedUVScaleOffset: {r: 1, g: 1, b: 0, a: 0}
+    - _Color: {r: 0.71323526, g: 0.68328804, b: 0.61883646, a: 1}
+    - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
+    - _MetaDiffuseAdd: {r: 0, g: 0, b: 0, a: 1}
+    - _MetaDiffuseTint: {r: 1, g: 1, b: 1, a: 1}
+    - _MetaEmissionAdd: {r: 0, g: 0, b: 0, a: 1}
+    - _MetaEmissionTint: {r: 1, g: 1, b: 1, a: 1}
+    - _MetaSpecularAdd: {r: 0, g: 0, b: 0, a: 1}
+    - _MetaSpecularTint: {r: 1, g: 1, b: 1, a: 1}
+    - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
