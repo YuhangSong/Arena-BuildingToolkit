@@ -3,7 +3,7 @@
 ## Introduction
 
 Multi-agent intelligence is still at the stage where many problems remain unexplored. Therefore, we provide a building toolkit for researchers to easily invent and build novel multi-agent problems from the provided games set based on a GUI-configurable social tree and five basic multi-agent reward schemes.
-More resources (paper, supplementary, documentation, code of baselines) can be found in [Arena Home](https://sites.google.com/view/arena-unity/).
+More resources ([arXiv paper](https://arxiv.org/abs/1905.08085), supplementary & documentation, [code of baselines](https://github.com/YuhangSong/Arena-Baselines)) can be found in [Arena Home](https://sites.google.com/view/arena-unity/).
 If you use Arena to conduct research, we ask that you [cite the paper](#citation) as a reference.
 
 <img src="./images/customize-example.png" align="middle" width="2000"/>
