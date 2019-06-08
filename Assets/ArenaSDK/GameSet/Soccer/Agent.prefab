@@ -58,7 +58,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 06893cec523208643a91b7a393737700, type: 2}
+  - {fileID: 2100000, guid: b4ebb75ddb6cfc1409d904894e795c50, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -155,7 +155,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 875db4f7a0622430a8fae186e5173117, type: 2}
+  - {fileID: 2100000, guid: 944463113244f4bf8b05c1757cd838a4, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -313,9 +313,9 @@ MonoBehaviour:
   RewardDirectionCoefficient: 0.01
   RewardTimeCoefficient: 0.001
   Player: {fileID: 1025358259259551978}
-  isApplyTeamMaterialToPlayer: 1
+  isApplyTeamMaterialToPlayer: 0
   AllowMove: 1
-  MoveType: 0
+  MoveType: 1
   AllowTurn: 1
   AllowJump: 0
   JumpForceMax: 400
@@ -323,11 +323,11 @@ MonoBehaviour:
   MoveForceAcc: 0
   MoveForceMax: 40
   MoveVelocityBase: 5
-  MoveVelocityAcc: 0
-  MoveVelocityMax: 10
-  TurnVelocityBase: 0.3
-  TurnVelocityAcc: 0.2
-  TurnVelocityMax: 3
+  MoveVelocityAcc: 1
+  MoveVelocityMax: 50
+  TurnVelocityBase: 1
+  TurnVelocityAcc: 0.5
+  TurnVelocityMax: 50
   PlayerRandomPositionMin: {x: 0, y: 0, z: 0}
   PlayerRandomPositionMax: {x: 0, y: 0, z: 0.8}
   PlayerRandomEulerAnglesMin: {x: 0, y: 0, z: 0}
@@ -392,7 +392,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 06893cec523208643a91b7a393737700, type: 2}
+  - {fileID: 2100000, guid: b4ebb75ddb6cfc1409d904894e795c50, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

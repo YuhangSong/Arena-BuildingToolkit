@@ -114,6 +114,44 @@ namespace Arena {
         }
     }
 
+    public class RewardFunctionGeneratorVelocityToTarget {
+        private GameObject BaseObject;
+        private GameObject TargetObject;
+
+        /// <summary>
+        /// Constructor.
+        /// Generate reward base on the velocity along the direction from BaseObject to TargetObject
+        /// 1, Reward if velocity is towards Target
+        /// 2, Penalize if velocity is away from Target
+        /// </summary>
+        /// <param name="BaseObject">Reference to the object, with the respect of which you want measure the direction to the target.</param>
+        /// <param name="TargetObject">The target object.</param>
+        public RewardFunctionGeneratorVelocityToTarget(
+            GameObject BaseObject_,
+            GameObject TargetObject_)
+        {
+            BaseObject   = BaseObject_;
+            TargetObject = TargetObject_;
+
+            if (BaseObject.GetComponent<Rigidbody>() == null) {
+                Debug.LogError(
+                    "In other to use RewardFunctionGeneratorVelocityToTarget, BaseObject has to have a Rigidbody attached to it.");
+            }
+        }
+
+        public void
+        Reset()
+        { }
+
+        public float
+        StepGetReward()
+        {
+            Vector3 TargetDirection = TargetObject.transform.position - BaseObject.transform.position;
+
+            return Vector3.Dot(TargetDirection.normalized, BaseObject.GetComponent<Rigidbody>().velocity);
+        }
+    }
+
     public class RewardFunctionGeneratorFacingTarget : RewardFunctionGeneratorFacing {
         private GameObject BaseObject;
         private GameObject TargetObject;

@@ -6,7 +6,7 @@ namespace Arena {
     public class ArenaCrawlerAgent : ArenaRobot
     {
         // Keep as in the prefab is you are not creating new robot
-        [Header("Body Parts")][Space(10)]
+        [Header("ArenaCrawlerAgent Body Parts")][Space(10)]
         public Transform body;
         public Transform leg0Upper;
         public Transform leg0Lower;
@@ -18,7 +18,7 @@ namespace Arena {
         public Transform leg3Lower;
 
         // Keep as in the prefab is you are not creating new robot
-        [Header("Foot Grounded Visualization")][Space(10)]
+        [Header("ArenaCrawlerAgent Foot Grounded Visualization")][Space(10)]
         public bool useFootGroundedVisualization;
         public MeshRenderer foot0;
         public MeshRenderer foot1;

@@ -3042,17 +3042,20 @@ MonoBehaviour:
   ID: {fileID: 2523760616268329204}
   RewardScheme: 1
   RewardSchemeScale: 1
-  IsRewardDistanceToTarget: 1
-  IsRewardFacingTarget: 0
+  IsRewardDistanceToTarget: 0
+  IsRewardVelocityToTarget: 1
+  IsRewardFacingTarget: 1
   Target: {fileID: 0}
   BodyCore: {fileID: 5564486735369848288}
   IsRewardCoreUp: 0
-  IsRewardHeadUp: 1
+  IsRewardHeadUp: 0
   RewardHeadUpType: 0
   IsRewardTimePenalty: 0
   RewardDistanceCoefficient: 3
   RewardDirectionCoefficient: 0.01
   RewardTimeCoefficient: 0.001
+  RewardPostureCoefficient: 1
+  IsRewardWalkerPosture: 1
   hips: {fileID: 5564486735369848294}
   chest: {fileID: 5564486735175922476}
   spine: {fileID: 5564486735180501603}

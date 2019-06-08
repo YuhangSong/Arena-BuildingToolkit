@@ -5,8 +5,13 @@ namespace Arena {
     [RequireComponent(typeof(JointDriveController))] // Required to set joint forces
     public class ArenaWalkerAgent : ArenaRobot
     {
+        [Header("ArenaWalkerAgent Reward Functions")][Space(10)]
+        public bool IsRewardWalkerPosture = true;
+
+        public float RewardPostureCoefficient = 1.0f;
+
         // Keep as in the prefab is you are not creating new robot
-        [Header("Body Parts")][Space(10)]
+        [Header("ArenaWalkerAgent Body Parts")][Space(10)]
         public Transform hips;
         public Transform chest;
         public Transform spine;
@@ -98,23 +103,25 @@ namespace Arena {
         // );
 
         private float
-        GetWalkerGestureReward()
+        GetWalkerPostureReward()
         {
-            // return (
-            //     +0.002f * (head.position.y - hips.position.y)
-            //     - 0.001f * Vector3.Distance(
-            //         jdController.bodyPartsDict[head].rb.velocity,
-            //         jdController.bodyPartsDict[hips].rb.velocity
-            //     )
-            // );
-            return 0f;
+            // 1, Encourage head height.
+            // 2, Discourage head movement.
+            return (
+                +0.02f * (head.position.y - hips.position.y)
+                - 0.01f * Vector3.Distance(jdController.bodyPartsDict[head].rb.velocity,
+                jdController.bodyPartsDict[hips].rb.velocity)
+            );
         }
 
         protected override void
         DiscreteContinuousStep()
         {
             base.DiscreteContinuousStep();
-            AddReward(GetWalkerGestureReward());
+            if (IsRewardWalkerPosture) {
+                AddReward(
+                    GetWalkerPostureReward() * RewardPostureCoefficient);
+            }
         } // DiscreteContinuousStep
     }
 }

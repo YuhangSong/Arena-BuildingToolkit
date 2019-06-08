@@ -4,10 +4,13 @@ using MLAgents;
 namespace Arena {
     public class ArenaRobot : ArenaAgent
     {
-        [Header("Reward Functions")][Space(10)]
+        [Header("ArenaRobot Reward Functions")][Space(10)]
 
         public bool IsRewardDistanceToTarget = false;
         private RewardFunctionGeneratorDistanceToTarget RewardFunctionDistanceToTarget;
+
+        public bool IsRewardVelocityToTarget = false;
+        private RewardFunctionGeneratorVelocityToTarget RewardFunctionVelocityToTarget;
 
         public bool IsRewardFacingTarget = false;
         private RewardFunctionGeneratorFacingTarget RewardFunctionFacingTarget;
@@ -25,13 +28,14 @@ namespace Arena {
         public bool IsRewardTimePenalty = false;
         private RewardFunctionGeneratorTimePenalty RewardFunctionTimePenalty;
 
-        [Header("Reward Function Properties")][Space(10)]
+        [Header("ArenaRobot Reward Function Properties")][Space(10)]
 
         public float RewardDistanceCoefficient  = 1.0f;
+        public float RewardVelocityCoefficient  = 0.03f;
         public float RewardDirectionCoefficient = 0.01f;
         public float RewardTimeCoefficient      = 0.001f;
 
-        [Header("Joint Settings")][Space(10)]
+        [Header("ArenaRobot Joint Settings")][Space(10)]
 
         protected JointDriveController jdController;
 
@@ -46,6 +50,8 @@ namespace Arena {
         {
             base.InitializeAgent();
 
+            ReConfigSystemSettingsForRobot();
+
             jdController        = GetComponent<JointDriveController>();
             currentDecisionStep = 1;
 
@@ -59,6 +65,18 @@ namespace Arena {
             PlayerReinitializor.Reinitialize();
         } // InitializeAgent
 
+        private void
+        ReConfigSystemSettingsForRobot()
+        {
+            // We increase the Physics solver iterations in order to
+            // make walker joint calculations more accurate.
+            Monitor.verticalOffset = 1f;
+            Physics.defaultSolverIterations         = 12;
+            Physics.defaultSolverVelocityIterations = 12;
+            Time.fixedDeltaTime   = 0.01333f; // (75fps). default is .2 (60fps)
+            Time.maximumDeltaTime = .15f;     // Default is .33
+        }
+
         protected virtual void
         InitializeBody(){ }
 
@@ -71,6 +89,12 @@ namespace Arena {
             if (RewardScheme == RewardSchemes.IS) {
                 if (IsRewardDistanceToTarget) {
                     RewardFunctionDistanceToTarget = new RewardFunctionGeneratorDistanceToTarget(
+                        BodyCore,
+                        Target
+                    );
+                }
+                if (IsRewardVelocityToTarget) {
+                    RewardFunctionVelocityToTarget = new RewardFunctionGeneratorVelocityToTarget(
                         BodyCore,
                         Target
                     );
@@ -129,6 +153,10 @@ namespace Arena {
                     AddReward(
                         RewardFunctionDistanceToTarget.StepGetReward() * RewardDistanceCoefficient * RewardSchemeScale);
                 }
+                if (IsRewardVelocityToTarget) {
+                    AddReward(
+                        RewardFunctionVelocityToTarget.StepGetReward() * RewardVelocityCoefficient * RewardSchemeScale);
+                }
                 if (IsRewardFacingTarget) {
                     AddReward(
                         RewardFunctionFacingTarget.StepGetReward(
@@ -179,6 +207,9 @@ namespace Arena {
                 // Set reward for this step according to mixture of the following elements.
                 if (IsRewardDistanceToTarget) {
                     RewardFunctionDistanceToTarget.Reset();
+                }
+                if (IsRewardVelocityToTarget) {
+                    RewardFunctionVelocityToTarget.Reset();
                 }
                 if (IsRewardFacingTarget) {
                     RewardFunctionFacingTarget.Reset();
