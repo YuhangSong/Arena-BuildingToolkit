@@ -31,7 +31,7 @@ namespace Arena
                         Destroy(Temp_Bullet_Handeler, 3.0f);
                     }
                     Player.GetComponentInChildren<Rigidbody>().AddForce(Player.transform.TransformVector(
-                          Vector3.right * 20f));
+                          Vector3.right * 40f));
                     Player.GetComponentInChildren<Rigidbody>().angularVelocity = Vector3.zero;
                     break;
                 default:

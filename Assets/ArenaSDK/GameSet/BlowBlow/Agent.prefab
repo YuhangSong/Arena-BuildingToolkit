@@ -79,21 +79,40 @@ MonoBehaviour:
   agentParameters:
     agentCameras:
     - {fileID: 3951599749119977613}
+    agentRenderTextures: []
     maxStep: 0
     resetOnDone: 1
     onDemandDecision: 0
     numberOfActionsBetweenDecisions: 5
   AgentID: 0
   ID: {fileID: 273796505127707133}
+  RewardScheme: 0
+  RewardSchemeScale: 1
+  IsRewardDistanceToTarget: 0
+  IsRewardFacingTarget: 0
+  Target: {fileID: 0}
+  IsRewardTimePenalty: 0
+  RewardDistanceCoefficient: 1
+  RewardDirectionCoefficient: 0.01
+  RewardTimeCoefficient: 0.001
+  Player: {fileID: 3951599749217837218}
+  isApplyTeamMaterialToPlayer: 1
   AllowMove: 0
+  MoveType: 0
   AllowTurn: 1
   AllowJump: 0
-  JumpForce: {x: 0, y: 400, z: 0}
+  FreezePositionWhenNoAction: 0
+  FreezeRotationWhenNoAction: 0
+  JumpForceMax: 400
   MoveForceBase: 20
-  MoveForceAcc: 0
-  TurnForceBase: 0.3
-  TurnForceAcc: 0.2
-  Player: {fileID: 3951599749217837218}
+  MoveForceAcc: 1
+  MoveForceMax: 40
+  MoveVelocityBase: 5
+  MoveVelocityAcc: 0
+  MoveVelocityMax: 10
+  TurnVelocityBase: 0.3
+  TurnVelocityAcc: 0.5
+  TurnVelocityMax: 10
   PlayerRandomPositionMin: {x: 0, y: 0, z: 0}
   PlayerRandomPositionMax: {x: 8, y: 0, z: 8}
   PlayerRandomEulerAnglesMin: {x: 0, y: 0, z: 0}
@@ -495,12 +514,12 @@ PrefabInstance:
     - target: {fileID: 5635778872768905940, guid: 0c3bd765e9ac04581b8f64b17b9c2950,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -4
+      value: -7.4
       objectReference: {fileID: 0}
     - target: {fileID: 5635778872768905940, guid: 0c3bd765e9ac04581b8f64b17b9c2950,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 15.5
+      value: 27.3
       objectReference: {fileID: 0}
     - target: {fileID: 5635778872768905940, guid: 0c3bd765e9ac04581b8f64b17b9c2950,
         type: 3}
