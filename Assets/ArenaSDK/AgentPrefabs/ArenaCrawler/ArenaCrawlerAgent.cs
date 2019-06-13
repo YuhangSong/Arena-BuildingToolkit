@@ -5,6 +5,8 @@ namespace Arena {
     [RequireComponent(typeof(JointDriveController))] // Required to set joint forces
     public class ArenaCrawlerAgent : ArenaRobot
     {
+        // The agent is based on the Crawler provided by Unity ML-Agents
+
         // Keep as in the prefab is you are not creating new robot
         [Header("ArenaCrawlerAgent Body Parts")][Space(10)]
         public Transform body;

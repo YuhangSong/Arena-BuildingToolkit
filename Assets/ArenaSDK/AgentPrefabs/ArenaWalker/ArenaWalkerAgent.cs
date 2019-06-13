@@ -5,6 +5,8 @@ namespace Arena {
     [RequireComponent(typeof(JointDriveController))] // Required to set joint forces
     public class ArenaWalkerAgent : ArenaRobot
     {
+        // The agent is based on the Walker provided by Unity ML-Agents
+
         [Header("ArenaWalkerAgent Reward Functions")][Space(10)]
         public bool IsRewardWalkerPosture = true;
 

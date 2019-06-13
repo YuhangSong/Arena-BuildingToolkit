@@ -318,6 +318,8 @@ MonoBehaviour:
   MoveType: 1
   AllowTurn: 1
   AllowJump: 0
+  FreezePositionWhenNoAction: 1
+  FreezeRotationWhenNoAction: 0
   JumpForceMax: 400
   MoveForceBase: 20
   MoveForceAcc: 0
@@ -542,17 +544,17 @@ PrefabInstance:
     - target: {fileID: 5635778872768905940, guid: 0c3bd765e9ac04581b8f64b17b9c2950,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2.96
+      value: 3.65
       objectReference: {fileID: 0}
     - target: {fileID: 5635778872768905940, guid: 0c3bd765e9ac04581b8f64b17b9c2950,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -4.05
+      value: -6
       objectReference: {fileID: 0}
     - target: {fileID: 5635778872768905940, guid: 0c3bd765e9ac04581b8f64b17b9c2950,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.16256873
+      value: 0.10499044
       objectReference: {fileID: 0}
     - target: {fileID: 5635778872768905940, guid: 0c3bd765e9ac04581b8f64b17b9c2950,
         type: 3}
@@ -567,7 +569,7 @@ PrefabInstance:
     - target: {fileID: 5635778872768905940, guid: 0c3bd765e9ac04581b8f64b17b9c2950,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.98669726
+      value: 0.9944733
       objectReference: {fileID: 0}
     - target: {fileID: 5635778872768905940, guid: 0c3bd765e9ac04581b8f64b17b9c2950,
         type: 3}
@@ -577,7 +579,7 @@ PrefabInstance:
     - target: {fileID: 5635778872768905940, guid: 0c3bd765e9ac04581b8f64b17b9c2950,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
-      value: 18.712002
+      value: 12.053
       objectReference: {fileID: 0}
     - target: {fileID: 5635778872768905940, guid: 0c3bd765e9ac04581b8f64b17b9c2950,
         type: 3}

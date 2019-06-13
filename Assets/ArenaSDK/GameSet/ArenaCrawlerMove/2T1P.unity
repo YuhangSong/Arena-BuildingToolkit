@@ -127,11 +127,11 @@ GameObject:
   - component: {fileID: 34001053}
   m_Layer: 0
   m_Name: DebugDisturb
-  m_TagString: Untagged
+  m_TagString: Debug
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!135 &34001049
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -405,7 +405,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   broadcastHub:
     broadcastingBrains:
-    - {fileID: 11400000, guid: c01f11e42ccdd415490a5a4e2bc435c5, type: 2}
+    - {fileID: 11400000, guid: b752b21d81b0a487c814eb53c1ab9c3e, type: 2}
     _brainsToControl:
     - {fileID: 11400000, guid: b752b21d81b0a487c814eb53c1ab9c3e, type: 2}
   maxSteps: 1000
@@ -423,6 +423,7 @@ MonoBehaviour:
     targetFrameRate: 60
   resetParameters:
     resetParameters: []
+  Debugging: 0
   LightIntensityRandom: 0
   GameObjectToBeRespawnedTag: []
   DestroyTag: []

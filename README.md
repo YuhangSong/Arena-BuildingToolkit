@@ -97,6 +97,8 @@ Note that:
 * I am super good at producing typos, thus, fix them!
 * Games located in ```Assets/ArenaSDK/GameSet``` are those coded using new Arena abstraction layers, the game located in ```Assets/``` are those coded using old framework, which only support two players' competitive setting. Thus, I am working on re-code them using new Arena abstraction layers and put them in ```Assets/ArenaSDK/GameSet```
 * Some games that seem to be valuable to the community but are currently not in Arena, listed as follows:
+  * Running with scissors (RWS) in [Options as responses: Grounding behavioural hierarchies in multi-agent RL](https://arxiv.org/pdf/1906.01470.pdf)
+  * Allelopathy in [Options as responses: Grounding behavioural hierarchies in multi-agent RL](https://arxiv.org/pdf/1906.01470.pdf)
   * Real time strategy games
 
 ## Citation

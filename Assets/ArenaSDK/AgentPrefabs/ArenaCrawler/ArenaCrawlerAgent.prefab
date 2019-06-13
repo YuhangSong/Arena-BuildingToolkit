@@ -2030,15 +2030,17 @@ MonoBehaviour:
   ID: {fileID: 3329307697216816254}
   RewardScheme: 1
   RewardSchemeScale: 1
-  IsRewardDistanceToTarget: 0
+  IsRewardDistanceToTarget: 1
+  IsRewardVelocityToTarget: 0
   IsRewardFacingTarget: 0
   Target: {fileID: 0}
   BodyCore: {fileID: 4614824482926659417}
+  IsRewardCoreUp: 0
   IsRewardHeadUp: 1
   RewardHeadUpType: 2
-  IsKillHeadDown: 0
   IsRewardTimePenalty: 0
   RewardDistanceCoefficient: 1
+  RewardVelocityCoefficient: 0.03
   RewardDirectionCoefficient: 0.01
   RewardTimeCoefficient: 0.001
   body: {fileID: 4614824482926659416}

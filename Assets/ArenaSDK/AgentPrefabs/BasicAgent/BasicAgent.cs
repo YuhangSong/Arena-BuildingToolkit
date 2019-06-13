@@ -69,6 +69,16 @@ namespace Arena {
         public bool AllowJump = true;
 
         /// <summary>
+        /// If freeze the position of the player when taking NoAction.
+        /// </summary>
+        public bool FreezePositionWhenNoAction = false;
+
+        /// <summary>
+        /// If freeze the rotation of the player when taking NoAction.
+        /// </summary>
+        public bool FreezeRotationWhenNoAction = false;
+
+        /// <summary>
         /// Force of jump.
         /// </summary>
         public float JumpForceMax = 400f;
@@ -330,6 +340,15 @@ namespace Arena {
             base.DiscreteStep(Action_);
 
             if (AllowMove) {
+                if (FreezePositionWhenNoAction) {
+                    switch (Action_) {
+                        case NoAction:
+                            Player.GetComponentInChildren<Rigidbody>().velocity = Vector3.zero;
+                            break;
+                        default:
+                            break;
+                    }
+                }
                 if (MoveType == MoveTypes.Force) {
                     switch (Action_) {
                         case Left:
@@ -392,6 +411,15 @@ namespace Arena {
             }
 
             if (AllowTurn) {
+                if (FreezeRotationWhenNoAction) {
+                    switch (Action_) {
+                        case NoAction:
+                            Player.GetComponentInChildren<Rigidbody>().angularVelocity = Vector3.zero;
+                            break;
+                        default:
+                            break;
+                    }
+                }
                 switch (Action_) {
                     case TurnLeft:
                         Player.GetComponentInChildren<Rigidbody>().angularVelocity = (
