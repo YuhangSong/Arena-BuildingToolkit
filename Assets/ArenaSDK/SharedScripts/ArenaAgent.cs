@@ -47,6 +47,28 @@ namespace Arena
         /// </summary>
         public float RewardSchemeScale = 1.0f;
 
+        [Header("Action Settings (Attack)")][Space(10)]
+
+        /// <summary>
+        /// Reference to the Gun.
+        /// </summary>
+        public GameObject Gun;
+
+        /// <summary>
+        /// If enable attack with gun (GunAttack).
+        /// </summary>
+        public bool AllowGunAttack = false;
+
+        /// <summary>
+        /// Reference to the Sword.
+        /// </summary>
+        public GameObject Sword;
+
+        /// <summary>
+        /// If enable attack with sword (SwordAttack).
+        /// </summary>
+        public bool AllowSwordAttack = false;
+
         /// <remarks>
         /// Get TeamID from the ArenaTeam object who should be the parent of ArenaAgent.
         /// </remarks>
@@ -165,7 +187,23 @@ namespace Arena
                 InitializeTurnBasedGame();
             }
             InitializeRewardFunction();
-        }
+
+            if (Gun != null) {
+                Gun.SetActive(AllowGunAttack);
+            } else  {
+                if (AllowGunAttack) {
+                    Debug.LogError("Gun object need to be assigned to AllowGunAttack");
+                }
+            }
+
+            if (Sword != null) {
+                Sword.SetActive(AllowSwordAttack);
+            } else  {
+                if (AllowSwordAttack) {
+                    Debug.LogError("Sword object need to be assigned to AllowSwordAttack");
+                }
+            }
+        } // InitializeAgent
 
         /// <summary>
         /// Default Step function for disceret action space.

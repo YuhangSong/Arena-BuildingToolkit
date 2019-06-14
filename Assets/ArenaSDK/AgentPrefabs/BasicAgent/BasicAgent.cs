@@ -29,7 +29,7 @@ namespace Arena {
         [Header("Player Settings")][Space(10)]
 
         /// <summary>
-        /// Reference to the player.
+        /// Reference to the Player.
         /// </summary>
         public GameObject Player;
 
@@ -37,6 +37,8 @@ namespace Arena {
         /// If apply TeamMaterial to the player.
         /// </summary>
         public bool isApplyTeamMaterialToPlayer = true;
+
+        [Header("Action Settings (Move)")][Space(10)]
 
         /// <summary>
         /// If enable moving actions (Left, Right, Forward, Backward).
@@ -57,36 +59,6 @@ namespace Arena {
         ///   Velocity: move by velocity.
         /// </summary>
         public MoveTypes MoveType = MoveTypes.Force;
-
-        /// <summary>
-        /// If enable turn actions (TurnLeft, TurnRight).
-        /// </summary>
-        public bool AllowTurn = true;
-
-        /// <summary>
-        /// If enable jump actions (Jump).
-        /// </summary>
-        public bool AllowJump = true;
-
-        /// <summary>
-        /// If freeze the position of the player when taking NoAction.
-        /// </summary>
-        public bool FreezePositionWhenNoAction = false;
-
-        /// <summary>
-        /// If freeze the rotation of the player when taking NoAction.
-        /// </summary>
-        public bool FreezeRotationWhenNoAction = false;
-
-        /// <summary>
-        /// Force of jump.
-        /// </summary>
-        public float JumpForceMax = 400f;
-
-        /// <summary>
-        /// Base of MoveForce.
-        /// </summary>
-        public float MoveForceBase = 20.0f;
 
         /// <summary>
         /// Accumulate speed of MoveForce.
@@ -113,6 +85,42 @@ namespace Arena {
         /// </summary>
         public float MoveVelocityMax = 10.0f;
 
+        [Header("Action Settings (NoAction)")][Space(10)]
+
+        /// <summary>
+        /// If freeze the position of the player when taking NoAction.
+        /// </summary>
+        public bool FreezePositionWhenNoAction = false;
+
+        /// <summary>
+        /// If freeze the rotation of the player when taking NoAction.
+        /// </summary>
+        public bool FreezeRotationWhenNoAction = false;
+
+        [Header("Action Settings (Jump)")][Space(10)]
+
+        /// <summary>
+        /// If enable jump actions (Jump).
+        /// </summary>
+        public bool AllowJump = true;
+
+        /// <summary>
+        /// Force of jump.
+        /// </summary>
+        public float JumpForceMax = 400f;
+
+        /// <summary>
+        /// Base of MoveForce.
+        /// </summary>
+        public float MoveForceBase = 20.0f;
+
+        [Header("Action Settings (Turn)")][Space(10)]
+
+        /// <summary>
+        /// If enable turn actions (TurnLeft, TurnRight).
+        /// </summary>
+        public bool AllowTurn = true;
+
         /// <summary>
         /// Base of TurnVelocity.
         /// </summary>
@@ -127,6 +135,8 @@ namespace Arena {
         /// Accumulate speed of TurnVelocity.
         /// </summary>
         public float TurnVelocityMax = 3f;
+
+        [Header("Player Settings (Initialize)")][Space(10)]
 
         /// <summary>
         /// Random position range (Min).
