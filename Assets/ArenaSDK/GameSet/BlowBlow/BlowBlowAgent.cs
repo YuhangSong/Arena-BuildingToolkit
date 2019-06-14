@@ -10,7 +10,7 @@ namespace Arena
         public GameObject Bullet_Emitter;
         public GameObject Bullet_Emitter1;
         public GameObject Bullet_Emitter2;
-        public GameObject Bullet;
+        public new GameObject Bullet;
 
         override protected void
         DiscreteStep(int Action_)

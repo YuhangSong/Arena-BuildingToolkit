@@ -50,24 +50,34 @@ namespace Arena
         [Header("Action Settings (Attack)")][Space(10)]
 
         /// <summary>
-        /// Reference to the Gun.
-        /// </summary>
-        public GameObject Gun;
-
-        /// <summary>
         /// If enable attack with gun (GunAttack).
         /// </summary>
         public bool AllowGunAttack = false;
 
         /// <summary>
-        /// Reference to the Sword.
+        /// Reference to the Gun.
         /// </summary>
-        public GameObject Sword;
+        public GameObject Gun;
+        public GameObject BulletEmitter;
+        public GameObject Bullet;
+        public GameObject BulletBar;
+
+        public float BulletFarwardForce = 500f;
+        public float NumBulletPerLoad   = 0.5f;
+        public float FullNumBullet      = 30f;
+
+        private float NumBullet;
+        private bool Reloading;
 
         /// <summary>
         /// If enable attack with sword (SwordAttack).
         /// </summary>
         public bool AllowSwordAttack = false;
+
+        /// <summary>
+        /// Reference to the Sword.
+        /// </summary>
+        public GameObject Sword;
 
         /// <remarks>
         /// Get TeamID from the ArenaTeam object who should be the parent of ArenaAgent.
@@ -188,22 +198,24 @@ namespace Arena
             }
             InitializeRewardFunction();
 
-            if (Gun != null) {
-                Gun.SetActive(AllowGunAttack);
-            } else  {
-                if (AllowGunAttack) {
-                    Debug.LogError("Gun object need to be assigned to AllowGunAttack");
-                }
-            }
-
-            if (Sword != null) {
-                Sword.SetActive(AllowSwordAttack);
-            } else  {
-                if (AllowSwordAttack) {
-                    Debug.LogError("Sword object need to be assigned to AllowSwordAttack");
-                }
-            }
+            EnableReleatedObject(Gun, AllowGunAttack);
+            EnableReleatedObject(BulletEmitter, AllowGunAttack);
+            EnableReleatedObject(Bullet, AllowGunAttack);
+            EnableReleatedObject(BulletBar, AllowGunAttack);
+            EnableReleatedObject(Sword, AllowSwordAttack);
         } // InitializeAgent
+
+        protected void
+        EnableReleatedObject(GameObject GameObject_, bool IsEnable)
+        {
+            if (GameObject_ != null) {
+                GameObject_.SetActive(IsEnable);
+            } else {
+                if (IsEnable) {
+                    Debug.LogError("GameObject_ need to be assigned to IsEnable");
+                }
+            }
+        }
 
         /// <summary>
         /// Default Step function for disceret action space.
@@ -217,7 +229,38 @@ namespace Arena
             if (GetActionSpaceType() != SpaceType.discrete) {
                 Debug.LogError("ActionSpaceType is not Discrete, DiscreteStep() should not be called.");
             }
-        }
+
+            if (AllowGunAttack) {
+                switch (Action_) {
+                    case Attack:
+                        if ((NumBullet > 0) && !Reloading) {
+                            GameObject Temp_Bullet_Handeler;
+                            Temp_Bullet_Handeler = Instantiate(Bullet, BulletEmitter.transform.position,
+                                BulletEmitter.transform.rotation) as GameObject;
+                            Temp_Bullet_Handeler.transform.SetParent(transform, true);
+                            Temp_Bullet_Handeler.GetComponent<Rigidbody>().AddForce(
+                                BulletEmitter.transform.up * BulletFarwardForce);
+                            Destroy(Temp_Bullet_Handeler, 3.0f);
+                            NumBullet -= 1.0f;
+                            BulletBar.GetComponent<PercentageBar>().UpdatePercentage(GetBulletPercentage());
+                            if (NumBullet < 1.0f) {
+                                Reloading = true;
+                            }
+                        }
+                        break;
+                    default:
+                        break;
+                }
+
+                if (Reloading) {
+                    NumBullet += NumBulletPerLoad;
+                    BulletBar.GetComponent<PercentageBar>().UpdatePercentage(GetBulletPercentage());
+                    if (NumBullet >= FullNumBullet) {
+                        Reloading = false;
+                    }
+                }
+            }
+        } // DiscreteStep
 
         /// <summary>
         /// Default Step function for disceret action space.
@@ -369,14 +412,14 @@ namespace Arena
         protected const int AxisJump = 3;
 
         /// <summary>
-        /// Pre-defined action space: Hit.
+        /// Pre-defined action space: Attack.
         /// </summary>
-        protected const int Hit = 8;
+        protected const int Attack = 8;
 
         /// <summary>
-        /// Pre-defined action axis for continous action space: hit.
+        /// Pre-defined action axis for continous action space: Attack.
         /// </summary>
-        protected const int AxisHit = 4;
+        protected const int AxisAttack = 4;
 
         /// <summary>
         /// If you only use action in pre-defined action space,
@@ -436,6 +479,17 @@ namespace Arena
             if (globalManager.isTurnBasedGame()) {
                 ResetTurnBasedGame();
             }
+
+            if (AllowGunAttack) {
+                NumBullet = Random.Range(0, FullNumBullet);
+                BulletBar.GetComponent<PercentageBar>().UpdatePercentage(GetBulletPercentage());
+            }
+        }
+
+        private float
+        GetBulletPercentage()
+        {
+            return (float) NumBullet / (float) FullNumBullet;
         }
 
         /// <summary>

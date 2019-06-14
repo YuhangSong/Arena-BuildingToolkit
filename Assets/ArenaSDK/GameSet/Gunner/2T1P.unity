@@ -352,10 +352,11 @@ MonoBehaviour:
     targetFrameRate: 60
   resetParameters:
     resetParameters: []
-  Debugging: 1
+  Debugging: 0
   LightIntensityRandom: 0
   GameObjectToBeRespawnedTag: []
-  DestroyTag: []
+  DestroyTag:
+  - Bullet
   TeamMaterials:
   - {fileID: 2100000, guid: 7a3180b035cc24561bc6a2e1cb11a21c, type: 2}
   - {fileID: 2100000, guid: f8e6847f603704798bd480f4fd8860de, type: 2}
@@ -563,6 +564,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalScale.z
       value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4671368727319704675, guid: 9b83a53142a8b439ea63382993c3a28f,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.4
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9b83a53142a8b439ea63382993c3a28f, type: 3}

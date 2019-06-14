@@ -151,7 +151,7 @@ public class BilliardsAgent : ArenaAgent
         } else {
             MoveForceAccumulator.Reset();
         }
-        if ((LastAction_ == Hit) && (Action_ == Hit)) {
+        if ((LastAction_ == Attack) && (Action_ == Attack)) {
             Action_ = NoAction;
         }
         return Action_;
@@ -184,7 +184,7 @@ public class BilliardsAgent : ArenaAgent
                 Player.transform.RotateAround(GameObject.FindGameObjectWithTag(
                       "WhiteBall").transform.position, Vector3.up, MoveForceAccumulator.getCurrent());
                 break;
-            case Hit:
+            case Attack:
                 Release();
                 globalManager.EndATurn();
                 break;

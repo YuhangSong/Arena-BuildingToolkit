@@ -12,13 +12,13 @@ namespace Arena
         public float MoveSpeed = 5.0f;
 
         public GameObject BulletEmitterForward;
-        public GameObject Bullet;
-        public PercentageBar BulletBar;
+        public new GameObject Bullet;
+        public new PercentageBar BulletBar;
 
-        private const float NumBulletPerLoad = 0.04f;
-        private const float FullNumBullet    = 1.0f;
+        public new float NumBulletPerLoad = 0.04f;
+        public new float FullNumBullet    = 1.0f;
 
-        private float NumBullet = FullNumBullet;
+        private float NumBullet = 1f;
         private bool Reloading  = false;
 
         override protected void
@@ -58,7 +58,7 @@ namespace Arena
                         Player.transform.eulerAngles.z);
                     PalyerVelocity.z = MoveSpeed;
                     break;
-                case Hit:
+                case Attack:
                     if ((this.NumBullet > 0) && !this.Reloading) {
                         GameObject Bullet_Emitter = BulletEmitterForward;
                         Bullet_Emitter = BulletEmitterForward;
