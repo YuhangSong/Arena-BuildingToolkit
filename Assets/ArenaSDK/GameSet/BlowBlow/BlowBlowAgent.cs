@@ -1,8 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using MLAgents;
-using Arena;
 
 namespace Arena
 {
@@ -10,7 +6,6 @@ namespace Arena
         public GameObject Bullet_Emitter;
         public GameObject Bullet_Emitter1;
         public GameObject Bullet_Emitter2;
-        public new GameObject Bullet;
 
         override protected void
         DiscreteStep(int Action_)

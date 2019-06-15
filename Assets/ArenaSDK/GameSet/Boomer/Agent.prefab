@@ -24,7 +24,7 @@ GameObject:
   - component: {fileID: 1803212732093020947}
   - component: {fileID: 1803212733353429862}
   m_Layer: 0
-  m_Name: AgentA
+  m_Name: Agent
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -62,22 +62,50 @@ MonoBehaviour:
   agentParameters:
     agentCameras:
     - {fileID: 1160783487798487215}
+    agentRenderTextures: []
     maxStep: 4000
     resetOnDone: 1
     onDemandDecision: 0
     numberOfActionsBetweenDecisions: 5
   AgentID: 0
   ID: {fileID: 3824440586482636849}
-  isApplyTeamMaterial: 0
-  AllowMove: 0
-  AllowTurn: 0
-  AllowJump: 0
-  JumpForce: {x: 0, y: 400, z: 0}
-  MoveForceBase: 20
-  MoveForceAcc: 0
-  TurnForceBase: 0.3
-  TurnForceAcc: 0.2
+  RewardScheme: 0
+  RewardSchemeScale: 1
+  AllowGunAttack: 0
+  Gun: {fileID: 0}
+  BulletEmitter: {fileID: 0}
+  Bullet: {fileID: 7025618740248747020, guid: 1aa38fae5ed074971aa416fd0c436e83, type: 3}
+  BulletBar: {fileID: 4332119505570634113}
+  BulletFarwardForce: 500
+  NumBulletPerLoad: 0.04
+  FullNumBullet: 1
+  AllowSwordAttack: 0
+  Sword: {fileID: 0}
+  IsRewardDistanceToTarget: 0
+  IsRewardFacingTarget: 0
+  Target: {fileID: 0}
+  IsRewardTimePenalty: 0
+  RewardDistanceCoefficient: 1
+  RewardDirectionCoefficient: 0.01
+  RewardTimeCoefficient: 0.001
   Player: {fileID: 1803212732904511590}
+  isApplyTeamMaterialToPlayer: 0
+  AllowMove: 0
+  MoveType: 0
+  MoveForceAcc: 0
+  MoveForceMax: 40
+  MoveVelocityBase: 5
+  MoveVelocityAcc: 0
+  MoveVelocityMax: 10
+  FreezePositionWhenNoAction: 0
+  FreezeRotationWhenNoAction: 0
+  AllowJump: 0
+  JumpForceMax: 400
+  MoveForceBase: 20
+  AllowTurn: 0
+  TurnVelocityBase: 0.3
+  TurnVelocityAcc: 0.2
+  TurnVelocityMax: 3
   PlayerRandomPositionMin: {x: 0, y: 0, z: 0}
   PlayerRandomPositionMax: {x: 0, y: 0, z: 0}
   PlayerRandomEulerAnglesMin: {x: 0, y: 0, z: 0}
@@ -86,8 +114,6 @@ MonoBehaviour:
   PlayerRandomForceMax: {x: 0, y: 0, z: 0}
   MoveSpeed: 2
   BulletEmitterForward: {fileID: 1803212732486421685}
-  Bullet: {fileID: 7025618740248747020, guid: 1aa38fae5ed074971aa416fd0c436e83, type: 3}
-  BulletBar: {fileID: 5458666162329257917}
 --- !u!1 &1803212732486421685
 GameObject:
   m_ObjectHideFlags: 0

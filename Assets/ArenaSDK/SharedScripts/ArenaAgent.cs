@@ -66,8 +66,8 @@ namespace Arena
         public float NumBulletPerLoad   = 0.5f;
         public float FullNumBullet      = 30f;
 
-        private float NumBullet;
-        private bool Reloading;
+        protected float NumBullet;
+        protected bool Reloading;
 
         /// <summary>
         /// If enable attack with sword (SwordAttack).
@@ -197,25 +197,7 @@ namespace Arena
                 InitializeTurnBasedGame();
             }
             InitializeRewardFunction();
-
-            EnableReleatedObject(Gun, AllowGunAttack);
-            EnableReleatedObject(BulletEmitter, AllowGunAttack);
-            EnableReleatedObject(Bullet, AllowGunAttack);
-            EnableReleatedObject(BulletBar, AllowGunAttack);
-            EnableReleatedObject(Sword, AllowSwordAttack);
         } // InitializeAgent
-
-        protected void
-        EnableReleatedObject(GameObject GameObject_, bool IsEnable)
-        {
-            if (GameObject_ != null) {
-                GameObject_.SetActive(IsEnable);
-            } else {
-                if (IsEnable) {
-                    Debug.LogError("GameObject_ need to be assigned to IsEnable");
-                }
-            }
-        }
 
         /// <summary>
         /// Default Step function for disceret action space.

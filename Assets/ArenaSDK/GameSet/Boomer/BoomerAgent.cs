@@ -1,9 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
-using MLAgents;
-using Arena;
 
 namespace Arena
 {
@@ -12,14 +7,15 @@ namespace Arena
         public float MoveSpeed = 5.0f;
 
         public GameObject BulletEmitterForward;
-        public new GameObject Bullet;
-        public new PercentageBar BulletBar;
 
-        public new float NumBulletPerLoad = 0.04f;
-        public new float FullNumBullet    = 1.0f;
+        public override void
+        AgentReset()
+        {
+            base.AgentReset();
 
-        private float NumBullet = 1f;
-        private bool Reloading  = false;
+            NumBullet = FullNumBullet;
+            BulletBar.GetComponent<PercentageBar>().UpdatePercentage(NumBullet / FullNumBullet);
+        }
 
         override protected void
         DiscreteStep(int Action_)
@@ -59,16 +55,15 @@ namespace Arena
                     PalyerVelocity.z = MoveSpeed;
                     break;
                 case Attack:
-                    if ((this.NumBullet > 0) && !this.Reloading) {
-                        GameObject Bullet_Emitter = BulletEmitterForward;
-                        Bullet_Emitter = BulletEmitterForward;
+                    if ((NumBullet > 0) && !Reloading) {
                         GameObject Temp_Bullet_Handeler;
-                        Temp_Bullet_Handeler = Instantiate(Bullet, Bullet_Emitter.transform.position,
-                            Bullet_Emitter.transform.rotation) as GameObject;
-                        this.NumBullet -= 1.0f;
-                        BulletBar.UpdatePercentage(NumBullet / FullNumBullet);
-                        if (this.NumBullet < 1.0f) {
-                            this.Reloading = true;
+                        Temp_Bullet_Handeler = Instantiate(Bullet, BulletEmitterForward.transform.position,
+                            BulletEmitterForward.transform.rotation) as GameObject;
+                        Temp_Bullet_Handeler.SetActive(true);
+                        NumBullet -= 1.0f;
+                        BulletBar.GetComponent<PercentageBar>().UpdatePercentage(NumBullet / FullNumBullet);
+                        if (NumBullet < 1.0f) {
+                            Reloading = true;
                         }
                     }
                     break;
@@ -78,11 +73,11 @@ namespace Arena
 
             Player.GetComponent<Rigidbody>().velocity = Player.transform.TransformVector(PalyerVelocity);
 
-            if (this.Reloading) {
-                this.NumBullet += NumBulletPerLoad;
-                BulletBar.UpdatePercentage(NumBullet / FullNumBullet);
-                if (this.NumBullet >= FullNumBullet) {
-                    this.Reloading = false;
+            if (Reloading) {
+                NumBullet += NumBulletPerLoad;
+                BulletBar.GetComponent<PercentageBar>().UpdatePercentage(NumBullet / FullNumBullet);
+                if (NumBullet >= FullNumBullet) {
+                    Reloading = false;
                 }
             }
         } // DiscreteStep
