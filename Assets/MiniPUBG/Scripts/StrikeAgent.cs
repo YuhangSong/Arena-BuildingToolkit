@@ -9,26 +9,26 @@ public class StrikeAgent : Agent
     public StrikeAgent Competitor;
     public StrikeGlobalManager globalManager;
     // customize public reference
-    public TankLifeBarController BulletBar;
-    public TankLifeBarController LifeBar;
+    // public TankLifeBarController BulletBar;
+    // public TankLifeBarController LifeBar;
 
     public GameObject player;
 
     // priveta conifg: action space
-    private const int NoAction = 0;
-    private const int Left = 1;
-    private const int Right = 2;
-    private const int Forward = 3;
-    private const int Backward = 4;
-    private const int ActionJump = 5;
+    private const int NoAction     = 0;
+    private const int Left         = 1;
+    private const int Right        = 2;
+    private const int Forward      = 3;
+    private const int Backward     = 4;
+    private const int ActionJump   = 5;
     private const int ActionCrouch = 6;
-    private const int ActionAim = 7;
-    private const int ActionFire = 8;
-    private const int ActionRun = 9;
-    private const int MouseXInc = 10;
-    private const int MouseXDec = 11;
-    private const int MouseYInc = 12;
-    private const int MouseYDec = 13;
+    private const int ActionAim    = 7;
+    private const int ActionFire   = 8;
+    private const int ActionRun    = 9;
+    private const int MouseXInc    = 10;
+    private const int MouseXDec    = 11;
+    private const int MouseYInc    = 12;
+    private const int MouseYDec    = 13;
     private const int ActionGunInc = 14;
     private const int ActionGunDec = 15;
     private const int ActionReload = 16;
@@ -39,11 +39,11 @@ public class StrikeAgent : Agent
     private const float increasing_speed_h = 0.1f;
     private const float increasing_speed_x = 0.01f;
     private const float increasing_speed_y = 0.01f;
-    private const float limit_speed_v = 1f;
-    private const float limit_speed_h = 1f;
-    private const float limit_speed_x = 2f;
-    private const float limit_speed_y = 2f;
-    private const float life_total = 3f;
+    private const float limit_speed_v      = 1f;
+    private const float limit_speed_h      = 1f;
+    private const float limit_speed_x      = 2f;
+    private const float limit_speed_y      = 2f;
+    private const float life_total         = 3f;
 
     // private status
     private float Vertical;
@@ -67,169 +67,139 @@ public class StrikeAgent : Agent
     private bool PreviousAttack;
     private float life;
 
-    public override void AgentReset()
+    public override void
+    AgentReset()
     {
         Debug.Log(this.GetComponentInParent<StrikeAgent>().tag + " reset with reward " + this.GetReward());
-        this.Vertical = 0.0f;
-        this.Horizontal = 0.0f;
-        this.MouseX = 0.0f;
-        this.MouseY = 0.0f;
-        this.Jump = false;
-        this.Crouch = false;
-        this.Aim = false;
-        this.Fire = false;
-        this.PreviousFire = false;
-        this.Run = false;
-        this.PreviousRun = false;
-        this.GunInc = false;
+        this.Vertical       = 0.0f;
+        this.Horizontal     = 0.0f;
+        this.MouseX         = 0.0f;
+        this.MouseY         = 0.0f;
+        this.Jump           = false;
+        this.Crouch         = false;
+        this.Aim            = false;
+        this.Fire           = false;
+        this.PreviousFire   = false;
+        this.Run            = false;
+        this.PreviousRun    = false;
+        this.GunInc         = false;
         this.PreviousGunInc = false;
-        this.GunDec = false;
+        this.GunDec         = false;
         this.PreviousGunDec = false;
-        this.Reload = false;
+        this.Reload         = false;
         this.PreviousReload = false;
-        this.Attack = false;
+        this.Attack         = false;
         this.PreviousAttack = false;
 
         reward_to_add = 0f;
-        to_done = false;
+        to_done       = false;
 
         this.life = life_total;
 
         this.UpdateLifeBar();
     }
 
-    public void hurt(float hurting)
+    public void
+    hurt(float hurting)
     {
-        if (this.life > 0)
-        {
+        if (this.life > 0) {
             this.life -= hurting;
             this.UpdateLifeBar();
-            if (this.life <= 0f)
-            {
+            if (this.life <= 0f) {
                 this.trig_loss();
             }
         }
     }
 
-    private void UpdateLifeBar()
+    private void
+    UpdateLifeBar()
     {
-        this.LifeBar.UpdatePercentage(
-            this.life/life_total
-            );
+        // this.LifeBar.UpdatePercentage(
+        //     this.life / life_total
+        // );
     }
 
-    public float GetAxis(string axis)
+    public float
+    GetAxis(string axis)
     {
-        if (axis == "Vertical")
-        {
+        if (axis == "Vertical") {
             return this.Vertical;
-        }
-        else if (axis == "Horizontal")
-        {
+        } else if (axis == "Horizontal") {
             return this.Horizontal;
         }
-        if (axis == "Mouse X")
-        {
+        if (axis == "Mouse X") {
             return this.MouseX;
-        }
-        else if (axis == "Mouse Y")
-        {
+        } else if (axis == "Mouse Y") {
             return this.MouseY;
-        }
-        else
-        {
+        } else {
             return 0.0f;
         }
     }
 
-    public bool GetButtonDown(string key)
+    public bool
+    GetButtonDown(string key)
     {
-        bool to_return=false;
+        bool to_return = false;
 
-        if (key == "Fire")
-        {
-            if ((!this.PreviousFire) && this.Fire)
-            {
+        if (key == "Fire") {
+            if ((!this.PreviousFire) && this.Fire) {
                 to_return = true;
             }
             this.PreviousFire = this.Fire;
-        }
-        else if (key == "Run")
-        {
-            if ((!this.PreviousRun) && this.Run)
-            {
+        } else if (key == "Run") {
+            if ((!this.PreviousRun) && this.Run) {
                 to_return = true;
             }
             this.PreviousRun = this.Run;
-        }
-        else if (key == "GunInc")
-        {
-            if ((!this.PreviousGunInc) && this.GunInc)
-            {
+        } else if (key == "GunInc") {
+            if ((!this.PreviousGunInc) && this.GunInc) {
                 to_return = true;
             }
             this.PreviousGunInc = this.GunInc;
-        }
-        else if (key == "GunDec")
-        {
-            if ((!this.PreviousGunDec) && this.GunDec)
-            {
+        } else if (key == "GunDec") {
+            if ((!this.PreviousGunDec) && this.GunDec) {
                 to_return = true;
             }
             this.PreviousGunDec = this.GunDec;
-        }
-        else if (key == "Reload")
-        {
-            if ((!this.PreviousReload) && this.Reload)
-            {
+        } else if (key == "Reload") {
+            if ((!this.PreviousReload) && this.Reload) {
                 to_return = true;
             }
             this.PreviousReload = this.Reload;
-        }
-        else if (key == "Attack")
-        {
-            if ((!this.PreviousAttack) && this.Attack)
-            {
+        } else if (key == "Attack") {
+            if ((!this.PreviousAttack) && this.Attack) {
                 to_return = true;
             }
             this.PreviousAttack = this.Attack;
         }
 
         return to_return;
-    }
+    } // GetButtonDown
 
-    public bool GetButton(string key)
+    public bool
+    GetButton(string key)
     {
-        if (key == "Jump")
-        {
+        if (key == "Jump") {
             return this.Jump;
-        }else if (key == "Crouch")
-        {
+        } else if (key == "Crouch") {
             return this.Crouch;
-        }
-        else if (key == "Aim")
-        {
+        } else if (key == "Aim") {
             return this.Aim;
-        }
-        else if (key == "Fire")
-        {
+        } else if (key == "Fire") {
             return this.Fire;
-        }
-        else if (key == "Run")
-        {
+        } else if (key == "Run") {
             return this.Run;
-        }
-        else
-        {
+        } else {
             return false;
         }
     }
 
-    void Start()
-    {
-    }
+    void
+    Start()
+    { }
 
-    private void shared_trig_win_loss()
+    private void
+    shared_trig_win_loss()
     {
         // send done signal to global
         globalManager.Reset();
@@ -238,13 +208,15 @@ public class StrikeAgent : Agent
     private float reward_to_add;
     private bool to_done;
 
-    public void TrigSetRewardDone(float reward)
+    public void
+    TrigSetRewardDone(float reward)
     {
         reward_to_add = reward;
-        to_done = true;
+        to_done       = true;
     }
 
-    public void trig_tie()
+    public void
+    trig_tie()
     {
         Debug.Log(this.GetComponentInParent<StrikeAgent>().tag + " trig_tie");
         TrigSetRewardDone(0.0f);
@@ -252,7 +224,8 @@ public class StrikeAgent : Agent
         this.shared_trig_win_loss();
     }
 
-    public void trig_win()
+    public void
+    trig_win()
     {
         Debug.Log(this.GetComponentInParent<StrikeAgent>().tag + " trig_win");
         TrigSetRewardDone(1.0f);
@@ -260,7 +233,8 @@ public class StrikeAgent : Agent
         this.shared_trig_win_loss();
     }
 
-    public void trig_loss()
+    public void
+    trig_loss()
     {
         Debug.Log(this.GetComponentInParent<StrikeAgent>().tag + " trig_loss");
         TrigSetRewardDone(0.0f);
@@ -268,73 +242,60 @@ public class StrikeAgent : Agent
         this.shared_trig_win_loss();
     }
 
-    public override void AgentAction(float[] vectorAction, string textAction)
+    public override void
+    AgentAction(float[] vectorAction, string textAction)
     {
-
-        if (reward_to_add != 0f)
-        {
+        if (reward_to_add != 0f) {
             SetReward(reward_to_add);
             reward_to_add = 0f;
-        }
-        else
-        {
+        } else {
             SetReward(0f);
         }
 
-        if (to_done)
-        {
+        if (to_done) {
             Done();
             to_done = false;
         }
 
         int action = Mathf.FloorToInt(vectorAction[0]);
 
-        switch (action)
-        {
+        switch (action) {
             case NoAction:
-                this.Vertical = 0.0f;
+                this.Vertical   = 0.0f;
                 this.Horizontal = 0.0f;
-                this.MouseX = 0.0f;
-                this.MouseY = 0.0f;
-                this.Jump = false;
-                this.Fire = false;
-                this.Run = false;
-                this.GunInc = false;
-                this.GunDec = false;
-                this.Reload = false;
-                this.Attack = false;
+                this.MouseX     = 0.0f;
+                this.MouseY     = 0.0f;
+                this.Jump       = false;
+                this.Fire       = false;
+                this.Run        = false;
+                this.GunInc     = false;
+                this.GunDec     = false;
+                this.Reload     = false;
+                this.Attack     = false;
                 break;
             case Backward:
-                if (this.Vertical > 0.0f) { this.Vertical = 0.0f; }
-                this.Vertical -= increasing_speed_v;
+                if (this.Vertical > 0.0f) this.Vertical = 0.0f; this.Vertical -= increasing_speed_v;
                 break;
             case Forward:
-                if (this.Vertical < 0.0f) { this.Vertical = 0.0f; }
-                this.Vertical += increasing_speed_v;
+                if (this.Vertical < 0.0f) this.Vertical = 0.0f; this.Vertical += increasing_speed_v;
                 break;
             case Left:
-                if (this.Horizontal > 0.0f) { this.Horizontal = 0.0f; }
-                this.Horizontal -= increasing_speed_h;
+                if (this.Horizontal > 0.0f) this.Horizontal = 0.0f; this.Horizontal -= increasing_speed_h;
                 break;
             case Right:
-                if (this.Horizontal < 0.0f) { this.Horizontal = 0.0f; }
-                this.Horizontal += increasing_speed_h;
+                if (this.Horizontal < 0.0f) this.Horizontal = 0.0f; this.Horizontal += increasing_speed_h;
                 break;
             case MouseXInc:
-                if (this.MouseX < 0.0f) { this.MouseX = 0.0f; }
-                this.MouseX += increasing_speed_x;
+                if (this.MouseX < 0.0f) this.MouseX = 0.0f; this.MouseX += increasing_speed_x;
                 break;
             case MouseXDec:
-                if (this.MouseX > 0.0f) { this.MouseX = 0.0f; }
-                this.MouseX -= increasing_speed_x;
+                if (this.MouseX > 0.0f) this.MouseX = 0.0f; this.MouseX -= increasing_speed_x;
                 break;
             case MouseYInc:
-                if (this.MouseY < 0.0f) { this.MouseY = 0.0f; }
-                this.MouseY += increasing_speed_y;
+                if (this.MouseY < 0.0f) this.MouseY = 0.0f; this.MouseY += increasing_speed_y;
                 break;
             case MouseYDec:
-                if (this.MouseY > 0.0f) { this.MouseY = 0.0f; }
-                this.MouseY -= increasing_speed_y;
+                if (this.MouseY > 0.0f) this.MouseY = 0.0f; this.MouseY -= increasing_speed_y;
                 break;
             case ActionJump:
                 this.Jump = true;
@@ -368,32 +329,30 @@ public class StrikeAgent : Agent
                 break;
         }
 
-        if (action !=MouseXInc && action != MouseXDec)
-        {
+        if (action != MouseXInc && action != MouseXDec) {
             this.MouseX = 0f;
         }
-        if (action != MouseYInc && action != MouseYDec)
-        {
+        if (action != MouseYInc && action != MouseYDec) {
             this.MouseY = 0f;
         }
 
-        this.Vertical = Mathf.Clamp(this.Vertical, -limit_speed_v, limit_speed_v);
+        this.Vertical   = Mathf.Clamp(this.Vertical, -limit_speed_v, limit_speed_v);
         this.Horizontal = Mathf.Clamp(this.Horizontal, -limit_speed_h, limit_speed_h);
-        this.MouseX = Mathf.Clamp(this.MouseX, -limit_speed_x, limit_speed_x);
-        this.MouseY = Mathf.Clamp(this.MouseY, -limit_speed_y, limit_speed_y);
+        this.MouseX     = Mathf.Clamp(this.MouseX, -limit_speed_x, limit_speed_x);
+        this.MouseY     = Mathf.Clamp(this.MouseY, -limit_speed_y, limit_speed_y);
 
-        if (this.GetReward() > 0)
-        {
+        if (this.GetReward() > 0) {
             Debug.Log(this.tag + " step with reward " + this.GetReward());
         }
 
         this.globalManager.tick();
-    }
+    } // AgentAction
 
-    private void UpdateBulletBar()
+    private void
+    UpdateBulletBar()
     {
-        this.BulletBar.UpdatePercentage(
-            gameObject.GetComponentInChildren<GunScript>().bulletsInTheGun / gameObject.GetComponentInChildren<GunScript>().amountOfBulletsPerLoad
-            );
+        // this.BulletBar.UpdatePercentage(
+        //     gameObject.GetComponentInChildren<GunScript>().bulletsInTheGun / gameObject.GetComponentInChildren<GunScript>().amountOfBulletsPerLoad
+        //     );
     }
 }

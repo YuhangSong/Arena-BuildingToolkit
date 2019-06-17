@@ -88,6 +88,16 @@ MonoBehaviour:
   ID: {fileID: 273796505127707133}
   RewardScheme: 0
   RewardSchemeScale: 1
+  AllowGunAttack: 0
+  Gun: {fileID: 0}
+  BulletEmitter: {fileID: 0}
+  Bullet: {fileID: 3985423246165039354, guid: ace85178ccc634faf94310c41ecd655e, type: 3}
+  BulletBar: {fileID: 0}
+  BulletFarwardForce: 500
+  NumBulletPerLoad: 0.5
+  FullNumBullet: 30
+  AllowSwordAttack: 0
+  Sword: {fileID: 0}
   IsRewardDistanceToTarget: 0
   IsRewardFacingTarget: 0
   Target: {fileID: 0}
@@ -99,30 +109,29 @@ MonoBehaviour:
   isApplyTeamMaterialToPlayer: 1
   AllowMove: 0
   MoveType: 0
-  AllowTurn: 1
-  AllowJump: 0
-  FreezePositionWhenNoAction: 0
-  FreezeRotationWhenNoAction: 0
-  JumpForceMax: 400
-  MoveForceBase: 20
   MoveForceAcc: 1
   MoveForceMax: 40
   MoveVelocityBase: 5
   MoveVelocityAcc: 0
   MoveVelocityMax: 10
+  FreezePositionWhenNoAction: 0
+  FreezeRotationWhenNoAction: 0
+  AllowJump: 0
+  JumpForceMax: 400
+  MoveForceBase: 20
+  AllowTurn: 1
   TurnVelocityBase: 0.3
   TurnVelocityAcc: 0.5
   TurnVelocityMax: 10
   PlayerRandomPositionMin: {x: 0, y: 0, z: 0}
-  PlayerRandomPositionMax: {x: 8, y: 0, z: 8}
+  PlayerRandomPositionMax: {x: 0, y: 0, z: 0}
   PlayerRandomEulerAnglesMin: {x: 0, y: 0, z: 0}
-  PlayerRandomEulerAnglesMax: {x: 0, y: 180, z: 0}
+  PlayerRandomEulerAnglesMax: {x: 0, y: 0, z: 0}
   PlayerRandomForceMin: {x: 0, y: 0, z: 0}
   PlayerRandomForceMax: {x: 0, y: 0, z: 0}
   Bullet_Emitter: {fileID: 1660724066122952681}
   Bullet_Emitter1: {fileID: 5045030158387388261}
   Bullet_Emitter2: {fileID: 4770057087231028876}
-  Bullet: {fileID: 3985423246165039354, guid: ace85178ccc634faf94310c41ecd655e, type: 3}
 --- !u!1 &3951599749217837218
 GameObject:
   m_ObjectHideFlags: 0
@@ -138,7 +147,7 @@ GameObject:
   - component: {fileID: 3951599749217837221}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Player
+  m_TagString: Body
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

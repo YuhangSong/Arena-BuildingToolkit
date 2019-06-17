@@ -9,8 +9,8 @@ namespace Arena
     public class KickBoxingAgent : BasicAgent
     {
         protected Animator anim;
-        public TankLifeBarController lifebar;
-        public TankLifeBarController powerbar;
+        // public TankLifeBarController lifebar;
+        // public TankLifeBarController powerbar;
 
         // priveta conifg
         new protected const int Forward = 1;
@@ -50,8 +50,8 @@ namespace Arena
             base.AgentReset();
             this.life  = 1.0f;
             this.power = 1.0f;
-            this.lifebar.UpdatePercentage(this.life);
-            this.powerbar.UpdatePercentage(this.power);
+            // this.lifebar.UpdatePercentage(this.life);
+            // this.powerbar.UpdatePercentage(this.power);
         }
 
         override protected void
@@ -163,14 +163,14 @@ namespace Arena
         tire(float tiring)
         {
             this.power -= tiring;
-            this.powerbar.UpdatePercentage(this.power);
+            // this.powerbar.UpdatePercentage(this.power);
         }
 
         public void
         hurt(float hurting)
         {
             this.life -= hurting * hurting_coefficient;
-            this.lifebar.UpdatePercentage(this.life);
+            // this.lifebar.UpdatePercentage(this.life);
             if (this.life < 0.0f) {
                 globalManager.KillAgent(getTeamID(), getAgentID());
             }
@@ -183,7 +183,7 @@ namespace Arena
             if (this.power > 1.0f) {
                 this.power = 1.0f;
             }
-            this.powerbar.UpdatePercentage(this.power);
+            // this.powerbar.UpdatePercentage(this.power);
         }
     }
 }

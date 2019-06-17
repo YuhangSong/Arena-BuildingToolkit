@@ -23,6 +23,11 @@ namespace Arena
         public int TeamIDToMatch = -1;
 
         /// <summary>
+        /// When TeamIDToMatch = -2, take effect for team that is the parent of this object (self) or the collider (other)
+        /// </summary>
+        public ComparingObjectTypes ComparingObjectType = ComparingObjectTypes.self;
+
+        /// <summary>
         /// Make it only takes effect for specific AgentID.
         ///   -1: take effect for any agent.
         ///   non-negative number: take effect for the specific number of AgentID.
@@ -55,7 +60,16 @@ namespace Arena
                 ArenaAgent ArenaAgent_ = other.GetComponentInParent<ArenaAgent>();
 
                 if (TeamIDToMatch == -2) {
-                    if (ArenaAgent_.getTeamID() != GetComponentInParent<ArenaTeam>().getTeamID()) {
+                    ArenaTeam ArenaTeam_;
+                    if (ComparingObjectType == ComparingObjectTypes.self) {
+                        ArenaTeam_ = GetComponentInParent<ArenaTeam>();
+                    } else if (ComparingObjectType == ComparingObjectTypes.other) {
+                        ArenaTeam_ = other.GetComponentInParent<ArenaTeam>();
+                    } else {
+                        ArenaTeam_ = null;
+                    }
+
+                    if (ArenaAgent_.getTeamID() != ArenaTeam_.getTeamID()) {
                         return;
                     }
                 } else if (TeamIDToMatch == -1) {
@@ -78,6 +92,6 @@ namespace Arena
 
                 globalManager.KillAgent(ArenaAgent_.getTeamID(), ArenaAgent_.getAgentID());
             }
-        }
+        } // TrigEvent
     }
 }

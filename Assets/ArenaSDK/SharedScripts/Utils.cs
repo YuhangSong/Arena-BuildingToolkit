@@ -14,6 +14,11 @@ namespace Arena
         Die
     }
 
+    public enum ComparingObjectTypes {
+        self,
+        other
+    }
+
     /// <summary>
     /// How to switch between agents:
     /// Sequence: according to the sequence of AgentID

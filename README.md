@@ -101,6 +101,7 @@ Note that:
   * Running with scissors (RWS) in [Options as responses: Grounding behavioural hierarchies in multi-agent RL](https://arxiv.org/pdf/1906.01470.pdf)
   * Allelopathy in [Options as responses: Grounding behavioural hierarchies in multi-agent RL](https://arxiv.org/pdf/1906.01470.pdf)
   * Real time strategy games
+  * The game Snake has commercial license, so we have to implement a simple version of Snake.
 
 ## Citation
 
