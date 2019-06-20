@@ -12,7 +12,7 @@ If you use Arena to conduct research, we ask that you [cite the paper](#citation
 
 We are currently open to any suggestions or pull requests from the community to make Arena a better platform.
 Some features mentioned in the paper may be not yet available, since we are trying to make the codebase more consistent and just re-structured the project.
-To contribute to the project, see [TODO List](#todo-list-keep-updating).
+To contribute to the project, see [To Do list in Trello](https://trello.com/b/dmGHVIM0).
 
 * If you have a game in mind you want to study, you are wellcome to [contact us by clicking here](mailto:yuhang.song@cs.ox.ac.uk,lianlong.wu@cs.ox.ac.uk,iceclearwjy@buaa.edu.cn,maixu@buaa.edu.cn,zhenghua.xu@hebut.edu.cn,zd2418@ic.ac.uk) (or open an issue). We are happy to implement it for you, if it's helpful for the community.
 
@@ -91,17 +91,6 @@ Note that:
 * Make sure you go to Build Settings > Player Settings and switch "Display Resolution Dialog" to Disabled or Hidden By Default.
 * Build the game after selecting the right platform (Linux x86), put the binary file in ```Arena-Baselines/Bin/```. Name it ```<GameName-Platform>```, for example ```MyCoolGame-Linux```.
 * Go to [Arena-Baselines](https://github.com/YuhangSong/Arena-Baselines) and train with it!
-
-## TODO List (Keep Updating)
-
-* I am super good at producing typos, thus, fix them!
-* Games located in ```Assets/ArenaSDK/GameSet``` are those coded using new Arena abstraction layers, the game located in ```Assets/``` are those coded using old framework, which only support two players' competitive setting. Thus, I am working on re-code them using new Arena abstraction layers and put them in ```Assets/ArenaSDK/GameSet```
-* Remove the reliance of ThirdPartyAssets, making corresponding basic assets for Arena, which also runs more efficiently.
-* Some games that seem to be valuable to the community but are currently not in Arena, listed as follows:
-  * Running with scissors (RWS) in [Options as responses: Grounding behavioural hierarchies in multi-agent RL](https://arxiv.org/pdf/1906.01470.pdf)
-  * Allelopathy in [Options as responses: Grounding behavioural hierarchies in multi-agent RL](https://arxiv.org/pdf/1906.01470.pdf)
-  * Real time strategy games
-  * The game Snake has commercial license, so we have to implement a simple version of Snake.
 
 ## Citation
 
