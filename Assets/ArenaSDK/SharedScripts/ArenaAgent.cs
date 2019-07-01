@@ -163,9 +163,11 @@ namespace Arena
             AddReward(NextReward_);
             if (NextState_ == AgentNextStates.Die) {
                 setLiving(false);
-            } else if (NextState_ == AgentNextStates.Done) {
-                Done();
             }
+            // Done signal has been processed by the base of GlobalManager, Academy
+            // else if (NextState_ == AgentNextStates.Done) {
+            //     Done();
+            // }
         }
 
         /// <summary>

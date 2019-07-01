@@ -581,6 +581,7 @@ namespace Arena
         AcademyStep()
         {
             StepAllTeams();
+            print(GetStepCount());
         }
 
         /// <summary>
@@ -611,14 +612,22 @@ namespace Arena
 
             Debug.Log(getLogTag() + " Reset");
 
+            // respawn and destroy
             RespawnObjectsInTags();
-            ReinitilizeLightReinitializors();
             DestroyObjectsInDestroyTag();
+
+            // reinitialize lights
+            ReinitilizeLightReinitializors();
+
+            // reset internal variables
             ResetKilledRanking();
+
+            // reset turn-based game
             if (isTurnBasedGame()) {
                 ResetTurnBasedGame();
             }
 
+            // reset teams
             ResetAllTeams();
         }
 
@@ -949,7 +958,7 @@ namespace Arena
 
                 getTeam(Team_i).SignalToAllAgents(AgentNextStates.Done, NextReward_ * RewardSchemeScale);
             }
-            AcademyReset();
+            Done();
         }
 
         /// <summary>
