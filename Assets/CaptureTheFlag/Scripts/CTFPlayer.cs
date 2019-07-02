@@ -21,8 +21,8 @@ public class CTFPlayer : MonoBehaviour
 
     private void setflag(int teamid){
         if (GetComponentInParent<ArenaTeam>().getTeamID() != teamid){
-            this.GetComponentInChildren<CarryFlag>().getcolor(teamid);
-            this.GetComponentInChildren<CarryFlag>().showflag();
+            this.GetComponentInChildren<CTFCarryFlag>().getcolor(teamid);
+            this.GetComponentInChildren<CTFCarryFlag>().showflag();
             carryingflag = true;
         }
     }
@@ -32,7 +32,7 @@ public class CTFPlayer : MonoBehaviour
     {
         if (other.gameObject.CompareTag(TrigTag)) {
             // ArenaAgent ArenaAgent_ = other.gameObject.GetComponentInParent<ArenaAgent>();
-            Flag curflag = other.gameObject.GetComponentInParent<Flag>();
+            CTFFlag curflag = other.gameObject.GetComponentInParent<CTFFlag>();
             this.setflag(curflag.Tellteamid());
         }
     }

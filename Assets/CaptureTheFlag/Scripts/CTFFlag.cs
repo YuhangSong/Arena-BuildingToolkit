@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Arena;
 
-public class Flag : MonoBehaviour
+public class CTFFlag : MonoBehaviour
 {
     void
     Start()
