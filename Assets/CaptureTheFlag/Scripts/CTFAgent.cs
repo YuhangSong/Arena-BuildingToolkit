@@ -15,7 +15,7 @@ namespace Arena
         InitializeAgent()
         {
             base.InitializeAgent();
-            this.GetComponentInChildren<CarryFlag>().disboardflag();
+            this.GetComponentInChildren<CTFCarryFlag>().disboardflag();
             Vector3 positionvector = new Vector3(0.0f, 0.0f, 4.0f);
             FlagReinitializor = new TransformReinitializor(
                 Flag,

@@ -698,7 +698,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   TeamID: 0
+  LivingCondition: 1
+  RewardScheme: 0
+  RewardSchemeScale: 10
+  IsRewardDistance: 0
+  DistanceBase1: {fileID: 0}
+  DistanceBase2: {fileID: 0}
+  RewardDistanceCoefficient: 1
+  RewardDirectionCoefficient: 0.01
+  RewardTimeCoefficient: 0.001
   AgentSwitchType: 0
+  Living: 1
 --- !u!1001 &690796808
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1053,7 +1063,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   TeamID: 1
+  LivingCondition: 1
+  RewardScheme: 0
+  RewardSchemeScale: 10
+  IsRewardDistance: 0
+  DistanceBase1: {fileID: 0}
+  DistanceBase2: {fileID: 0}
+  RewardDistanceCoefficient: 1
+  RewardDirectionCoefficient: 0.01
+  RewardTimeCoefficient: 0.001
   AgentSwitchType: 0
+  Living: 1
 --- !u!1001 &934009383
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1141,6 +1161,16 @@ PrefabInstance:
       propertyPath: Flag
       value: 
       objectReference: {fileID: 1129407723}
+    - target: {fileID: 3177857604459973417, guid: 32f028e59258992439dcccba4543c9f1,
+        type: 3}
+      propertyPath: m_IsKinematic
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3177857604459973417, guid: 32f028e59258992439dcccba4543c9f1,
+        type: 3}
+      propertyPath: m_UseGravity
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 32f028e59258992439dcccba4543c9f1, type: 3}
 --- !u!4 &934009384 stripped
@@ -1404,6 +1434,31 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 444621894}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1129407724
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1129407723}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b20dbf17d49364c6a91e06079b7ded81, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!65 &1129407725
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1129407723}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1001 &1156511887
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1842,20 +1897,23 @@ MonoBehaviour:
     targetFrameRate: 60
   resetParameters:
     resetParameters: []
+  Debugging: 1
+  LightIntensityRandom: 0
+  GameObjectToBeRespawnedTag: []
+  DestroyTag: []
   TeamMaterials:
   - {fileID: 2100000, guid: 7a3180b035cc24561bc6a2e1cb11a21c, type: 2}
   - {fileID: 2100000, guid: f8e6847f603704798bd480f4fd8860de, type: 2}
   StateTextColor: []
   NumberOfActionsBetweenDecisions: 5
-  GameObjectToBeRespawnedTag: []
-  DestroyTag: []
-  PopulationRewardType: 0
-  WinType: 0
-  LightIntensityRandom: 0
+  RewardScheme: 2
+  RewardSchemeScale: 100
+  RewardFunction: 1
+  RankingWinType: 0
+  TurnDuration: -1
   TurnType: 0
   TeamSwitchType: 0
   AgentSwitchType: 0
-  TurnDuration: -1
 --- !u!4 &1556341795
 Transform:
   m_ObjectHideFlags: 0
@@ -2385,6 +2443,31 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 8432310513185505265}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &140026997382966743
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 140026997382966742}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b20dbf17d49364c6a91e06079b7ded81, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!65 &140026997382966744
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 140026997382966742}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!4 &143202265567982338 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8428860604961475827, guid: e5f2dd74dd017624c8b63db10b34c6c6,
@@ -2727,10 +2810,25 @@ PrefabInstance:
       propertyPath: Flag
       value: 
       objectReference: {fileID: 140026997382966742}
+    - target: {fileID: 3177857604459973417, guid: 32f028e59258992439dcccba4543c9f1,
+        type: 3}
+      propertyPath: m_IsKinematic
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3177857604459973417, guid: 32f028e59258992439dcccba4543c9f1,
+        type: 3}
+      propertyPath: m_UseGravity
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 809910793975562540, guid: 32f028e59258992439dcccba4543c9f1,
         type: 3}
       propertyPath: m_Constraints
       value: 80
+      objectReference: {fileID: 0}
+    - target: {fileID: 809910793975562540, guid: 32f028e59258992439dcccba4543c9f1,
+        type: 3}
+      propertyPath: m_IsKinematic
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5989677069216244332, guid: 32f028e59258992439dcccba4543c9f1,
         type: 3}

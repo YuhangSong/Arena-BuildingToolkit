@@ -581,7 +581,7 @@ namespace Arena
         AcademyStep()
         {
             StepAllTeams();
-            print(GetStepCount());
+            // print(GetStepCount());
         }
 
         /// <summary>
