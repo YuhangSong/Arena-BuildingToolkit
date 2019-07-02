@@ -58,7 +58,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: b4ebb75ddb6cfc1409d904894e795c50, type: 2}
+  - {fileID: 2100000, guid: edc3d5055b9c04beda9aa1ccfff91b1c, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -305,6 +305,16 @@ MonoBehaviour:
   ID: {fileID: 7452224983749897809}
   RewardScheme: 0
   RewardSchemeScale: 1
+  AllowGunAttack: 0
+  Gun: {fileID: 0}
+  BulletEmitter: {fileID: 0}
+  Bullet: {fileID: 0}
+  BulletBar: {fileID: 0}
+  BulletFarwardForce: 500
+  NumBulletPerLoad: 0.5
+  FullNumBullet: 30
+  AllowSwordAttack: 0
+  Sword: {fileID: 0}
   IsRewardDistanceToTarget: 0
   IsRewardFacingTarget: 0
   Target: {fileID: 0}
@@ -316,17 +326,17 @@ MonoBehaviour:
   isApplyTeamMaterialToPlayer: 0
   AllowMove: 1
   MoveType: 1
-  AllowTurn: 1
-  AllowJump: 0
-  FreezePositionWhenNoAction: 1
-  FreezeRotationWhenNoAction: 0
-  JumpForceMax: 400
-  MoveForceBase: 20
   MoveForceAcc: 0
   MoveForceMax: 40
   MoveVelocityBase: 5
   MoveVelocityAcc: 1
   MoveVelocityMax: 50
+  FreezePositionWhenNoAction: 1
+  FreezeRotationWhenNoAction: 0
+  AllowJump: 0
+  JumpForceMax: 400
+  MoveForceBase: 20
+  AllowTurn: 1
   TurnVelocityBase: 1
   TurnVelocityAcc: 0.5
   TurnVelocityMax: 50
@@ -394,7 +404,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: b4ebb75ddb6cfc1409d904894e795c50, type: 2}
+  - {fileID: 2100000, guid: edc3d5055b9c04beda9aa1ccfff91b1c, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

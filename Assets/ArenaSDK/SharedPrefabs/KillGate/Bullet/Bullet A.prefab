@@ -14,8 +14,8 @@ GameObject:
   - component: {fileID: 28}
   - component: {fileID: 27}
   - component: {fileID: 31}
-  - component: {fileID: 30}
   - component: {fileID: 3936367478776074480}
+  - component: {fileID: 30}
   m_Layer: 0
   m_Name: Bullet A
   m_TagString: Bullet
@@ -125,25 +125,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   AliveDuration: -1
---- !u!114 &30
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 23}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8beffda8b34d945948afa0f3c246068a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  TrigTags:
-  - Player
-  - Body
-  TeamIDToMatch: -1
-  TeamIDComparingObjectType: 0
-  AgentIDToMatch: -1
-  AgentIDComparingObjectType: 0
 --- !u!114 &3936367478776074480
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -159,3 +140,21 @@ MonoBehaviour:
   ExceptTags:
   - Bullet
   - Boom
+--- !u!114 &30
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 23}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8beffda8b34d945948afa0f3c246068a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  KillType: 0
+  TrigTags:
+  - Player
+  - Body
+  TeamIDToMatch: -1
+  AgentIDToMatch: -1
