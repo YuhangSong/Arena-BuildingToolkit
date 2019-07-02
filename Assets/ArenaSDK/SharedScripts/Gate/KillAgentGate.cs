@@ -6,19 +6,25 @@ using MLAgents;
 namespace Arena
 {
     /// <summary>
-    /// Attach this script to a GameObject so that this GameObject can kill the agent it colide with
-    /// with this script.
+    /// Attach this script to a GameObject (A), so that A can kill the agent (B) when colide GameObject C, where C is a child of B.
+    /// Example:
+    ///   A: bullet
+    ///   B: ArenaAgent B;
+    ///   C: body of agent B
     /// </summary>
     public class KillAgentGate : Gate
     {
         /// <summary>
-        /// Tag of the object that will trig agent death.
+        /// Tag of the C that will trig agent death
+        /// Examples:
+        ///   Player,
+        ///   Body
         /// </summary>
         public List<string> TrigTags = new List<string>();
 
         /// <summary>
         /// Make it only takes effect for specific TeamID.
-        ///   -2: take effect for any agent within the team that is the parent of this object.
+        ///   -2: take effect for any agent within the team that is the parent of C or A (depending on TeamIDComparingObjectType).
         ///   -1: take effect for any agent within any team.
         ///   non-negative number: take effect for the specific number of TeamID.
         ///   other values: invalid.
@@ -26,13 +32,13 @@ namespace Arena
         public int TeamIDToMatch = -1;
 
         /// <summary>
-        /// When TeamIDToMatch = -2, take effect for team that is the parent of this object (self) or the collider (other)
+        /// When TeamIDToMatch = -2, take effect for team that is the parent of A (self) or C (other)
         /// </summary>
         public ComparingObjectTypes TeamIDComparingObjectType = ComparingObjectTypes.self;
 
         /// <summary>
         /// Make it only takes effect for specific AgentID.
-        ///   -2: take effect for the agent within the agent that is the parent of this object.
+        ///   -2: take effect for the agent that is the parent of this object.
         ///   -1: take effect for any agent.
         ///   non-negative number: take effect for the specific number of AgentID.
         ///   other values: invalid.

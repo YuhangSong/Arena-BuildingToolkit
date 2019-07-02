@@ -41,7 +41,7 @@ GameObject:
   - component: {fileID: 3951599749174080456}
   - component: {fileID: 3951599749174080471}
   m_Layer: 0
-  m_Name: Agent
+  m_Name: Agent Dense
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -86,8 +86,8 @@ MonoBehaviour:
     numberOfActionsBetweenDecisions: 5
   AgentID: 0
   ID: {fileID: 273796505127707133}
-  RewardScheme: 0
-  RewardSchemeScale: 1
+  RewardScheme: 1
+  RewardSchemeScale: 10
   AllowGunAttack: 0
   Gun: {fileID: 0}
   BulletEmitter: {fileID: 0}
@@ -98,7 +98,7 @@ MonoBehaviour:
   FullNumBullet: 30
   AllowSwordAttack: 0
   Sword: {fileID: 0}
-  IsRewardDistanceToTarget: 0
+  IsRewardDistanceToTarget: 1
   IsRewardFacingTarget: 0
   Target: {fileID: 0}
   IsRewardTimePenalty: 0

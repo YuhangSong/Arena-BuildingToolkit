@@ -104,7 +104,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8beffda8b34d945948afa0f3c246068a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TrigTag: Player
+  TrigTags:
+  - Player
+  - Body
   TeamIDToMatch: -1
-  ComparingObjectType: 0
+  TeamIDComparingObjectType: 0
   AgentIDToMatch: -1
+  AgentIDComparingObjectType: 0
