@@ -615,29 +615,70 @@ namespace Arena
                 Cameras[Cameras.Count - 1].depth = InitialCameraDepth;
             }
 
-            // // adding these few lines will resulting in to complied game not responding from python interface
-            // // but it works fine in the editor
-            // Cameras["Agent T1 A0"].depth   = UpperCameraDepth;
-            // Cameras["Agent T0 A0"].depth   = DownerCameraDepth;
-            // Cameras["TopDownCamera"].depth = DownerCameraDepth;
-
-            // // adding these few lines will resulting in to complied game not responding from python interface
-            // // but it works fine in the editor
-            // Cameras["Agent T1 A0"].rect   = new Rect(0f, 0f, 0.25f, 1f);
-            // Cameras["Agent T0 A0"].rect   = new Rect(0.25f, 0f, 0.25f, 1f);
-            // Cameras["TopDownCamera"].rect = new Rect(0.5f, 0f, 0.5f, 1f);
-
-            // test pass, works
-            Cameras[1].depth = DownerCameraDepth;
-            Cameras[0].depth = UpperCameraDepth;
-            Cameras[2].depth = DownerCameraDepth;
-
             if (!isDebugging()) {
                 foreach (GameObject each_gameobject in GameObject.FindGameObjectsWithTag("Debug")) {
                     each_gameobject.SetActive(false);
                 }
             }
         } // InitializeAcademy
+
+        void
+        OnGUI()
+        {
+            Event e = Event.current;
+
+            if (e.type == EventType.KeyDown) {
+                if (e.keyCode == KeyCode.F1) {
+                    Debug.Log("Switch to next camera");
+                    SwitchCamera(true);
+                } else if (e.keyCode == KeyCode.F2) {
+                    Debug.Log("Switch to previous camera");
+                    SwitchCamera(false);
+                }
+            }
+        }
+
+        /// <summary>
+        /// DisplayNextCamera.
+        /// </summary>
+        /// <param name="IsNext_">If switch to next camera or previous one.</param>
+        protected void
+        SwitchCamera(bool IsNext_)
+        {
+            int i = 0;
+            int CurrentUpperCameraID = 0;
+
+            foreach (Camera Camera_ in Cameras) {
+                if (Camera_.depth == UpperCameraDepth) {
+                    CurrentUpperCameraID = i;
+                    Camera_.depth        = DownerCameraDepth;
+                    break;
+                }
+                i++;
+            }
+
+            int NextUpperCameraID = 0;
+
+            if (IsNext_) {
+                if (CurrentUpperCameraID < (Cameras.Count - 1)) {
+                    NextUpperCameraID = CurrentUpperCameraID + 1;
+                } else if (CurrentUpperCameraID == (Cameras.Count - 1)) {
+                    NextUpperCameraID = 0;
+                } else {
+                    Debug.LogError("Error");
+                }
+            } else {
+                if (CurrentUpperCameraID > 0) {
+                    NextUpperCameraID = CurrentUpperCameraID - 1;
+                } else if (CurrentUpperCameraID == 0) {
+                    NextUpperCameraID = (Cameras.Count - 1);
+                } else {
+                    Debug.LogError("Error");
+                }
+            }
+
+            Cameras[NextUpperCameraID].depth = UpperCameraDepth;
+        } // SwitchCamera
 
         /// <summary>
         /// Specifies the academy behavior at every step of the environment.
