@@ -199,6 +199,38 @@ namespace Arena
                 InitializeTurnBasedGame();
             }
             InitializeRewardFunction();
+
+            if (AllowGunAttack) {
+                if (BulletBar == null) {
+                    Debug.LogError("Must have a BulletBar assigned to AllowGunAttack");
+                }
+                if (Gun == null) {
+                    Debug.LogError("Must have a Gun assigned to AllowGunAttack");
+                }
+                if (BulletEmitter == null) {
+                    Debug.LogError("Must have a BulletEmitter assigned to AllowGunAttack");
+                }
+            } else {
+                if (BulletBar != null) {
+                    BulletBar.gameObject.SetActive(false);
+                }
+                if (Gun != null) {
+                    Gun.gameObject.SetActive(false);
+                }
+                if (BulletEmitter != null) {
+                    BulletEmitter.gameObject.SetActive(false);
+                }
+            }
+
+            if (AllowSwordAttack) {
+                if (Sword == null) {
+                    Debug.LogError("Must have a Sword assigned to AllowSwordAttack");
+                }
+            } else {
+                if (Sword != null) {
+                    Sword.gameObject.SetActive(false);
+                }
+            }
         } // InitializeAgent
 
         /// <summary>

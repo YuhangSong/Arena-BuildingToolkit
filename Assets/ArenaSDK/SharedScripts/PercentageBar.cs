@@ -37,6 +37,8 @@ namespace Arena
             this.OriginalScale = this.transform.localScale;
         }
 
+        private float CurrentPercentage = 0f;
+
         /// <summary>
         /// Update the percentage to display.
         /// </summary>
@@ -44,24 +46,28 @@ namespace Arena
         public void
         UpdatePercentage(float Percentage_)
         {
-            if (Percentage_ < 0f) {
-                Percentage_ = 0f;
-            } else if (Percentage_ > 1f) {
-                Percentage_ = 1f;
-            }
+            if (Percentage_ != CurrentPercentage) {
+                CurrentPercentage = Percentage_;
 
-            Vector3 OriginalScale_temp = this.OriginalScale;
-            if (Axis == Axises.x) {
-                OriginalScale_temp.x = this.OriginalScale.x * Percentage_;
-            } else if (Axis == Axises.y) {
-                OriginalScale_temp.y = this.OriginalScale.y * Percentage_;
-            } else if (Axis == Axises.z) {
-                OriginalScale_temp.z = this.OriginalScale.z * Percentage_;
-            } else {
-                Debug.LogWarning("Not a valid Axis");
-            }
+                if (CurrentPercentage < 0f) {
+                    CurrentPercentage = 0f;
+                } else if (CurrentPercentage > 1f) {
+                    CurrentPercentage = 1f;
+                }
 
-            transform.localScale = OriginalScale_temp;
+                Vector3 OriginalScale_temp = this.OriginalScale;
+                if (Axis == Axises.x) {
+                    OriginalScale_temp.x = this.OriginalScale.x * CurrentPercentage;
+                } else if (Axis == Axises.y) {
+                    OriginalScale_temp.y = this.OriginalScale.y * CurrentPercentage;
+                } else if (Axis == Axises.z) {
+                    OriginalScale_temp.z = this.OriginalScale.z * CurrentPercentage;
+                } else {
+                    Debug.LogWarning("Not a valid Axis");
+                }
+
+                transform.localScale = OriginalScale_temp;
+            }
         }
     }
 }
