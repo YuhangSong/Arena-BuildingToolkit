@@ -621,6 +621,10 @@ namespace Arena
             // Cameras["Agent T0 A0"].depth   = DownerCameraDepth;
             // Cameras["TopDownCamera"].depth = DownerCameraDepth;
 
+            Cameras["Agent T1 A0"].rect   = new Rect(0f, 0f, 0.25f, 1f);
+            Cameras["Agent T0 A0"].rect   = new Rect(0.25f, 0f, 0.25f, 1f);
+            Cameras["TopDownCamera"].rect = new Rect(0.5f, 0f, 0.5f, 1f);
+
             if (!isDebugging()) {
                 foreach (GameObject each_gameobject in GameObject.FindGameObjectsWithTag("Debug")) {
                     each_gameobject.SetActive(false);
