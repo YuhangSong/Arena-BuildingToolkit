@@ -543,6 +543,8 @@ namespace Arena
             return (1f / (float) getMaxNumAgentsPerTeam());
         }
 
+        protected Dictionary<string, UIPercentageBar> UIPercentageBars = new Dictionary<string, UIPercentageBar>();
+
         /// <summary>
         /// Customize GlobalManager should override InitializeAcademy() and call base.InitializeAcademy() before adding
         /// customized code.
@@ -567,12 +569,21 @@ namespace Arena
             InitRamObservation();
             InitializeAllTeams();
 
+            // initialize reference to UIPercentageBars
+            foreach (UIPercentageBar UIPercentageBar_ in GameObject.FindGameObjectWithTag("TopDownCamera").
+              GetComponentsInChildren<UIPercentageBar>())
+            {
+                UIPercentageBars.Add(UIPercentageBar_.ID, UIPercentageBar_);
+            }
+
+            UIPercentageBars["EL"].Enable();
+
             if (!isDebugging()) {
                 foreach (GameObject each_gameobject in GameObject.FindGameObjectsWithTag("Debug")) {
                     each_gameobject.SetActive(false);
                 }
             }
-        }
+        } // InitializeAcademy
 
         /// <summary>
         /// Specifies the academy behavior at every step of the environment.
@@ -581,6 +592,7 @@ namespace Arena
         AcademyStep()
         {
             StepAllTeams();
+            UIPercentageBars["EL"].UpdateValue(GetStepCount());
         }
 
         /// <summary>
@@ -610,6 +622,8 @@ namespace Arena
             base.AcademyReset();
 
             Debug.Log(getLogTag() + " Reset");
+
+            UIPercentageBars["EL"].UpdateValue(GetStepCount());
 
             // respawn and destroy
             RespawnObjectsInTags();

@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using MLAgents;
+using System.Collections.Generic;
 
 namespace Arena
 {
@@ -60,7 +61,6 @@ namespace Arena
         public GameObject Gun;
         public GameObject BulletEmitter;
         public GameObject Bullet;
-        public GameObject BulletBar;
 
         public float BulletFarwardForce = 500f;
         public float NumBulletPerLoad   = 0.5f;
@@ -170,6 +170,8 @@ namespace Arena
             // }
         }
 
+        protected Dictionary<string, UIPercentageBar> UIPercentageBars = new Dictionary<string, UIPercentageBar>();
+
         /// <summary>
         /// Agent should override InitializeAgent() and call base.InitializeAgent() before adding
         /// customized code.
@@ -200,26 +202,30 @@ namespace Arena
             }
             InitializeRewardFunction();
 
+            // initialize reference to UIPercentageBars
+            foreach (UIPercentageBar UIPercentageBar_ in GetComponentsInChildren<UIPercentageBar>()) {
+                UIPercentageBars.Add(UIPercentageBar_.ID, UIPercentageBar_);
+            }
+
+            UIPercentageBars["ER"].Enable();
+            UIPercentageBars["SR"].Enable();
+
             if (AllowGunAttack) {
-                if (BulletBar == null) {
-                    Debug.LogError("Must have a BulletBar assigned to AllowGunAttack");
-                }
                 if (Gun == null) {
                     Debug.LogError("Must have a Gun assigned to AllowGunAttack");
                 }
                 if (BulletEmitter == null) {
                     Debug.LogError("Must have a BulletEmitter assigned to AllowGunAttack");
                 }
+                UIPercentageBars["AM"].Enable();
             } else {
-                if (BulletBar != null) {
-                    BulletBar.gameObject.SetActive(false);
-                }
                 if (Gun != null) {
                     Gun.gameObject.SetActive(false);
                 }
                 if (BulletEmitter != null) {
                     BulletEmitter.gameObject.SetActive(false);
                 }
+                UIPercentageBars["AM"].Disable();
             }
 
             if (AllowSwordAttack) {
@@ -258,7 +264,7 @@ namespace Arena
                                 BulletEmitter.transform.up * BulletFarwardForce);
                             Destroy(Temp_Bullet_Handeler, 3.0f);
                             NumBullet -= 1.0f;
-                            BulletBar.GetComponent<PercentageBar>().UpdatePercentage(GetBulletPercentage());
+                            UIPercentageBars["AM"].UpdatePercentage(GetBulletPercentage());
                             if (NumBullet < 1.0f) {
                                 Reloading = true;
                             }
@@ -270,7 +276,7 @@ namespace Arena
 
                 if (Reloading) {
                     NumBullet += NumBulletPerLoad;
-                    BulletBar.GetComponent<PercentageBar>().UpdatePercentage(GetBulletPercentage());
+                    UIPercentageBars["AM"].UpdatePercentage(GetBulletPercentage());
                     if (NumBullet >= FullNumBullet) {
                         Reloading = false;
                     }
@@ -492,20 +498,23 @@ namespace Arena
                 getLogTag() + " Reset, CumulativeReward: "
                 + GetCumulativeReward());
 
+            UIPercentageBars["ER"].UpdateValue(GetCumulativeReward());
+            UIPercentageBars["SR"].UpdateValue(GetReward());
+
             if (globalManager.isTurnBasedGame()) {
                 ResetTurnBasedGame();
             }
 
             if (AllowGunAttack) {
                 NumBullet = Random.Range(0, FullNumBullet);
-                BulletBar.GetComponent<PercentageBar>().UpdatePercentage(GetBulletPercentage());
+                UIPercentageBars["AM"].UpdatePercentage(GetBulletPercentage());
             }
         }
 
         private float
         GetBulletPercentage()
         {
-            return (float) NumBullet / (float) FullNumBullet;
+            return Mathf.Clamp(((float) NumBullet / (float) FullNumBullet), 0f, 1f);
         }
 
         /// <summary>
@@ -550,6 +559,9 @@ namespace Arena
                     }
                     DiscreteContinuousStep();
                 }
+
+                UIPercentageBars["ER"].UpdateValue(GetCumulativeReward());
+                UIPercentageBars["SR"].UpdateValue(GetReward());
             } else {
                 StepDead();
             }

@@ -14,7 +14,7 @@ namespace Arena
             base.AgentReset();
 
             NumBullet = FullNumBullet;
-            BulletBar.GetComponent<PercentageBar>().UpdatePercentage(NumBullet / FullNumBullet);
+            UIPercentageBars["AM"].UpdatePercentage(NumBullet / FullNumBullet);
         }
 
         override protected void
@@ -61,7 +61,7 @@ namespace Arena
                             BulletEmitterForward.transform.rotation) as GameObject;
                         Temp_Bullet_Handeler.SetActive(true);
                         NumBullet -= 1.0f;
-                        BulletBar.GetComponent<PercentageBar>().UpdatePercentage(NumBullet / FullNumBullet);
+                        UIPercentageBars["AM"].UpdatePercentage(NumBullet / FullNumBullet);
                         if (NumBullet < 1.0f) {
                             Reloading = true;
                         }
@@ -75,7 +75,7 @@ namespace Arena
 
             if (Reloading) {
                 NumBullet += NumBulletPerLoad;
-                BulletBar.GetComponent<PercentageBar>().UpdatePercentage(NumBullet / FullNumBullet);
+                UIPercentageBars["AM"].UpdatePercentage(NumBullet / FullNumBullet);
                 if (NumBullet >= FullNumBullet) {
                     Reloading = false;
                 }
