@@ -1,4 +1,4 @@
-<img src="./images/cover-game-and-building-toolkit.png" align="middle" width="2000"/>
+<img src="./images/Cover.png" align="middle" width="2000"/>
 
 ## Introduction
 

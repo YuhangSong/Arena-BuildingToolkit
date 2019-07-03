@@ -15,7 +15,8 @@ public class UIPercentageBar : MonoBehaviour
     Start()
     {
         // by default, it is disabled
-        Disable();
+        // Disable();
+        UpdatePercentage(0.53f);
     }
 
     /// <summary>
