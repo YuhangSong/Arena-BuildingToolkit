@@ -18,6 +18,17 @@ namespace Arena
         /// </summary>
         public bool Debugging = true;
 
+        public enum AgentCameraDisplayModes {
+            Single,
+            All
+        }
+
+        /// <summary>
+        /// If Single, only one agent camera is displayed, use key c to switch to others.
+        /// If All, all agents' camera will be displayed
+        /// </summary>
+        public AgentCameraDisplayModes AgentCameraDisplayMode = AgentCameraDisplayModes.Single;
+
         /// <summary>
         /// Get Debugging
         /// </summary>
@@ -545,6 +556,8 @@ namespace Arena
 
         protected Dictionary<string, UIPercentageBar> UIPercentageBars = new Dictionary<string, UIPercentageBar>();
 
+        protected Dictionary<string, Camera> Cameras = new Dictionary<string, Camera>();
+
         /// <summary>
         /// Customize GlobalManager should override InitializeAcademy() and call base.InitializeAcademy() before adding
         /// customized code.
@@ -575,6 +588,24 @@ namespace Arena
             {
                 UIPercentageBars.Add(UIPercentageBar_.ID, UIPercentageBar_);
             }
+
+            // initialize reference to Camera
+            foreach (Camera Camera_ in GetComponentsInChildren<Camera>()) {
+                string ID_;
+                if (Camera_.CompareTag("TopDownCamera")) {
+                    ID_ = "TopDownCamera";
+                } else if (Camera_.CompareTag("AgentCamera")) {
+                    ID_ = Camera_.GetComponentInParent<ArenaAgent>().getLogTag();
+                } else {
+                    Debug.LogError(
+                        "A camera in Arena should be either TopDownCamera or AgentCamera, use corresponding prefab provided in ArenaSDK/SharedPrefabs");
+                    ID_ = "None";
+                }
+                Cameras.Add(ID_, Camera_);
+            }
+            // Cameras["TopDownCamera"].depth = 2;
+            // Cameras["Agent T1 A0"].depth   = 1;
+            // Cameras["Agent T0 A0"].depth   = 0;
 
             UIPercentageBars["EL"].Enable();
 
@@ -831,20 +862,27 @@ namespace Arena
         public Rect
         getAgentViewPortRect(int TeamID_, int AgentID_)
         {
-            if (getTeamViewAsix() == ViewAxis.X) {
-                return new Rect(
-                    TeamID_ * getViewPortSize(ViewAxis.X),
-                    AgentID_ * getViewPortSize(ViewAxis.Y),
-                    getViewPortSize(ViewAxis.X),
-                    getViewPortSize(ViewAxis.Y)
-                );
+            if (AgentCameraDisplayMode == AgentCameraDisplayModes.All) {
+                if (getTeamViewAsix() == ViewAxis.X) {
+                    return new Rect(
+                        TeamID_ * getViewPortSize(ViewAxis.X),
+                        AgentID_ * getViewPortSize(ViewAxis.Y),
+                        getViewPortSize(ViewAxis.X),
+                        getViewPortSize(ViewAxis.Y)
+                    );
+                } else {
+                    return new Rect(
+                        AgentID_ * getViewPortSize(ViewAxis.X),
+                        TeamID_ * getViewPortSize(ViewAxis.Y),
+                        getViewPortSize(ViewAxis.X),
+                        getViewPortSize(ViewAxis.Y)
+                    );
+                }
+            } else if (AgentCameraDisplayMode == AgentCameraDisplayModes.Single) {
+                return new Rect(0f, 0f, 1f, 1f);
             } else {
-                return new Rect(
-                    AgentID_ * getViewPortSize(ViewAxis.X),
-                    TeamID_ * getViewPortSize(ViewAxis.Y),
-                    getViewPortSize(ViewAxis.X),
-                    getViewPortSize(ViewAxis.Y)
-                );
+                Debug.LogError("Invalid AgentCameraDisplayMode");
+                return new Rect(0f, 0f, 1f, 1f);
             }
         }
 

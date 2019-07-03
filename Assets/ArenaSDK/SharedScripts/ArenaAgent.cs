@@ -455,10 +455,10 @@ namespace Arena
         protected const int CustomizeActionAxisStartAt = 5;
 
         /// <summary>
-        /// Get the log tag of the agent.
+        /// Get the log tag of the object.
         /// </summary>
         /// <returns>LogTag.</returns>
-        protected string
+        public string
         getLogTag()
         {
             return tag + " T" + getTeamID() + " A" + getAgentID();

@@ -14,6 +14,12 @@ namespace Arena
         /// </summary>
         protected GlobalManager globalManager;
 
+        void
+        Start()
+        {
+            Initialize();
+        }
+
         public virtual void
         Initialize()
         {
@@ -30,6 +36,16 @@ namespace Arena
         getGlobalManager()
         {
             return globalManager;
+        }
+
+        /// <summary>
+        /// Get the log tag of the object.
+        /// </summary>
+        /// <returns>LogTag.</returns>
+        public string
+        getLogTag()
+        {
+            return tag;
         }
     }
 }

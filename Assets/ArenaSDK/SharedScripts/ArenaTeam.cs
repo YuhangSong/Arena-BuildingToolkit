@@ -100,7 +100,7 @@ namespace Arena
         /// Get the log tag of the team.
         /// </summary>
         /// <returns>LogTag.</returns>
-        protected string
+        protected new string
         getLogTag()
         {
             return tag + " T" + getTeamID();
