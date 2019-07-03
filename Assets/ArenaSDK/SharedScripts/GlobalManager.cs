@@ -556,7 +556,7 @@ namespace Arena
 
         protected Dictionary<string, UIPercentageBar> UIPercentageBars = new Dictionary<string, UIPercentageBar>();
 
-        protected Dictionary<string, Camera> Cameras = new Dictionary<string, Camera>();
+        protected List<Camera> Cameras = new List<Camera>();
 
         protected int DownerCameraDepth = 2;
         protected int UpperCameraDepth  = 3;
@@ -611,8 +611,8 @@ namespace Arena
                     ID_ = "None";
                 }
 
-                Cameras.Add(ID_, Camera_);
-                Cameras[ID_].depth = InitialCameraDepth;
+                Cameras.Add(Camera_);
+                Cameras[Cameras.Count - 1].depth = InitialCameraDepth;
             }
 
             // // adding these few lines will resulting in to complied game not responding from python interface
@@ -626,6 +626,11 @@ namespace Arena
             // Cameras["Agent T1 A0"].rect   = new Rect(0f, 0f, 0.25f, 1f);
             // Cameras["Agent T0 A0"].rect   = new Rect(0.25f, 0f, 0.25f, 1f);
             // Cameras["TopDownCamera"].rect = new Rect(0.5f, 0f, 0.5f, 1f);
+
+            // test pass, works
+            Cameras[1].depth = DownerCameraDepth;
+            Cameras[0].depth = UpperCameraDepth;
+            Cameras[2].depth = DownerCameraDepth;
 
             if (!isDebugging()) {
                 foreach (GameObject each_gameobject in GameObject.FindGameObjectsWithTag("Debug")) {
