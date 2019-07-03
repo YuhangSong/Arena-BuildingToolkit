@@ -603,9 +603,8 @@ namespace Arena
                 }
                 Cameras.Add(ID_, Camera_);
             }
-            // Cameras["TopDownCamera"].depth = 2;
-            // Cameras["Agent T1 A0"].depth   = 1;
-            // Cameras["Agent T0 A0"].depth   = 0;
+            // Cameras["Agent T1 A0"].depth = Cameras["TopDownCamera"].depth + 1;
+            // Cameras["Agent T0 A0"].depth = Cameras["TopDownCamera"].depth + 1;
 
             UIPercentageBars["EL"].Enable();
 
