@@ -63,8 +63,19 @@ public class UIPercentageBar : MonoBehaviour
     public void
     UpdatePercentage(float Percentage_)
     {
+        UpdatePercentage(Percentage_, false);
+    }
+
+    /// <summary>
+    /// Update the percentage to display.
+    /// </summary>
+    /// <param name="Percentage_">The percentage to be updated to.</param>
+    /// <param name="IsForceUpdate_">Update no matter if Percentage_ has updated.</param>
+    protected void
+    UpdatePercentage(float Percentage_, bool IsForceUpdate_)
+    {
         if (Enabled) {
-            if (Percentage_ != CurrentPercentage) {
+            if ((Percentage_ != CurrentPercentage) || IsForceUpdate_) {
                 CurrentPercentage = Percentage_;
 
                 // update
@@ -107,7 +118,8 @@ public class UIPercentageBar : MonoBehaviour
                     MinValue = CurrentValue;
                 }
                 UpdatePercentage(
-                    Mathf.Clamp(((CurrentValue - MinValue) / (MaxValue - MinValue)), 0f, 1f)
+                    Mathf.Clamp(((CurrentValue - MinValue) / (MaxValue - MinValue)), 0f, 1f),
+                    true
                 );
             }
         }

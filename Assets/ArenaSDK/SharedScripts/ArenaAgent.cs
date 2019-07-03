@@ -208,7 +208,6 @@ namespace Arena
             }
 
             UIPercentageBars["ER"].Enable();
-            UIPercentageBars["SR"].Enable();
 
             if (AllowGunAttack) {
                 if (Gun == null) {
@@ -499,7 +498,6 @@ namespace Arena
                 + GetCumulativeReward());
 
             UIPercentageBars["ER"].UpdateValue(GetCumulativeReward());
-            UIPercentageBars["SR"].UpdateValue(GetReward());
 
             if (globalManager.isTurnBasedGame()) {
                 ResetTurnBasedGame();
@@ -561,7 +559,6 @@ namespace Arena
                 }
 
                 UIPercentageBars["ER"].UpdateValue(GetCumulativeReward());
-                UIPercentageBars["SR"].UpdateValue(GetReward());
             } else {
                 StepDead();
             }
