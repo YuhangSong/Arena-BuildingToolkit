@@ -558,6 +558,9 @@ namespace Arena
 
         protected Dictionary<string, Camera> Cameras = new Dictionary<string, Camera>();
 
+        protected int DownerCameraDepth = 2;
+        protected int UpperCameraDepth  = 3;
+
         /// <summary>
         /// Customize GlobalManager should override InitializeAcademy() and call base.InitializeAcademy() before adding
         /// customized code.
@@ -592,19 +595,23 @@ namespace Arena
             // initialize reference to Camera
             foreach (Camera Camera_ in GetComponentsInChildren<Camera>()) {
                 string ID_;
+                int InitialCameraDepth = 0;
+
                 if (Camera_.CompareTag("TopDownCamera")) {
                     ID_ = "TopDownCamera";
+                    InitialCameraDepth = UpperCameraDepth;
                 } else if (Camera_.CompareTag("AgentCamera")) {
                     ID_ = Camera_.GetComponentInParent<ArenaAgent>().getLogTag();
+                    InitialCameraDepth = DownerCameraDepth;
                 } else {
                     Debug.LogError(
                         "A camera in Arena should be either TopDownCamera or AgentCamera, use corresponding prefab provided in ArenaSDK/SharedPrefabs");
                     ID_ = "None";
                 }
+
                 Cameras.Add(ID_, Camera_);
+                Cameras[ID_].depth = InitialCameraDepth;
             }
-            // Cameras["Agent T1 A0"].depth = Cameras["TopDownCamera"].depth + 1;
-            // Cameras["Agent T0 A0"].depth = Cameras["TopDownCamera"].depth + 1;
 
             UIPercentageBars["EL"].Enable();
 
