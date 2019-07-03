@@ -6,7 +6,7 @@ using MLAgents;
 [RequireComponent(typeof(JointDriveController))] // Required to set joint forces
 public class CrawlerAgent : Agent
 {
-    [Header("Target To Walk Towards")][Space(10)]
+    [Header("Target To Walk Towards")] [Space(10)]
     public Transform target;
 
     public Transform ground;
@@ -14,7 +14,7 @@ public class CrawlerAgent : Agent
     public bool respawnTargetWhenTouched;
     public float targetSpawnRadius;
 
-    [Header("Body Parts")][Space(10)] public Transform body;
+    [Header("Body Parts")] [Space(10)] public Transform body;
     public Transform leg0Upper;
     public Transform leg0Lower;
     public Transform leg1Upper;
@@ -24,18 +24,18 @@ public class CrawlerAgent : Agent
     public Transform leg3Upper;
     public Transform leg3Lower;
 
-    [Header("Joint Settings")][Space(10)] JointDriveController jdController;
+    [Header("Joint Settings")] [Space(10)] JointDriveController jdController;
     Vector3 dirToTarget;
     float movingTowardsDot;
     float facingDot;
 
-    [Header("Reward Functions To Use")][Space(10)]
+    [Header("Reward Functions To Use")] [Space(10)]
     public bool rewardMovingTowardsTarget; // Agent should move towards target
 
-    public bool rewardFacingTarget;   // Agent should face the target
+    public bool rewardFacingTarget; // Agent should face the target
     public bool rewardUseTimePenalty; // Hurry up
 
-    [Header("Foot Grounded Visualization")][Space(10)]
+    [Header("Foot Grounded Visualization")] [Space(10)]
     public bool useFootGroundedVisualization;
 
     public MeshRenderer foot0;
@@ -47,13 +47,12 @@ public class CrawlerAgent : Agent
     bool isNewDecisionStep;
     int currentDecisionStep;
 
-    public override void
-    InitializeAgent()
+    public override void InitializeAgent()
     {
-        jdController        = GetComponent<JointDriveController>();
+        jdController = GetComponent<JointDriveController>();
         currentDecisionStep = 1;
 
-        // Setup each body part
+        //Setup each body part
         jdController.SetupBodyPart(body);
         jdController.SetupBodyPart(leg0Upper);
         jdController.SetupBodyPart(leg0Lower);
@@ -68,15 +67,16 @@ public class CrawlerAgent : Agent
     /// <summary>
     /// We only need to change the joint settings based on decision freq.
     /// </summary>
-    public void
-    IncrementDecisionTimer()
+    public void IncrementDecisionTimer()
     {
-        if (currentDecisionStep == agentParameters.numberOfActionsBetweenDecisions ||
-          agentParameters.numberOfActionsBetweenDecisions == 1)
+        if (currentDecisionStep == agentParameters.numberOfActionsBetweenDecisions
+            || agentParameters.numberOfActionsBetweenDecisions == 1)
         {
             currentDecisionStep = 1;
-            isNewDecisionStep   = true;
-        } else   {
+            isNewDecisionStep = true;
+        }
+        else
+        {
             currentDecisionStep++;
             isNewDecisionStep = false;
         }
@@ -85,16 +85,15 @@ public class CrawlerAgent : Agent
     /// <summary>
     /// Add relevant information on each body part to observations.
     /// </summary>
-    public void
-    CollectObservationBodyPart(BodyPart bp)
+    public void CollectObservationBodyPart(BodyPart bp)
     {
         var rb = bp.rb;
-
         AddVectorObs(bp.groundContact.touchingGround ? 1 : 0); // Whether the bp touching the ground
         AddVectorObs(rb.velocity);
         AddVectorObs(rb.angularVelocity);
 
-        if (bp.rb.transform != body) {
+        if (bp.rb.transform != body)
+        {
             Vector3 localPosRelToBody = body.InverseTransformPoint(rb.position);
             AddVectorObs(localPosRelToBody);
             AddVectorObs(bp.currentXNormalizedRot); // Current x rot
@@ -104,8 +103,7 @@ public class CrawlerAgent : Agent
         }
     }
 
-    public override void
-    CollectObservations()
+    public override void CollectObservations()
     {
         jdController.GetCurrentJointForces();
         // Normalize dir vector to help generalize
@@ -115,7 +113,8 @@ public class CrawlerAgent : Agent
         AddVectorObs(body.transform.position.y);
         AddVectorObs(body.forward);
         AddVectorObs(body.up);
-        foreach (var bodyPart in jdController.bodyPartsDict.Values) {
+        foreach (var bodyPart in jdController.bodyPartsDict.Values)
+        {
             CollectObservationBodyPart(bodyPart);
         }
     }
@@ -123,11 +122,11 @@ public class CrawlerAgent : Agent
     /// <summary>
     /// Agent touched the target
     /// </summary>
-    public void
-    TouchedTarget()
+    public void TouchedTarget()
     {
         AddReward(1f);
-        if (respawnTargetWhenTouched) {
+        if (respawnTargetWhenTouched)
+        {
             GetRandomTargetPos();
         }
     }
@@ -135,21 +134,21 @@ public class CrawlerAgent : Agent
     /// <summary>
     /// Moves target to a random position within specified radius.
     /// </summary>
-    public void
-    GetRandomTargetPos()
+    public void GetRandomTargetPos()
     {
         Vector3 newTargetPos = Random.insideUnitSphere * targetSpawnRadius;
-
-        newTargetPos.y  = 5;
+        newTargetPos.y = 5;
         target.position = newTargetPos + ground.position;
     }
 
-    public override void
-    AgentAction(float[] vectorAction, string textAction)
+    public override void AgentAction(float[] vectorAction, string textAction)
     {
-        if (detectTargets) {
-            foreach (var bodyPart in jdController.bodyPartsDict.Values) {
-                if (bodyPart.targetContact && !IsDone() && bodyPart.targetContact.touchingTarget) {
+        if (detectTargets)
+        {
+            foreach (var bodyPart in jdController.bodyPartsDict.Values)
+            {
+                if (bodyPart.targetContact && !IsDone() && bodyPart.targetContact.touchingTarget)
+                {
                     TouchedTarget();
                 }
             }
@@ -160,23 +159,25 @@ public class CrawlerAgent : Agent
 
         // If enabled the feet will light up green when the foot is grounded.
         // This is just a visualization and isn't necessary for function
-        if (useFootGroundedVisualization) {
-            foot0.material = jdController.bodyPartsDict[leg0Lower].groundContact.touchingGround ?
-              groundedMaterial :
-              unGroundedMaterial;
-            foot1.material = jdController.bodyPartsDict[leg1Lower].groundContact.touchingGround ?
-              groundedMaterial :
-              unGroundedMaterial;
-            foot2.material = jdController.bodyPartsDict[leg2Lower].groundContact.touchingGround ?
-              groundedMaterial :
-              unGroundedMaterial;
-            foot3.material = jdController.bodyPartsDict[leg3Lower].groundContact.touchingGround ?
-              groundedMaterial :
-              unGroundedMaterial;
+        if (useFootGroundedVisualization)
+        {
+            foot0.material = jdController.bodyPartsDict[leg0Lower].groundContact.touchingGround
+                ? groundedMaterial
+                : unGroundedMaterial;
+            foot1.material = jdController.bodyPartsDict[leg1Lower].groundContact.touchingGround
+                ? groundedMaterial
+                : unGroundedMaterial;
+            foot2.material = jdController.bodyPartsDict[leg2Lower].groundContact.touchingGround
+                ? groundedMaterial
+                : unGroundedMaterial;
+            foot3.material = jdController.bodyPartsDict[leg3Lower].groundContact.touchingGround
+                ? groundedMaterial
+                : unGroundedMaterial;
         }
 
         // Joint update logic only needs to happen when a new decision is made
-        if (isNewDecisionStep) {
+        if (isNewDecisionStep)
+        {
             // The dictionary with all the body parts in it are in the jdController
             var bpDict = jdController.bodyPartsDict;
 
@@ -203,26 +204,28 @@ public class CrawlerAgent : Agent
         }
 
         // Set reward for this step according to mixture of the following elements.
-        if (rewardMovingTowardsTarget) {
+        if (rewardMovingTowardsTarget)
+        {
             RewardFunctionMovingTowards();
         }
 
-        if (rewardFacingTarget) {
+        if (rewardFacingTarget)
+        {
             RewardFunctionFacingTarget();
         }
 
-        if (rewardUseTimePenalty) {
+        if (rewardUseTimePenalty)
+        {
             RewardFunctionTimePenalty();
         }
 
         IncrementDecisionTimer();
-    } // AgentAction
+    }
 
     /// <summary>
     /// Reward moving towards target & Penalize moving away from target.
     /// </summary>
-    void
-    RewardFunctionMovingTowards()
+    void RewardFunctionMovingTowards()
     {
         movingTowardsDot = Vector3.Dot(jdController.bodyPartsDict[body].rb.velocity, dirToTarget.normalized);
         AddReward(0.03f * movingTowardsDot);
@@ -231,8 +234,7 @@ public class CrawlerAgent : Agent
     /// <summary>
     /// Reward facing target & Penalize facing away from target
     /// </summary>
-    void
-    RewardFunctionFacingTarget()
+    void RewardFunctionFacingTarget()
     {
         facingDot = Vector3.Dot(dirToTarget.normalized, body.forward);
         AddReward(0.01f * facingDot);
@@ -241,8 +243,7 @@ public class CrawlerAgent : Agent
     /// <summary>
     /// Existential penalty for time-contrained tasks.
     /// </summary>
-    void
-    RewardFunctionTimePenalty()
+    void RewardFunctionTimePenalty()
     {
         AddReward(-0.001f);
     }
@@ -250,18 +251,19 @@ public class CrawlerAgent : Agent
     /// <summary>
     /// Loop over body parts and reset them to initial conditions.
     /// </summary>
-    public override void
-    AgentReset()
+    public override void AgentReset()
     {
-        if (dirToTarget != Vector3.zero) {
+        if (dirToTarget != Vector3.zero)
+        {
             transform.rotation = Quaternion.LookRotation(dirToTarget);
         }
 
-        foreach (var bodyPart in jdController.bodyPartsDict.Values) {
+        foreach (var bodyPart in jdController.bodyPartsDict.Values)
+        {
             bodyPart.Reset(bodyPart);
         }
 
-        isNewDecisionStep   = true;
+        isNewDecisionStep = true;
         currentDecisionStep = 1;
     }
 }

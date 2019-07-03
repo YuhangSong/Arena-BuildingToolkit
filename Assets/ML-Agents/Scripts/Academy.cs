@@ -116,7 +116,7 @@ namespace MLAgents
         + "values correspond to episodes without a maximum number of \n"
         + "steps. Once the step counter reaches this maximum value, the "
         + "environment will reset.")]
-        protected int maxSteps;
+        int maxSteps;
 
         [SerializeField]
         [Tooltip("The engine-level settings which correspond to rendering "
@@ -128,7 +128,7 @@ namespace MLAgents
         [Tooltip("The engine-level settings which correspond to rendering "
         + "quality and engine speed during Inference.")]
         protected EnvironmentConfiguration inferenceConfiguration =
-          new EnvironmentConfiguration(1280, 720, 1, 1.0f, 60);
+          new EnvironmentConfiguration(1280, 720, 5, 1.0f, 60);
 
         /// <summary>
         /// Contains a mapping from parameter names to float values. They are
@@ -407,7 +407,7 @@ namespace MLAgents
             if (isInference) {
                 ConfigureEnvironmentHelper(inferenceConfiguration);
                 Monitor.SetActive(true);
-            } else {
+            } else   {
                 ConfigureEnvironmentHelper(trainingConfiguration);
                 Monitor.SetActive(false);
             }
@@ -604,7 +604,7 @@ namespace MLAgents
                     Application.Quit();
                     return;
                 }
-            } else if (!firstAcademyReset) {
+            } else if (!firstAcademyReset)   {
                 UpdateResetParameters();
                 ForcedFullReset();
             }

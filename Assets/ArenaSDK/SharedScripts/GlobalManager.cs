@@ -592,6 +592,8 @@ namespace Arena
                 UIPercentageBars.Add(UIPercentageBar_.ID, UIPercentageBar_);
             }
 
+            UIPercentageBars["EL"].Enable();
+
             // initialize reference to Camera
             foreach (Camera Camera_ in GetComponentsInChildren<Camera>()) {
                 string ID_;
@@ -613,7 +615,9 @@ namespace Arena
                 Cameras[ID_].depth = InitialCameraDepth;
             }
 
-            UIPercentageBars["EL"].Enable();
+            // Cameras["Agent T1 A0"].depth   = UpperCameraDepth;
+            // Cameras["Agent T0 A0"].depth   = DownerCameraDepth;
+            // Cameras["TopDownCamera"].depth = DownerCameraDepth;
 
             if (!isDebugging()) {
                 foreach (GameObject each_gameobject in GameObject.FindGameObjectsWithTag("Debug")) {
