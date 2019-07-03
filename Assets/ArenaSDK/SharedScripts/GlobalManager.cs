@@ -615,6 +615,8 @@ namespace Arena
                 Cameras[ID_].depth = InitialCameraDepth;
             }
 
+            // // adding these few lines will resulting in to complied game not responding from python interface
+            // // but it works fine in the editor
             // Cameras["Agent T1 A0"].depth   = UpperCameraDepth;
             // Cameras["Agent T0 A0"].depth   = DownerCameraDepth;
             // Cameras["TopDownCamera"].depth = DownerCameraDepth;
