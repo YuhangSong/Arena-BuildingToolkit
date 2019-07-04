@@ -603,6 +603,8 @@ namespace Arena
                     InitialCameraDepth = UpperCameraDepth;
 
                     if (AgentCameraDisplayMode == AgentCameraDisplayModes.All) {
+                        Debug.LogWarning(
+                            "AgentCameraDisplayMode = AgentCameraDisplayModes.All is not recommended, as it results in camera feild that is too small and UI will be resized.");
                         Camera_.rect = new Rect(0.5f, 0f, 0.5f, 1f);
                     } else if (AgentCameraDisplayMode == AgentCameraDisplayModes.Single) {
                         Camera_.rect = new Rect(0f, 0f, 1f, 1f);

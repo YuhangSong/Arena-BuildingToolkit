@@ -90,7 +90,7 @@ SphereCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 23}
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: 0.5
@@ -136,13 +136,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8beffda8b34d945948afa0f3c246068a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  KillType: 0
   TrigTags:
   - Player
   - Body
   TeamIDToMatch: -1
-  TeamIDComparingObjectType: 0
   AgentIDToMatch: -1
-  AgentIDComparingObjectType: 0
 --- !u!114 &3936367478776074480
 MonoBehaviour:
   m_ObjectHideFlags: 0
