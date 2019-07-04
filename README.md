@@ -1,8 +1,8 @@
 <img src="./images/Cover.png" align="middle" width="2000"/>
 
-<img align="right" src="./images/Logo.png" width=50>
-
 # Introduction
+
+<img align="left" width="100" height="100" src="./images/Logo.png">
 
 Multi-agent intelligence is still at the stage where many problems remain unexplored. Therefore, we provide a building toolkit for researchers to easily invent and build novel multi-agent problems from the provided games set based on a GUI-configurable social tree and five basic multi-agent reward schemes.
 More resources can be found in [Arena Home](https://sites.google.com/view/arena-home/).
