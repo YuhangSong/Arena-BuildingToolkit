@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
 using System.Linq;
@@ -127,7 +127,7 @@ namespace MLAgents
         [SerializeField]
         [Tooltip("The engine-level settings which correspond to rendering "
         + "quality and engine speed during Inference.")]
-        protected EnvironmentConfiguration inferenceConfiguration =
+        EnvironmentConfiguration inferenceConfiguration =
           new EnvironmentConfiguration(1280, 720, 5, 1.0f, 60);
 
         /// <summary>
@@ -401,7 +401,7 @@ namespace MLAgents
         /// Configures the environment settings depending on the training/inference
         /// mode and the corresponding parameters passed in the Editor.
         /// </summary>
-        protected void
+        void
         ConfigureEnvironment()
         {
             if (isInference) {

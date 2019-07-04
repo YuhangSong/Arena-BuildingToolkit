@@ -581,7 +581,6 @@ namespace Arena
             if (isTurnBasedGame()) {
                 InitTurnBasedGame();
             }
-            ReConfigEngineLevelSetting();
             InitRamObservation();
             InitializeAllTeams();
 
@@ -602,6 +601,14 @@ namespace Arena
                 if (Camera_.CompareTag("TopDownCamera")) {
                     ID_ = "TopDownCamera";
                     InitialCameraDepth = UpperCameraDepth;
+
+                    if (AgentCameraDisplayMode == AgentCameraDisplayModes.All) {
+                        Camera_.rect = new Rect(0.5f, 0f, 0.5f, 1f);
+                    } else if (AgentCameraDisplayMode == AgentCameraDisplayModes.Single) {
+                        Camera_.rect = new Rect(0f, 0f, 1f, 1f);
+                    } else {
+                        Debug.LogError("Invalid AgentCameraDisplayMode");
+                    }
                 } else if (Camera_.CompareTag("AgentCamera")) {
                     ID_ = Camera_.GetComponentInParent<ArenaAgent>().getLogTag();
                     InitialCameraDepth = DownerCameraDepth;
@@ -888,31 +895,15 @@ namespace Arena
         public float
         getViewPortSize(ViewAxis ViewAxis_)
         {
-            float XAxisTotal = 1f;
-
-            if (GameObject.FindGameObjectWithTag("TopDownCamera") != null) {
-                Camera TopDownCamera = GameObject.FindGameObjectWithTag("TopDownCamera").GetComponent<Camera>();
-                XAxisTotal = TopDownCamera.rect.x;
-                if ((TopDownCamera.rect.x + TopDownCamera.rect.width) != 1f) {
-                    Debug.LogWarning("TopDownCamera should be on the right side.");
-                }
-                if ((TopDownCamera.rect.y != 0f) || (TopDownCamera.rect.height != 1f)) {
-                    Debug.LogWarning("TopDownCamera should be on the right side and takes the whole height.");
-                }
-            } else {
-                Debug.LogWarning(
-                    "You should have a TopDownCamera (use the prefab TopDownCamera) on the right side and takes the whole height.");
-            }
-
             if (getTeamViewAsix() == ViewAxis.X) {
                 if (ViewAxis_ == ViewAxis.X) {
-                    return getTeamViewPortSize() * XAxisTotal;
+                    return getTeamViewPortSize() * 0.5f;
                 } else {
                     return getAgentViewPortSize();
                 }
             } else {
                 if (ViewAxis_ == ViewAxis.X) {
-                    return getAgentViewPortSize() * XAxisTotal;
+                    return getAgentViewPortSize() * 0.5f;
                 } else {
                     return getTeamViewPortSize();
                 }
@@ -1319,54 +1310,6 @@ namespace Arena
                     MaxNumAgentsPerTeam = NumAgents_;
                 }
             }
-        }
-
-        /// <summary>
-        /// Inference mode: max width of the window.
-        /// </summary>
-        private int InferenceModeWindowMaxWidth = 1920;
-
-        /// <summary>
-        /// Inference mode: max height of the window.
-        /// </summary>
-        private int InferenceModeWindowMaxHeight = 1080;
-
-        /// <summary>
-        /// Re-config engine level setting so that when inference, the camera for each agent is of the same size.
-        /// </summary>
-        private void
-        ReConfigEngineLevelSetting()
-        {
-            // // reconfig to make the view port of every camera a square
-            // float ExpectedWHRatio = 0f;
-            //
-            // if (getTeamViewAsix() == ViewAxis.X) {
-            //     ExpectedWHRatio = (float) (getNumTeams()) / ((float) (getMaxNumAgentsPerTeam()));
-            // } else if (getTeamViewAsix() == ViewAxis.Y) {
-            //     ExpectedWHRatio = ((float) (getMaxNumAgentsPerTeam())) / (float) (getNumTeams());
-            // } else {
-            //     Debug.LogWarning("getTeamViewAsix() returns an unsupported ViewAxis.");
-            // }
-            //
-            // if (GameObject.FindGameObjectWithTag("TopDownCamera") != null) {
-            //     // The TopDownCamera will be at the right side and takes the whole height.
-            //     ExpectedWHRatio = ExpectedWHRatio * 2f;
-            // }
-            //
-            // float MaxWindowWHRatio = ((float) InferenceModeWindowMaxWidth) / ((float) InferenceModeWindowMaxHeight);
-            // if (MaxWindowWHRatio > ExpectedWHRatio) {
-            //     inferenceConfiguration.height = InferenceModeWindowMaxHeight;
-            //     inferenceConfiguration.width       = (int) (((float) InferenceModeWindowMaxHeight) * ExpectedWHRatio);
-            // } else {
-            //     inferenceConfiguration.width  = InferenceModeWindowMaxWidth;
-            //     inferenceConfiguration.height = (int) (((float) InferenceModeWindowMaxWidth) / ExpectedWHRatio);
-            // }
-
-            // reconfig so that it is 1920 * 1080
-            inferenceConfiguration.height = InferenceModeWindowMaxHeight;
-            inferenceConfiguration.width  = InferenceModeWindowMaxWidth;
-
-            ConfigureEnvironment();
         }
 
         /// <summary>
