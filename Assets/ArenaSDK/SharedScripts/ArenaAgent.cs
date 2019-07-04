@@ -116,10 +116,12 @@ namespace Arena
             if ((Living) && (!Living_)) {
                 // if transfer from living to dead
                 Living = Living_;
+                UIPercentageBars["HL"].UpdatePercentage(0f);
                 getTeam().AtAnAgentDie();
             } else if ((!Living) && (Living_)) {
                 // if transfer from dead to living
                 Living = Living_;
+                UIPercentageBars["HL"].UpdatePercentage(1f);
                 getTeam().AtAnAgentRespawn();
             }
             UpdateCanvas();
@@ -164,10 +166,6 @@ namespace Arena
             if (NextState_ == AgentNextStates.Die) {
                 setLiving(false);
             }
-            // Done signal has been processed by the base of GlobalManager, Academy
-            // else if (NextState_ == AgentNextStates.Done) {
-            //     Done();
-            // }
         }
 
         protected Dictionary<string, UIPercentageBar> UIPercentageBars = new Dictionary<string, UIPercentageBar>();
@@ -208,6 +206,7 @@ namespace Arena
             }
 
             UIPercentageBars["ER"].Enable();
+            UIPercentageBars["HL"].Enable(1f);
 
             if (AllowGunAttack) {
                 if (Gun == null) {

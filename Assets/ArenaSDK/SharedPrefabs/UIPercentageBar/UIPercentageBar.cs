@@ -43,7 +43,7 @@ public class UIPercentageBar : MonoBehaviour
     bool Enabled = false;
 
     void
-    Start()
+    Awake()
     {
         // by default, it is disabled
         TextOnDisplay.text        = string.Format("{0}: {1}", ID, "Disabled");
@@ -62,6 +62,18 @@ public class UIPercentageBar : MonoBehaviour
             TextOnDisplay.text        = string.Format("{0}: {1}", ID, "Enabled");
             ImageOnDisplay.fillAmount = 0f;
         }
+    }
+
+    /// <summary>
+    /// Enable this bar, this will cause:
+    ///   text display: "ID: Enabled"
+    /// </summary>
+    /// <param name="Percentage_">The initial percentage when Enable().</param>
+    public void
+    Enable(float Percentage_)
+    {
+        Enable();
+        UpdatePercentage(Percentage_);
     }
 
     /// <summary>
