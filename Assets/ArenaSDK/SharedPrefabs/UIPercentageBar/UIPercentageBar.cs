@@ -98,7 +98,7 @@ public class UIPercentageBar : MonoBehaviour
     }
 
     /// <summary>
-    /// Update the percentage to display by value.
+    /// Update the percentage to display by value, the value is automatically normalized to a percentage. The min and max of the value will also be displayed.
     /// </summary>
     /// <param name="Value_">The value to be updated to.</param>
     public void
