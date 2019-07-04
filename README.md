@@ -8,8 +8,6 @@ Multi-agent intelligence is still at the stage where many problems remain unexpl
 More resources can be found in [Arena Home](https://sites.google.com/view/arena-home/).
 If you use this repository to conduct research, we kindly ask that you [cite the paper](#citation) as a reference.
 
-<img src="./images/example-tree.png" align="middle" width="2000"/>
-
 ## Status: Pre-release
 
 We are currently open to any suggestions or pull requests from the community to make Arena a better platform.
@@ -20,6 +18,8 @@ We are happy to implement it for you, if it's helpful for the community.
 ## Get Started
 
 Follow our short and simple tutorials in [Tutorials: Building Toolkit](https://sites.google.com/view/arena-home/home/tutorials-building-toolkit), which should get you ready in minutes.
+
+<img src="./images/example-tree.png" align="middle" width="2000"/>
 
 ## Citation
 
