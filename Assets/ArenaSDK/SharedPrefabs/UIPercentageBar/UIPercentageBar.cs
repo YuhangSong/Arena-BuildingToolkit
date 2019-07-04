@@ -17,6 +17,28 @@ public class UIPercentageBar : MonoBehaviour
     float MinValue        = 0f;
     float MaxValue        = 0f;
 
+    public float
+    getMinValue()
+    {
+        if (IsSettingByValue) {
+            return MinValue;
+        } else {
+            Debug.LogError("Not IsSettingByValue, cannot call getMinValue()");
+            return 0f;
+        }
+    }
+
+    public float
+    getMaxValue()
+    {
+        if (IsSettingByValue) {
+            return MaxValue;
+        } else {
+            Debug.LogError("Not IsSettingByValue, cannot call getMaxValue()");
+            return 0f;
+        }
+    }
+
     // by default, it is disabled
     bool Enabled = false;
 
