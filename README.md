@@ -4,95 +4,22 @@
 
 <img align="left" width="100" height="100" src="./images/Logo.png">
 
-Multi-agent intelligence is still at the stage where many problems remain unexplored. Therefore, we provide a building toolkit for researchers to easily invent and build novel multi-agent problems from the provided games set based on a GUI-configurable social tree and five basic multi-agent reward schemes.
+Multi-agent intelligence is still at the stage where many problems remain unexplored. As a part of [Arena](https://sites.google.com/view/arena-home/) project, this repository is to provide a building toolkit for researchers to easily invent and build novel multi-agent problems.
 More resources can be found in [Arena Home](https://sites.google.com/view/arena-home/).
-If you use Arena to conduct research, we ask that you [cite the paper](#citation) as a reference.
-
-<img src="./images/customize-example.png" align="middle" width="2000"/>
-
-## Status: Beta
-
-We are currently open to any suggestions or pull requests from the community to make Arena a better platform.
-Some features mentioned in the paper may be not yet available, since we are trying to make the codebase more consistent and just re-structured the project.
-To contribute to the project, see [To Do list in Trello](https://trello.com/b/dmGHVIM0).
-
-* If you have a game in mind you want to study, you are wellcome to [contact us by clicking here](mailto:yuhang.song@cs.ox.ac.uk,lianlong.wu@cs.ox.ac.uk,iceclearwjy@buaa.edu.cn,maixu@buaa.edu.cn,zhenghua.xu@hebut.edu.cn,zd2418@ic.ac.uk) (or open an issue). We are happy to implement it for you, if it's helpful for the community.
-
-## Project Structure
-
-All games and abstraction layers share one Unity project.
-Each game is held in an independent folder in ```ArenaSDK/GameSet/``, with the game's name as the folder name.
-The folder ```ArenaSDK``` holds all the abstraction layers and share code, assets and utils.
-
-* Games outside ```ArenaSDK/``` have not been merged into the new codebase yet, do not use them.
-
-## Build Your Game
-
-Take a look at the code of the game ```ArenaCrawlerPush``` as an example, which contains the example social tree mentioned in the paper.
+If you use this repository to conduct research, we ask that you [cite the paper](#citation) as a reference.
 
 <img src="./images/example-tree.png" align="middle" width="2000"/>
 
-The following tutorial will take you through making a multi-agent game with Arena building toolkit.
-It will not require much coding work with many off-the-shelf assets and multi-agent features managed by Arena.
+## Status: Pre-release
 
-* Before you start, we are expecting you to have basic knowledge on Unity.
-  Thus, you are recommended to finish the [Roll-a-ball tutorial](https://unity3d.com/learn/tutorials/s/roll-ball-tutorial) to learn all the basic concepts of Unity.
-* Run Unity, choose open project, and select the cloned or downloaded `Arena-BuildingToolkit` file.  The opening process may take some time for the first time, take a coffee.
-* Create a folder to host your game. In this tutorial, we create ```ArenaCrawlerPush```.
-  <img src="./images/folder.png" align="middle" width="2000"/>
-* Create a scene, name it ```2T2P```, which means we want there to be 2 team competing against each other, and within each team, there are 2 agents collaborating with each other. Thus, there will be 4 agents in total.
-* Delete all items in the scene, create a new empty, name it ```GlobalManager```, reset the transform of the ```GlobalManager``` you just created. Then, attach the script GlobalManager to it through Add Component.
-  <img src="./images/globalmanager.png" align="middle" width="2000"/>
-* Add a basic playground by dragging prefab ```Assets/ArenaSDK/Playground/Playground``` into the scene, as a child of the ```GlobalManager```.
-  <img src="./images/playground.png" align="middle" width="2000"/>
-* Create a empty named ```Team``` as a child of ```GlobalManager```, attach the script ```ArenaTeam``` on it.
-  <img src="./images/team.png" align="middle" width="2000"/>
-* Add an crawler robot agent by dragging prefab ```Assets/ArenaSDK/AgentPrefabs/ArenaCrawler/ArenaCrawlerAgent``` as a child of the Team object you just created.
-  <img src="./images/agent.png" align="middle" width="2000"/>
-* Since we want two agents at a team, duplicate the ```ArenaCrawlerAgent``` you just created, move them apart so that they look like a cool team. And remember to change the ```Agent ID``` property of the duplicated ```ArenaCrawlerAgent (1)``` to ```1``` (default as 0), so that Arena knows it is a different agent.
-  <img src="./images/duplicate-agent.png" align="middle" width="2000"/>
-* We want the two agents to collaborate on pushing a Box, so let's create the Box by dragging prefab ```Assets/ArenaSDK/SharedPrefabs/Box``` into the scene, as a child of the ```Team```.
-  <img src="./images/box.png" align="middle" width="2000"/>
-* We want two teams to compete with each other, so let's make another team. Sine we are expecting the two teams to be identical so that they have equal chance to win, let's first drag the ```Team``` object out to the Project window at the bottom as a prefab. Then duplicate the ```Team```, rotate the duplicated ```Team (1)``` so that the two teams seems to be fighting against each other. Remember to change the ```Team ID``` property of the duplicated ```Team (1)``` to ```1``` (default as 0), so that Arena knows it is a different team.
-  <img src="./images/two-teams.png" align="middle" width="2000"/>
-* We want the two teams to have a fight on which team pushes its Box to a target point first, so let's create this target point by dragging prefab ```Assets/ArenaSDK/SharedPrefabs/Goal``` into the scene as a child of ```GlobalManager```.
-  <img src="./images/goal.png" align="middle" width="2000"/>
-* Now we seems to have all we need, but a top-down view of the global game would be good for us to see what is going on in the game. So, drag prefab ```Assets/ArenaSDK/SharedPrefabs/TopDownCamera``` into the scene as a child of ```GlobalManager```. Adjust the size property of the ```TopDownCamera``` so that it fit well with the playground.
-  <img src="./images/td-view.png" align="middle" width="2000"/>
-* Since you have two teams, add two ```Team Materials``` in the properties of ```GlobalManager``` so that they are used by the two teams to display different colors. ```Assets/ArenaSDK/TeamMaterials/``` provides many team colors you can use directly.
-  <img src="./images/team-materials.png" align="middle" width="2000"/>
-* Now, attach a player brain in the ```GlobalManager``` (all agents in the scene will by default use this brain). Since you are using ```ArenaCrawlerAgent``` as your agent, you can just use the brain ```Assets/ArenaSDK/AgentPrefabs/ArenaCrawler/ArenaCrawlerPlayerContinuous```
-  <img src="./images/brain.png" align="middle" width="2000"/>
-* Now you have all basic elements you need, try to run the game, you should see Arena automatically assigning the view port for each agent and top down camera, as well as dealing with other things like displaying team colors, agent id, so that agents knows the who is the teammate and who is the opponent.
-  <img src="./images/run.png" align="middle" width="2000"/>
-* Then, let's consider how to reward the agents. First, agent-level reward function is necessary for an agent to learn basic motion skills. Check the inspector of ```ArenaCrawlerAgent```, you can see many options of reward functions. Edit as following in the prefab Team, so that the other team uses the same settings. Here, we select options in the following picture, which means, the agent is rewarded based on the distance to the Box (Is Reward Distance To), and the agent is encouraged to keep head facing up (Is Reward Head Up).
-  <img src="./images/agent-reward.png" align="middle" width="2000"/>
-* Now, you should test the reward function at this level before move on to other levels. You can set the property ```Debugging``` in ```GlobalManager``` to true and run the game. In scene editor, manually drag the position of the agent of AgentID=0 in team of TeamID=0. In the meantime, look at the printed CumulativeReward of the agent.
-  <img src="./images/agent-reward-test.png" align="middle" width="2000"/>
-* Similarly, you can set the team-level reward function in ```Team``` as following picture (also in the ```Team``` prefab so that it applies to both teams), which means the team-level reward is the distance of the Box in the team to the Goal.
-  <img src="./images/team-reward-1.png" align="middle" width="2000"/>
-  <img src="./images/team-reward-2.png" align="middle" width="2000"/>
-* And similarly, you should test the reward function at this level by entering play mode and dragging the Box.
-* Finally, set the global level reward as following picture, which means the first team that departs the game wins.
-  <img src="./images/global-reward-1.png" align="middle" width="2000"/>
-* As mentioned, now we make the team depart the game when it has pushed the Box to the Goal. This is achieved by attaching a script ```KillTeamGate``` to the object ```Goal```. Set ```Trig Tag``` to ```Box```, so that killing the team is triggered when the Box touches the Goal.
-  <img src="./images/global-reward-2.png" align="middle" width="2000"/>
-* And similarly, you should test the reward function at this level by entering play mode and dragging the Box to touch the Goal.
-* Now, you may see that after you touch the Goal with the Box, the agent resets properly, but the Box did not reset. Go to GlobalManager and add tag ```Box``` to the ```Game Object To Be Respawned Tag```, so that Box will be reset at the end of every episode.
-  <img src="./images/respawn.png" align="middle" width="2000"/>
-* Finally, you are ready to [compile your game to a binary file](#compile-game-to-binary-file) and train with it on [Arena-Baselines](https://github.com/YuhangSong/Arena-Baselines)!
+We are currently open to any suggestions or pull requests from the community to make Arena a better platform.
+To contribute to the project, contact us via [Slack](https://join.slack.com/t/arena-ml/shared_invite/enQtNjc1NDE1MTY0MjU3LWMxMjZiMTYyNTE3OWIzM2QxZjU5YmI1NTM2YzYzZDZlNjY0NzllMDFlMjA3MGZiN2QxODA1NTJhZDkzOTI3Nzg).
+If you have a game in mind you want to study, you are wellcome to contact us via [Slack](https://join.slack.com/t/arena-ml/shared_invite/enQtNjc1NDE1MTY0MjU3LWMxMjZiMTYyNTE3OWIzM2QxZjU5YmI1NTM2YzYzZDZlNjY0NzllMDFlMjA3MGZiN2QxODA1NTJhZDkzOTI3Nzg) or open an issue. 
+We are happy to implement it for you, if it's helpful for the community.
 
-Note that:
-* You can see many options available in the inspector. To understand what they means, look into the code of the script, they are well-documented (at least I tried to, so let me know if anything confuses you).
-* For creating games of basic agents that is not provided in Arena, or contributing to the code of Arena, you are expected to have deeper knowledge on [ML-Agents](https://github.com/Unity-Technologies/ml-agents). [Unity ML-Agents Toolkit Documentation](https://github.com/Unity-Technologies/ml-agents/blob/master/docs/Readme.md) would be a great start point.
+## Get Started
 
-## Compile Game to Binary File
-
-* Change the player brain to corresponding learner brain in the ```GlobalManager```, and check Control box.
-* Set property ```Debugging``` in the ```GlobalManager``` to false.
-* Make sure you go to Build Settings > Player Settings and switch "Display Resolution Dialog" to Disabled or Hidden By Default.
-* Build the game after selecting the right platform (Linux x86), put the binary file in ```Arena-Baselines/Bin/```. Name it ```<GameName-Platform>```, for example ```MyCoolGame-Linux```.
-* Go to [Arena-Baselines](https://github.com/YuhangSong/Arena-Baselines) and train with it!
+Follow our short and simple tutorials in [Tutorials: Building Toolkit](), which should get you ready in minutes.
 
 ## Citation
 
