@@ -19,7 +19,7 @@ We are happy to implement it for you, if it's helpful for the community.
 
 ## Get Started
 
-Follow our short and simple tutorials in [Tutorials: Building Toolkit](), which should get you ready in minutes.
+Follow our short and simple tutorials in [Tutorials: Building Toolkit](https://sites.google.com/view/arena-home/home/tutorials-building-toolkit), which should get you ready in minutes.
 
 ## Citation
 
