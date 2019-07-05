@@ -20,15 +20,11 @@ namespace Arena
     }
 
     /// <summary>
-    /// How to switch between agents:
-    /// Sequence: according to the sequence of AgentID
-    /// None: used in GlobalManager to indicate the setting of
-    ///       AgentSwitchType is determined by each team, instead of the GlobalManager.
-    ///       By default, it is determined by GlobalManager.
+    /// How to switch between child:
+    ///   Sequence: according to the sequence of ID
     /// </summary>
-    public enum AgentSwitchTypes {
+    public enum ChildSwitchTypes {
         Sequence,
-        None
     }
 
     /// <summary>
@@ -68,8 +64,38 @@ namespace Arena
         Shorter
     }
 
+    /// <summary>
+    /// Condition at which the team is considerred to be living.
+    ///   AllLiving: This team is living when all ArenaAgent/ArenaTeam are living in this team.
+    ///   AtLeastOneLiving: This team is living when there is at least one ArenaAgent/ArenaTeam living in this team.
+    /// </summary>
+    public enum LivingConditions {
+        AllLiving,
+        AtLeastOneLiving,
+        AtLeastSpecificNumberLiving,
+        AtLeastSpecificPortionLiving
+    }
+
     static public class Utils
     {
+        public static bool
+        isLiving(LivingConditions LivingCondition, int NumLivingTeams, int NumTeams,
+          int AtLeastSpecificNumberLiving, float AtLeastSpecificPortion)
+        {
+            if (LivingCondition == LivingConditions.AtLeastOneLiving) {
+                return  (NumLivingTeams >= 1);
+            } else if (LivingCondition == LivingConditions.AllLiving) {
+                return  ((float) NumLivingTeams == NumTeams);
+            } else if (LivingCondition == LivingConditions.AtLeastSpecificNumberLiving) {
+                return  ((NumLivingTeams >= AtLeastSpecificNumberLiving));
+            } else if (LivingCondition == LivingConditions.AtLeastSpecificPortionLiving) {
+                return  ((((float) NumLivingTeams / NumTeams) >= AtLeastSpecificPortion));
+            } else {
+                Debug.LogError("Invalid LivingCondition.");
+                return true;
+            }
+        }
+
         /// <summary>
         /// Set all TextMesh in child with a text.
         /// </summary>

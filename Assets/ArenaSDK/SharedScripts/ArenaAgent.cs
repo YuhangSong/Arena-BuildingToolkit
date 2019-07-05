@@ -164,6 +164,7 @@ namespace Arena
         }
 
         protected Dictionary<string, UIPercentageBar> UIPercentageBars = new Dictionary<string, UIPercentageBar>();
+        protected Dictionary<string, UIText> UITexts = new Dictionary<string, UIText>();
 
         /// <summary>
         /// Agent should override InitializeAgent() and call base.InitializeAgent() before adding
@@ -219,6 +220,11 @@ namespace Arena
                     BulletEmitter.gameObject.SetActive(false);
                 }
                 UIPercentageBars["AM"].Disable();
+            }
+
+            // initialize reference to UITexts
+            foreach (UIText UIText_ in GetComponentsInChildren<UIText>()) {
+                UITexts.Add(UIText_.ID, UIText_);
             }
 
             if (AllowSwordAttack) {
@@ -603,8 +609,7 @@ namespace Arena
         UpdateCanvas()
         {
             UpdateMask();
-            // // TODO: text font size is differnt on differnt platform, depreciated for now, waiting for solutions
-            // UpdateText();
+            UpdateText();
         }
 
         /// <summary>
@@ -631,9 +636,6 @@ namespace Arena
         UpdateText()
         {
             string ToDisplay_ = getLogTag();
-            Text DisplayText_ = GetComponentInChildren<Canvas>().GetComponentInChildren<Text>();
-
-            DisplayText_.color = globalManager.getStateTextColor(isLiving());
 
             if (isLiving()) {
                 ToDisplay_ += "; Living";
@@ -651,8 +653,8 @@ namespace Arena
                 }
             }
 
-            DisplayText_.text     = ToDisplay_;
-            DisplayText_.fontSize = (int) (47f / 0.5f * globalManager.getViewPortSize(ViewAxis.X));
+            UITexts["Status"].setColor(globalManager.getStateTextColor(isLiving()));
+            UITexts["Status"].setText(ToDisplay_);
         }
 
         /// <summary>

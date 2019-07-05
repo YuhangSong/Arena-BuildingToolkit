@@ -672,15 +672,17 @@ MonoBehaviour:
   Debugging: 0
   AgentCameraDisplayMode: 0
   LightIntensityRandom: 0
-  GameObjectToBeRespawnedTag: []
-  DestroyTag:
-  - Bullet
+  RespawnTags: []
+  DestroyTags: []
   TeamMaterials:
   - {fileID: 2100000, guid: 7a3180b035cc24561bc6a2e1cb11a21c, type: 2}
   - {fileID: 2100000, guid: f8e6847f603704798bd480f4fd8860de, type: 2}
   - {fileID: 2100000, guid: 16217f73c896e4d5681cb4e2906c94b9, type: 2}
   - {fileID: 2100000, guid: ecfb990d735c843698c5a30fd70a3ced, type: 2}
   StateTextColor: []
+  LivingCondition: 2
+  AtLeastSpecificNumberLiving: 2
+  SpecificPortion: 0.5
   NumberOfActionsBetweenDecisions: 5
   RewardSchemeScale: 100
   IsRewardRanking: 1
@@ -691,8 +693,6 @@ MonoBehaviour:
   RewardTimeCoefficient: 0.001
   TurnDuration: -1
   TurnType: 0
-  TeamSwitchType: 0
-  AgentSwitchType: 0
 --- !u!1 &2026133887933154341
 GameObject:
   m_ObjectHideFlags: 0

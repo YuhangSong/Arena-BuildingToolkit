@@ -24,20 +24,22 @@ namespace Arena
             return TeamID;
         }
 
-        /// <summary>
-        /// Condition at which the team is considerred to be living.
-        ///   AllLiving: This team is living when all agents are living in this team.
-        ///   AtLeastOneLiving: This team is living when there is at least one agent living in this team.
-        /// </summary>
-        public enum LivingConditions {
-            AllLiving,
-            AtLeastOneLiving
-        }
+        [Header("Living Condition")][Space(10)]
 
         /// <summary>
         /// Condition at which the team is considerred to be living.
         /// </summary>
         public LivingConditions LivingCondition = LivingConditions.AtLeastOneLiving;
+
+        /// <summary>
+        /// Number of AtLeastSpecificNumberLiving in LivingCondition.
+        /// </summary>
+        public int AtLeastSpecificNumberLiving = 1;
+
+        /// <summary>
+        /// Portion of AtLeastSpecificPortionLiving in LivingCondition.
+        /// </summary>
+        public float AtLeastSpecificPortion = 0.5f;
 
         [Header("Reward Scheme")][Space(10)]
 
@@ -68,6 +70,10 @@ namespace Arena
         /// </summary>
         private RewardFunctionGeneratorDistanceToTarget RewardFunctionDistance;
 
+        public bool IsRewardTime = false;
+
+        public TimeWinTypes TimeWinType = TimeWinTypes.Looger;
+
         [Header("Reward Function Properties")][Space(10)]
 
         /// <summary>
@@ -77,17 +83,6 @@ namespace Arena
         public float RewardDistanceCoefficient  = 1.0f;
         public float RewardDirectionCoefficient = 0.01f;
         public float RewardTimeCoefficient      = 0.001f;
-
-        [Header("Turn-based Game")][Space(10)]
-
-        /// <summary>
-        /// How to switch between agents:
-        /// Sequence: according to the sequence of AgentID.
-        /// None: used in GlobalManager to indicate the setting of
-        ///       AgentSwitchType is determined by each team, instead of the GlobalManager,
-        ///       by default, it is determined by GlobalManager.
-        /// </summary>
-        public AgentSwitchTypes AgentSwitchType;
 
         /// <summary>
         /// Get the log tag of the team.
@@ -104,7 +99,7 @@ namespace Arena
         /// </summary>
         /// <returns>The number of all agents in this team.</returns>
         public int
-        getNumAgents()
+        getNumTeams()
         {
             if (Agents == null) {
                 int NumAgents = 0;
@@ -143,7 +138,7 @@ namespace Arena
         public bool
         CheckValidAgnetID(int AgentID_)
         {
-            if ((AgentID_ >= 0) && (AgentID_ < getNumAgents())) {
+            if ((AgentID_ >= 0) && (AgentID_ < getNumTeams())) {
                 return true;
             } else {
                 Debug.LogWarning("No AgentID " + AgentID_ + " in TeamID " + getTeamID());
@@ -158,7 +153,7 @@ namespace Arena
         public void
         KillAllAgentsExcept(int AgentID_)
         {
-            for (int i = 0; i < getNumAgents(); i++) {
+            for (int i = 0; i < getNumTeams(); i++) {
                 if (i != AgentID_) {
                     getAgent(i).ReceiveSignal(AgentNextStates.Die, 0f);
                 }
@@ -201,7 +196,7 @@ namespace Arena
         public void
         SignalToAllAgents(AgentNextStates NextState_, float NextReward_)
         {
-            for (int i = 0; i < getNumAgents(); i++) {
+            for (int i = 0; i < getNumTeams(); i++) {
                 getAgent(i).ReceiveSignal(NextState_, NextReward_);
             }
         }
@@ -209,7 +204,7 @@ namespace Arena
         /// <summary>
         /// If this team is living.
         /// </summary>
-        public bool Living = true;
+        private bool Living = true;
 
         /// <summary>
         /// Check if the team is living.
@@ -242,6 +237,23 @@ namespace Arena
         }
 
         /// <summary>
+        /// Get how many teams are still living.
+        /// </summary>
+        /// <returns>The number of teams that are still living.</returns>
+        public int
+        getNumLivingTeams()
+        {
+            int NumLivingTeam = 0;
+
+            for (int Team_i = 0; Team_i < getNumTeams(); Team_i++) {
+                if (getAgent(Team_i).isLiving()) {
+                    NumLivingTeam += 1;
+                }
+            }
+            return NumLivingTeam;
+        }
+
+        /// <summary>
         /// Update living status of the team according to
         ///   1, LivingCondition
         ///   2, living status of all children agents.
@@ -249,49 +261,9 @@ namespace Arena
         private void
         UpdateLiving()
         {
-            if (LivingCondition == LivingConditions.AtLeastOneLiving) {
-                for (int i = 0; i < getNumAgents(); i++) {
-                    if (getAgent(i).isLiving()) {
-                        setLiving(true);
-                        return;
-                    }
-                }
-                setLiving(false);
-                return;
-            } else if (LivingCondition == LivingConditions.AllLiving) {
-                for (int i = 0; i < getNumAgents(); i++) {
-                    if (!getAgent(i).isLiving()) {
-                        setLiving(false);
-                    }
-                }
-                setLiving(true);
-                return;
-            } else {
-                Debug.LogError("Invalid LivingCondition.");
-                setLiving(true);
-                return;
-            }
-        }
-
-        /// <summary>
-        /// Set AgentSwitchType.
-        /// </summary>
-        /// <param name="AgentSwitchType_">The AgentSwitchType to be set.</param>
-        public void
-        setAgentSwitchType(AgentSwitchTypes AgentSwitchType_)
-        {
-            AgentSwitchType = AgentSwitchType_;
-        }
-
-        /// <summary>
-        /// Get AgentSwitchType.
-        /// </summary>
-        /// <returns>The AgentSwitchType.</returns>
-        public AgentSwitchTypes
-        getAgentSwitchType()
-        {
-            return AgentSwitchType;
-        }
+            setLiving(Utils.isLiving(LivingCondition, getNumLivingTeams(), getNumTeams(),
+              AtLeastSpecificNumberLiving, AtLeastSpecificPortion));
+        } // UpdateLiving
 
         /// <summary>
         /// Get the AgentID of the agent that is current on turn.
@@ -332,21 +304,21 @@ namespace Arena
         /// <c>true</c>, if all agents has been turned, <c>false</c> otherwise.
         /// </returns>
         public bool
-        NextAgentTurn()
+        NextTeamTurn(bool NoForwardIfAllTeamsTurned_)
         {
-            if (getAgentSwitchType() == AgentSwitchTypes.Sequence) {
+            bool IsAllTeamsTurned = false;
+
+            if (isAllAgentsTurned()) {
+                IsAllTeamsTurned = true;
+                ClearTurnedAgent();
+            }
+
+            if (!((IsAllTeamsTurned) && (NoForwardIfAllTeamsTurned_))) {
                 PushCurrentTurnAgentIDForward();
                 AddTurnedAgent(CurrentTurnAgentID);
-                if (isAllAgentsTurned()) {
-                    ClearTurnedAgent();
-                    return true;
-                } else {
-                    return false;
-                }
-            } else {
-                Debug.LogWarning("AgentSwitchType not supported. Use the ones within AgentSwitchTypes.");
-                return true;
             }
+
+            return IsAllTeamsTurned;
         }
 
         /// <summary>
@@ -360,7 +332,7 @@ namespace Arena
         private void
         InitReferenceToAgents()
         {
-            Agents = new ArenaAgent[getNumAgents()];
+            Agents = new ArenaAgent[getNumTeams()];
             foreach (ArenaAgent each in GetComponentsInChildren<ArenaAgent>()) {
                 Agents[each.getAgentID()] = each;
             }
@@ -372,7 +344,7 @@ namespace Arena
         private int
         getRandomAgentID()
         {
-            return Random.Range(0, getNumAgents());
+            return Random.Range(0, getNumTeams());
         }
 
         /// <summary>
@@ -410,7 +382,7 @@ namespace Arena
         private void
         ClearTurnedAgent()
         {
-            System.Array.Clear(TurnedAgents, 0, getNumAgents());
+            System.Array.Clear(TurnedAgents, 0, getNumTeams());
         }
 
         /// <summary>
@@ -419,7 +391,7 @@ namespace Arena
         private void
         InitTurnBasedGame()
         {
-            TurnedAgents = new int[getNumAgents()];
+            TurnedAgents = new int[getNumTeams()];
         }
 
         /// <summary>
@@ -433,7 +405,7 @@ namespace Arena
         private void
         PushCurrentTurnAgentIDForward()
         {
-            if (CurrentTurnAgentID < (getNumAgents() - 1)) {
+            if (CurrentTurnAgentID < (getNumTeams() - 1)) {
                 CurrentTurnAgentID += 1;
             } else {
                 CurrentTurnAgentID = 0;
@@ -449,9 +421,9 @@ namespace Arena
         private bool
         isAllAgentsTurned()
         {
-            if (Utils.SumArray(TurnedAgents) == getNumAgents()) {
+            if (Utils.SumArray(TurnedAgents) == getNumTeams()) {
                 return true;
-            } else if (Utils.SumArray(TurnedAgents) < getNumAgents()) {
+            } else if (Utils.SumArray(TurnedAgents) < getNumTeams()) {
                 return false;
             } else {
                 Debug.LogWarning("TurnedAgents Error.");
@@ -539,6 +511,16 @@ namespace Arena
             if (IsRewardDistance) {
                 StepReward_ += (RewardFunctionDistance.StepGetReward() * RewardDistanceCoefficient
                   * RewardSchemeScale);
+            }
+
+            if (IsRewardTime) {
+                if (TimeWinType == TimeWinTypes.Looger) {
+                    StepReward_ += RewardTimeCoefficient;
+                } else if (TimeWinType == TimeWinTypes.Shorter) {
+                    StepReward_ -= RewardTimeCoefficient;
+                } else {
+                    Debug.LogError("TimeWinType is invalid.");
+                }
             }
 
             RewardAllAgents(StepReward_);

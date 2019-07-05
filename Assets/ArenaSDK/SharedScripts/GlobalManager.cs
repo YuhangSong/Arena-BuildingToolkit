@@ -76,14 +76,14 @@ namespace Arena
         /// Set objects you want to respawn at the reset of every
         /// episode, identified by tag.
         /// </summary>
-        public List<string> GameObjectToBeRespawnedTag = new List<string>();
-        private List<TransformReinitializor> RespawnedReinitializors = new List<TransformReinitializor>();
+        public List<string> RespawnTags = new List<string>();
+        private List<TransformReinitializor> RespawnReinitializors = new List<TransformReinitializor>();
 
         /// <summary>
         /// Set objects you want to destroy at the reset of every
         /// episode, identified by tag.
         /// </summary>
-        public List<string> DestroyTag = new List<string>();
+        public List<string> DestroyTags = new List<string>();
 
         /// <summary>
         /// Reference to the GameObjects to be respawned at the reset of each episode.
@@ -91,12 +91,12 @@ namespace Arena
         private List<GameObject> GameObjectToBeRespawned = new List<GameObject>();
 
         /// <summary>
-        /// Destroy all GameObjects in DestroyTag.
+        /// Destroy all GameObjects in DestroyTags.
         /// </summary>
         private void
-        DestroyObjectsInDestroyTag()
+        DestroyObjectsInDestroyTags()
         {
-            foreach (string each_tag in DestroyTag) {
+            foreach (string each_tag in DestroyTags) {
                 foreach (GameObject each_gameobject in GameObject.FindGameObjectsWithTag(each_tag)) {
                     Destroy(each_gameobject.gameObject);
                 }
@@ -118,18 +118,18 @@ namespace Arena
                     }
                 }
             }
-            foreach (TransformReinitializor each in RespawnedReinitializors) {
+            foreach (TransformReinitializor each in RespawnReinitializors) {
                 each.Reinitialize();
             }
         }
 
         /// <summary>
-        /// Initialize GameObjectToBeRespawned by GameObjectToBeRespawnedTag.
+        /// Initialize GameObjectToBeRespawned by RespawnTags.
         /// </summary>
         private void
         InitGameObjectToBeRespawned()
         {
-            foreach (string each_tag in GameObjectToBeRespawnedTag) {
+            foreach (string each_tag in RespawnTags) {
                 foreach (GameObject each_gameobject in GameObject.FindGameObjectsWithTag(each_tag)) {
                     GameObjectToBeRespawned.Add(each_gameobject);
                     TransformReinitializor PlayerReinitializor = new TransformReinitializor(
@@ -137,7 +137,7 @@ namespace Arena
                         Vector3.zero, Vector3.zero,
                         Vector3.zero, Vector3.zero,
                         Vector3.zero, Vector3.zero);
-                    RespawnedReinitializors.Add(PlayerReinitializor);
+                    RespawnReinitializors.Add(PlayerReinitializor);
                 }
             }
         }
@@ -154,6 +154,39 @@ namespace Arena
         /// Depreciated
         /// </summary>
         public List<Color> StateTextColor = new List<Color>();
+
+        /// <summary>
+        /// Get the StateTextColor.
+        /// </summary>
+        /// <param name="Living_">
+        /// <c>true</c>, if living, <c>false</c> otherwise.
+        /// </param>
+        public Color
+        getStateTextColor(bool Living_)
+        {
+            if (Living_) {
+                return StateTextColor[0];
+            } else {
+                return StateTextColor[1];
+            }
+        }
+
+        [Header("Living Condition")][Space(10)]
+
+        /// <summary>
+        /// Condition at which the team is considerred to be living.
+        /// </summary>
+        public LivingConditions LivingCondition = LivingConditions.AtLeastOneLiving;
+
+        /// <summary>
+        /// Number of AtLeastSpecificNumberLiving in LivingCondition.
+        /// </summary>
+        public int AtLeastSpecificNumberLiving = 1;
+
+        /// <summary>
+        /// Portion of AtLeastSpecificPortionLiving in LivingCondition.
+        /// </summary>
+        public float AtLeastSpecificPortion = 0.5f;
 
         [Header("Global Agent Settings")][Space(10)]
 
@@ -257,44 +290,6 @@ namespace Arena
         }
 
         /// <summary>
-        /// How to switch between teams:
-        ///   Sequence: according to the sequence of TeamID.
-        /// </summary>
-        public enum TeamSwitchTypes {
-            Sequence
-        }
-
-        /// <summary>
-        /// See TeamSwitchTypes.
-        /// </summary>
-        public TeamSwitchTypes TeamSwitchType;
-
-        /// <summary>
-        /// Set TeamSwitchType.
-        /// </summary>
-        /// <param name="TeamSwitchType_">TeamSwitchType to be set.</param>
-        public void
-        setTeamSwitchType(TeamSwitchTypes TeamSwitchType_)
-        {
-            TeamSwitchType = TeamSwitchType_;
-        }
-
-        /// <summary>
-        /// Get TeamSwitchType.
-        /// </summary>
-        /// <returns>TeamSwitchType.</returns>
-        public TeamSwitchTypes
-        getTeamSwitchType()
-        {
-            return TeamSwitchType;
-        }
-
-        /// <summary>
-        /// See AgentSwitchTypes.
-        /// </summary>
-        public AgentSwitchTypes AgentSwitchType;
-
-        /// <summary>
         /// Kill a particular agent by TeamID and AgentID.
         /// </summary>
         /// <param name="TeamID_">TeamID of which the agent is killed.</param>
@@ -338,6 +333,17 @@ namespace Arena
                 if (i != TeamID_) {
                     getTeam(i).KillAllAgents();
                 }
+            }
+        }
+
+        /// <summary>
+        /// Kill all teams.
+        /// </summary>
+        public void
+        KillAllTeams()
+        {
+            for (int i = 0; i < getNumTeams(); i++) {
+                getTeam(i).KillAllAgents();
             }
         }
 
@@ -390,19 +396,19 @@ namespace Arena
                 getTeam(i).Step();
             }
 
-            float NextReward_ = 0f;
+            float StepReward_ = 0f;
 
             if (IsRewardTime) {
                 if (TimeWinType == TimeWinTypes.Looger) {
-                    NextReward_ += RewardTimeCoefficient;
+                    StepReward_ += RewardTimeCoefficient;
                 } else if (TimeWinType == TimeWinTypes.Shorter) {
-                    NextReward_ -= RewardTimeCoefficient;
+                    StepReward_ -= RewardTimeCoefficient;
                 } else {
                     Debug.LogError("TimeWinType is invalid.");
                 }
             }
 
-            RewardAllTeams(NextReward_);
+            RewardAllTeams(StepReward_);
         }
 
         /// <summary>
@@ -443,22 +449,6 @@ namespace Arena
                 GameObject_.GetComponent<SkinnedMeshRenderer>().material = getTeamMaterial(TeamID_);
             } else {
                 Debug.LogWarning("There is no MeshRenderer attached to the GameObject");
-            }
-        }
-
-        /// <summary>
-        /// Get the StateTextColor.
-        /// </summary>
-        /// <param name="Living_">
-        /// <c>true</c>, if living, <c>false</c> otherwise.
-        /// </param>
-        public Color
-        getStateTextColor(bool Living_)
-        {
-            if (Living_) {
-                return StateTextColor[0];
-            } else {
-                return StateTextColor[1];
             }
         }
 
@@ -739,7 +729,7 @@ namespace Arena
 
             // respawn and destroy
             RespawnObjectsInTags();
-            DestroyObjectsInDestroyTag();
+            DestroyObjectsInDestroyTags();
 
             // reinitialize lights
             ReinitilizeLightReinitializors();
@@ -835,7 +825,7 @@ namespace Arena
         /// </summary>
         /// <returns>The number of teams that are still living.</returns>
         private int
-        getNumLivingTeam()
+        getNumLivingTeams()
         {
             int NumLivingTeam = 0;
 
@@ -845,26 +835,6 @@ namespace Arena
                 }
             }
             return NumLivingTeam;
-        }
-
-        /// <summary>
-        /// Get the TeamID of the living team, only works when there is only one living team.
-        /// So call getNumLivingTeam() first to see if it is the case.
-        /// If there is no living team, the method will return -1
-        /// </summary>
-        /// <returns>The TeamID of the living team.</returns>
-        private int
-        getLivingTeamID()
-        {
-            int LivingTeamID = -1;
-
-            for (int Team_i = 0; Team_i < getNumTeams(); Team_i++) {
-                if (getTeam(Team_i).isLiving()) {
-                    LivingTeamID = Team_i;
-                    return LivingTeamID;
-                }
-            }
-            return LivingTeamID;
         }
 
         /// <summary>
@@ -1040,14 +1010,13 @@ namespace Arena
                 RecordDeadTeamRanking(KilledRanking);
             }
 
-            if ((IsRewardRanking) && (!IsRewardTime)) {
-                // only IsRewardRanking, kill the last time if there is only one team left
-                if (getNumLivingTeam() == 1) {
-                    KillTeam(getLivingTeamID());
-                }
+            if (!Utils.isLiving(LivingCondition, getNumLivingTeams(), getNumTeams(),
+              AtLeastSpecificNumberLiving, AtLeastSpecificPortion))
+            {
+                KillAllTeams();
             }
 
-            if (getNumLivingTeam() == 0) {
+            if (getNumLivingTeams() == 0) {
                 RewardAndDone();
             }
         }
@@ -1062,20 +1031,20 @@ namespace Arena
         {
             if (IsRewardRanking) {
                 for (int Team_i = 0; Team_i < getNumTeams(); Team_i++) {
-                    float NextReward_ = 0f;
+                    float StepReward_ = 0f;
 
                     if (RankingWinType == RankingWinTypes.Survive) {
                         // Survive: dead ranking at 1 means reward 0, the higher the dead ranking, the better
-                        NextReward_ += ((float) KilledRankings[Team_i] - 1f) * RewardRankingCoefficient;
+                        StepReward_ += ((float) KilledRankings[Team_i] - 1f) * RewardRankingCoefficient;
                     } else if (RankingWinType == RankingWinTypes.Depart) {
                         // Depart: dead last (ranking getNumTeams()) means reward 0, the lower the dead ranking, the better
-                        NextReward_ += ((float) getNumTeams() - (float) KilledRankings[Team_i])
+                        StepReward_ += ((float) getNumTeams() - (float) KilledRankings[Team_i])
                           * RewardRankingCoefficient;
                     } else {
                         Debug.LogError("RankingWinType is invalid.");
                     }
 
-                    getTeam(Team_i).RewardAllAgents(NextReward_ * RewardSchemeScale);
+                    getTeam(Team_i).RewardAllAgents(StepReward_ * RewardSchemeScale);
                 }
             }
 
@@ -1097,18 +1066,7 @@ namespace Arena
         /// </summary>
         private void
         InitTurnBasedGame()
-        {
-            if (!(AgentSwitchType == AgentSwitchTypes.None)) {
-                // AgentSwitchType in each team is set by the GlobalManager,
-                // if AgentSwitchType in GlobalManager is not set to AgentSwitchTypes.None
-                for (int i = 0; i < getNumTeams(); i++) {
-                    getTeam(i).setAgentSwitchType(AgentSwitchType);
-                }
-                Debug.Log("AgentSwitchType is set by GlobalManager");
-            } else {
-                Debug.Log("AgentSwitchType is set by each ArenaTeam");
-            }
-        }
+        { }
 
         /// <summary>
         /// Reset turn-based game.
@@ -1230,22 +1188,18 @@ namespace Arena
         }
 
         /// <summary>
-        /// Switch to next turn according to getTeamSwitchType().
+        /// Switch to next turn.
         /// </summary>
         private void
         SwitchTurn()
         {
-            if (getTeamSwitchType() == TeamSwitchTypes.Sequence) {
-                if (getTurnType() == TurnTypes.SwitchTeamsFirst) {
+            if (getTurnType() == TurnTypes.SwitchTeamsFirst) {
+                PushCurrentTurnTeamIDForward();
+                getTeam(getCurrentTurnTeamID()).NextTeamTurn(false);
+            } else if (getTurnType() == TurnTypes.SwitchAgentsFirst) {
+                if (getTeam(getCurrentTurnTeamID()).NextTeamTurn(true)) {
                     PushCurrentTurnTeamIDForward();
-                    getTeam(getCurrentTurnTeamID()).NextAgentTurn();
-                } else if (getTurnType() == TurnTypes.SwitchAgentsFirst) {
-                    if (getTeam(getCurrentTurnTeamID()).NextAgentTurn()) {
-                        PushCurrentTurnTeamIDForward();
-                    }
                 }
-            } else {
-                Debug.LogWarning("TeamSwitchType not supported. Use the ones within TeamSwitchTypes.");
             }
         }
 
@@ -1320,7 +1274,7 @@ namespace Arena
         {
             MaxNumAgentsPerTeam = 0;
             for (int i = 0; i < getNumTeams(); i++) {
-                int NumAgents_ = getTeam(i).getNumAgents();
+                int NumAgents_ = getTeam(i).getNumTeams();
                 if (NumAgents_ > MaxNumAgentsPerTeam) {
                     MaxNumAgentsPerTeam = NumAgents_;
                 }
@@ -1446,7 +1400,7 @@ namespace Arena
         {
             for (int Team_i = 0; Team_i < getNumTeams(); Team_i++) {
                 Ram.Add(Utils.bool2float(getTeam(Team_i).isLiving()));
-                for (int Agent_i = 0; Agent_i < getTeam(Team_i).getNumAgents(); Agent_i++) {
+                for (int Agent_i = 0; Agent_i < getTeam(Team_i).getNumTeams(); Agent_i++) {
                     Ram.Add(Utils.bool2float(getTeam(Team_i).getAgent(Agent_i).isLiving()));
                 }
             }
