@@ -555,6 +555,7 @@ namespace Arena
         }
 
         protected Dictionary<string, UIPercentageBar> UIPercentageBars = new Dictionary<string, UIPercentageBar>();
+        protected Dictionary<string, UIText> UITexts = new Dictionary<string, UIText>();
 
         protected List<Camera> Cameras = new List<Camera>();
 
@@ -592,6 +593,15 @@ namespace Arena
             }
 
             UIPercentageBars["EL"].Enable();
+
+            // initialize reference to UIText
+            foreach (UIText UIText_ in GameObject.FindGameObjectWithTag("TopDownCamera").
+              GetComponentsInChildren<UIText>())
+            {
+                UITexts.Add(UIText_.ID, UIText_);
+            }
+
+            UITexts["Status"].setText("Top Down Camera");
 
             // initialize reference to Camera
             foreach (Camera Camera_ in GetComponentsInChildren<Camera>()) {
