@@ -7,7 +7,7 @@ namespace Arena {
     /// </summary>
     public class BasicAgent : ArenaAgent
     {
-        [Header("Reward Functions")][Space(10)]
+        [Header("Reward Functions (Isolated)")][Space(10)]
 
         public bool IsRewardDistanceToTarget = false; // Agent should move towards Target
         public bool IsRewardFacingTarget     = false; // Agent should face the Target
@@ -218,24 +218,22 @@ namespace Arena {
         {
             base.InitializeRewardFunction();
             // create reward functions
-            if (RewardScheme == RewardSchemes.IS) {
-                if (IsRewardDistanceToTarget) {
-                    RewardFunctionDistanceToTarget = new RewardFunctionGeneratorDistanceToTarget(
-                        Player,
-                        Target
-                    );
-                }
-                if (IsRewardFacingTarget) {
-                    RewardFunctionFacingTarget = new RewardFunctionGeneratorFacingTarget(
-                        Player,
-                        Target,
-                        RewardFunctionGeneratorFacingTarget.Types.Dot
-                    );
-                }
-                if (IsRewardTimePenalty) {
-                    RewardFunctionTimePenalty = new RewardFunctionGeneratorTimePenalty(
-                    );
-                }
+            if (IsRewardDistanceToTarget) {
+                RewardFunctionDistanceToTarget = new RewardFunctionGeneratorDistanceToTarget(
+                    Player,
+                    Target
+                );
+            }
+            if (IsRewardFacingTarget) {
+                RewardFunctionFacingTarget = new RewardFunctionGeneratorFacingTarget(
+                    Player,
+                    Target,
+                    RewardFunctionGeneratorFacingTarget.Types.Dot
+                );
+            }
+            if (IsRewardTimePenalty) {
+                RewardFunctionTimePenalty = new RewardFunctionGeneratorTimePenalty(
+                );
             }
         }
 
@@ -258,16 +256,14 @@ namespace Arena {
         ResetRewardFunction()
         {
             // reset reward functions
-            if (RewardScheme == RewardSchemes.IS) {
-                if (IsRewardDistanceToTarget) {
-                    RewardFunctionDistanceToTarget.Reset();
-                }
-                if (IsRewardFacingTarget) {
-                    RewardFunctionFacingTarget.Reset();
-                }
-                if (IsRewardTimePenalty) {
-                    RewardFunctionTimePenalty.Reset();
-                }
+            if (IsRewardDistanceToTarget) {
+                RewardFunctionDistanceToTarget.Reset();
+            }
+            if (IsRewardFacingTarget) {
+                RewardFunctionFacingTarget.Reset();
+            }
+            if (IsRewardTimePenalty) {
+                RewardFunctionTimePenalty.Reset();
             }
         }
 
@@ -519,21 +515,19 @@ namespace Arena {
         {
             base.DiscreteContinuousStep();
             // step reward functions
-            if (RewardScheme == RewardSchemes.IS) {
-                if (IsRewardDistanceToTarget) {
-                    AddReward(
-                        RewardFunctionDistanceToTarget.StepGetReward() * RewardDistanceCoefficient
-                        * RewardSchemeScale);
-                }
-                if (IsRewardFacingTarget) {
-                    AddReward(
-                        RewardFunctionFacingTarget.StepGetReward(
-                            Player.transform.forward) * RewardDirectionCoefficient * RewardSchemeScale);
-                }
-                if (IsRewardTimePenalty) {
-                    AddReward(
-                        RewardFunctionTimePenalty.StepGetReward() * RewardTimeCoefficient * RewardSchemeScale);
-                }
+            if (IsRewardDistanceToTarget) {
+                AddReward(
+                    RewardFunctionDistanceToTarget.StepGetReward() * RewardDistanceCoefficient
+                    * RewardSchemeScale);
+            }
+            if (IsRewardFacingTarget) {
+                AddReward(
+                    RewardFunctionFacingTarget.StepGetReward(
+                        Player.transform.forward) * RewardDirectionCoefficient * RewardSchemeScale);
+            }
+            if (IsRewardTimePenalty) {
+                AddReward(
+                    RewardFunctionTimePenalty.StepGetReward() * RewardTimeCoefficient * RewardSchemeScale);
             }
         } // DiscreteContinuousStep
     }

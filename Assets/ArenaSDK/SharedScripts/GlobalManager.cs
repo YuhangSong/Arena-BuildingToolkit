@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using MLAgents;
@@ -176,45 +175,30 @@ namespace Arena
         [Header("Reward Scheme")][Space(10)]
 
         /// <summary>
-        /// RewardScheme at this level
-        /// </summary>
-        public RewardSchemes RewardScheme = RewardSchemes.CP;
-
-        /// <summary>
         /// Scale of RewardScheme at this level
         /// </summary>
         public float RewardSchemeScale = 100.0f;
 
-        [Header("Reward Functions")][Space(10)]
+        [Header("Reward Functions (Competitive)")][Space(10)]
 
-        /// <summary>
-        /// Set how agents are rewarded at population level.
-        /// RewardFunction currently only support ranking
-        /// </summary>
-        public RewardFunctions RewardFunction = RewardFunctions.CP_Ranking;
+        public bool IsRewardRanking = true;
 
-        /// <summary>
-        /// RewardFunction currently only support ranking
-        /// </summary>
-        public enum RewardFunctions {
-            NL_None,
-            CP_Ranking
-        }
-
-        /// <summary>
-        /// RankingWinTypes:
-        ///  Survive means the team survive longer gets higher reward.
-        ///  Depart means the team dies earlier gets higher reward.
-        /// </summary>
-        public enum RankingWinTypes {
-            Survive,
-            Depart
-        }
-
-        /// <summary>
-        /// See RankingWinTypes.
-        /// </summary>
         public RankingWinTypes RankingWinType;
+
+        [Header("Reward Functions (Collaborative)")][Space(10)]
+
+        public bool IsRewardTime = false;
+
+        public TimeWinTypes TimeWinType = TimeWinTypes.Looger;
+
+        [Header("Reward Function Properties")][Space(10)]
+
+        /// <summary>
+        /// Properrties of reward function.
+        /// Coeffient for integrating different reward functions
+        /// </summary>
+        public float RewardRankingCoefficient = 1.0f;
+        public float RewardTimeCoefficient    = 0.001f;
 
         [Header("Turn-based Game")][Space(10)]
 
@@ -332,6 +316,18 @@ namespace Arena
         }
 
         /// <summary>
+        /// reward all teams.
+        /// </summary>
+        /// <param name="NextReward_">The reward to be sent.</param>
+        public void
+        RewardAllTeams(float NextReward_)
+        {
+            for (int i = 0; i < getNumTeams(); i++) {
+                getTeam(i).RewardAllAgents(NextReward_);
+            }
+        }
+
+        /// <summary>
         /// Kill all teams except one team (specified by TeamID).
         /// </summary>
         /// <param name="TeamID_">TeamID of which the team survives.</param>
@@ -393,6 +389,20 @@ namespace Arena
             for (int i = 0; i < getNumTeams(); i++) {
                 getTeam(i).Step();
             }
+
+            float NextReward_ = 0f;
+
+            if (IsRewardTime) {
+                if (TimeWinType == TimeWinTypes.Looger) {
+                    NextReward_ += RewardTimeCoefficient;
+                } else if (TimeWinType == TimeWinTypes.Shorter) {
+                    NextReward_ -= RewardTimeCoefficient;
+                } else {
+                    Debug.LogError("TimeWinType is invalid.");
+                }
+            }
+
+            RewardAllTeams(NextReward_);
         }
 
         /// <summary>
@@ -705,9 +715,7 @@ namespace Arena
         public virtual void
         AtAnTeamDie()
         {
-            if (RewardFunction == RewardFunctions.CP_Ranking) {
-                CheckPopulationRanking();
-            }
+            CheckPopulationRanking();
         }
 
         /// <summary>
@@ -1032,10 +1040,15 @@ namespace Arena
                 RecordDeadTeamRanking(KilledRanking);
             }
 
-            if (getNumLivingTeam() == 1) {
-                // only one team living, set it as the last one killed and done
-                KilledRankings[getLivingTeamID()] = (KilledRanking + 1);
-                DoneAndRewardAllTeamsByRanking();
+            if ((IsRewardRanking) && (!IsRewardTime)) {
+                // only IsRewardRanking, kill the last time if there is only one team left
+                if (getNumLivingTeam() == 1) {
+                    KillTeam(getLivingTeamID());
+                }
+            }
+
+            if (getNumLivingTeam() == 0) {
+                RewardAndDone();
             }
         }
 
@@ -1045,27 +1058,27 @@ namespace Arena
         ///  2, set the computed reward and done signal to all agents.
         /// </summary>
         private void
-        DoneAndRewardAllTeamsByRanking()
+        RewardAndDone()
         {
-            for (int Team_i = 0; Team_i < getNumTeams(); Team_i++) {
-                // Debug.Log("Team " + Team_i + " ranks at " + KilledRankings[Team_i]);
-                float NextReward_ = 0f;
-                if (RewardFunction == RewardFunctions.CP_Ranking) {
+            if (IsRewardRanking) {
+                for (int Team_i = 0; Team_i < getNumTeams(); Team_i++) {
+                    float NextReward_ = 0f;
+
                     if (RankingWinType == RankingWinTypes.Survive) {
                         // Survive: dead ranking at 1 means reward 0, the higher the dead ranking, the better
-                        NextReward_ = (float) KilledRankings[Team_i] - 1f;
+                        NextReward_ += ((float) KilledRankings[Team_i] - 1f) * RewardRankingCoefficient;
                     } else if (RankingWinType == RankingWinTypes.Depart) {
                         // Depart: dead last (ranking getNumTeams()) means reward 0, the lower the dead ranking, the better
-                        NextReward_ = (float) getNumTeams() - (float) KilledRankings[Team_i];
+                        NextReward_ += ((float) getNumTeams() - (float) KilledRankings[Team_i])
+                          * RewardRankingCoefficient;
                     } else {
-                        Debug.LogWarning("RankingWinType is invalid.");
+                        Debug.LogError("RankingWinType is invalid.");
                     }
-                } else {
-                    Debug.LogWarning("RewardFunction is invalid.");
-                }
 
-                getTeam(Team_i).SignalToAllAgents(AgentNextStates.Done, NextReward_ * RewardSchemeScale);
+                    getTeam(Team_i).RewardAllAgents(NextReward_ * RewardSchemeScale);
+                }
             }
+
             Done();
         }
 
@@ -1447,14 +1460,6 @@ namespace Arena
         /// </summary>
         protected virtual void
         InitializeRewardFunction()
-        {
-            if (RewardFunction == RewardFunctions.NL_None) {
-                //
-            } else if (RewardFunction == RewardFunctions.CP_Ranking) {
-                //
-            } else {
-                Debug.LogError("RewardFunction not valid.");
-            }
-        }
+        { }
     }
 }

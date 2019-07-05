@@ -49,19 +49,23 @@ namespace Arena
     }
 
     /// <summary>
-    /// RewardSchemes:
-    ///  NL:
-    ///  IS:
-    ///  CP:
-    ///  CL:
-    ///  CC:
+    /// RankingWinTypes:
+    ///  Survive means the team survive longer gets higher reward.
+    ///  Depart means the team dies earlier gets higher reward.
     /// </summary>
-    public enum RewardSchemes {
-        NL,
-        IS,
-        CP,
-        CL,
-        CC
+    public enum RankingWinTypes {
+        Survive,
+        Depart
+    }
+
+    /// <summary>
+    /// TimeWinTypes:
+    ///  Looger means the one alive longer gets higher reward.
+    ///  Depart means the one alive shorter gets higher reward.
+    /// </summary>
+    public enum TimeWinTypes {
+        Looger,
+        Shorter
     }
 
     static public class Utils

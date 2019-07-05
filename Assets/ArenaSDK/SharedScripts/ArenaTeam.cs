@@ -3,7 +3,7 @@ using UnityEngine;
 namespace Arena
 {
     /// <summary>
-    /// ArenaTeam should attach to the object that is the parent of a batch of agent.
+    /// ArenaTeam should attach to the object that is the parent of a batch of ArenaAgent/ArenaTeam.
     /// </summary>
     public class ArenaTeam : ArenaBase
     {
@@ -26,14 +26,12 @@ namespace Arena
 
         /// <summary>
         /// Condition at which the team is considerred to be living.
-        ///   AlwaysLiving: This team is always living.
-        ///   AtLeastOneLiving: This team is living when there is at least one agent living in this team.
         ///   AllLiving: This team is living when all agents are living in this team.
+        ///   AtLeastOneLiving: This team is living when there is at least one agent living in this team.
         /// </summary>
         public enum LivingConditions {
-            AlwaysLiving,
-            AtLeastOneLiving,
-            AllLiving
+            AllLiving,
+            AtLeastOneLiving
         }
 
         /// <summary>
@@ -44,16 +42,11 @@ namespace Arena
         [Header("Reward Scheme")][Space(10)]
 
         /// <summary>
-        /// RewardScheme at this level
-        /// </summary>
-        public RewardSchemes RewardScheme = RewardSchemes.NL;
-
-        /// <summary>
         /// Scale of RewardScheme at this level
         /// </summary>
         public float RewardSchemeScale = 10.0f;
 
-        [Header("Reward Functions")][Space(10)]
+        [Header("Reward Functions (Collaborative)")][Space(10)]
 
         /// <summary>
         /// Reward function based on the distance between DistanceBase1 and DistanceBase2.
@@ -256,10 +249,7 @@ namespace Arena
         private void
         UpdateLiving()
         {
-            if (LivingCondition == LivingConditions.AlwaysLiving) {
-                setLiving(true);
-                return;
-            } else if (LivingCondition == LivingConditions.AtLeastOneLiving) {
+            if (LivingCondition == LivingConditions.AtLeastOneLiving) {
                 for (int i = 0; i < getNumAgents(); i++) {
                     if (getAgent(i).isLiving()) {
                         setLiving(true);
@@ -519,17 +509,11 @@ namespace Arena
         protected virtual void
         InitializeRewardFunction()
         {
-            if (RewardScheme == RewardSchemes.CL) {
-                if (IsRewardDistance) {
-                    RewardFunctionDistance = new RewardFunctionGeneratorDistanceToTarget(
-                        DistanceBase1,
-                        DistanceBase2
-                    );
-                }
-            } else if (RewardScheme == RewardSchemes.NL) {
-                //
-            } else {
-                Debug.LogError("RewardFunction not valid.");
+            if (IsRewardDistance) {
+                RewardFunctionDistance = new RewardFunctionGeneratorDistanceToTarget(
+                    DistanceBase1,
+                    DistanceBase2
+                );
             }
         }
 
@@ -539,10 +523,8 @@ namespace Arena
         protected virtual void
         ResetRewardFunction()
         {
-            if (RewardScheme == RewardSchemes.CL) {
-                if (IsRewardDistance) {
-                    RewardFunctionDistance.Reset();
-                }
+            if (IsRewardDistance) {
+                RewardFunctionDistance.Reset();
             }
         }
 
@@ -554,11 +536,9 @@ namespace Arena
         {
             float StepReward_ = 0f;
 
-            if (RewardScheme == RewardSchemes.CL) {
-                if (IsRewardDistance) {
-                    StepReward_ += (RewardFunctionDistance.StepGetReward() * RewardDistanceCoefficient
-                      * RewardSchemeScale);
-                }
+            if (IsRewardDistance) {
+                StepReward_ += (RewardFunctionDistance.StepGetReward() * RewardDistanceCoefficient
+                  * RewardSchemeScale);
             }
 
             RewardAllAgents(StepReward_);

@@ -39,11 +39,6 @@ namespace Arena
         [Header("Reward Scheme")][Space(10)]
 
         /// <summary>
-        /// RewardScheme at this level
-        /// </summary>
-        public RewardSchemes RewardScheme = RewardSchemes.NL;
-
-        /// <summary>
         /// Scale of RewardScheme at this level
         /// </summary>
         public float RewardSchemeScale = 1.0f;
@@ -719,10 +714,6 @@ namespace Arena
         private void
         CheckConfig()
         {
-            if ((RewardScheme != RewardSchemes.NL) && (RewardScheme != RewardSchemes.IS)) {
-                Debug.LogError("RewardScheme at ArenaAgent level only support NL and IS.");
-            }
-
             // TODO: check if DiscreteStep() or DiscreteStep() has been overridden
             // if (GetActionSpaceType() == SpaceType.discrete) {
             //     if (typeof(ArenaAgent).GetMethod("DiscreteStep").DeclaringType == typeof(ArenaAgent)) {
@@ -753,14 +744,6 @@ namespace Arena
         /// </summary>
         protected virtual void
         InitializeRewardFunction()
-        {
-            if (RewardScheme == RewardSchemes.IS) {
-                //
-            } else if (RewardScheme == RewardSchemes.NL) {
-                //
-            } else {
-                Debug.LogError("RewardFunction not valid.");
-            }
-        }
+        { }
     }
 }
