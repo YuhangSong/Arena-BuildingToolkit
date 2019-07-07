@@ -140,7 +140,7 @@ namespace Arena
 
             /** tag and log **/
             tag = "Agent";
-            Debug.Log(GetLogTag() + " Initialize");
+            // Debug.Log(GetLogTag() + " Initialize");
 
             globalManager = GetComponentInParent<GlobalManager>();
             agentParameters.numberOfActionsBetweenDecisions = globalManager.getNumberOfActionsBetweenDecisions();

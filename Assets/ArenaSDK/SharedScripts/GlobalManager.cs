@@ -287,7 +287,7 @@ namespace Arena
             base.InitializeAcademy();
 
             tag = "GlobalManager";
-            Debug.Log(GetLogTag() + " Initialize");
+            // Debug.Log(GetLogTag() + " Initialize");
 
             InitGameObjectToBeRespawned();
             InitLightReinitializors();

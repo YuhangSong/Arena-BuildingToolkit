@@ -17,7 +17,7 @@ namespace Arena
         {
             base.Initialize();
 
-            Debug.Log(GetLogTag() + " Initialize");
+            // Debug.Log(GetLogTag() + " Initialize");
 
             // if (globalManager.isTurnBasedGame()) {
             //     InitTurnBasedGame();
