@@ -220,6 +220,7 @@ namespace Arena
         public virtual void
         Reset()
         {
+            Living = true;
             ResetRewardFunction();
             ResetChildKilledRanking();
 
@@ -256,66 +257,6 @@ namespace Arena
                 }
             }
         }
-
-        /// <summary>
-        /// Set the living status of the node will (top-down)
-        ///   Set the same living status of all child nodes
-        /// </summary>
-        /// <param name="Living_">The living status to be set.</param>
-        public void
-        SetLiving(bool Living_)
-        {
-            // Debug.Log(string.Format("{0} - SetLiving({1})", GetLogTag(), Living_));
-
-            // Debug.Log(string.Format("{0} - Set Living_={1} for all child nodes", GetLogTag(), Living_));
-            if (GetNumChildNodes() > 0) {
-                foreach (ArenaNode ChildNode_ in GetChildNodes()) {
-                    ChildNode_.SetLiving(Living_);
-                }
-            } else {
-                if (gameObject.GetComponent<ArenaAgent>() != null) {
-                    gameObject.GetComponent<ArenaAgent>().SetLiving(Living_);
-                } else {
-                    Debug.LogError("The very bottom ArenaNode should be attached with the ArenaAgent");
-                }
-            }
-
-            if ((IsLiving()) && (!Living_)) {
-                // Debug.Log(string.Format("{0} - Transfer to dead", GetLogTag()));
-
-                if (GetParentNode() != null) {
-                    if (GetParentNode().IsRewardRanking) {
-                        // Debug.Log(string.Format("{0} - SetKilledRanking to {1}", GetLogTag(),
-                        //   GetParentNode().GetChildKilledRanking()));
-                        SetKilledRanking(GetParentNode().GetChildKilledRanking());
-                    }
-                }
-
-                if (IsRewardRanking) {
-                    // Debug.Log(string.Format("{0} - reward child nodes with ranking", GetLogTag()));
-                    foreach (ArenaNode ChildNode_ in GetChildNodes()) {
-                        float StepReward_ = 0f;
-                        // Debug.Log(string.Format("{0} - GetKilledRanking to {1}", GetLogTag(),
-                        //   ChildNode_.GetKilledRanking()));
-                        if (RankingWinType == RankingWinTypes.Survive) {
-                            // Survive: dead ranking at 1 means reward 0, the higher the dead ranking, the better
-                            StepReward_ += (float) ChildNode_.GetKilledRanking()
-                              * globalManager.RewardRankingCoefficient;
-                        } else if (RankingWinType == RankingWinTypes.Depart) {
-                            // Depart: dead last (ranking getNumTeams()) means reward 0, the lower the dead ranking, the better
-                            StepReward_ += ((float) GetNumChildNodes() - (float) ChildNode_.GetKilledRanking() - 1f)
-                              * globalManager.RewardRankingCoefficient;
-                        } else {
-                            Debug.LogError("RankingWinType is invalid.");
-                        }
-
-                        ChildNode_.AddReward(StepReward_ * RewardSchemeScale);
-                    }
-                }
-            }
-
-            Living = Living_;
-        } // SetLiving
 
         /// <summary>
         /// Add reward for this node (top-down)
@@ -397,25 +338,64 @@ namespace Arena
         }
 
         /// <summary>
-        /// Kill this node will:
-        ///   SetLiving(false) for all child nodes recursively (top-down)
-        ///   Call OnChildNodeKilled() for all parent nodes recursively (bottom-up)
         /// </summary>
         public void
         Kill()
         {
-            // Debug.Log(string.Format("{0} - Kill()", GetLogTag()));
+            if (IsLiving()) {
+                Living = false;
 
-            SetLiving(false);
-            if (GetParentNode() != null) {
-                if (GetParentNode().IsRewardRanking) {
-                    GetParentNode().IncrementChildKilledRanking();
+                // kill child nodes
+                if (GetNumChildNodes() > 0) {
+                    foreach (ArenaNode ChildNode_ in GetChildNodes()) {
+                        ChildNode_.Kill();
+                    }
+                } else {
+                    if (gameObject.GetComponent<ArenaAgent>() != null) {
+                        gameObject.GetComponent<ArenaAgent>().SetLiving(false);
+                    } else {
+                        Debug.LogError("The very bottom ArenaNode should be attached with the ArenaAgent");
+                    }
                 }
-                GetParentNode().OnChildNodeKilled();
-            } else {
-                gameObject.GetComponent<GlobalManager>().Done();
+
+                // record my ranking of being killed, for parent node to compute reward based on ranking
+                if (GetParentNode() != null) {
+                    if (GetParentNode().IsRewardRanking) {
+                        SetKilledRanking(GetParentNode().GetChildKilledRanking());
+                    }
+                }
+
+                // compute reward of ranking for child nodes
+                if (IsRewardRanking) {
+                    foreach (ArenaNode ChildNode_ in GetChildNodes()) {
+                        float StepReward_ = 0f;
+                        if (RankingWinType == RankingWinTypes.Survive) {
+                            // Survive: dead ranking at 1 means reward 0, the higher the dead ranking, the better
+                            StepReward_ += (float) ChildNode_.GetKilledRanking()
+                              * globalManager.RewardRankingCoefficient;
+                        } else if (RankingWinType == RankingWinTypes.Depart) {
+                            // Depart: dead last (ranking getNumTeams()) means reward 0, the lower the dead ranking, the better
+                            StepReward_ += ((float) GetNumChildNodes() - (float) ChildNode_.GetKilledRanking() - 1f)
+                              * globalManager.RewardRankingCoefficient;
+                        } else {
+                            Debug.LogError("RankingWinType is invalid.");
+                        }
+
+                        ChildNode_.AddReward(StepReward_ * RewardSchemeScale);
+                    }
+                }
+
+                // notice parent node that a child has been killed
+                if (GetParentNode() != null) {
+                    if (GetParentNode().IsRewardRanking) {
+                        GetParentNode().IncrementChildKilledRanking();
+                    }
+                    GetParentNode().OnChildNodeKilled();
+                } else {
+                    gameObject.GetComponent<GlobalManager>().Done();
+                }
             }
-        }
+        } // Kill
 
         /// <summary>
         /// Initlize reward function.

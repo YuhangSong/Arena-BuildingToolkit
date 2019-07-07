@@ -431,7 +431,7 @@ namespace Arena
         {
             base.AcademyReset();
 
-            Debug.Log(GetLogTag() + " Reset");
+            // Debug.Log(GetLogTag() + " Reset");
 
             UIPercentageBars["EL"].UpdateValue(GetStepCount());
 
