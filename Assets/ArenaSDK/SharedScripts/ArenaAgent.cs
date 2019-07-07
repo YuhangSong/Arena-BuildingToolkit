@@ -570,7 +570,7 @@ namespace Arena
                 DestroyCollider(ID);
                 ApplyTeamMaterial(ID);
                 Utils.TransparentObject(ID);
-                Utils.TextAllTextMeshesInChild(ID, getAgentID().ToString());
+                Utils.TextAllTextMeshesInChild(ID, gameObject.GetComponent<ArenaNode>().GetLogTag());
             } else {
                 Debug.Log(
                     "No ID in this agent, this may cause the agent teammates hard to identidy each other, add the ID prefab in your agent.");

@@ -34,9 +34,9 @@ namespace Arena
         GetLogTag()
         {
             if (GetParentNode() != null) {
-                return GetParentNode().GetLogTag() + "|" + GetNodeID();
+                return GetParentNode().GetLogTag() + GetNodeID();
             } else {
-                return "Node: 0";
+                return "";
             }
         }
 
