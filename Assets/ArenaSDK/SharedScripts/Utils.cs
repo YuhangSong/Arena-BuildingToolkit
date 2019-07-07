@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections.Generic;
 
 namespace Arena
 {
@@ -66,8 +67,8 @@ namespace Arena
 
     /// <summary>
     /// Condition at which the team is considerred to be living.
-    ///   AllLiving: This team is living when all ArenaAgent/ArenaTeam are living in this team.
-    ///   AtLeastOneLiving: This team is living when there is at least one ArenaAgent/ArenaTeam living in this team.
+    ///   AllLiving: This team is living when all ArenaNode are living in this team.
+    ///   AtLeastOneLiving: This team is living when there is at least one ArenaNode living in this team.
     /// </summary>
     public enum LivingConditions {
         AllLiving,
@@ -78,21 +79,36 @@ namespace Arena
 
     static public class Utils
     {
-        public static bool
-        isLiving(LivingConditions LivingCondition, int NumLivingTeams, int NumTeams,
-          int AtLeastSpecificNumberLiving, float AtLeastSpecificPortion)
+        public static List<ArenaNode>
+        GetTopLevelArenaNodesInChildren(GameObject GameObject_)
         {
-            if (LivingCondition == LivingConditions.AtLeastOneLiving) {
-                return  (NumLivingTeams >= 1);
-            } else if (LivingCondition == LivingConditions.AllLiving) {
-                return  ((float) NumLivingTeams == NumTeams);
-            } else if (LivingCondition == LivingConditions.AtLeastSpecificNumberLiving) {
-                return  ((NumLivingTeams >= AtLeastSpecificNumberLiving));
-            } else if (LivingCondition == LivingConditions.AtLeastSpecificPortionLiving) {
-                return  ((((float) NumLivingTeams / NumTeams) >= AtLeastSpecificPortion));
+            List<ArenaNode> ArenaNodes = new List<ArenaNode>();
+
+            for (int ID = 0; ID < GameObject_.transform.childCount; ID++) {
+                ArenaNode ArenaNode_ = GameObject_.transform.GetChild(ID).gameObject.GetComponent<ArenaNode>();
+                if (ArenaNode_ != null) {
+                    ArenaNodes.Add(ArenaNode_);
+                }
+            }
+
+            return ArenaNodes;
+        }
+
+        public static ArenaNode
+        GetBottomLevelArenaNodeInGameObject(GameObject GameObject_)
+        {
+            Transform parent_ = GameObject_.transform.parent;
+
+            if (parent_ != null) {
+                ArenaNode ArenaNode_ = parent_.gameObject.GetComponent<ArenaNode>();
+
+                if (ArenaNode_ != null) {
+                    return ArenaNode_;
+                } else {
+                    return GetBottomLevelArenaNodeInGameObject(parent_.gameObject);
+                }
             } else {
-                Debug.LogError("Invalid LivingCondition.");
-                return true;
+                return null;
             }
         }
 

@@ -12,14 +12,7 @@ namespace Arena {
         public bool IsRewardDistanceToTarget = false; // Agent should move towards Target
         public bool IsRewardFacingTarget     = false; // Agent should face the Target
         public GameObject Target;
-
         public bool IsRewardTimePenalty = false; // Hurry up
-
-        [Header("Reward Function Properties")][Space(10)]
-
-        public float RewardDistanceCoefficient  = 1.0f;
-        public float RewardDirectionCoefficient = 0.01f;
-        public float RewardTimeCoefficient      = 0.001f;
 
         // reward functions
         private RewardFunctionGeneratorDistanceToTarget RewardFunctionDistanceToTarget;
@@ -517,17 +510,18 @@ namespace Arena {
             // step reward functions
             if (IsRewardDistanceToTarget) {
                 AddReward(
-                    RewardFunctionDistanceToTarget.StepGetReward() * RewardDistanceCoefficient
+                    RewardFunctionDistanceToTarget.StepGetReward() * globalManager.RewardDistanceCoefficient
                     * RewardSchemeScale);
             }
             if (IsRewardFacingTarget) {
                 AddReward(
                     RewardFunctionFacingTarget.StepGetReward(
-                        Player.transform.forward) * RewardDirectionCoefficient * RewardSchemeScale);
+                        Player.transform.forward) * globalManager.RewardDirectionCoefficient * RewardSchemeScale);
             }
             if (IsRewardTimePenalty) {
                 AddReward(
-                    RewardFunctionTimePenalty.StepGetReward() * RewardTimeCoefficient * RewardSchemeScale);
+                    RewardFunctionTimePenalty.StepGetReward() * globalManager.RewardTimeCoefficient
+                    * RewardSchemeScale);
             }
         } // DiscreteContinuousStep
     }

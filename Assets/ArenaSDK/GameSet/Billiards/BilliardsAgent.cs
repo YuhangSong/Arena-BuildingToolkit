@@ -23,7 +23,7 @@ public class BilliardsAgent : ArenaAgent
     private float ReleaseVelocity;
     private string MyBall;
     private int MyScore;
-    private int MyPreviousStepScore;
+    // private int MyPreviousStepScore;
 
     private TransformReinitializor PlayerReinitializor;
     private Accumulator MoveForceAccumulator;
@@ -62,14 +62,14 @@ public class BilliardsAgent : ArenaAgent
     addMyScore()
     {
         MyScore++;
-        globalManager.KeepATurn();
+        // globalManager.KeepATurn();
     }
 
     public void
     ResetMyScore()
     {
         MyScore = 0;
-        MyPreviousStepScore = 0;
+        // MyPreviousStepScore = 0;
     }
 
     public int
@@ -120,27 +120,27 @@ public class BilliardsAgent : ArenaAgent
         Player.GetComponent<Rigidbody>().AddForce(Player.transform.TransformVector(ReleaseForce));
     }
 
-    override protected void
-    StepSwitchingOrNotTurn()
-    {
-        AimmingLine.GetComponent<Renderer>().enabled = false;
-    }
-
-    override protected void
-    StepTurn()
-    {
-        base.StepTurn();
-        AimmingLine.GetComponent<Renderer>().enabled = true;
-        Player.transform.position = new Vector3(
-            Player.transform.position.x,
-            WhiteBall.transform.position.y,
-            Player.transform.position.z
-        );
-        Vector3 Baseline = (StickBack.transform.position - StickFront.transform.position);
-        //                          ball                           StickFront                        StickBack  additional
-        Player.transform.position = WhiteBall.transform.position + Vector3.Normalize(Baseline) * 0.4f + Baseline
-          + Vector3.Normalize(Baseline) * (ReleaseVelocity - InitReleaseVelocity);
-    }
+    // override protected void
+    // StepSwitchingOrNotTurn()
+    // {
+    //     AimmingLine.GetComponent<Renderer>().enabled = false;
+    // }
+    //
+    // override protected void
+    // StepTurn()
+    // {
+    //     base.StepTurn();
+    //     AimmingLine.GetComponent<Renderer>().enabled = true;
+    //     Player.transform.position = new Vector3(
+    //         Player.transform.position.x,
+    //         WhiteBall.transform.position.y,
+    //         Player.transform.position.z
+    //     );
+    //     Vector3 Baseline = (StickBack.transform.position - StickFront.transform.position);
+    //     //                          ball                           StickFront                        StickBack  additional
+    //     Player.transform.position = WhiteBall.transform.position + Vector3.Normalize(Baseline) * 0.4f + Baseline
+    //       + Vector3.Normalize(Baseline) * (ReleaseVelocity - InitReleaseVelocity);
+    // }
 
     override protected int
     CheckHistoryAction(int LastAction_, int Action_)
@@ -157,46 +157,46 @@ public class BilliardsAgent : ArenaAgent
         return Action_;
     }
 
-    override protected void
-    DiscreteStep(int Action_)
-    {
-        base.DiscreteStep(Action_);
-
-        if (globalManager.getTurnState(getTeamID(), getAgentID()) == TurnStates.Turn) {
-            TurnBar.UpdatePercentage(globalManager.getTurnPercentage());
-            UpdateCanvas();
-        }
-
-        switch (Action_) {
-            case NoAction:
-                break;
-            case Backward:
-                ReleaseVelocity += 0.1f;
-                if (ReleaseVelocity > ReleaseForceMax) {
-                    ReleaseVelocity = ReleaseForceMax;
-                }
-                break;
-            case Left:
-                Player.transform.RotateAround(GameObject.FindGameObjectWithTag(
-                      "WhiteBall").transform.position, Vector3.up, -MoveForceAccumulator.getCurrent());
-                break;
-            case Right:
-                Player.transform.RotateAround(GameObject.FindGameObjectWithTag(
-                      "WhiteBall").transform.position, Vector3.up, MoveForceAccumulator.getCurrent());
-                break;
-            case Attack:
-                Release();
-                globalManager.EndATurn();
-                break;
-            default:
-                break;
-        }
-
-        AddReward(MyScore - MyPreviousStepScore);
-        MyPreviousStepScore = MyScore;
-
-        if (GetReward() > 0) {
-            Debug.Log(tag + " step with reward " + GetReward());
-        }
-    } // Step
+    // override protected void
+    // DiscreteStep(int Action_)
+    // {
+    //     base.DiscreteStep(Action_);
+    //
+    //     if (globalManager.getTurnState(getTeamID(), getAgentID()) == TurnStates.Turn) {
+    //         TurnBar.UpdatePercentage(globalManager.getTurnPercentage());
+    //         UpdateCanvas();
+    //     }
+    //
+    //     switch (Action_) {
+    //         case NoAction:
+    //             break;
+    //         case Backward:
+    //             ReleaseVelocity += 0.1f;
+    //             if (ReleaseVelocity > ReleaseForceMax) {
+    //                 ReleaseVelocity = ReleaseForceMax;
+    //             }
+    //             break;
+    //         case Left:
+    //             Player.transform.RotateAround(GameObject.FindGameObjectWithTag(
+    //                   "WhiteBall").transform.position, Vector3.up, -MoveForceAccumulator.getCurrent());
+    //             break;
+    //         case Right:
+    //             Player.transform.RotateAround(GameObject.FindGameObjectWithTag(
+    //                   "WhiteBall").transform.position, Vector3.up, MoveForceAccumulator.getCurrent());
+    //             break;
+    //         case Attack:
+    //             Release();
+    //             globalManager.EndATurn();
+    //             break;
+    //         default:
+    //             break;
+    //     }
+    //
+    //     AddReward(MyScore - MyPreviousStepScore);
+    //     MyPreviousStepScore = MyScore;
+    //
+    //     if (GetReward() > 0) {
+    //         Debug.Log(tag + " step with reward " + GetReward());
+    //     }
+    // } // Step
 }

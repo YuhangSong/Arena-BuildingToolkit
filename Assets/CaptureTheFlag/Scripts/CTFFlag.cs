@@ -5,16 +5,16 @@ using Arena;
 
 public class CTFFlag : MonoBehaviour
 {
-    void
-    Start()
-    {
-        GetComponentInParent<GlobalManager>().ApplyTeamMaterial(
-            GetComponentInParent<ArenaTeam>().getTeamID(),
-            this.gameObject
-        );
-    }
-
-    public int Tellteamid(){
-        return GetComponentInParent<ArenaTeam>().getTeamID();
-    }
+    // void
+    // Start()
+    // {
+    //     GetComponentInParent<GlobalManager>().ApplyTeamMaterial(
+    //         GetComponentInParent<ArenaTeam>().getTeamID(),
+    //         this.gameObject
+    //     );
+    // }
+    //
+    // public int Tellteamid(){
+    //     return GetComponentInParent<ArenaTeam>().getTeamID();
+    // }
 }

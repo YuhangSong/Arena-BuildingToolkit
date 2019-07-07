@@ -9,10 +9,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5229130780062887964}
+  - component: {fileID: 3867823387640647876}
   - component: {fileID: 5229130780062887955}
   m_Layer: 0
   m_Name: GlobalManager
-  m_TagString: GlobalManager
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -33,6 +34,30 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3867823387640647876
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5229130780062887965}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c96d8e715943344d388f8736e7d2e97e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  NodeID: 0
+  LivingCondition: 2
+  AtLeastSpecificNumberLiving: 2
+  AtLeastSpecificPortion: 0.5
+  RewardSchemeScale: 100
+  IsRewardRanking: 1
+  RankingWinType: 0
+  IsRewardDistance: 0
+  DistanceBase1: {fileID: 0}
+  DistanceBase2: {fileID: 0}
+  IsRewardTime: 0
+  TimeWinType: 0
 --- !u!114 &5229130780062887955
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -80,21 +105,14 @@ MonoBehaviour:
   - {fileID: 2100000, guid: df97d8aa683004f83a37e0a45604a871, type: 2}
   - {fileID: 2100000, guid: c3e3e549594eb4bbc81faf0c3ab41360, type: 2}
   StateTextColor:
-  - {r: 0, g: 1, b: 0, a: 1}
-  - {r: 1, g: 0, b: 0, a: 1}
-  LivingCondition: 2
-  AtLeastSpecificNumberLiving: 2
-  AtLeastSpecificPortion: 0.5
+  - {r: 0.36320752, g: 1, b: 0.36320752, a: 1}
+  - {r: 1, g: 0.3726415, b: 0.3726415, a: 1}
   NumberOfActionsBetweenDecisions: 5
-  RewardSchemeScale: 100
-  IsRewardRanking: 1
-  RankingWinType: 0
-  IsRewardTime: 0
-  TimeWinType: 0
   RewardRankingCoefficient: 1
+  RewardDistanceCoefficient: 1
+  RewardVelocityCoefficient: 0.03
+  RewardDirectionCoefficient: 0.01
   RewardTimeCoefficient: 0.001
-  TurnDuration: -1
-  TurnType: 0
 --- !u!1 &6093331488493076670
 GameObject:
   m_ObjectHideFlags: 0

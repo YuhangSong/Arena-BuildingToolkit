@@ -34,7 +34,7 @@ namespace Arena
         private const float power_recover_speed = 0.005f;
         private const float hurting_coefficient = 1.1f;
 
-        private float life;
+        // private float life;
         private float power;
 
         public override void
@@ -48,7 +48,7 @@ namespace Arena
         AgentReset()
         {
             base.AgentReset();
-            this.life  = 1.0f;
+            // this.life  = 1.0f;
             this.power = 1.0f;
             // this.lifebar.UpdatePercentage(this.life);
             // this.powerbar.UpdatePercentage(this.power);
@@ -166,15 +166,15 @@ namespace Arena
             // this.powerbar.UpdatePercentage(this.power);
         }
 
-        public void
-        hurt(float hurting)
-        {
-            this.life -= hurting * hurting_coefficient;
-            // this.lifebar.UpdatePercentage(this.life);
-            if (this.life < 0.0f) {
-                globalManager.KillAgent(getTeamID(), getAgentID());
-            }
-        }
+        // public void
+        // hurt(float hurting)
+        // {
+        //     this.life -= hurting * hurting_coefficient;
+        //     // this.lifebar.UpdatePercentage(this.life);
+        //     if (this.life < 0.0f) {
+        //         globalManager.KillAgent(getTeamID(), getAgentID());
+        //     }
+        // }
 
         public void
         recover_power(float power)

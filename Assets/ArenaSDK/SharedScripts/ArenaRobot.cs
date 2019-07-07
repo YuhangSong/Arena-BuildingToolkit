@@ -28,13 +28,6 @@ namespace Arena {
         public bool IsRewardTimePenalty = false;
         private RewardFunctionGeneratorTimePenalty RewardFunctionTimePenalty;
 
-        [Header("Reward Function Properties")][Space(10)]
-
-        public float RewardDistanceCoefficient  = 1.0f;
-        public float RewardVelocityCoefficient  = 0.03f;
-        public float RewardDirectionCoefficient = 0.01f;
-        public float RewardTimeCoefficient      = 0.001f;
-
         [Header("Joint Settings")][Space(10)]
 
         protected JointDriveController jdController;
@@ -148,29 +141,32 @@ namespace Arena {
             base.DiscreteContinuousStep();
             if (IsRewardDistanceToTarget) {
                 AddReward(
-                    RewardFunctionDistanceToTarget.StepGetReward() * RewardDistanceCoefficient * RewardSchemeScale);
+                    RewardFunctionDistanceToTarget.StepGetReward() * globalManager.RewardDistanceCoefficient
+                    * RewardSchemeScale);
             }
             if (IsRewardVelocityToTarget) {
                 AddReward(
-                    RewardFunctionVelocityToTarget.StepGetReward() * RewardVelocityCoefficient * RewardSchemeScale);
+                    RewardFunctionVelocityToTarget.StepGetReward() * globalManager.RewardVelocityCoefficient
+                    * RewardSchemeScale);
             }
             if (IsRewardFacingTarget) {
                 AddReward(
                     RewardFunctionFacingTarget.StepGetReward(
-                        BodyCore.transform.forward) * RewardDirectionCoefficient * RewardSchemeScale);
+                        BodyCore.transform.forward) * globalManager.RewardDirectionCoefficient * RewardSchemeScale);
             }
             if (IsRewardCoreUp) {
                 AddReward(
-                    RewardFunctionCoreUp.StepGetReward() * RewardDistanceCoefficient * RewardSchemeScale);
+                    RewardFunctionCoreUp.StepGetReward() * globalManager.RewardDistanceCoefficient * RewardSchemeScale);
             }
             if (IsRewardHeadUp) {
                 AddReward(
                     RewardFunctionHeadUp.StepGetReward(
-                        BodyCore.transform.up) * RewardDirectionCoefficient * RewardSchemeScale);
+                        BodyCore.transform.up) * globalManager.RewardDirectionCoefficient * RewardSchemeScale);
             }
             if (IsRewardTimePenalty) {
                 AddReward(
-                    RewardFunctionTimePenalty.StepGetReward() * RewardTimeCoefficient * RewardSchemeScale);
+                    RewardFunctionTimePenalty.StepGetReward() * globalManager.RewardTimeCoefficient
+                    * RewardSchemeScale);
             }
         } // DiscreteContinuousStep
 

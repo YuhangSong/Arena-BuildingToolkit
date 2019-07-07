@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 2782288675663102669}
   m_Layer: 0
   m_Name: 2 Player Team Dense
-  m_TagString: Team
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -45,18 +45,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c96d8e715943344d388f8736e7d2e97e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TeamID: 0
+  NodeID: 0
   LivingCondition: 1
-  RewardScheme: 0
+  AtLeastSpecificNumberLiving: 1
+  AtLeastSpecificPortion: 0.5
   RewardSchemeScale: 10
+  IsRewardRanking: 0
+  RankingWinType: 0
   IsRewardDistance: 0
   DistanceBase1: {fileID: 0}
   DistanceBase2: {fileID: 0}
-  RewardDistanceCoefficient: 1
-  RewardDirectionCoefficient: 0.01
-  RewardTimeCoefficient: 0.001
-  AgentSwitchType: 0
-  Living: 1
+  IsRewardTime: 0
+  TimeWinType: 0
 --- !u!1001 &1801706104256277863
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -127,6 +127,11 @@ PrefabInstance:
     - target: {fileID: 3951599749174080471, guid: 26b2de752331f4c058961dc35f90921d,
         type: 3}
       propertyPath: AgentID
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 731550062007658982, guid: 26b2de752331f4c058961dc35f90921d,
+        type: 3}
+      propertyPath: NodeID
       value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []

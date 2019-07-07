@@ -42,8 +42,8 @@ namespace Arena
         /// Get the log tag of the object.
         /// </summary>
         /// <returns>LogTag.</returns>
-        public string
-        getLogTag()
+        public virtual string
+        GetLogTag()
         {
             return tag;
         }

@@ -13,23 +13,6 @@ namespace Arena
         [Header("Agent Settings")][Space(10)]
 
         /// <summary>
-        /// Set differnt AgentID in inspector for each agent in a team.
-        /// Different agent in the same team should have different AgentID, strictly follow 0, 1, 2, ...
-        /// Agents in differnt teams can have same AgentID.
-        /// </summary>
-        public int AgentID;
-
-        /// <summary>
-        /// Get AgentID.
-        /// </summary>
-        /// <returns>AgentID.</returns>
-        public int
-        getAgentID()
-        {
-            return AgentID;
-        }
-
-        /// <summary>
         /// Setup display ID: the ID's color is the team color, and the ID's displayed number is the AgentID.
         /// This is usefull for agents to identify their teammates and collaborate with each other.
         /// Use the prefab ID as a child of the agent, or customize a object with 3D text on it.
@@ -51,17 +34,43 @@ namespace Arena
         public bool AllowGunAttack = false;
 
         /// <summary>
-        /// Reference to the Gun.
+        /// Reference to the GunAttack related objects.
         /// </summary>
         public GameObject Gun;
+
+        /// <summary>
+        /// Reference to the GunAttack related objects.
+        /// </summary>
         public GameObject BulletEmitter;
+
+        /// <summary>
+        /// Reference to the GunAttack related objects.
+        /// </summary>
         public GameObject Bullet;
 
+        /// <summary>
+        /// GunAttack related configuration.
+        /// </summary>
         public float BulletFarwardForce = 500f;
-        public float NumBulletPerLoad   = 0.5f;
-        public float FullNumBullet      = 30f;
 
+        /// <summary>
+        /// GunAttack related configuration.
+        /// </summary>
+        public float NumBulletPerLoad = 0.5f;
+
+        /// <summary>
+        /// GunAttack related configuration.
+        /// </summary>
+        public float FullNumBullet = 30f;
+
+        /// <summary>
+        /// GunAttack related variables.
+        /// </summary>
         protected float NumBullet;
+
+        /// <summary>
+        /// GunAttack related variables.
+        /// </summary>
         protected bool Reloading;
 
         /// <summary>
@@ -73,16 +82,6 @@ namespace Arena
         /// Reference to the Sword.
         /// </summary>
         public GameObject Sword;
-
-        /// <remarks>
-        /// Get TeamID from the ArenaTeam object who should be the parent of ArenaAgent.
-        /// </remarks>
-        /// <returns>TeamID.</returns>
-        public int
-        getTeamID()
-        {
-            return GetComponentInParent<ArenaTeam>().getTeamID();
-        }
 
         /// <summary>
         /// If the agent is living.
@@ -96,7 +95,7 @@ namespace Arena
         /// <c>true</c>, if the agent is living, <c>false</c> otherwise.
         /// </returns>
         public bool
-        isLiving()
+        IsLiving()
         {
             return Living;
         }
@@ -105,65 +104,29 @@ namespace Arena
         /// Set the living status of the agent.
         /// </summary>
         /// <param name="Living_">The living status to be set.</param>
-        private void
-        setLiving(bool Living_)
+        public void
+        SetLiving(bool Living_)
         {
             if ((Living) && (!Living_)) {
                 // if transfer from living to dead
                 Living = Living_;
                 UIPercentageBars["HL"].UpdatePercentage(0f);
-                getTeam().AtAnAgentDie();
             } else if ((!Living) && (Living_)) {
                 // if transfer from dead to living
                 Living = Living_;
                 UIPercentageBars["HL"].UpdatePercentage(1f);
-                getTeam().AtAnAgentRespawn();
             }
             UpdateCanvas();
         }
 
         /// <summary>
-        /// Reference to the team that is the agent's parent.
+        /// References to UIPercentageBar.
         /// </summary>
-        private ArenaTeam Team;
-
-        /// <summary>
-        /// Get the reference to the team that is the agent's parent.
-        /// </summary>
-        /// <returns>The reference to the team that is the agent's parent.</returns>
-        private ArenaTeam
-        getTeam()
-        {
-            if (Team == null) {
-                Team = GetComponentInParent<ArenaTeam>();
-            }
-            return Team;
-        }
-
-        /// <summary>
-        /// Receive signal from outside
-        /// </summary>
-        /// <remarks>
-        /// This method should only be called by GlobalManager.
-        /// </remarks>
-        /// <param name="NextState_">
-        /// NextState_ can be
-        ///    AgentNextStates.None: normal step
-        ///    AgentNextStates.Die: change Living to false, ignore all Actions till receiving signal AgentNextStates.Done,
-        ///           which will change Living back to true
-        ///    AgentNextStates.Done: call Done(), Done() will call set Living back to true
-        /// </param>
-        /// <param name="NextReward_">The reward the agent will reveive at next step.</param>
-        public void
-        ReceiveSignal(AgentNextStates NextState_, float NextReward_)
-        {
-            AddReward(NextReward_);
-            if (NextState_ == AgentNextStates.Die) {
-                setLiving(false);
-            }
-        }
-
         protected Dictionary<string, UIPercentageBar> UIPercentageBars = new Dictionary<string, UIPercentageBar>();
+
+        /// <summary>
+        /// References to UIText.
+        /// </summary>
         protected Dictionary<string, UIText> UITexts = new Dictionary<string, UIText>();
 
         /// <summary>
@@ -173,36 +136,36 @@ namespace Arena
         public override void
         InitializeAgent()
         {
-            // base
             base.InitializeAgent();
 
-            // tag and log
+            /** tag and log **/
             tag = "Agent";
-            Debug.Log(getLogTag() + " Initialize");
+            Debug.Log(GetLogTag() + " Initialize");
 
-            // initialize reference to globalManager
             globalManager = GetComponentInParent<GlobalManager>();
-            // set global agent settings: numberOfActionsBetweenDecisions
             agentParameters.numberOfActionsBetweenDecisions = globalManager.getNumberOfActionsBetweenDecisions();
-            // set global agent settings: brain
             brain = globalManager.getAgentBrain();
 
-            // initialize
             CheckConfig();
             InitializeDisplayID();
             AutoAssignCameraViewPort();
-            if (globalManager.isTurnBasedGame()) {
-                InitializeTurnBasedGame();
-            }
             InitializeRewardFunction();
 
-            // initialize reference to UIPercentageBars
+            // if (globalManager.isTurnBasedGame()) {
+            //     InitializeTurnBasedGame();
+            // }
+
+            /** initialize reference to UIPercentageBars **/
             foreach (UIPercentageBar UIPercentageBar_ in GetComponentsInChildren<UIPercentageBar>()) {
                 UIPercentageBars.Add(UIPercentageBar_.ID, UIPercentageBar_);
             }
-
             UIPercentageBars["ER"].Enable();
             UIPercentageBars["HL"].Enable(1f);
+
+            /** initialize reference to UITexts **/
+            foreach (UIText UIText_ in GetComponentsInChildren<UIText>()) {
+                UITexts.Add(UIText_.ID, UIText_);
+            }
 
             if (AllowGunAttack) {
                 if (Gun == null) {
@@ -220,11 +183,6 @@ namespace Arena
                     BulletEmitter.gameObject.SetActive(false);
                 }
                 UIPercentageBars["AM"].Disable();
-            }
-
-            // initialize reference to UITexts
-            foreach (UIText UIText_ in GetComponentsInChildren<UIText>()) {
-                UITexts.Add(UIText_.ID, UIText_);
             }
 
             if (AllowSwordAttack) {
@@ -323,53 +281,14 @@ namespace Arena
         }
 
         /// <summary>
-        /// Called at each step when isLiving()==false.
-        /// Agent should override StepDead() and call base.StepDead() before adding
-        /// customized code.
-        /// </summary>
-        virtual protected void
-        StepDead(){ }
-
-        /// <summary>
-        /// Called at each step when TurnState == TurnStates.Turn in turn-based game.
-        /// Agent should override StepTurn() and call base.StepTurn() before adding
-        /// customized code.
-        /// </summary>
-        virtual protected void
-        StepTurn(){ }
-
-        /// <summary>
-        /// Called at each step when TurnState == TurnStates.NotTurn in turn-based game.
-        /// Agent should override StepNotTurn() and call base.StepNotTurn() before adding
-        /// customized code.
-        /// </summary>
-        virtual protected void
-        StepNotTurn(){ }
-
-        /// <summary>
-        /// Called at each step when TurnState == TurnStates.Switching in turn-based game.
-        /// Agent should override StepSwitching() and call base.StepSwitching() before adding
-        /// customized code.
-        /// </summary>
-        virtual protected void
-        StepSwitching(){ }
-
-        /// <summary>
-        /// Called at each step when TurnState == TurnStates.Switching or TurnState == TurnStates.NotTurn in turn-based game.
-        /// Agent should override StepSwitchingOrNotTurn() and call base.StepSwitchingOrNotTurn() before adding
-        /// customized code.
-        /// </summary>
-        virtual protected void
-        StepSwitchingOrNotTurn(){ }
-
-        /// <summary>
         /// Apply TeamMaterial of the agent to a GameObject.
         /// </summary>
         /// <param name="GameObject_">GameObject to be applied with TeamMaterial.</param>
         protected void
         ApplyTeamMaterial(GameObject GameObject_)
         {
-            globalManager.ApplyTeamMaterial(getTeamID(), GameObject_);
+            globalManager.ApplyTeamMaterial(
+                getTeamID(), GameObject_);
         }
 
         /// <summary>
@@ -459,9 +378,9 @@ namespace Arena
         /// </summary>
         /// <returns>LogTag.</returns>
         public string
-        getLogTag()
+        GetLogTag()
         {
-            return tag + " T" + getTeamID() + " A" + getAgentID();
+            return gameObject.GetComponent<ArenaNode>().GetLogTag() + "-" + tag;
         }
 
         /// <summary>
@@ -474,7 +393,7 @@ namespace Arena
         /// </summary>
         /// <returns>The reference to the GlobalManager.</returns>
         protected GlobalManager
-        getGlobalManager()
+        GetGlobalManager()
         {
             return globalManager;
         }
@@ -491,17 +410,17 @@ namespace Arena
         AgentReset()
         {
             base.AgentReset();
-            setLiving(true);
+            SetLiving(true);
 
             Debug.Log(
-                getLogTag() + " Reset, CumulativeReward: "
+                GetLogTag() + " Reset, CumulativeReward: "
                 + GetCumulativeReward());
 
             UIPercentageBars["ER"].UpdateValue(GetCumulativeReward());
 
-            if (globalManager.isTurnBasedGame()) {
-                ResetTurnBasedGame();
-            }
+            // if (globalManager.isTurnBasedGame()) {
+            //     ResetTurnBasedGame();
+            // }
 
             if (AllowGunAttack) {
                 NumBullet = Random.Range(0, FullNumBullet);
@@ -521,28 +440,29 @@ namespace Arena
         public override void
         AgentAction(float[] vectorAction, string textAction)
         {
-            if (isLiving()) {
-                // call turn based game step
-                if (globalManager.isTurnBasedGame()) {
-                    TurnState = globalManager.getTurnState(getTeamID(), getAgentID());
-                    if ((TurnState == TurnStates.NotTurn) || (TurnState == TurnStates.Switching)) {
-                        StepSwitchingOrNotTurn();
-                    } else if (TurnState == TurnStates.Switching) {
-                        StepSwitching();
-                    } else if (TurnState == TurnStates.NotTurn) {
-                        StepNotTurn();
-                    } else if (TurnState == TurnStates.Turn) {
-                        StepTurn();
-                    }
-                }
+            if (IsLiving()) {
+                // // call turn based game step
+                // if (globalManager.isTurnBasedGame()) {
+                //     TurnState = globalManager.getTurnState(getTeamID(), getAgentID());
+                //     if ((TurnState == TurnStates.NotTurn) || (TurnState == TurnStates.Switching)) {
+                //         StepSwitchingOrNotTurn();
+                //     } else if (TurnState == TurnStates.Switching) {
+                //         StepSwitching();
+                //     } else if (TurnState == TurnStates.NotTurn) {
+                //         StepNotTurn();
+                //     } else if (TurnState == TurnStates.Turn) {
+                //         StepTurn();
+                //     }
+                // }
 
                 bool IsActionTakingEffect = true;
-                // if turn base game and at (NotTurn or Switching), no act
-                if (globalManager.isTurnBasedGame()) {
-                    if ((TurnState == TurnStates.NotTurn) || (TurnState == TurnStates.Switching)) {
-                        IsActionTakingEffect = false;
-                    }
-                }
+
+                // // if turn base game and at (NotTurn or Switching), no act
+                // if (globalManager.isTurnBasedGame()) {
+                //     if ((TurnState == TurnStates.NotTurn) || (TurnState == TurnStates.Switching)) {
+                //         IsActionTakingEffect = false;
+                //     }
+                // }
 
                 if (IsActionTakingEffect) {
                     if (GetActionSpaceType() == SpaceType.discrete) {
@@ -564,7 +484,7 @@ namespace Arena
             }
             if (globalManager.isDebugging()) {
                 if ((getTeamID() == 0) && (getAgentID() == 0)) {
-                    print(getLogTag() + " GetCumulativeReward " + GetCumulativeReward());
+                    print(GetLogTag() + " GetCumulativeReward " + GetCumulativeReward());
                 }
             }
         } // AgentAction
@@ -577,26 +497,6 @@ namespace Arena
         GetActionSpaceType()
         {
             return globalManager.GetActionSpaceType();
-        }
-
-        /// <summary>
-        /// State in turn-based game.
-        /// </summary>
-        private TurnStates TurnState = TurnStates.NotTurn;
-
-        /// <summary>
-        /// Initialize for turn-based game.
-        /// </summary>
-        private void
-        InitializeTurnBasedGame(){ }
-
-        /// <summary>
-        /// Reset for turn-based game.
-        /// </summary>
-        private void
-        ResetTurnBasedGame()
-        {
-            TurnState = TurnStates.NotTurn;
         }
 
         /// <summary>
@@ -620,7 +520,7 @@ namespace Arena
         {
             Color MaskColor_ = GetComponentInChildren<Canvas>().GetComponentInChildren<Image>().color;
 
-            if (isLiving()) {
+            if (IsLiving()) {
                 MaskColor_.a = 0f;
             } else {
                 MaskColor_.a = 1f;
@@ -635,25 +535,25 @@ namespace Arena
         private void
         UpdateText()
         {
-            string ToDisplay_ = getLogTag();
+            string ToDisplay_ = GetLogTag();
 
-            if (isLiving()) {
+            if (IsLiving()) {
                 ToDisplay_ += "; Living";
             } else {
                 ToDisplay_ += "; Dead";
             }
 
-            if (globalManager.isTurnBasedGame()) {
-                if (TurnState == TurnStates.NotTurn) {
-                    ToDisplay_ += "; NotTurn";
-                } else if (TurnState == TurnStates.Switching) {
-                    ToDisplay_ += "; Switching";
-                } else if (TurnState == TurnStates.Turn) {
-                    ToDisplay_ += "; Turn (" + globalManager.getTurnPercentage().ToString("F2") + ")";
-                }
-            }
+            // if (globalManager.isTurnBasedGame()) {
+            //     if (TurnState == TurnStates.NotTurn) {
+            //         ToDisplay_ += "; NotTurn";
+            //     } else if (TurnState == TurnStates.Switching) {
+            //         ToDisplay_ += "; Switching";
+            //     } else if (TurnState == TurnStates.Turn) {
+            //         ToDisplay_ += "; Turn (" + globalManager.getTurnPercentage().ToString("F2") + ")";
+            //     }
+            // }
 
-            UITexts["Status"].setColor(globalManager.getStateTextColor(isLiving()));
+            UITexts["Status"].setColor(globalManager.getStateTextColor(IsLiving()));
             UITexts["Status"].setText(ToDisplay_);
         }
 
@@ -677,6 +577,18 @@ namespace Arena
             }
         }
 
+        public int
+        getTeamID()
+        {
+            return gameObject.GetComponent<ArenaNode>().GetParentNode().GetNodeID();
+        }
+
+        public int
+        getAgentID()
+        {
+            return gameObject.GetComponent<ArenaNode>().GetNodeID();
+        }
+
         /// <summary>
         /// Destroy collider of the GameObject_.
         /// </summary>
@@ -698,17 +610,17 @@ namespace Arena
             GetComponentInChildren<Camera>().rect = globalManager.getAgentViewPortRect(getTeamID(), getAgentID());
         }
 
-        /// <summary>
-        /// Collect Ram obs.
-        /// Depreciated
-        /// </summary>
-        public override void
-        CollectObservations()
-        {
-            AddVectorObs(getTeamID());
-            AddVectorObs(getAgentID());
-            AddVectorObs(globalManager.getRam());
-        }
+        // /// <summary>
+        // /// Collect Ram obs.
+        // /// Depreciated
+        // /// </summary>
+        // public override void
+        // CollectObservations()
+        // {
+        //     AddVectorObs(getTeamID());
+        //     AddVectorObs(getAgentID());
+        //     // AddVectorObs(globalManager.getRam());
+        // }
 
         /// <summary>
         /// Check if various configurations are valid or not.
@@ -747,5 +659,65 @@ namespace Arena
         protected virtual void
         InitializeRewardFunction()
         { }
+
+        /// <summary>
+        /// Called at each step when IsLiving()==false.
+        /// Agent should override StepDead() and call base.StepDead() before adding
+        /// customized code.
+        /// </summary>
+        virtual protected void
+        StepDead(){ }
+
+        // /// <summary>
+        // /// State in turn-based game.
+        // /// </summary>
+        // private TurnStates TurnState = TurnStates.NotTurn;
+        //
+        // /// <summary>
+        // /// Initialize for turn-based game.
+        // /// </summary>
+        // private void
+        // InitializeTurnBasedGame(){ }
+        //
+        // /// <summary>
+        // /// Reset for turn-based game.
+        // /// </summary>
+        // private void
+        // ResetTurnBasedGame()
+        // {
+        //     TurnState = TurnStates.NotTurn;
+        // }
+        //
+        // /// <summary>
+        // /// Called at each step when TurnState == TurnStates.Turn in turn-based game.
+        // /// Agent should override StepTurn() and call base.StepTurn() before adding
+        // /// customized code.
+        // /// </summary>
+        // virtual protected void
+        // StepTurn(){ }
+        //
+        // /// <summary>
+        // /// Called at each step when TurnState == TurnStates.NotTurn in turn-based game.
+        // /// Agent should override StepNotTurn() and call base.StepNotTurn() before adding
+        // /// customized code.
+        // /// </summary>
+        // virtual protected void
+        // StepNotTurn(){ }
+        //
+        // /// <summary>
+        // /// Called at each step when TurnState == TurnStates.Switching in turn-based game.
+        // /// Agent should override StepSwitching() and call base.StepSwitching() before adding
+        // /// customized code.
+        // /// </summary>
+        // virtual protected void
+        // StepSwitching(){ }
+        //
+        // /// <summary>
+        // /// Called at each step when TurnState == TurnStates.Switching or TurnState == TurnStates.NotTurn in turn-based game.
+        // /// Agent should override StepSwitchingOrNotTurn() and call base.StepSwitchingOrNotTurn() before adding
+        // /// customized code.
+        // /// </summary>
+        // virtual protected void
+        // StepSwitchingOrNotTurn(){ }
     }
 }

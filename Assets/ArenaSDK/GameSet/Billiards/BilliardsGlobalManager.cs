@@ -25,9 +25,9 @@ public class BilliardsGlobalManager : GlobalManager
         }
     }
 
-    override protected bool
-    isSwitchingTurn()
-    {
-        return !Utils.isAllRigidbodySleepingInTags(new string[] { "WhiteBall", "BlackBall", "BallK", "BallS" });
-    }
+    // override protected bool
+    // isSwitchingTurn()
+    // {
+    //     return !Utils.isAllRigidbodySleepingInTags(new string[] { "WhiteBall", "BlackBall", "BallK", "BallS" });
+    // }
 }
