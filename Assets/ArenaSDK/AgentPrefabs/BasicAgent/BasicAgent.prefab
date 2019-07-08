@@ -356,6 +356,14 @@ MonoBehaviour:
   DistanceBase2: {fileID: 0}
   IsRewardTime: 0
   TimeWinType: 0
+  TransformReinitializors:
+  - gameObject: {fileID: 895731944402785453}
+    RandomPositionMin: {x: 0, y: 0, z: 0}
+    RandomPositionMax: {x: 0, y: 0, z: 0}
+    RandomEulerAnglesMin: {x: 0, y: 0, z: 0}
+    RandomEulerAnglesMax: {x: 0, y: 0, z: 0}
+    RandomForceMin: {x: 0, y: 0, z: 0}
+    RandomForceMax: {x: 0, y: 0, z: 0}
 --- !u!114 &3875539347434451261
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -388,14 +396,6 @@ MonoBehaviour:
   FullNumBullet: 30
   AllowSwordAttack: 0
   Sword: {fileID: 515885250365602886}
-  TransformReinitializors:
-  - gameObject: {fileID: 895731944402785453}
-    RandomPositionMin: {x: 0, y: 0, z: 0}
-    RandomPositionMax: {x: 0, y: 0, z: 0}
-    RandomEulerAnglesMin: {x: 0, y: 0, z: 0}
-    RandomEulerAnglesMax: {x: 0, y: 0, z: 0}
-    RandomForceMin: {x: 0, y: 0, z: 0}
-    RandomForceMax: {x: 0, y: 0, z: 0}
   IsRewardDistanceToTarget: 0
   IsRewardFacingTarget: 0
   Target: {fileID: 0}

@@ -262,6 +262,8 @@ namespace Arena
                     Sword.gameObject.SetActive(false);
                 }
             }
+
+            UpdateCanvas();
         } // InitializeAgent
 
         /// <summary>

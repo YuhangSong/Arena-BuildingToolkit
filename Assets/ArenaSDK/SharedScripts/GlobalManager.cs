@@ -375,10 +375,10 @@ namespace Arena
 
             if (e.type == EventType.KeyDown) {
                 if (e.keyCode == KeyCode.F1) {
-                    Debug.Log("Switch to next camera");
+                    // Debug.Log("Switch to next camera");
                     SwitchCamera(true);
                 } else if (e.keyCode == KeyCode.F2) {
-                    Debug.Log("Switch to previous camera");
+                    // Debug.Log("Switch to previous camera");
                     SwitchCamera(false);
                 }
             }

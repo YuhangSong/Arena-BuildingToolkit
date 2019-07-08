@@ -2155,6 +2155,7 @@ MonoBehaviour:
   DistanceBase2: {fileID: 0}
   IsRewardTime: 0
   TimeWinType: 0
+  TransformReinitializors: []
 --- !u!114 &4614824483857594842
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2187,7 +2188,6 @@ MonoBehaviour:
   FullNumBullet: 30
   AllowSwordAttack: 0
   Sword: {fileID: 9193648944184661658}
-  TransformReinitializors: []
   IsRewardDistanceToTarget: 0
   IsRewardVelocityToTarget: 0
   IsRewardFacingTarget: 0
@@ -3086,21 +3086,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4034352613381587835, guid: 3496c4b5a87ba44ffbf86655893a3304,
-        type: 3}
-      propertyPath: m_LocalScale.x
-      value: 0.66666627
-      objectReference: {fileID: 0}
-    - target: {fileID: 4034352613381587835, guid: 3496c4b5a87ba44ffbf86655893a3304,
-        type: 3}
-      propertyPath: m_LocalScale.y
-      value: 0.66666657
-      objectReference: {fileID: 0}
-    - target: {fileID: 4034352613381587835, guid: 3496c4b5a87ba44ffbf86655893a3304,
-        type: 3}
-      propertyPath: m_LocalScale.z
-      value: 0.66666627
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3496c4b5a87ba44ffbf86655893a3304, type: 3}
