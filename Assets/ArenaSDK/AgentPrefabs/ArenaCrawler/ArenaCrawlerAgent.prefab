@@ -2098,6 +2098,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4614824483857594841}
+  - component: {fileID: 8284442939421070052}
   - component: {fileID: 4614824483857594842}
   - component: {fileID: 4614824483857594840}
   m_Layer: 0
@@ -2130,6 +2131,30 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 45, z: 0}
+--- !u!114 &8284442939421070052
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4614824483857594838}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c96d8e715943344d388f8736e7d2e97e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  NodeID: 0
+  LivingCondition: 1
+  AtLeastSpecificNumberLiving: 1
+  AtLeastSpecificPortion: 0.5
+  RewardSchemeScale: 1
+  IsRewardRanking: 0
+  RankingWinType: 0
+  IsRewardDistance: 0
+  DistanceBase1: {fileID: 0}
+  DistanceBase2: {fileID: 0}
+  IsRewardTime: 0
+  TimeWinType: 0
 --- !u!114 &4614824483857594842
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2151,9 +2176,7 @@ MonoBehaviour:
     resetOnDone: 1
     onDemandDecision: 0
     numberOfActionsBetweenDecisions: 1
-  AgentID: 0
   ID: {fileID: 3329307697216816254}
-  RewardScheme: 1
   RewardSchemeScale: 1
   AllowGunAttack: 0
   Gun: {fileID: 2954139179896898377}
@@ -2173,10 +2196,6 @@ MonoBehaviour:
   IsRewardHeadUp: 1
   RewardHeadUpType: 2
   IsRewardTimePenalty: 0
-  RewardDistanceCoefficient: 1
-  RewardVelocityCoefficient: 0.03
-  RewardDirectionCoefficient: 0.01
-  RewardTimeCoefficient: 0.001
   body: {fileID: 4614824482926659416}
   leg0Upper: {fileID: 4614824483469739920}
   leg0Lower: {fileID: 4614824483309049471}

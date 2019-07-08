@@ -101,22 +101,89 @@ namespace Arena
         }
 
         /// <summary>
-        /// Set the living status of the agent.
         /// </summary>
-        /// <param name="Living_">The living status to be set.</param>
+        private float Health = 1f;
+
+        /// <summary>
+        /// </summary>
         public void
-        SetLiving(bool Living_)
+        IncrementHealth(float IncrementHealth_)
         {
-            if ((Living) && (!Living_)) {
-                // if transfer from living to dead
-                Living = Living_;
-                UIPercentageBars["HL"].UpdatePercentage(0f);
-            } else if ((!Living) && (Living_)) {
-                // if transfer from dead to living
-                Living = Living_;
-                UIPercentageBars["HL"].UpdatePercentage(1f);
+            Health += IncrementHealth_;
+            if (Health > 1f) {
+                Health = 1f;
+            } else if (Health < 0f) {
+                gameObject.GetComponent<ArenaNode>().Kill();
             }
-            UpdateCanvas();
+            UIPercentageBars["HL"].UpdatePercentage(Health);
+        }
+
+        /// <summary>
+        /// </summary>
+        public void
+        ResetHealth()
+        {
+            if (Health != 1f) {
+                Health = 1f;
+                UIPercentageBars["HL"].UpdatePercentage(Health);
+            }
+        }
+
+        /// <summary>
+        /// </summary>
+        private float Energy = 1f;
+
+        /// <summary>
+        /// </summary>
+        public void
+        IncrementEnergy(float IncrementEnergy_)
+        {
+            Energy += IncrementEnergy_;
+            if (Energy > 1f) {
+                Energy = 1f;
+            } else if (Energy < 0f) {
+                gameObject.GetComponent<ArenaNode>().Kill();
+            }
+            UIPercentageBars["EG"].UpdatePercentage(Energy);
+        }
+
+        /// <summary>
+        /// </summary>
+        public void
+        ResetEnergy()
+        {
+            if (Energy != 1f) {
+                Energy = 1f;
+                UIPercentageBars["EG"].UpdatePercentage(Energy);
+            }
+        }
+
+        /// <summary>
+        /// </summary>
+        protected bool
+        HasEnergy()
+        {
+            return (Energy > 0f);
+        }
+
+        /// <summary>
+        /// </summary>
+        public void
+        Kill()
+        {
+            if (Living) {
+                Living = false;
+                UpdateCanvas();
+            }
+        }
+
+        private void
+        ResetLiving()
+        {
+            if (!Living) {
+                Living = true;
+                UpdateCanvas();
+            }
         }
 
         /// <summary>
@@ -161,6 +228,7 @@ namespace Arena
             }
             UIPercentageBars["ER"].Enable();
             UIPercentageBars["HL"].Enable(1f);
+            UIPercentageBars["EG"].Enable(1f);
 
             /** initialize reference to UITexts **/
             foreach (UIText UIText_ in GetComponentsInChildren<UIText>()) {
@@ -410,7 +478,9 @@ namespace Arena
         AgentReset()
         {
             base.AgentReset();
-            SetLiving(true);
+            ResetHealth();
+            ResetEnergy();
+            ResetLiving();
 
             Debug.Log(
                 GetLogTag() + " Reset, CumulativeReward: "
@@ -456,6 +526,10 @@ namespace Arena
                 // }
 
                 bool IsActionTakingEffect = true;
+
+                if (!HasEnergy()) {
+                    IsActionTakingEffect = false;
+                }
 
                 // // if turn base game and at (NotTurn or Switching), no act
                 // if (globalManager.isTurnBasedGame()) {
