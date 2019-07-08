@@ -58,6 +58,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8646676105349321859}
+  - component: {fileID: 7671405793938356544}
   - component: {fileID: 4813193044745755357}
   m_Layer: 0
   m_Name: Agent
@@ -83,6 +84,31 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7671405793938356544
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8646676105349321885}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c96d8e715943344d388f8736e7d2e97e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  NodeID: 0
+  LivingCondition: 1
+  AtLeastSpecificNumberLiving: 1
+  AtLeastSpecificPortion: 0.5
+  RewardSchemeScale: 1
+  IsRewardRanking: 0
+  RankingWinType: 0
+  IsRewardDistance: 0
+  DistanceBase1: {fileID: 0}
+  DistanceBase2: {fileID: 0}
+  IsRewardTime: 0
+  TimeWinType: 0
+  TransformReinitializors: []
 --- !u!114 &4813193044745755357
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -100,43 +126,45 @@ MonoBehaviour:
     agentCameras:
     - {fileID: 5803656045467004344}
     agentRenderTextures: []
-    maxStep: 4000
+    maxStep: 0
     resetOnDone: 1
     onDemandDecision: 0
-    numberOfActionsBetweenDecisions: 5
-  AgentID: 0
+    numberOfActionsBetweenDecisions: 1
   ID: {fileID: 7314170258231974110}
-  RewardScheme: 0
   RewardSchemeScale: 1
+  AllowGunAttack: 0
+  Gun: {fileID: 0}
+  BulletEmitter: {fileID: 0}
+  Bullet: {fileID: 0}
+  BulletFarwardForce: 500
+  NumBulletPerLoad: 0.5
+  FullNumBullet: 30
+  AllowSwordAttack: 0
+  Sword: {fileID: 0}
   IsRewardDistanceToTarget: 0
   IsRewardFacingTarget: 0
   Target: {fileID: 0}
   IsRewardTimePenalty: 0
-  RewardDistanceCoefficient: 1
-  RewardDirectionCoefficient: 0.01
-  RewardTimeCoefficient: 0.001
   Player: {fileID: 5006828591942248211}
   isApplyTeamMaterialToPlayer: 0
+  PlayerIgnoreCollisionTags:
+  - Table
+  - Gate
   AllowMove: 1
   MoveType: 0
-  AllowTurn: 0
+  MoveAccumulator:
+    Base: 20
+    Speed: 0
+    Max: 40
+  FreezePositionWhenNoAction: 1
+  FreezeRotationWhenNoAction: 0
   AllowJump: 0
   JumpForceMax: 400
-  MoveForceBase: 0.9
-  MoveForceAcc: 0.6
-  MoveForceMax: 40
-  MoveVelocityBase: 5
-  MoveVelocityAcc: 0
-  MoveVelocityMax: 10
-  TurnVelocityBase: 0.3
-  TurnVelocityAcc: 0.2
-  TurnVelocityMax: 3
-  PlayerRandomPositionMin: {x: 0, y: 0, z: 0}
-  PlayerRandomPositionMax: {x: 0, y: 0, z: 0}
-  PlayerRandomEulerAnglesMin: {x: 0, y: 0, z: 0}
-  PlayerRandomEulerAnglesMax: {x: 0, y: 0, z: 0}
-  PlayerRandomForceMin: {x: 0, y: 0, z: 0}
-  PlayerRandomForceMax: {x: 0.2, y: 0, z: 0.5}
+  AllowTurn: 0
+  TurnAccumulator:
+    Base: 0
+    Speed: 0
+    Max: -1
 --- !u!1 &8646676107126485988
 GameObject:
   m_ObjectHideFlags: 0

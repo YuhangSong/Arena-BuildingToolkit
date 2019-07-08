@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 using MLAgents;
 
@@ -31,6 +32,8 @@ namespace Arena {
         /// </summary>
         public bool isApplyTeamMaterialToPlayer = true;
 
+        public List<string> PlayerIgnoreCollisionTags = new List<string>();
+
         [Header("Action Settings (Move)")][Space(10)]
 
         /// <summary>
@@ -54,29 +57,9 @@ namespace Arena {
         public MoveTypes MoveType = MoveTypes.Force;
 
         /// <summary>
-        /// Accumulate speed of MoveForce.
+        /// Accumulator for the Move.
         /// </summary>
-        public float MoveForceAcc = 0.0f;
-
-        /// <summary>
-        /// Max speed of MoveForce.
-        /// </summary>
-        public float MoveForceMax = 40.0f;
-
-        /// <summary>
-        /// Base of MoveVelocity.
-        /// </summary>
-        public float MoveVelocityBase = 5.0f;
-
-        /// <summary>
-        /// Accumulate speed of MoveVelocity.
-        /// </summary>
-        public float MoveVelocityAcc = 0.0f;
-
-        /// <summary>
-        /// Max speed of MoveVelocity.
-        /// </summary>
-        public float MoveVelocityMax = 10.0f;
+        public Accumulator MoveAccumulator;
 
         [Header("Action Settings (NoAction)")][Space(10)]
 
@@ -102,11 +85,6 @@ namespace Arena {
         /// </summary>
         public float JumpForceMax = 400f;
 
-        /// <summary>
-        /// Base of MoveForce.
-        /// </summary>
-        public float MoveForceBase = 20.0f;
-
         [Header("Action Settings (Turn)")][Space(10)]
 
         /// <summary>
@@ -114,67 +92,25 @@ namespace Arena {
         /// </summary>
         public bool AllowTurn = true;
 
-        /// <summary>
-        /// Base of TurnVelocity.
-        /// </summary>
-        public float TurnVelocityBase = 0.3f;
-
-        /// <summary>
-        /// Accumulate speed of TurnVelocity.
-        /// </summary>
-        public float TurnVelocityAcc = 0.2f;
-
-        /// <summary>
-        /// Accumulate speed of TurnVelocity.
-        /// </summary>
-        public float TurnVelocityMax = 3f;
-
-        [Header("Player Settings (Initialize)")][Space(10)]
-
-        /// <summary>
-        /// Random position range (Min).
-        /// </summary>
-        public Vector3 PlayerRandomPositionMin = new Vector3(0f, 0f, 0f);
-
-        /// <summary>
-        /// Random position range (Max).
-        /// </summary>
-        public Vector3 PlayerRandomPositionMax = new Vector3(0f, 0f, 0f);
-
-        /// <summary>
-        /// Random eular angle range (Min).
-        /// </summary>
-        public Vector3 PlayerRandomEulerAnglesMin = new Vector3(0f, 0f, 0f);
-
-        /// <summary>
-        /// Random eular angle range (Max).
-        /// </summary>
-        public Vector3 PlayerRandomEulerAnglesMax = new Vector3(0f, 0f, 0f);
-
-        /// <summary>
-        /// Random force range (Min).
-        /// </summary>
-        public Vector3 PlayerRandomForceMin = new Vector3(0f, 0f, 0f);
-
-        /// <summary>
-        /// Random force range (Max).
-        /// </summary>
-        public Vector3 PlayerRandomForceMax = new Vector3(0f, 0f, 0f);
-
-        /// <summary>
-        /// TransformReinitializor for the player.
-        /// </summary>
-        private TransformReinitializor PlayerReinitializor;
-
-        /// <summary>
-        /// Accumulator for the Move.
-        /// </summary>
-        protected Accumulator MoveAccumulator;
+        // /// <summary>
+        // /// Base of TurnVelocity.
+        // /// </summary>
+        // public float TurnVelocityBase = 0.3f;
+        //
+        // /// <summary>
+        // /// Accumulate speed of TurnVelocity.
+        // /// </summary>
+        // public float TurnVelocityAcc = 0.2f;
+        //
+        // /// <summary>
+        // /// Accumulate speed of TurnVelocity.
+        // /// </summary>
+        // public float TurnVelocityMax = 3f;
 
         /// <summary>
         /// Accumulator for the TurnAccumulator.
         /// </summary>
-        protected Accumulator TurnAccumulator;
+        public Accumulator TurnAccumulator;
 
         /// <summary>
         /// Start and initialize.
@@ -189,20 +125,8 @@ namespace Arena {
                 base.ApplyTeamMaterial(Player);
             }
 
-            PlayerReinitializor = new TransformReinitializor(
-                Player,
-                PlayerRandomPositionMin, PlayerRandomPositionMax,
-                PlayerRandomEulerAnglesMin, PlayerRandomEulerAnglesMax,
-                PlayerRandomForceMin, PlayerRandomForceMax);
-            PlayerReinitializor.Reinitialize();
-
-            if (GetActionSpaceType() == SpaceType.discrete) {
-                if (MoveType == MoveTypes.Force) {
-                    MoveAccumulator = new Accumulator(MoveForceBase, MoveForceAcc, MoveForceMax);
-                } else if (MoveType == MoveTypes.Velocity) {
-                    MoveAccumulator = new Accumulator(MoveVelocityBase, MoveVelocityAcc, MoveVelocityMax);
-                }
-                TurnAccumulator = new Accumulator(TurnVelocityBase, TurnVelocityAcc, TurnVelocityMax);
+            foreach (string Tag_ in PlayerIgnoreCollisionTags) {
+                Utils.IgnoreCollision(Player, Tag_);
             }
         } // InitializeAgent
 
@@ -237,7 +161,6 @@ namespace Arena {
         AgentReset()
         {
             base.AgentReset();
-            PlayerReinitializor.Reinitialize();
             if (GetActionSpaceType() == SpaceType.discrete) {
                 MoveAccumulator.Reset();
                 TurnAccumulator.Reset();
@@ -470,7 +393,7 @@ namespace Arena {
                     Player.GetComponentInChildren<Rigidbody>().AddForce(
                         Player.transform.TransformVector(
                             (Vector3.right * Action_[AxisLeftRight] + Vector3.forward * Action_[AxisForwardBackward]))
-                        * MoveForceMax);
+                        * MoveAccumulator.Max);
                 } else if (MoveType == MoveTypes.Velocity) {
                     // Player.GetComponentInChildren<Rigidbody>().velocity = (
                     //     Player.transform.TransformVector(
@@ -485,7 +408,7 @@ namespace Arena {
 
             if (AllowTurn) {
                 Player.GetComponentInChildren<Rigidbody>().angularVelocity = (
-                    new Vector3(0.0f, Action_[AxisTurnLeftRight] * TurnVelocityMax, 0.0f)
+                    new Vector3(0.0f, Action_[AxisTurnLeftRight] * TurnAccumulator.Max, 0.0f)
                 );
             }
 

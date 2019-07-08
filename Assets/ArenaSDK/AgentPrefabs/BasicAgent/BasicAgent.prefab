@@ -388,34 +388,36 @@ MonoBehaviour:
   FullNumBullet: 30
   AllowSwordAttack: 0
   Sword: {fileID: 515885250365602886}
+  TransformReinitializors:
+  - gameObject: {fileID: 895731944402785453}
+    RandomPositionMin: {x: 0, y: 0, z: 0}
+    RandomPositionMax: {x: 0, y: 0, z: 0}
+    RandomEulerAnglesMin: {x: 0, y: 0, z: 0}
+    RandomEulerAnglesMax: {x: 0, y: 0, z: 0}
+    RandomForceMin: {x: 0, y: 0, z: 0}
+    RandomForceMax: {x: 0, y: 0, z: 0}
   IsRewardDistanceToTarget: 0
   IsRewardFacingTarget: 0
   Target: {fileID: 0}
   IsRewardTimePenalty: 0
   Player: {fileID: 895731944402785453}
   isApplyTeamMaterialToPlayer: 1
+  PlayerIgnoreCollisionTags: []
   AllowMove: 1
   MoveType: 0
-  MoveForceAcc: 0
-  MoveForceMax: 40
-  MoveVelocityBase: 5
-  MoveVelocityAcc: 0
-  MoveVelocityMax: 10
+  MoveAccumulator:
+    Base: 20
+    Speed: 0
+    Max: 40
   FreezePositionWhenNoAction: 0
   FreezeRotationWhenNoAction: 0
   AllowJump: 1
   JumpForceMax: 400
-  MoveForceBase: 20
   AllowTurn: 1
-  TurnVelocityBase: 0.1
-  TurnVelocityAcc: 0.3
-  TurnVelocityMax: 12
-  PlayerRandomPositionMin: {x: 0, y: 0, z: 0}
-  PlayerRandomPositionMax: {x: 0, y: 0, z: 0}
-  PlayerRandomEulerAnglesMin: {x: 0, y: 0, z: 0}
-  PlayerRandomEulerAnglesMax: {x: 0, y: 0, z: 0}
-  PlayerRandomForceMin: {x: 0, y: 0, z: 0}
-  PlayerRandomForceMax: {x: 0, y: 0, z: 0}
+  TurnAccumulator:
+    Base: 0.3
+    Speed: 0.2
+    Max: 3
 --- !u!1 &895731944881463456
 GameObject:
   m_ObjectHideFlags: 0

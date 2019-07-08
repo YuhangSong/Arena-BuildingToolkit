@@ -141,6 +141,16 @@ namespace Arena
             }
         }
 
+        [System.Serializable]
+        public class TagPair
+        {
+            public string TagA;
+            public string TagB;
+        }
+
+        public List<TagPair> IgnoreCollisionTagPairs = new List<TagPair>();
+
+
         /// <summary>
         /// Set different materials in inspector for differnt materials used to identify differnt teams.
         /// </summary>
@@ -291,6 +301,10 @@ namespace Arena
 
             InitGameObjectToBeRespawned();
             InitLightReinitializors();
+
+            foreach (TagPair TagPair_ in IgnoreCollisionTagPairs) {
+                Utils.IgnoreCollision(TagPair_.TagA, TagPair_.TagB);
+            }
 
             // InitRamObservation();
 

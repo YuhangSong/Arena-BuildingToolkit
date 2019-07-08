@@ -9,22 +9,23 @@ namespace Arena
     /// This is especially useful when applying force on agent.
     /// Specifically, you can accumulate the force if an action is called repeatly.
     /// </summary>
+    [System.Serializable]
     public class Accumulator
     {
         /// <summary>
         /// Base value the scaler start accumulate from
         /// </summary>
-        private float Base;
+        public float Base;
 
         /// <summary>
         /// Accumulate Speed of the scaler.
         /// </summary>
-        private float Speed;
+        public float Speed;
 
         /// <summary>
         /// Max of the scaler.
         /// </summary>
-        private float Max = -1f;
+        public float Max = -1f;
 
         /// <summary>
         /// Current value of the scaler.
@@ -32,11 +33,17 @@ namespace Arena
         private float Current;
 
         /// <summary>
+        /// Constructor.
+        /// </summary>
+        public Accumulator()
+        { }
+
+        /// <summary>
         /// Constructor. Set properties when construct.
         /// </summary>
         /// <param name="Base_">Base value the scaler start accumulate from.</param>
         /// <param name="Speed_">Accumulate Speed of the scaler.</param>
-        public Accumulator(float Base_, float Speed_)
+        public Accumulator(float Base_, float Speed_) : this()
         {
             Base    = Base_;
             Speed   = Speed_;

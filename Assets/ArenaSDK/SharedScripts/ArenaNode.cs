@@ -19,10 +19,10 @@ namespace Arena
 
             // Debug.Log(GetLogTag() + " Initialize");
 
+            InitUtils();
             // if (globalManager.isTurnBasedGame()) {
             //     InitTurnBasedGame();
             // }
-
             InitializeRewardFunction();
         }
 
@@ -221,6 +221,8 @@ namespace Arena
         Reset()
         {
             Living = true;
+
+            ResetUtils();
             ResetRewardFunction();
             ResetChildKilledRanking();
 
@@ -491,6 +493,26 @@ namespace Arena
             }
 
             AddReward(StepReward_);
+        }
+
+        [Header("Utils")][Space(10)]
+
+        public List<TransformReinitializor> TransformReinitializors = new List<TransformReinitializor>();
+
+        private void
+        InitUtils()
+        {
+            foreach (TransformReinitializor TransformReinitializor_ in TransformReinitializors) {
+                TransformReinitializor_.RecordOriginalTransform();
+            }
+        }
+
+        private void
+        ResetUtils()
+        {
+            foreach (TransformReinitializor TransformReinitializor_ in TransformReinitializors) {
+                TransformReinitializor_.Reinitialize();
+            }
         }
 
         // /// <summary>

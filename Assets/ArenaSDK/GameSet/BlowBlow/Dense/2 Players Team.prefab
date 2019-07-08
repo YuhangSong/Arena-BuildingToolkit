@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2782288675663102668}
   - component: {fileID: 2782288675663102669}
   m_Layer: 0
-  m_Name: 2 Player Team Dense
+  m_Name: 2 Players Team
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -57,6 +57,7 @@ MonoBehaviour:
   DistanceBase2: {fileID: 0}
   IsRewardTime: 0
   TimeWinType: 0
+  TransformReinitializors: []
 --- !u!1001 &1801706104256277863
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -67,7 +68,7 @@ PrefabInstance:
     - target: {fileID: 3951599749174080470, guid: 26b2de752331f4c058961dc35f90921d,
         type: 3}
       propertyPath: m_Name
-      value: Agent Dense (1)
+      value: Agent (1)
       objectReference: {fileID: 0}
     - target: {fileID: 3951599749174080456, guid: 26b2de752331f4c058961dc35f90921d,
         type: 3}
@@ -152,7 +153,7 @@ PrefabInstance:
     - target: {fileID: 3951599749174080470, guid: 26b2de752331f4c058961dc35f90921d,
         type: 3}
       propertyPath: m_Name
-      value: Agent Dense
+      value: Agent
       objectReference: {fileID: 0}
     - target: {fileID: 3951599749174080456, guid: 26b2de752331f4c058961dc35f90921d,
         type: 3}
