@@ -125,8 +125,8 @@ Transform:
   m_LocalScale: {x: 0.6, y: 0.6, z: 0.6}
   m_Children:
   - {fileID: 1296181844676402432}
-  - {fileID: 5410543467600707969}
   - {fileID: 4514942930847358906}
+  - {fileID: 5410543467600707969}
   m_Father: {fileID: 4570382024536045240}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -246,7 +246,7 @@ Transform:
   - {fileID: 5308429761509575199}
   - {fileID: 2701361975683209105}
   m_Father: {fileID: 4234245892685972098}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
 --- !u!1 &4570382024536045241
 GameObject:
@@ -257,6 +257,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4570382024536045240}
+  - component: {fileID: 956398673582796598}
   - component: {fileID: 1412011761205165115}
   m_Layer: 0
   m_Name: Agent
@@ -280,6 +281,38 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &956398673582796598
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4570382024536045241}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c96d8e715943344d388f8736e7d2e97e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  NodeID: 0
+  LivingCondition: 1
+  AtLeastSpecificNumberLiving: 1
+  AtLeastSpecificPortion: 0.5
+  RewardSchemeScale: 1
+  IsRewardRanking: 0
+  RankingWinType: 0
+  IsRewardDistance: 0
+  DistanceBase1: {fileID: 0}
+  DistanceBase2: {fileID: 0}
+  IsRewardTime: 0
+  TimeWinType: 0
+  TransformReinitializors:
+  - gameObject: {fileID: 1025358259259551978}
+    RandomPositionMin: {x: 0, y: 0, z: 0}
+    RandomPositionMax: {x: 0, y: 0, z: 0}
+    RandomEulerAnglesMin: {x: 0, y: 0, z: 0}
+    RandomEulerAnglesMax: {x: 0, y: 0, z: 0}
+    RandomForceMin: {x: 0, y: 0, z: 0}
+    RandomForceMax: {x: 0, y: 0, z: 0}
 --- !u!114 &1412011761205165115
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -301,9 +334,7 @@ MonoBehaviour:
     resetOnDone: 1
     onDemandDecision: 0
     numberOfActionsBetweenDecisions: 1
-  AgentID: 0
   ID: {fileID: 7452224983749897809}
-  RewardScheme: 0
   RewardSchemeScale: 1
   AllowGunAttack: 0
   Gun: {fileID: 0}
@@ -318,33 +349,24 @@ MonoBehaviour:
   IsRewardFacingTarget: 0
   Target: {fileID: 0}
   IsRewardTimePenalty: 0
-  RewardDistanceCoefficient: 1
-  RewardDirectionCoefficient: 0.01
-  RewardTimeCoefficient: 0.001
   Player: {fileID: 1025358259259551978}
   isApplyTeamMaterialToPlayer: 0
+  PlayerIgnoreCollisionTags: []
   AllowMove: 1
   MoveType: 1
-  MoveForceAcc: 0
-  MoveForceMax: 40
-  MoveVelocityBase: 5
-  MoveVelocityAcc: 1
-  MoveVelocityMax: 50
+  MoveAccumulator:
+    Base: 5
+    Speed: 0.5
+    Max: 40
   FreezePositionWhenNoAction: 1
   FreezeRotationWhenNoAction: 0
   AllowJump: 0
   JumpForceMax: 400
-  MoveForceBase: 20
   AllowTurn: 1
-  TurnVelocityBase: 1
-  TurnVelocityAcc: 0.5
-  TurnVelocityMax: 50
-  PlayerRandomPositionMin: {x: 0, y: 0, z: 0}
-  PlayerRandomPositionMax: {x: 0, y: 0, z: 0.8}
-  PlayerRandomEulerAnglesMin: {x: 0, y: 0, z: 0}
-  PlayerRandomEulerAnglesMax: {x: 0, y: 0, z: 0}
-  PlayerRandomForceMin: {x: 0, y: 0, z: 0}
-  PlayerRandomForceMax: {x: 0, y: 0, z: 0}
+  TurnAccumulator:
+    Base: 0.3
+    Speed: 0.6
+    Max: 40
 --- !u!1 &4653665786863303436
 GameObject:
   m_ObjectHideFlags: 0
@@ -487,7 +509,7 @@ PrefabInstance:
     - target: {fileID: 4034352613381587835, guid: 3496c4b5a87ba44ffbf86655893a3304,
         type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4034352613381587835, guid: 3496c4b5a87ba44ffbf86655893a3304,
         type: 3}
@@ -507,7 +529,7 @@ PrefabInstance:
     - target: {fileID: 4034352613381587835, guid: 3496c4b5a87ba44ffbf86655893a3304,
         type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.6
+      value: 1.2
       objectReference: {fileID: 0}
     - target: {fileID: 4034352613381587835, guid: 3496c4b5a87ba44ffbf86655893a3304,
         type: 3}
@@ -517,7 +539,7 @@ PrefabInstance:
     - target: {fileID: 4034352613381587835, guid: 3496c4b5a87ba44ffbf86655893a3304,
         type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.6
+      value: 1.2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3496c4b5a87ba44ffbf86655893a3304, type: 3}

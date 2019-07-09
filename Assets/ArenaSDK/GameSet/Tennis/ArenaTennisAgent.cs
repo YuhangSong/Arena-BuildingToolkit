@@ -9,25 +9,6 @@ public class ArenaTennisAgent : ArenaAgent
 {
     public float MoveForce;
     public GameObject Player;
-    private TransformReinitializor PlayerReinitializor;
-
-    public override void
-    InitializeAgent()
-    {
-        base.InitializeAgent();
-        PlayerReinitializor = new TransformReinitializor(
-            Player,
-            Vector3.zero, Vector3.zero,
-            Vector3.zero, Vector3.zero,
-            Vector3.zero, Vector3.zero);
-    }
-
-    public override void
-    AgentReset()
-    {
-        base.AgentReset();
-        PlayerReinitializor.Reinitialize();
-    }
 
     override protected void
     DiscreteStep(int Action_)

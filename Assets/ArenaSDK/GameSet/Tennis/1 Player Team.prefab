@@ -45,18 +45,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c96d8e715943344d388f8736e7d2e97e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TeamID: 0
+  NodeID: 0
   LivingCondition: 1
-  RewardScheme: 0
+  AtLeastSpecificNumberLiving: 1
+  AtLeastSpecificPortion: 0.5
   RewardSchemeScale: 10
+  IsRewardRanking: 0
+  RankingWinType: 0
   IsRewardDistance: 0
   DistanceBase1: {fileID: 0}
   DistanceBase2: {fileID: 0}
-  RewardDistanceCoefficient: 1
-  RewardDirectionCoefficient: 0.01
-  RewardTimeCoefficient: 0.001
-  AgentSwitchType: 0
-  Living: 1
+  IsRewardTime: 0
+  TimeWinType: 0
+  TransformReinitializors: []
 --- !u!1 &1150515566411842879
 GameObject:
   m_ObjectHideFlags: 0
@@ -69,10 +70,9 @@ GameObject:
   - component: {fileID: 1150515566411842874}
   - component: {fileID: 1150515566411842875}
   - component: {fileID: 1150515566411842872}
-  - component: {fileID: 1150515566411842873}
   m_Layer: 0
   m_Name: Gate
-  m_TagString: Untagged
+  m_TagString: Gate
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -149,20 +149,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 0.99999994}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &1150515566411842873
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1150515566411842879}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d0e7c4bfc5f1e4791bedb6ce2b39b184, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  TeamIDToMatch: -2
-  TrigTag: Ball
 --- !u!1001 &1907466606522984892
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -180,11 +166,6 @@ PrefabInstance:
       propertyPath: m_TagString
       value: AgentA
       objectReference: {fileID: 0}
-    - target: {fileID: 1553703431686688520, guid: 9447b37ba989e4a8c86f76f19f433cc0,
-        type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: 4df2264df8daf450d82b3584d732c8aa, type: 2}
     - target: {fileID: 1553703431725616225, guid: 9447b37ba989e4a8c86f76f19f433cc0,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -260,6 +241,11 @@ PrefabInstance:
       propertyPath: globalManager
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 1553703431686688520, guid: 9447b37ba989e4a8c86f76f19f433cc0,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 4df2264df8daf450d82b3584d732c8aa, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9447b37ba989e4a8c86f76f19f433cc0, type: 3}
 --- !u!4 &1150515565680879069 stripped

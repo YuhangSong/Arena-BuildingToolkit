@@ -12,10 +12,9 @@ GameObject:
   - component: {fileID: 2762256398093291886}
   - component: {fileID: 3356365386743365959}
   - component: {fileID: 6850797027447631092}
-  - component: {fileID: 3412677876508724895}
   m_Layer: 0
   m_Name: HeartTowerCube
-  m_TagString: Untagged
+  m_TagString: HeartTower
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -92,21 +91,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &3412677876508724895
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2587052144835562272}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d0e7c4bfc5f1e4791bedb6ce2b39b184, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  TeamIDToMatch: -2
-  ComparingObjectType: 0
-  TrigTag: Bullet
 --- !u!1 &3163292638800114402
 GameObject:
   m_ObjectHideFlags: 0
