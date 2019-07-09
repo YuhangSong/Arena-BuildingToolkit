@@ -16,6 +16,8 @@ namespace Arena
         /// </summary>
         public List<string> TrigTags = new List<string>();
 
+        public bool IsMatchNodeCoordinate = false;
+
         /// <summary>
         /// </summary>
         public bool IsKill = true;
@@ -31,25 +33,34 @@ namespace Arena
         protected override void
         TrigEvent(GameObject other)
         {
-            bool IsTrig = false;
-
-            // take effect when other is of TrigTags
-            foreach (string Tag_ in TrigTags) {
-                if (other.CompareTag(Tag_)) {
-                    IsTrig = true;
-                    break;
+            if (TrigTags.Contains(other.tag)) {
+                ArenaNode OtherNode = Utils.GetBottomLevelArenaNodeInGameObject(other);
+                if (OtherNode == null) {
+                    return;
                 }
-            }
 
-            if (IsTrig) {
+                if (IsMatchNodeCoordinate) {
+                    ArenaNode ThisNode = Utils.GetBottomLevelArenaNodeInGameObject(gameObject);
+                    if (ThisNode == null) {
+                        return;
+                    } else {
+                        List<int> ThisNodeCoordinate  = ThisNode.GetCoordinate();
+                        List<int> OtherNodeCoordinate = OtherNode.GetCoordinate();
+                        if (!Utils.IsListEqual(ThisNodeCoordinate, OtherNodeCoordinate,
+                          Mathf.Min(ThisNodeCoordinate.Count, OtherNodeCoordinate.Count)))
+                        {
+                            return;
+                        }
+                    }
+                }
                 if (IsKill) {
-                    Utils.GetBottomLevelArenaNodeInGameObject(other).Kill();
+                    OtherNode.Kill();
                 }
                 if (IncrementHealth != 0f) {
-                    Utils.GetBottomLevelArenaNodeInGameObject(other).IncrementHealth(IncrementHealth);
+                    OtherNode.IncrementHealth(IncrementHealth);
                 }
                 if (IncrementEnergy != 0f) {
-                    Utils.GetBottomLevelArenaNodeInGameObject(other).IncrementEnergy(IncrementEnergy);
+                    OtherNode.IncrementEnergy(IncrementEnergy);
                 }
             }
         } // TrigEvent

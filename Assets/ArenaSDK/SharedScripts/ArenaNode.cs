@@ -40,6 +40,26 @@ namespace Arena
             }
         }
 
+        /// <summary>
+        /// Get the coordinate of the node.
+        /// </summary>
+        /// <returns>Coordinate of the node.</returns>
+        public List<int>
+        GetCoordinate()
+        {
+            List<int> ThisCoordinate_ = new List<int>();
+
+            ThisCoordinate_.Add(GetNodeID());
+
+            if (GetParentNode() != null) {
+                List<int> FullCoordinate_ = GetParentNode().GetCoordinate();
+                FullCoordinate_.AddRange(ThisCoordinate_);
+                return FullCoordinate_;
+            } else {
+                return ThisCoordinate_;
+            }
+        }
+
         [Header("Node Settings")][Space(10)]
 
         /// <summary>

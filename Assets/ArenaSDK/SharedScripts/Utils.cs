@@ -79,6 +79,17 @@ namespace Arena
 
     static public class Utils
     {
+        public static bool
+        IsListEqual(List<int> ListA, List<int> ListB, int Count)
+        {
+            for (int i = 0; i < Count; i++) {
+                if (ListA[i] != ListB[i]) {
+                    return false;
+                }
+            }
+            return true;
+        }
+
         public static List<ArenaNode>
         GetTopLevelArenaNodesInChildren(GameObject GameObject_)
         {

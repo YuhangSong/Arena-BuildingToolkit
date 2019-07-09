@@ -286,7 +286,6 @@ namespace Arena
                             GameObject Temp_Bullet_Handeler;
                             Temp_Bullet_Handeler = Instantiate(Bullet, BulletEmitter.transform.position,
                                 BulletEmitter.transform.rotation) as GameObject;
-                            Temp_Bullet_Handeler.transform.SetParent(transform, true);
                             Temp_Bullet_Handeler.GetComponent<Rigidbody>().AddForce(
                                 BulletEmitter.transform.up * BulletFarwardForce);
                             Destroy(Temp_Bullet_Handeler, 3.0f);

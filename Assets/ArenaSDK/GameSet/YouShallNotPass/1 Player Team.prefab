@@ -14,10 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TrigTags:
   - Body
-  TeamIDToMatch: -2
-  TeamIDComparingObjectType: 0
-  AgentIDToMatch: -1
-  AgentIDComparingObjectType: 0
+  IsMatchNodeCoordinate: 1
+  IsKill: 1
+  IncrementHealth: 0
+  IncrementEnergy: 0
 --- !u!1 &8762857543636761170
 GameObject:
   m_ObjectHideFlags: 0
@@ -63,18 +63,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c96d8e715943344d388f8736e7d2e97e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TeamID: 0
+  NodeID: 0
   LivingCondition: 1
-  RewardScheme: 0
+  AtLeastSpecificNumberLiving: 1
+  AtLeastSpecificPortion: 0.5
   RewardSchemeScale: 10
+  IsRewardRanking: 0
+  RankingWinType: 0
   IsRewardDistance: 0
   DistanceBase1: {fileID: 0}
   DistanceBase2: {fileID: 0}
-  RewardDistanceCoefficient: 1
-  RewardDirectionCoefficient: 0.01
-  RewardTimeCoefficient: 0.001
-  AgentSwitchType: 0
-  Living: 1
+  IsRewardTime: 0
+  TimeWinType: 0
+  TransformReinitializors: []
 --- !u!1001 &1509824769895033695
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -223,20 +224,20 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 5564486736278553992, guid: ad2479eef98a1498890b3441f2b84ce6,
+    - target: {fileID: 2431750763176104865, guid: ad2479eef98a1498890b3441f2b84ce6,
+        type: 3}
+      propertyPath: Target
+      value: 
+      objectReference: {fileID: 6290623222984464896}
+    - target: {fileID: 5564486734748519650, guid: ad2479eef98a1498890b3441f2b84ce6,
         type: 3}
       propertyPath: m_ConnectedAnchor.x
-      value: -0.2881373
+      value: -0.000012845192
       objectReference: {fileID: 0}
-    - target: {fileID: 5564486735368311993, guid: ad2479eef98a1498890b3441f2b84ce6,
+    - target: {fileID: 5564486734748519650, guid: ad2479eef98a1498890b3441f2b84ce6,
         type: 3}
-      propertyPath: m_ConnectedAnchor.x
-      value: 0.000011703163
-      objectReference: {fileID: 0}
-    - target: {fileID: 5564486736585783581, guid: ad2479eef98a1498890b3441f2b84ce6,
-        type: 3}
-      propertyPath: m_ConnectedAnchor.x
-      value: 0.29360434
+      propertyPath: m_ConnectedAnchor.z
+      value: -0.058475196
       objectReference: {fileID: 0}
     - target: {fileID: 5564486735273188031, guid: ad2479eef98a1498890b3441f2b84ce6,
         type: 3}
@@ -248,40 +249,10 @@ PrefabInstance:
       propertyPath: m_ConnectedAnchor.z
       value: 0.00000006468427
       objectReference: {fileID: 0}
-    - target: {fileID: 5564486734748519650, guid: ad2479eef98a1498890b3441f2b84ce6,
-        type: 3}
-      propertyPath: m_ConnectedAnchor.x
-      value: -0.00001284519
-      objectReference: {fileID: 0}
-    - target: {fileID: 5564486734748519650, guid: ad2479eef98a1498890b3441f2b84ce6,
-        type: 3}
-      propertyPath: m_ConnectedAnchor.z
-      value: -0.058474585
-      objectReference: {fileID: 0}
-    - target: {fileID: 5564486735765723792, guid: ad2479eef98a1498890b3441f2b84ce6,
-        type: 3}
-      propertyPath: m_ConnectedAnchor.x
-      value: -0.53636575
-      objectReference: {fileID: 0}
-    - target: {fileID: 5564486735765723792, guid: ad2479eef98a1498890b3441f2b84ce6,
-        type: 3}
-      propertyPath: m_ConnectedAnchor.z
-      value: -0.0011128067
-      objectReference: {fileID: 0}
-    - target: {fileID: 5564486735442507584, guid: ad2479eef98a1498890b3441f2b84ce6,
-        type: 3}
-      propertyPath: m_ConnectedAnchor.x
-      value: 0.5363679
-      objectReference: {fileID: 0}
-    - target: {fileID: 5564486735442507584, guid: ad2479eef98a1498890b3441f2b84ce6,
-        type: 3}
-      propertyPath: m_ConnectedAnchor.z
-      value: -0.001112186
-      objectReference: {fileID: 0}
     - target: {fileID: 5564486735305852378, guid: ad2479eef98a1498890b3441f2b84ce6,
         type: 3}
       propertyPath: m_ConnectedAnchor.x
-      value: 0.00000033441378
+      value: 0.00000033441373
       objectReference: {fileID: 0}
     - target: {fileID: 5564486735305852378, guid: ad2479eef98a1498890b3441f2b84ce6,
         type: 3}
@@ -291,13 +262,43 @@ PrefabInstance:
     - target: {fileID: 5564486735305852378, guid: ad2479eef98a1498890b3441f2b84ce6,
         type: 3}
       propertyPath: m_ConnectedAnchor.z
-      value: 0.004239439
+      value: 0.004238848
       objectReference: {fileID: 0}
-    - target: {fileID: 2431750763176104865, guid: ad2479eef98a1498890b3441f2b84ce6,
+    - target: {fileID: 5564486735368311993, guid: ad2479eef98a1498890b3441f2b84ce6,
         type: 3}
-      propertyPath: Target
-      value: 
-      objectReference: {fileID: 6290623222984464896}
+      propertyPath: m_ConnectedAnchor.x
+      value: 0.000011703163
+      objectReference: {fileID: 0}
+    - target: {fileID: 5564486735442507584, guid: ad2479eef98a1498890b3441f2b84ce6,
+        type: 3}
+      propertyPath: m_ConnectedAnchor.x
+      value: 0.5363679
+      objectReference: {fileID: 0}
+    - target: {fileID: 5564486735442507584, guid: ad2479eef98a1498890b3441f2b84ce6,
+        type: 3}
+      propertyPath: m_ConnectedAnchor.z
+      value: -0.0011118758
+      objectReference: {fileID: 0}
+    - target: {fileID: 5564486735765723792, guid: ad2479eef98a1498890b3441f2b84ce6,
+        type: 3}
+      propertyPath: m_ConnectedAnchor.x
+      value: -0.53636575
+      objectReference: {fileID: 0}
+    - target: {fileID: 5564486735765723792, guid: ad2479eef98a1498890b3441f2b84ce6,
+        type: 3}
+      propertyPath: m_ConnectedAnchor.z
+      value: -0.001113117
+      objectReference: {fileID: 0}
+    - target: {fileID: 5564486736278553992, guid: ad2479eef98a1498890b3441f2b84ce6,
+        type: 3}
+      propertyPath: m_ConnectedAnchor.x
+      value: -0.2881373
+      objectReference: {fileID: 0}
+    - target: {fileID: 5564486736585783581, guid: ad2479eef98a1498890b3441f2b84ce6,
+        type: 3}
+      propertyPath: m_ConnectedAnchor.x
+      value: 0.29360434
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ad2479eef98a1498890b3441f2b84ce6, type: 3}
 --- !u!4 &3073005332852630710 stripped
