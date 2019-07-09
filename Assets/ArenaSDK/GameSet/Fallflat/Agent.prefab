@@ -125,6 +125,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8130522599227896710}
+  - component: {fileID: 6977811291070434462}
   - component: {fileID: 6898395914818035230}
   m_Layer: 0
   m_Name: Agent
@@ -149,6 +150,38 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6977811291070434462
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8130522599227896728}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c96d8e715943344d388f8736e7d2e97e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  NodeID: 0
+  LivingCondition: 1
+  AtLeastSpecificNumberLiving: 1
+  AtLeastSpecificPortion: 0.5
+  RewardSchemeScale: 1
+  IsRewardRanking: 0
+  RankingWinType: 0
+  IsRewardDistance: 0
+  DistanceBase1: {fileID: 0}
+  DistanceBase2: {fileID: 0}
+  IsRewardTime: 0
+  TimeWinType: 0
+  TransformReinitializors:
+  - gameObject: {fileID: 8130522599272636652}
+    RandomPositionMin: {x: 0, y: 0, z: 0}
+    RandomPositionMax: {x: 0, y: 0, z: 0}
+    RandomEulerAnglesMin: {x: 0, y: 0, z: 0}
+    RandomEulerAnglesMax: {x: 0, y: 0, z: 0}
+    RandomForceMin: {x: 0, y: 0, z: 0}
+    RandomForceMax: {x: 0, y: 0, z: 0}
 --- !u!114 &6898395914818035230
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -170,39 +203,39 @@ MonoBehaviour:
     resetOnDone: 1
     onDemandDecision: 0
     numberOfActionsBetweenDecisions: 1
-  AgentID: 0
   ID: {fileID: 8119768825501433699}
-  RewardScheme: 0
   RewardSchemeScale: 1
+  AllowGunAttack: 0
+  Gun: {fileID: 0}
+  BulletEmitter: {fileID: 0}
+  Bullet: {fileID: 0}
+  BulletFarwardForce: 500
+  NumBulletPerLoad: 0.5
+  FullNumBullet: 30
+  AllowSwordAttack: 0
+  Sword: {fileID: 0}
   IsRewardDistanceToTarget: 0
   IsRewardFacingTarget: 0
   Target: {fileID: 0}
   IsRewardTimePenalty: 0
-  RewardDistanceCoefficient: 1
-  RewardDirectionCoefficient: 0.01
-  RewardTimeCoefficient: 0.001
   Player: {fileID: 8130522599272636652}
   isApplyTeamMaterialToPlayer: 0
+  PlayerIgnoreCollisionTags: []
   AllowMove: 0
   MoveType: 0
-  AllowTurn: 0
+  MoveAccumulator:
+    Base: 20
+    Speed: 0
+    Max: 40
+  FreezePositionWhenNoAction: 0
+  FreezeRotationWhenNoAction: 0
   AllowJump: 0
   JumpForceMax: 400
-  MoveForceBase: 10
-  MoveForceAcc: 0
-  MoveForceMax: 40
-  MoveVelocityBase: 5
-  MoveVelocityAcc: 0
-  MoveVelocityMax: 10
-  TurnVelocityBase: 0.3
-  TurnVelocityAcc: 0.2
-  TurnVelocityMax: 3
-  PlayerRandomPositionMin: {x: 0, y: 0, z: 0}
-  PlayerRandomPositionMax: {x: 0, y: 0, z: 0}
-  PlayerRandomEulerAnglesMin: {x: 0, y: 0, z: 0}
-  PlayerRandomEulerAnglesMax: {x: 0, y: 0, z: 0}
-  PlayerRandomForceMin: {x: 0, y: 0, z: 0}
-  PlayerRandomForceMax: {x: 2, y: 0, z: 2}
+  AllowTurn: 0
+  TurnAccumulator:
+    Base: 0
+    Speed: 0
+    Max: -1
 --- !u!1 &8130522599272636652
 GameObject:
   m_ObjectHideFlags: 0

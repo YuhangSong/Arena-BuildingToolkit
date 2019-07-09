@@ -45,18 +45,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c96d8e715943344d388f8736e7d2e97e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TeamID: 0
+  NodeID: 0
   LivingCondition: 1
-  RewardScheme: 0
+  AtLeastSpecificNumberLiving: 1
+  AtLeastSpecificPortion: 0.5
   RewardSchemeScale: 10
+  IsRewardRanking: 0
+  RankingWinType: 0
   IsRewardDistance: 0
   DistanceBase1: {fileID: 0}
   DistanceBase2: {fileID: 0}
-  RewardDistanceCoefficient: 1
-  RewardDirectionCoefficient: 0.01
-  RewardTimeCoefficient: 0.001
-  AgentSwitchType: 0
-  Living: 1
+  IsRewardTime: 0
+  TimeWinType: 0
+  TransformReinitializors: []
 --- !u!114 &2422820259606240562
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -69,9 +70,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8beffda8b34d945948afa0f3c246068a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TrigTag: Body
-  TeamIDToMatch: -2
-  AgentIDToMatch: -1
+  TrigTags:
+  - Body
+  IsMatchNodeCoordinate: 1
+  IsKill: 1
+  IncrementHealth: 0
+  IncrementEnergy: 0
 --- !u!1001 &1664566806632933897
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -149,15 +153,15 @@ PrefabInstance:
       propertyPath: IsRewardDistanceToTarget
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 4614824482546426492, guid: 5743e601ef8b64a6085c9a9125b43742,
-        type: 3}
-      propertyPath: m_ConnectedAnchor.x
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 4614824482398414380, guid: 5743e601ef8b64a6085c9a9125b43742,
         type: 3}
       propertyPath: m_ConnectedAnchor.z
       value: -0.28284246
+      objectReference: {fileID: 0}
+    - target: {fileID: 4614824482546426492, guid: 5743e601ef8b64a6085c9a9125b43742,
+        type: 3}
+      propertyPath: m_ConnectedAnchor.x
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4614824482757286510, guid: 5743e601ef8b64a6085c9a9125b43742,
         type: 3}

@@ -4,7 +4,7 @@ using MLAgents;
 namespace Arena {
     public class ArenaRobot : ArenaAgent
     {
-        [Header("ArenaRobot Reward Functions")][Space(10)]
+        [Header("Reward Functions (Isolated)")][Space(10)]
 
         public bool IsRewardDistanceToTarget = false;
         private RewardFunctionGeneratorDistanceToTarget RewardFunctionDistanceToTarget;
@@ -28,14 +28,7 @@ namespace Arena {
         public bool IsRewardTimePenalty = false;
         private RewardFunctionGeneratorTimePenalty RewardFunctionTimePenalty;
 
-        [Header("ArenaRobot Reward Function Properties")][Space(10)]
-
-        public float RewardDistanceCoefficient  = 1.0f;
-        public float RewardVelocityCoefficient  = 0.03f;
-        public float RewardDirectionCoefficient = 0.01f;
-        public float RewardTimeCoefficient      = 0.001f;
-
-        [Header("ArenaRobot Joint Settings")][Space(10)]
+        [Header("Joint Settings")][Space(10)]
 
         protected JointDriveController jdController;
 
@@ -86,44 +79,42 @@ namespace Arena {
             base.InitializeRewardFunction();
 
             // create reward functions
-            if (RewardScheme == RewardSchemes.IS) {
-                if (IsRewardDistanceToTarget) {
-                    RewardFunctionDistanceToTarget = new RewardFunctionGeneratorDistanceToTarget(
-                        BodyCore,
-                        Target
-                    );
-                }
-                if (IsRewardVelocityToTarget) {
-                    RewardFunctionVelocityToTarget = new RewardFunctionGeneratorVelocityToTarget(
-                        BodyCore,
-                        Target
-                    );
-                }
-                if (IsRewardFacingTarget) {
-                    RewardFunctionFacingTarget = new RewardFunctionGeneratorFacingTarget(
-                        BodyCore,
-                        Target,
-                        RewardFunctionGeneratorFacingTarget.Types.Dot
-                    );
-                }
-                if (IsRewardCoreUp) {
-                    RewardFunctionCoreUp = new RewardFunctionGeneratorKeepTowards(
-                        BodyCore,
-                        Vector3.up
-                    );
-                }
-                if (IsRewardHeadUp) {
-                    RewardFunctionHeadUp = new RewardFunctionGeneratorFacing(
-                        Vector3.up,
-                        RewardHeadUpType,
-                        0f,
-                        0f
-                    );
-                }
-                if (IsRewardTimePenalty) {
-                    RewardFunctionTimePenalty = new RewardFunctionGeneratorTimePenalty(
-                    );
-                }
+            if (IsRewardDistanceToTarget) {
+                RewardFunctionDistanceToTarget = new RewardFunctionGeneratorDistanceToTarget(
+                    BodyCore,
+                    Target
+                );
+            }
+            if (IsRewardVelocityToTarget) {
+                RewardFunctionVelocityToTarget = new RewardFunctionGeneratorVelocityToTarget(
+                    BodyCore,
+                    Target
+                );
+            }
+            if (IsRewardFacingTarget) {
+                RewardFunctionFacingTarget = new RewardFunctionGeneratorFacingTarget(
+                    BodyCore,
+                    Target,
+                    RewardFunctionGeneratorFacingTarget.Types.Dot
+                );
+            }
+            if (IsRewardCoreUp) {
+                RewardFunctionCoreUp = new RewardFunctionGeneratorKeepTowards(
+                    BodyCore,
+                    Vector3.up
+                );
+            }
+            if (IsRewardHeadUp) {
+                RewardFunctionHeadUp = new RewardFunctionGeneratorFacing(
+                    Vector3.up,
+                    RewardHeadUpType,
+                    0f,
+                    0f
+                );
+            }
+            if (IsRewardTimePenalty) {
+                RewardFunctionTimePenalty = new RewardFunctionGeneratorTimePenalty(
+                );
             }
         } // InitializeRewardFunction
 
@@ -148,33 +139,34 @@ namespace Arena {
         DiscreteContinuousStep()
         {
             base.DiscreteContinuousStep();
-            if (RewardScheme == RewardSchemes.IS) {
-                if (IsRewardDistanceToTarget) {
-                    AddReward(
-                        RewardFunctionDistanceToTarget.StepGetReward() * RewardDistanceCoefficient * RewardSchemeScale);
-                }
-                if (IsRewardVelocityToTarget) {
-                    AddReward(
-                        RewardFunctionVelocityToTarget.StepGetReward() * RewardVelocityCoefficient * RewardSchemeScale);
-                }
-                if (IsRewardFacingTarget) {
-                    AddReward(
-                        RewardFunctionFacingTarget.StepGetReward(
-                            BodyCore.transform.forward) * RewardDirectionCoefficient * RewardSchemeScale);
-                }
-                if (IsRewardCoreUp) {
-                    AddReward(
-                        RewardFunctionCoreUp.StepGetReward() * RewardDistanceCoefficient * RewardSchemeScale);
-                }
-                if (IsRewardHeadUp) {
-                    AddReward(
-                        RewardFunctionHeadUp.StepGetReward(
-                            BodyCore.transform.up) * RewardDirectionCoefficient * RewardSchemeScale);
-                }
-                if (IsRewardTimePenalty) {
-                    AddReward(
-                        RewardFunctionTimePenalty.StepGetReward() * RewardTimeCoefficient * RewardSchemeScale);
-                }
+            if (IsRewardDistanceToTarget) {
+                AddReward(
+                    RewardFunctionDistanceToTarget.StepGetReward() * globalManager.RewardDistanceCoefficient
+                    * RewardSchemeScale);
+            }
+            if (IsRewardVelocityToTarget) {
+                AddReward(
+                    RewardFunctionVelocityToTarget.StepGetReward() * globalManager.RewardVelocityCoefficient
+                    * RewardSchemeScale);
+            }
+            if (IsRewardFacingTarget) {
+                AddReward(
+                    RewardFunctionFacingTarget.StepGetReward(
+                        BodyCore.transform.forward) * globalManager.RewardDirectionCoefficient * RewardSchemeScale);
+            }
+            if (IsRewardCoreUp) {
+                AddReward(
+                    RewardFunctionCoreUp.StepGetReward() * globalManager.RewardDistanceCoefficient * RewardSchemeScale);
+            }
+            if (IsRewardHeadUp) {
+                AddReward(
+                    RewardFunctionHeadUp.StepGetReward(
+                        BodyCore.transform.up) * globalManager.RewardDirectionCoefficient * RewardSchemeScale);
+            }
+            if (IsRewardTimePenalty) {
+                AddReward(
+                    RewardFunctionTimePenalty.StepGetReward() * globalManager.RewardTimeCoefficient
+                    * RewardSchemeScale);
             }
         } // DiscreteContinuousStep
 
@@ -203,26 +195,24 @@ namespace Arena {
         protected override void
         ResetRewardFunction()
         {
-            if (RewardScheme == RewardSchemes.IS) {
-                // Set reward for this step according to mixture of the following elements.
-                if (IsRewardDistanceToTarget) {
-                    RewardFunctionDistanceToTarget.Reset();
-                }
-                if (IsRewardVelocityToTarget) {
-                    RewardFunctionVelocityToTarget.Reset();
-                }
-                if (IsRewardFacingTarget) {
-                    RewardFunctionFacingTarget.Reset();
-                }
-                if (IsRewardCoreUp) {
-                    RewardFunctionCoreUp.Reset();
-                }
-                if (IsRewardHeadUp) {
-                    RewardFunctionHeadUp.Reset();
-                }
-                if (IsRewardTimePenalty) {
-                    RewardFunctionTimePenalty.Reset();
-                }
+            // Set reward for this step according to mixture of the following elements.
+            if (IsRewardDistanceToTarget) {
+                RewardFunctionDistanceToTarget.Reset();
+            }
+            if (IsRewardVelocityToTarget) {
+                RewardFunctionVelocityToTarget.Reset();
+            }
+            if (IsRewardFacingTarget) {
+                RewardFunctionFacingTarget.Reset();
+            }
+            if (IsRewardCoreUp) {
+                RewardFunctionCoreUp.Reset();
+            }
+            if (IsRewardHeadUp) {
+                RewardFunctionHeadUp.Reset();
+            }
+            if (IsRewardTimePenalty) {
+                RewardFunctionTimePenalty.Reset();
             }
         }
 

@@ -22,6 +22,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1803212732093020947}
+  - component: {fileID: 1183753421193928359}
   - component: {fileID: 1803212733353429862}
   m_Layer: 0
   m_Name: Agent
@@ -46,6 +47,31 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1183753421193928359
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1803212732093020946}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c96d8e715943344d388f8736e7d2e97e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  NodeID: 0
+  LivingCondition: 1
+  AtLeastSpecificNumberLiving: 1
+  AtLeastSpecificPortion: 0.5
+  RewardSchemeScale: 1
+  IsRewardRanking: 0
+  RankingWinType: 0
+  IsRewardDistance: 0
+  DistanceBase1: {fileID: 0}
+  DistanceBase2: {fileID: 0}
+  IsRewardTime: 0
+  TimeWinType: 0
+  TransformReinitializors: []
 --- !u!114 &1803212733353429862
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -67,17 +93,14 @@ MonoBehaviour:
     resetOnDone: 1
     onDemandDecision: 0
     numberOfActionsBetweenDecisions: 5
-  AgentID: 0
   ID: {fileID: 3824440586482636849}
-  RewardScheme: 0
   RewardSchemeScale: 1
   AllowGunAttack: 0
   Gun: {fileID: 0}
   BulletEmitter: {fileID: 0}
   Bullet: {fileID: 7025618740248747020, guid: 1aa38fae5ed074971aa416fd0c436e83, type: 3}
-  BulletBar: {fileID: 4332119505570634113}
   BulletFarwardForce: 500
-  NumBulletPerLoad: 0.04
+  NumBulletPerLoad: 0.01
   FullNumBullet: 1
   AllowSwordAttack: 0
   Sword: {fileID: 0}
@@ -85,33 +108,24 @@ MonoBehaviour:
   IsRewardFacingTarget: 0
   Target: {fileID: 0}
   IsRewardTimePenalty: 0
-  RewardDistanceCoefficient: 1
-  RewardDirectionCoefficient: 0.01
-  RewardTimeCoefficient: 0.001
   Player: {fileID: 1803212732904511590}
   isApplyTeamMaterialToPlayer: 0
+  PlayerIgnoreCollisionTags: []
   AllowMove: 0
   MoveType: 0
-  MoveForceAcc: 0
-  MoveForceMax: 40
-  MoveVelocityBase: 5
-  MoveVelocityAcc: 0
-  MoveVelocityMax: 10
+  MoveAccumulator:
+    Base: 0
+    Speed: 0
+    Max: -1
   FreezePositionWhenNoAction: 0
   FreezeRotationWhenNoAction: 0
   AllowJump: 0
   JumpForceMax: 400
-  MoveForceBase: 20
   AllowTurn: 0
-  TurnVelocityBase: 0.3
-  TurnVelocityAcc: 0.2
-  TurnVelocityMax: 3
-  PlayerRandomPositionMin: {x: 0, y: 0, z: 0}
-  PlayerRandomPositionMax: {x: 0, y: 0, z: 0}
-  PlayerRandomEulerAnglesMin: {x: 0, y: 0, z: 0}
-  PlayerRandomEulerAnglesMax: {x: 0, y: 0, z: 0}
-  PlayerRandomForceMin: {x: 0, y: 0, z: 0}
-  PlayerRandomForceMax: {x: 0, y: 0, z: 0}
+  TurnAccumulator:
+    Base: 0
+    Speed: 0
+    Max: -1
   MoveSpeed: 2
   BulletEmitterForward: {fileID: 1803212732486421685}
 --- !u!1 &1803212732486421685
@@ -441,21 +455,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4034352613381587835, guid: 3496c4b5a87ba44ffbf86655893a3304,
-        type: 3}
-      propertyPath: m_LocalScale.x
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 4034352613381587835, guid: 3496c4b5a87ba44ffbf86655893a3304,
-        type: 3}
-      propertyPath: m_LocalScale.y
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 4034352613381587835, guid: 3496c4b5a87ba44ffbf86655893a3304,
-        type: 3}
-      propertyPath: m_LocalScale.z
-      value: 0.5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3496c4b5a87ba44ffbf86655893a3304, type: 3}

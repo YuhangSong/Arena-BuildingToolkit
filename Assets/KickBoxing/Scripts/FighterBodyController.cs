@@ -49,7 +49,7 @@ public class FighterBodyController : MonoBehaviour
         if (other.gameObject.CompareTag("Body")) {
             FighterBodyController other_body =
               other.gameObject.GetComponent(typeof(FighterBodyController)) as FighterBodyController;
-            this.GetComponentInParent<KickBoxingAgent>().hurt(other_body.hurting * this.hurted);
+            // this.GetComponentInParent<KickBoxingAgent>().hurt(other_body.hurting * this.hurted);
             this.trig_hurting_warning();
         }
     }

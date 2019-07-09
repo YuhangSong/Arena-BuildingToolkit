@@ -9,6 +9,13 @@ namespace Arena
         public GameObject BulletEmitterForward;
 
         public override void
+        InitializeAgent()
+        {
+            base.InitializeAgent();
+            UIPercentageBars["AM"].Enable();
+        }
+
+        public override void
         AgentReset()
         {
             base.AgentReset();

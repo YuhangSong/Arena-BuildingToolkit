@@ -15,25 +15,27 @@ public class CTFPlayer : MonoBehaviour
         carryingflag = false;
     }
 
-    public bool hasflag(){
+    public bool
+    hasflag()
+    {
         return carryingflag;
     }
 
-    private void setflag(int teamid){
-        if (GetComponentInParent<ArenaTeam>().getTeamID() != teamid){
-            this.GetComponentInChildren<CTFCarryFlag>().getcolor(teamid);
-            this.GetComponentInChildren<CTFCarryFlag>().showflag();
-            carryingflag = true;
-        }
-    }
-
-    void
-    OnCollisionEnter(Collision other)
-    {
-        if (other.gameObject.CompareTag(TrigTag)) {
-            // ArenaAgent ArenaAgent_ = other.gameObject.GetComponentInParent<ArenaAgent>();
-            CTFFlag curflag = other.gameObject.GetComponentInParent<CTFFlag>();
-            this.setflag(curflag.Tellteamid());
-        }
-    }
+    // private void setflag(int teamid){
+    //     if (GetComponentInParent<ArenaTeam>().getTeamID() != teamid){
+    //         this.GetComponentInChildren<CTFCarryFlag>().getcolor(teamid);
+    //         this.GetComponentInChildren<CTFCarryFlag>().showflag();
+    //         carryingflag = true;
+    //     }
+    // }
+    //
+    // void
+    // OnCollisionEnter(Collision other)
+    // {
+    //     if (other.gameObject.CompareTag(TrigTag)) {
+    //         // ArenaAgent ArenaAgent_ = other.gameObject.GetComponentInParent<ArenaAgent>();
+    //         CTFFlag curflag = other.gameObject.GetComponentInParent<CTFFlag>();
+    //         this.setflag(curflag.Tellteamid());
+    //     }
+    // }
 }

@@ -7,8 +7,14 @@ namespace Arena
     /// <summary>
     /// Use this method to reinitialize a object's transform, and add forces.
     /// </summary>
+    [System.Serializable]
     public class TransformReinitializor : Reinitializor
     {
+        /// <summary>
+        /// Reference to the GameObject.
+        /// </summary>
+        public GameObject gameObject;
+
         /// <summary>
         /// The orignal position of the object.
         /// </summary>
@@ -17,12 +23,12 @@ namespace Arena
         /// <summary>
         /// Random position range (Min).
         /// </summary>
-        private Vector3 RandomPositionMin;
+        public Vector3 RandomPositionMin;
 
         /// <summary>
         /// Random position range (Max).
         /// </summary>
-        private Vector3 RandomPositionMax;
+        public Vector3 RandomPositionMax;
 
         /// <summary>
         /// Original eulerAngles of the object.
@@ -32,27 +38,39 @@ namespace Arena
         /// <summary>
         /// Random eular angle range (Min).
         /// </summary>
-        private Vector3 RandomEulerAnglesMin;
+        public Vector3 RandomEulerAnglesMin;
 
         /// <summary>
         /// Random eular angle range (Max).
         /// </summary>
-        private Vector3 RandomEulerAnglesMax;
+        public Vector3 RandomEulerAnglesMax;
 
         /// <summary>
         /// Random force range (Min).
         /// </summary>
-        private Vector3 RandomForceMin;
+        public Vector3 RandomForceMin;
 
         /// <summary>
         /// Random force range (Max).
         /// </summary>
-        private Vector3 RandomForceMax;
+        public Vector3 RandomForceMax;
 
-        /// <summary>
-        /// Reference to the GameObject.
-        /// </summary>
-        private GameObject gameObject;
+        public TransformReinitializor()
+        { }
+
+        public TransformReinitializor(
+            GameObject gameObject_) : this()
+        {
+            gameObject = gameObject_;
+            RecordOriginalTransform();
+        }
+
+        public void
+        RecordOriginalTransform()
+        {
+            OriginalPosition    = gameObject.transform.position;
+            OriginalEulerAngles = gameObject.transform.eulerAngles;
+        }
 
         /// <summary>
         /// Constructor.
@@ -68,10 +86,8 @@ namespace Arena
             GameObject gameObject_,
             Vector3 RandomPositionMin_, Vector3 RandomPositionMax_,
             Vector3 RandomEulerAnglesMin_, Vector3 RandomEulerAnglesMax_,
-            Vector3 RandomForceMin_, Vector3 RandomForceMax_)
+            Vector3 RandomForceMin_, Vector3 RandomForceMax_) : this(gameObject_)
         {
-            gameObject = gameObject_;
-
             RandomPositionMin = RandomPositionMin_;
             RandomPositionMax = RandomPositionMax_;
 
@@ -80,9 +96,6 @@ namespace Arena
 
             RandomForceMin = RandomForceMin_;
             RandomForceMax = RandomForceMax_;
-
-            OriginalPosition    = gameObject.transform.position;
-            OriginalEulerAngles = gameObject.transform.eulerAngles;
         }
 
         /// <summary>

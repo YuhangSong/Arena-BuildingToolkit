@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections.Generic;
 
 namespace Arena
 {
@@ -20,15 +21,11 @@ namespace Arena
     }
 
     /// <summary>
-    /// How to switch between agents:
-    /// Sequence: according to the sequence of AgentID
-    /// None: used in GlobalManager to indicate the setting of
-    ///       AgentSwitchType is determined by each team, instead of the GlobalManager.
-    ///       By default, it is determined by GlobalManager.
+    /// How to switch between child:
+    ///   Sequence: according to the sequence of ID
     /// </summary>
-    public enum AgentSwitchTypes {
+    public enum ChildSwitchTypes {
         Sequence,
-        None
     }
 
     /// <summary>
@@ -49,23 +46,83 @@ namespace Arena
     }
 
     /// <summary>
-    /// RewardSchemes:
-    ///  NL:
-    ///  IS:
-    ///  CP:
-    ///  CL:
-    ///  CC:
+    /// RankingWinTypes:
+    ///  Survive means the team survive longer gets higher reward.
+    ///  Depart means the team dies earlier gets higher reward.
     /// </summary>
-    public enum RewardSchemes {
-        NL,
-        IS,
-        CP,
-        CL,
-        CC
+    public enum RankingWinTypes {
+        Survive,
+        Depart
+    }
+
+    /// <summary>
+    /// TimeWinTypes:
+    ///  Looger means the one alive longer gets higher reward.
+    ///  Depart means the one alive shorter gets higher reward.
+    /// </summary>
+    public enum TimeWinTypes {
+        Looger,
+        Shorter
+    }
+
+    /// <summary>
+    /// Condition at which the team is considerred to be living.
+    ///   AllLiving: This team is living when all ArenaNode are living in this team.
+    ///   AtLeastOneLiving: This team is living when there is at least one ArenaNode living in this team.
+    /// </summary>
+    public enum LivingConditions {
+        AllLiving,
+        AtLeastOneLiving,
+        AtLeastSpecificNumberLiving,
+        AtLeastSpecificPortionLiving
     }
 
     static public class Utils
     {
+        public static bool
+        IsListEqual(List<int> ListA, List<int> ListB, int Count)
+        {
+            for (int i = 0; i < Count; i++) {
+                if (ListA[i] != ListB[i]) {
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        public static List<ArenaNode>
+        GetTopLevelArenaNodesInChildren(GameObject GameObject_)
+        {
+            List<ArenaNode> ArenaNodes = new List<ArenaNode>();
+
+            for (int ID = 0; ID < GameObject_.transform.childCount; ID++) {
+                ArenaNode ArenaNode_ = GameObject_.transform.GetChild(ID).gameObject.GetComponent<ArenaNode>();
+                if (ArenaNode_ != null) {
+                    ArenaNodes.Add(ArenaNode_);
+                }
+            }
+
+            return ArenaNodes;
+        }
+
+        public static ArenaNode
+        GetBottomLevelArenaNodeInGameObject(GameObject GameObject_)
+        {
+            Transform parent_ = GameObject_.transform.parent;
+
+            if (parent_ != null) {
+                ArenaNode ArenaNode_ = parent_.gameObject.GetComponent<ArenaNode>();
+
+                if (ArenaNode_ != null) {
+                    return ArenaNode_;
+                } else {
+                    return GetBottomLevelArenaNodeInGameObject(parent_.gameObject);
+                }
+            } else {
+                return null;
+            }
+        }
+
         /// <summary>
         /// Set all TextMesh in child with a text.
         /// </summary>

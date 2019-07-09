@@ -44,19 +44,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c96d8e715943344d388f8736e7d2e97e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TeamID: 0
+  NodeID: 0
   LivingCondition: 1
-  RewardScheme: 0
+  AtLeastSpecificNumberLiving: 1
+  AtLeastSpecificPortion: 0.5
   RewardSchemeScale: 10
-  RewardFunction: 0
+  IsRewardRanking: 0
+  RankingWinType: 0
   IsRewardDistance: 0
   DistanceBase1: {fileID: 0}
   DistanceBase2: {fileID: 0}
-  RewardDistanceCoefficient: 1
-  RewardDirectionCoefficient: 0.01
-  RewardTimeCoefficient: 0.001
-  AgentSwitchType: 0
-  Living: 1
+  IsRewardTime: 0
+  TimeWinType: 0
 --- !u!1001 &2125944940664971844
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -138,6 +137,11 @@ PrefabInstance:
         type: 3}
       propertyPath: Target
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 4614824483857594842, guid: 5743e601ef8b64a6085c9a9125b43742,
+        type: 3}
+      propertyPath: IsRewardDistanceToTarget
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4614824482398414380, guid: 5743e601ef8b64a6085c9a9125b43742,
         type: 3}

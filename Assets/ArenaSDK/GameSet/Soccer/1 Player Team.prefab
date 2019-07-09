@@ -46,18 +46,36 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c96d8e715943344d388f8736e7d2e97e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TeamID: 0
+  NodeID: 0
   LivingCondition: 1
-  RewardScheme: 0
+  AtLeastSpecificNumberLiving: 1
+  AtLeastSpecificPortion: 0.5
   RewardSchemeScale: 10
+  IsRewardRanking: 0
+  RankingWinType: 0
   IsRewardDistance: 0
   DistanceBase1: {fileID: 0}
   DistanceBase2: {fileID: 0}
-  RewardDistanceCoefficient: 1
-  RewardDirectionCoefficient: 0.01
-  RewardTimeCoefficient: 0.001
-  AgentSwitchType: 0
-  Living: 1
+  IsRewardTime: 0
+  TimeWinType: 0
+  TransformReinitializors: []
+--- !u!114 &4386880494681660468
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1864320417306717291}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8beffda8b34d945948afa0f3c246068a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  TrigTags:
+  - Ball
+  IsKill: 1
+  IncrementHealth: 0
+  IncrementEnergy: 0
 --- !u!1 &4869309151030013746
 GameObject:
   m_ObjectHideFlags: 0
@@ -335,6 +353,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c345c44bfe8f44645ada3c313c7cf5ec, type: 3}
+--- !u!1 &1864320417306717291 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2422159317445897070, guid: c345c44bfe8f44645ada3c313c7cf5ec,
+    type: 3}
+  m_PrefabInstance: {fileID: 4053900034458044165}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &4635902362148181766 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8652628988519010307, guid: c345c44bfe8f44645ada3c313c7cf5ec,
