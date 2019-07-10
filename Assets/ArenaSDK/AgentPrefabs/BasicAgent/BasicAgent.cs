@@ -367,7 +367,7 @@ namespace Arena {
                         // Only works if the agent is on the ground.
                         // However, this judgement of if agent is on the groud could be buggy.
                         // But no better way avaible for now.
-                        if (Player.GetComponentInChildren<Rigidbody>().velocity.y == 0f) {
+                        if (Player.GetComponentInChildren<Rigidbody>().velocity.y < 0.01f) {
                             Player.GetComponentInChildren<Rigidbody>().AddForce(
                                 Player.transform.TransformVector(
                                     Vector3.up * JumpForceMax
