@@ -16,6 +16,13 @@ namespace Arena
         /// </summary>
         public List<string> TrigTags = new List<string>();
 
+        public enum SubjectTypes {
+            Other,
+            This
+        }
+
+        public SubjectTypes SubjectType = SubjectTypes.Other;
+
         public bool IsMatchNodeCoordinate = false;
 
         /// <summary>
@@ -35,13 +42,21 @@ namespace Arena
         {
             if (TrigTags.Contains(other.tag)) {
                 ArenaNode OtherNode = Utils.GetBottomLevelArenaNodeInGameObject(other);
-                if (OtherNode == null) {
+                ArenaNode ThisNode  = Utils.GetBottomLevelArenaNodeInGameObject(gameObject);
+
+                ArenaNode SubjectNode;
+                if (SubjectType == SubjectTypes.This) {
+                    SubjectNode = ThisNode;
+                } else {
+                    SubjectNode = OtherNode;
+                }
+
+                if (SubjectNode == null) {
                     return;
                 }
 
                 if (IsMatchNodeCoordinate) {
-                    ArenaNode ThisNode = Utils.GetBottomLevelArenaNodeInGameObject(gameObject);
-                    if (ThisNode == null) {
+                    if ((ThisNode == null) || (OtherNode == null)) {
                         return;
                     } else {
                         List<int> ThisNodeCoordinate  = ThisNode.GetCoordinate();
@@ -53,14 +68,15 @@ namespace Arena
                         }
                     }
                 }
+
                 if (IsKill) {
-                    OtherNode.Kill();
+                    SubjectNode.Kill();
                 }
                 if (IncrementHealth != 0f) {
-                    OtherNode.IncrementHealth(IncrementHealth);
+                    SubjectNode.IncrementHealth(IncrementHealth);
                 }
                 if (IncrementEnergy != 0f) {
-                    OtherNode.IncrementEnergy(IncrementEnergy);
+                    SubjectNode.IncrementEnergy(IncrementEnergy);
                 }
             }
         } // TrigEvent
