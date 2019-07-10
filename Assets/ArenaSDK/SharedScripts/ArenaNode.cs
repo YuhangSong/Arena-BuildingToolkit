@@ -523,7 +523,7 @@ namespace Arena
         InitUtils()
         {
             foreach (TransformReinitializor TransformReinitializor_ in TransformReinitializors) {
-                TransformReinitializor_.RecordOriginalTransform();
+                TransformReinitializor_.Initialize();
             }
         }
 

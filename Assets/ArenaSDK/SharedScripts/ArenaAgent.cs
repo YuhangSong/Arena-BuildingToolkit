@@ -19,6 +19,9 @@ namespace Arena
         /// </summary>
         public GameObject ID;
 
+        public float HealthInterment = 0f;
+        public float EnergyInterment = 0f;
+
         [Header("Reward Scheme")][Space(10)]
 
         /// <summary>
@@ -332,7 +335,14 @@ namespace Arena
         /// </summary>
         virtual protected void
         DiscreteContinuousStep()
-        { }
+        {
+            if (HealthInterment != 0f) {
+                IncrementHealth(HealthInterment);
+            }
+            if (EnergyInterment != 0f) {
+                IncrementEnergy(EnergyInterment);
+            }
+        }
 
         /// <summary>
         /// Called at each step. Use this method the deal with LastDiscreteAction_ and Action_.

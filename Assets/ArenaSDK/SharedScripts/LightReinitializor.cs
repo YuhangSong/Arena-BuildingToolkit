@@ -4,35 +4,35 @@ using UnityEngine;
 
 namespace Arena {
     /// <summary>
-    /// Used to reinitialize a light object
+    /// Used to reinitialize a ReinitializedLight object
     /// </summary>
     public class LightReinitializor : Reinitializor
     {
         /// <summary>
-        /// How much randomness to add on the light.
+        /// How much randomness to add on the ReinitializedLight.
         /// </summary>
         private float RandomIntensity;
 
         /// <summary>
-        /// Record of original light intensity.
+        /// Record of original ReinitializedLight intensity.
         /// </summary>
         private float OriginalIntensity;
 
         /// <summary>
-        /// Reference to the light object.
+        /// Reference to the ReinitializedLight object.
         /// </summary>
-        private Light light;
+        private Light ReinitializedLight;
 
         /// <summary>
         /// Constructor.
         /// </summary>
-        /// <param name="light_">Reference to the light object.</param>
-        /// <param name="RandomIntensity_">How much randomness to add on the light.</param>
-        public LightReinitializor(Light light_, float RandomIntensity_)
+        /// <param name="ReinitializedLight_">Reference to the ReinitializedLight object.</param>
+        /// <param name="RandomIntensity_">How much randomness to add on the ReinitializedLight.</param>
+        public LightReinitializor(Light ReinitializedLight_, float RandomIntensity_)
         {
-            light = light_;
-            OriginalIntensity = light.intensity;
-            RandomIntensity   = RandomIntensity_;
+            ReinitializedLight = ReinitializedLight_;
+            OriginalIntensity  = ReinitializedLight.intensity;
+            RandomIntensity    = RandomIntensity_;
         }
 
         /// <summary>
@@ -41,7 +41,7 @@ namespace Arena {
         override public void
         Reinitialize()
         {
-            light.intensity = OriginalIntensity + Random.Range(-RandomIntensity, RandomIntensity);
+            ReinitializedLight.intensity = OriginalIntensity + Random.Range(-RandomIntensity, RandomIntensity);
         }
     }
 }

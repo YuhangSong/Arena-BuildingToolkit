@@ -357,7 +357,8 @@ MonoBehaviour:
   IsRewardTime: 0
   TimeWinType: 0
   TransformReinitializors:
-  - gameObject: {fileID: 895731944402785453}
+  - ReinitializedGameObject: {fileID: 895731944402785453}
+    NumDuplications: 0
     RandomPositionMin: {x: 0, y: 0, z: 0}
     RandomPositionMax: {x: 0, y: 0, z: 0}
     RandomEulerAnglesMin: {x: 0, y: 0, z: 0}
@@ -386,6 +387,8 @@ MonoBehaviour:
     onDemandDecision: 0
     numberOfActionsBetweenDecisions: 1
   ID: {fileID: 4139960366113134066}
+  HealthInterment: 0
+  EnergyInterment: 0
   RewardSchemeScale: 1
   AllowGunAttack: 0
   Gun: {fileID: 703348489692098525}

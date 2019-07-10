@@ -1,34 +1,31 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using MLAgents;
 
 namespace Arena
 {
     /// <summary>
-    /// Attach SelfDestroy to a GameObject with Collider, it will destroy itself when hit anything.
+    /// Attach SelfDeactiveGate to a GameObject with Collider, it will deactive itself when hit anything.
     /// If hit object with object of ExceptTags, this will not take effect
     /// </summary>
-    public class SelfDestroyGate : Gate
+    public class SelfDeactiveGate : Gate
     {
         /// <summary>
-        /// destroy self when hit anything but ExceptTags
+        /// deactive self when hit anything but ExceptTags
         /// <summary>
         public List<string> ExceptTags = new List<string>();
-
-        public float Delay = 0f;
 
         protected override void
         TrigEvent(GameObject other)
         {
-            // destroy self when hit anything but ExceptTags
+            // deactive self when hit anything but ExceptTags
             foreach (string Tag_ in ExceptTags) {
                 if (other.CompareTag(Tag_)) {
                     return;
                 }
             }
 
-            Destroy(gameObject, Delay);
+            gameObject.SetActive(false);
         }
     }
 }

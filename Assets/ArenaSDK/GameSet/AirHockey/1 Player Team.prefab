@@ -45,18 +45,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c96d8e715943344d388f8736e7d2e97e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TeamID: 0
+  NodeID: 0
   LivingCondition: 1
-  RewardScheme: 0
+  AtLeastSpecificNumberLiving: 1
+  AtLeastSpecificPortion: 0.5
   RewardSchemeScale: 10
+  IsRewardRanking: 0
+  RankingWinType: 0
   IsRewardDistance: 0
-  DistanceBase1: {fileID: 0}
+  DistanceBase1: {fileID: 2903027153049345022}
   DistanceBase2: {fileID: 0}
-  RewardDistanceCoefficient: 1
-  RewardDirectionCoefficient: 0.01
-  RewardTimeCoefficient: 0.001
-  AgentSwitchType: 0
-  Living: 1
+  IsRewardTime: 0
+  TimeWinType: 0
+  TransformReinitializors: []
 --- !u!1001 &708369989053329552
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -141,6 +142,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c345c44bfe8f44645ada3c313c7cf5ec, type: 3}
+--- !u!1 &2903027153049345022 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2422159317445897070, guid: c345c44bfe8f44645ada3c313c7cf5ec,
+    type: 3}
+  m_PrefabInstance: {fileID: 708369989053329552}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &8196818472252891283 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8652628988519010307, guid: c345c44bfe8f44645ada3c313c7cf5ec,
@@ -213,6 +220,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3478338675568649968, guid: 263b05f6ed7e84367a6dfb64a6b8aefd,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -39.19995
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 263b05f6ed7e84367a6dfb64a6b8aefd, type: 3}
