@@ -458,6 +458,11 @@ namespace Arena
 
             gameObject.GetComponent<ArenaNode>().Reset();
 
+            // reset EventGate
+            foreach (EventGate EventGate_ in gameObject.GetComponentsInChildren<EventGate>()) {
+                EventGate_.Reset();
+            }
+
             // // reset turn-based game
             // if (isTurnBasedGame()) {
             //     ResetTurnBasedGame();

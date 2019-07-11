@@ -37,6 +37,18 @@ namespace Arena
         /// </summary>
         public float IncrementEnergy = 0f;
 
+        public bool IsCarried = false;
+
+        /// <summary>
+        /// The relative position of this GameObject to the GameObject to follow.
+        /// </summary>
+        private Vector3 RelativePosition;
+
+        /// <summary>
+        /// The GameObject to follow.
+        /// </summary>
+        private GameObject ToFollow;
+
         protected override void
         TrigEvent(GameObject other)
         {
@@ -69,6 +81,7 @@ namespace Arena
                     }
                 }
 
+
                 if (IsKill) {
                     SubjectNode.Kill();
                 }
@@ -78,7 +91,25 @@ namespace Arena
                 if (IncrementEnergy != 0f) {
                     SubjectNode.IncrementEnergy(IncrementEnergy);
                 }
+                if (IsCarried) {
+                    ToFollow         = other;
+                    RelativePosition = transform.position - ToFollow.transform.position;
+                }
             }
         } // TrigEvent
+
+        void
+        FixedUpdate()
+        {
+            if (ToFollow != null) {
+                transform.position = ToFollow.transform.position + RelativePosition;
+            }
+        }
+
+        public void
+        Reset()
+        {
+            ToFollow = null;
+        }
     }
 }

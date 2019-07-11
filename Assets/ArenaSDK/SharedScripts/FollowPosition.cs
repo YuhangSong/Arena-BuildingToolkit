@@ -31,10 +31,10 @@ namespace Arena
         }
 
         /// <summary>
-        /// Fixed update for the GameObject to follow.
+        /// Late update for the GameObject to follow.
         /// </summary>
         void
-        FixedUpdate()
+        LateUpdate()
         {
             transform.position = ToFollow.transform.position + RelativePosition;
         }
