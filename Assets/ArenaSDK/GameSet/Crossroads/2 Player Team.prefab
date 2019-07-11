@@ -73,10 +73,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TrigTags:
   - Player
+  SubjectType: 0
   IsMatchNodeCoordinate: 1
   IsKill: 1
   IncrementHealth: 0
   IncrementEnergy: 0
+  IsCarried: 0
 --- !u!1001 &1303188107078413288
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -97,7 +99,7 @@ PrefabInstance:
     - target: {fileID: 8703868936557751651, guid: ba17c132167c2433dbc71afed59c7e8b,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -1.7
       objectReference: {fileID: 0}
     - target: {fileID: 8703868936557751651, guid: ba17c132167c2433dbc71afed59c7e8b,
         type: 3}
