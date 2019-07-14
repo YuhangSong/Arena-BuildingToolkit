@@ -363,6 +363,10 @@ MonoBehaviour:
     RandomPositionMax: {x: 0, y: 0, z: 0}
     RandomEulerAnglesMin: {x: 0, y: 0, z: 0}
     RandomEulerAnglesMax: {x: 0, y: 0, z: 0}
+    RandomScaleMin: {x: 0, y: 0, z: 0}
+    RandomScaleMax: {x: 0, y: 0, z: 0}
+    RandomUniformScaleMin: 0
+    RandomUniformScaleMax: 0
     RandomForceMin: {x: 0, y: 0, z: 0}
     RandomForceMax: {x: 0, y: 0, z: 0}
 --- !u!114 &3875539347434451261
@@ -390,7 +394,7 @@ MonoBehaviour:
   HealthInterment: 0
   EnergyInterment: 0
   RewardSchemeScale: 1
-  AllowGunAttack: 0
+  AllowGunAttack: 1
   Gun: {fileID: 703348489692098525}
   BulletEmitter: {fileID: 6184267750510317448}
   Bullet: {fileID: 23, guid: 2b4d7185054f84ae99b2a1e17d2161bc, type: 3}
@@ -404,23 +408,23 @@ MonoBehaviour:
   Target: {fileID: 0}
   IsRewardTimePenalty: 0
   Player: {fileID: 895731944402785453}
-  isApplyTeamMaterialToPlayer: 1
+  isApplyTeamMaterialToPlayer: 0
   PlayerIgnoreCollisionTags: []
   AllowMove: 1
   MoveType: 0
   MoveAccumulator:
-    Base: 20
-    Speed: 0
-    Max: 40
-  FreezePositionWhenNoAction: 0
-  FreezeRotationWhenNoAction: 0
-  AllowJump: 1
+    Base: 30
+    Speed: 2
+    Max: 50
+  FreezePositionWhenNoAction: 1
+  FreezeRotationWhenNoAction: 1
+  AllowJump: 0
   JumpForceMax: 400
   AllowTurn: 1
   TurnAccumulator:
     Base: 0.3
-    Speed: 0.2
-    Max: 3
+    Speed: 0.3
+    Max: 20
 --- !u!1 &895731944881463456
 GameObject:
   m_ObjectHideFlags: 0
