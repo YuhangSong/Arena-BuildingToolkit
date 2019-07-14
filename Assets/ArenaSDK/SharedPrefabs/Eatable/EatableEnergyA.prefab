@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 6293585621005511289}
   - component: {fileID: 520963049509397524}
   m_Layer: 0
-  m_Name: EatableEnergy
+  m_Name: EatableEnergyA
   m_TagString: Eatable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -107,10 +107,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TrigTags:
   - Body
+  SubjectType: 0
   IsMatchNodeCoordinate: 0
   IsKill: 0
   IncrementHealth: 0
-  IncrementEnergy: 0.5
+  IncrementEnergy: 0.1
+  IsCarried: 0
 --- !u!114 &520963049509397524
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -124,5 +126,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ExceptTags:
-  - EatableHealth
-  - EatableEnergy
+  - Eatable
