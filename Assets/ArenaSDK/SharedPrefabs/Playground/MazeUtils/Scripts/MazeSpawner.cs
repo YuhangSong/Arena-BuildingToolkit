@@ -48,28 +48,6 @@ public class MazeSpawner : MonoBehaviour {
             -Playground.transform.lossyScale.z / 2f + CellHeight / 2f
         );
 
-        if (RandomSeed > 0) {
-            Random.InitState(RandomSeed);
-        }
-
-        switch (Algorithm) {
-            case MazeGenerationAlgorithm.PureRecursive:
-                mMazeGenerator = new RecursiveMazeGenerator(Rows, Columns);
-                break;
-            case MazeGenerationAlgorithm.RecursiveTree:
-                mMazeGenerator = new RecursiveTreeMazeGenerator(Rows, Columns);
-                break;
-            case MazeGenerationAlgorithm.RandomTree:
-                mMazeGenerator = new RandomTreeMazeGenerator(Rows, Columns);
-                break;
-            case MazeGenerationAlgorithm.OldestTree:
-                mMazeGenerator = new OldestTreeMazeGenerator(Rows, Columns);
-                break;
-            case MazeGenerationAlgorithm.RecursiveDivision:
-                mMazeGenerator = new DivisionMazeGenerator(Rows, Columns);
-                break;
-        }
-
         if (Pillar != null) {
             for (int row = 0; row < Rows + 1; row++) {
                 for (int column = 0; column < Columns + 1; column++) {
@@ -146,12 +124,35 @@ public class MazeSpawner : MonoBehaviour {
             }
         }
 
+        if (RandomSeed > 0) {
+            Random.InitState(RandomSeed);
+        }
+
+        switch (Algorithm) {
+            case MazeGenerationAlgorithm.PureRecursive:
+                mMazeGenerator = new RecursiveMazeGenerator(Rows, Columns);
+                break;
+            case MazeGenerationAlgorithm.RecursiveTree:
+                mMazeGenerator = new RecursiveTreeMazeGenerator(Rows, Columns);
+                break;
+            case MazeGenerationAlgorithm.RandomTree:
+                mMazeGenerator = new RandomTreeMazeGenerator(Rows, Columns);
+                break;
+            case MazeGenerationAlgorithm.OldestTree:
+                mMazeGenerator = new OldestTreeMazeGenerator(Rows, Columns);
+                break;
+            case MazeGenerationAlgorithm.RecursiveDivision:
+                mMazeGenerator = new DivisionMazeGenerator(Rows, Columns);
+                break;
+        }
+
         Reinitialize();
     } // Start
 
     public void
     Reinitialize()
     {
+        mMazeGenerator.ClearMazeCell();
         mMazeGenerator.GenerateMaze();
         for (int row = 0; row < Rows; row++) {
             for (int column = 0; column < Columns; column++) {

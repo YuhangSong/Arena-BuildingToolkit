@@ -472,7 +472,7 @@ namespace Arena
             // if (isTurnBasedGame()) {
             //     ResetTurnBasedGame();
             // }
-        }
+        } // AcademyReset
 
         /// <summary>
         /// Get the view port Rect of the agent axis.
