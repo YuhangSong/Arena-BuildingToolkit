@@ -458,9 +458,14 @@ namespace Arena
 
             gameObject.GetComponent<ArenaNode>().Reset();
 
-            // reset EventGate
+            // reset all EventGate
             foreach (EventGate EventGate_ in gameObject.GetComponentsInChildren<EventGate>()) {
                 EventGate_.Reset();
+            }
+
+            // reset all MazeSpawner
+            foreach (MazeSpawner MazeSpawner_ in gameObject.GetComponentsInChildren<MazeSpawner>()) {
+                MazeSpawner_.Reset();
             }
 
             // // reset turn-based game

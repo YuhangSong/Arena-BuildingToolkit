@@ -111,3 +111,4 @@ But the compiled binary files are released in [Arena-Baselines](https://github.c
 * [Hand Painted Grass Texture](https://assetstore.unity.com/packages/2d/textures-materials/floors/hand-painted-grass-texture-78552)
 * [Stone Floor Texture](https://assetstore.unity.com/packages/2d/textures-materials/stone/stone-floor-texture-20336)
 * [Unity Particle Pack 5.x](https://assetstore.unity.com/packages/essentials/asset-packs/unity-particle-pack-5-x-73777)
+* [Maze Generator](https://assetstore.unity.com/packages/tools/modeling/maze-generator-38689)
