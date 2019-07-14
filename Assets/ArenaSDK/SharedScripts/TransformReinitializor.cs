@@ -55,6 +55,31 @@ namespace Arena
         public Vector3 RandomEulerAnglesMax;
 
         /// <summary>
+        /// Original localScale of the object.
+        /// </summary>
+        private List<Vector3> OriginalScales = new List<Vector3>();
+
+        /// <summary>
+        /// Random localScale range (Min).
+        /// </summary>
+        public Vector3 RandomScaleMin;
+
+        /// <summary>
+        /// Random localScale range (Max).
+        /// </summary>
+        public Vector3 RandomScaleMax;
+
+        /// <summary>
+        /// Random localScale range (Min).
+        /// </summary>
+        public float RandomUniformScaleMin = 0f;
+
+        /// <summary>
+        /// Random localScale range (Max).
+        /// </summary>
+        public float RandomUniformScaleMax = 0f;
+
+        /// <summary>
         /// Random force range (Min).
         /// </summary>
         public Vector3 RandomForceMin;
@@ -117,6 +142,7 @@ namespace Arena
             foreach (GameObject ReinitializedGameObject_ in ReinitializedGameObjects) {
                 OriginalPosition.Add(ReinitializedGameObject_.transform.position);
                 OriginalEulerAngles.Add(ReinitializedGameObject_.transform.eulerAngles);
+                OriginalScales.Add(ReinitializedGameObject_.transform.localScale);
             }
         }
 
@@ -147,6 +173,26 @@ namespace Arena
                     OriginalEulerAngles[i].z + Utils.RandomSign_Float() * Random.Range(RandomEulerAnglesMin.z,
                     RandomEulerAnglesMax.z)
                 );
+
+                if (RandomUniformScaleMax <= 0f) {
+                    ReinitializedGameObjects[i].transform.localScale = new Vector3(
+                        OriginalScales[i].x + Utils.RandomSign_Float() * Random.Range(RandomScaleMin.x,
+                        RandomScaleMax.x),
+                        OriginalScales[i].y + Utils.RandomSign_Float() * Random.Range(RandomScaleMin.y,
+                        RandomScaleMax.y),
+                        OriginalScales[i].z + Utils.RandomSign_Float() * Random.Range(RandomScaleMin.z,
+                        RandomScaleMax.z)
+                    );
+                } else {
+                    float RandomIncrement_ = Utils.RandomSign_Float() * Random.Range(RandomUniformScaleMin,
+                        RandomUniformScaleMax);
+                    ReinitializedGameObjects[i].transform.localScale = new Vector3(
+                        OriginalScales[i].x + RandomIncrement_,
+                        OriginalScales[i].y + RandomIncrement_,
+                        OriginalScales[i].z + RandomIncrement_
+                    );
+                }
+
 
                 if (ReinitializedGameObjects[i].GetComponent<Rigidbody>() != null) {
                     ReinitializedGameObjects[i].GetComponent<Rigidbody>().velocity        = Vector3.zero;
