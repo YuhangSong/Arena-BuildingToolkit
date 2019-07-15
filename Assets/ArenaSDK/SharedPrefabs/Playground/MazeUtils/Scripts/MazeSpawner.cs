@@ -76,7 +76,7 @@ public class MazeSpawner : MonoBehaviour {
                         Quaternion.Euler(0, 90, 0)) as GameObject; // right
                     tmp.transform.parent     = transform;
                     tmp.transform.localScale = new Vector3(
-                        tmp.transform.localScale.x / Rows,
+                        tmp.transform.localScale.x / Rows * gameObject.transform.localScale.z,
                         tmp.transform.localScale.y,
                         tmp.transform.localScale.z
                     );
@@ -89,7 +89,7 @@ public class MazeSpawner : MonoBehaviour {
                         Quaternion.Euler(0, 0, 0)) as GameObject; // front
                     tmp.transform.parent     = transform;
                     tmp.transform.localScale = new Vector3(
-                        tmp.transform.localScale.x / Columns,
+                        tmp.transform.localScale.x / Columns * gameObject.transform.localScale.x,
                         tmp.transform.localScale.y,
                         tmp.transform.localScale.z
                     );
@@ -102,7 +102,7 @@ public class MazeSpawner : MonoBehaviour {
                         Quaternion.Euler(0, 270, 0)) as GameObject; // left
                     tmp.transform.parent     = transform;
                     tmp.transform.localScale = new Vector3(
-                        tmp.transform.localScale.x / Rows,
+                        tmp.transform.localScale.x / Rows * gameObject.transform.localScale.z,
                         tmp.transform.localScale.y,
                         tmp.transform.localScale.z
                     );
@@ -115,7 +115,7 @@ public class MazeSpawner : MonoBehaviour {
                         Quaternion.Euler(0, 180, 0)) as GameObject; // back
                     tmp.transform.parent     = transform;
                     tmp.transform.localScale = new Vector3(
-                        tmp.transform.localScale.x / Columns,
+                        tmp.transform.localScale.x / Columns * gameObject.transform.localScale.x,
                         tmp.transform.localScale.y,
                         tmp.transform.localScale.z
                     );
