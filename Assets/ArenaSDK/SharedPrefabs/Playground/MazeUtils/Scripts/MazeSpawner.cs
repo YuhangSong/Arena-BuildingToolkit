@@ -8,6 +8,9 @@ public class MazeSpawner : MonoBehaviour {
     public int Rows    = 5;
     public int Columns = 5;
 
+    public float ProbDisableWall   = 0f;
+    public float ProbDisablePillar = 0f;
+
     public bool ReinitlizeAtReset = true;
 
     public enum MazeGenerationAlgorithm {
@@ -35,6 +38,7 @@ public class MazeSpawner : MonoBehaviour {
     private bool AddGaps = false;
 
     private GameObject[,,] Walls;
+    private GameObject[,] Pillars;
 
     void
     Start()
@@ -53,10 +57,12 @@ public class MazeSpawner : MonoBehaviour {
         CellHeight = Playground.transform.lossyScale.z / Rows;
 
         PlaygroundOffset = new Vector3(
-            -Playground.transform.lossyScale.x / 2f + CellWidth / 2f,
+            Playground.transform.position.x - Playground.transform.lossyScale.x / 2f + CellWidth / 2f,
             Playground.transform.position.y + 0.038f,
-            -Playground.transform.lossyScale.z / 2f + CellHeight / 2f
+            Playground.transform.position.z - Playground.transform.lossyScale.z / 2f + CellHeight / 2f
         );
+
+        Pillars = new GameObject[Rows + 1, Columns + 1];
 
         if (Pillar != null) {
             for (int row = 0; row < Rows + 1; row++) {
@@ -67,6 +73,7 @@ public class MazeSpawner : MonoBehaviour {
                         z - CellHeight / 2) + PlaygroundOffset,
                         Quaternion.identity) as GameObject;
                     tmp.transform.parent = transform;
+                    Pillars[row, column] = tmp;
                 }
             }
         }
@@ -159,6 +166,16 @@ public class MazeSpawner : MonoBehaviour {
         Reinitialize();
     } // Start
 
+    private bool
+    GetDisable(float ProbDisable_)
+    {
+        if (Random.Range(0f, 1f) < ProbDisable_) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     public void
     Reinitialize()
     {
@@ -167,10 +184,16 @@ public class MazeSpawner : MonoBehaviour {
         for (int row = 0; row < Rows; row++) {
             for (int column = 0; column < Columns; column++) {
                 MazeCell cell = mMazeGenerator.GetMazeCell(row, column);
-                Walls[row, column, 0].SetActive(cell.WallRight);
-                Walls[row, column, 1].SetActive(cell.WallFront);
-                Walls[row, column, 2].SetActive(cell.WallLeft);
-                Walls[row, column, 3].SetActive(cell.WallBack);
+                Walls[row, column, 0].SetActive(GetDisable(ProbDisableWall) ? false : cell.WallRight);
+                Walls[row, column, 1].SetActive(GetDisable(ProbDisableWall) ? false : cell.WallFront);
+                Walls[row, column, 2].SetActive(GetDisable(ProbDisableWall) ? false : cell.WallLeft);
+                Walls[row, column, 3].SetActive(GetDisable(ProbDisableWall) ? false : cell.WallBack);
+            }
+        }
+
+        if (ProbDisablePillar > 0f) {
+            foreach (GameObject Pillar_ in Pillars) {
+                Pillar_.SetActive(!GetDisable(ProbDisablePillar));
             }
         }
     } // Reinitialize
