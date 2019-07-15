@@ -87,7 +87,7 @@ CapsuleCollider:
   m_GameObject: {fileID: 515885250365602886}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   m_Radius: 0.5000001
   m_Height: 2
   m_Direction: 1
@@ -179,7 +179,7 @@ CapsuleCollider:
   m_GameObject: {fileID: 703348489692098525}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   m_Radius: 0.5000001
   m_Height: 2
   m_Direction: 1
@@ -414,8 +414,8 @@ MonoBehaviour:
   MoveType: 0
   MoveAccumulator:
     Base: 30
-    Speed: 2
-    Max: 50
+    Speed: 0
+    Max: 35
   FreezePositionWhenNoAction: 1
   FreezeRotationWhenNoAction: 1
   AllowJump: 0
@@ -424,7 +424,7 @@ MonoBehaviour:
   TurnAccumulator:
     Base: 0.3
     Speed: 0.3
-    Max: 20
+    Max: 3
 --- !u!1 &895731944881463456
 GameObject:
   m_ObjectHideFlags: 0
