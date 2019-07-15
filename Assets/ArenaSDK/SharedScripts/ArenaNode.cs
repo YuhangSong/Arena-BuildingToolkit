@@ -77,6 +77,8 @@ namespace Arena
             return NodeID;
         }
 
+        private int NumChildNodes = -1;
+
         /// <summary>
         /// Get the number of all nodes in this node.
         /// </summary>
@@ -84,24 +86,45 @@ namespace Arena
         public int
         GetNumChildNodes()
         {
-            int NumChildNodes_ = 0;
-
-            foreach (ArenaNode ChildNode_ in Utils.GetTopLevelArenaNodesInChildren(gameObject)) {
-                NumChildNodes_ += 1;
+            if (NumChildNodes < 0) {
+                CheckNumChildNodes();
             }
-            return NumChildNodes_;
+            return NumChildNodes;
+        }
+
+        /// <summary>
+        /// Check the number of all nodes in this node.
+        /// This will update NumChildNodes if there is a change of the child nodes (adding new ones or deleting old ones)
+        /// </summary>
+        public void
+        CheckNumChildNodes()
+        {
+            NumChildNodes = Utils.GetTopLevelArenaNodesInChildren(gameObject).Count;
         }
 
         /// <summary>
         /// </summary>
         private List<ArenaNode> ChildNodes = new List<ArenaNode>();
+        private List<int> ChildNodeIDs     = new List<int>();
         public List<ArenaNode>
         GetChildNodes()
         {
             if (ChildNodes.Count != GetNumChildNodes()) {
+                // re-initliaze reference to child nodes
                 ChildNodes.Clear();
+                ChildNodeIDs.Clear();
                 foreach (ArenaNode ChildNode_ in Utils.GetTopLevelArenaNodesInChildren(gameObject)) {
                     ChildNodes.Add(ChildNode_);
+                    ChildNodeIDs.Add(ChildNode_.NodeID);
+                }
+                // Check if ChildNodeIDs are valid
+                ChildNodeIDs.Sort();
+                for (int i = 0; i < GetNumChildNodes(); i++) {
+                    if (ChildNodeIDs[i] != i) {
+                        Debug.LogError(
+                            GetLogTag() + " Got " + GetNumChildNodes() + " ChildNodes, but ChildNodeID " + i
+                            + " never appears");
+                    }
                 }
             }
             return ChildNodes;
@@ -240,6 +263,8 @@ namespace Arena
         public virtual void
         Reset()
         {
+            CheckNumChildNodes();
+
             Living = true;
 
             ResetUtils();
@@ -265,6 +290,8 @@ namespace Arena
         public virtual void
         Step()
         {
+            CheckNumChildNodes();
+
             StepRewardFunction();
 
             if (GetNumChildNodes() > 0) {
