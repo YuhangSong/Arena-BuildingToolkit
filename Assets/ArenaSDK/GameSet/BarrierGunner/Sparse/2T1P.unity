@@ -209,6 +209,11 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: -39.200195
       objectReference: {fileID: 0}
+    - target: {fileID: 4205446376611439112, guid: 7c3f80fa36a254533aa95485bab14a04,
+        type: 3}
+      propertyPath: NodeID
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8391774353969479361, guid: 7c3f80fa36a254533aa95485bab14a04,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -317,7 +322,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   broadcastHub:
     broadcastingBrains:
-    - {fileID: 11400000, guid: f723645b60672466c8a8ac56e5c017c7, type: 2}
+    - {fileID: 11400000, guid: 3358b44c8745e4a55837b8c8f04010fc, type: 2}
     _brainsToControl:
     - {fileID: 11400000, guid: 3358b44c8745e4a55837b8c8f04010fc, type: 2}
   maxSteps: 1000
