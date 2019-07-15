@@ -41,7 +41,7 @@ public class MazeSpawner : MonoBehaviour {
     {
         if ((Playground.transform.localScale.x != 40f) || (Playground.transform.localScale.z != 40f)) {
             Debug.LogError(
-                "Donot change the localScale.x and localScale.z of Playground in PlaygroundWithMaze, as it is matched with WallPrefab");
+                "Donot change the localScale.x and localScale.z of Playground in PlaygroundWithMaze, as it is matched with WallPrefab. Instead, change the localScale of PlaygroundWithMaze if needed.");
         }
 
         if (Wall.transform.localScale.x != 10f) {
