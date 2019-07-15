@@ -39,6 +39,16 @@ public class MazeSpawner : MonoBehaviour {
     void
     Start()
     {
+        if ((Playground.transform.localScale.x != 40f) || (Playground.transform.localScale.z != 40f)) {
+            Debug.LogError(
+                "Donot change the localScale.x and localScale.z of Playground in PlaygroundWithMaze, as it is matched with WallPrefab");
+        }
+
+        if (Wall.transform.localScale.x != 10f) {
+            Debug.LogError(
+                "Donot change the localScale.x of WallPrefab, as it is matched with Playground in PlaygroundWithMaze.");
+        }
+
         CellWidth  = Playground.transform.lossyScale.x / Columns;
         CellHeight = Playground.transform.lossyScale.z / Rows;
 
