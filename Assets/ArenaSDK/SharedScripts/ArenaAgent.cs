@@ -45,6 +45,21 @@ namespace Arena
         public bool IsShowAimLine = true;
 
         /// <summary>
+        /// ShootType = ShootTypes.Raycast only. Tag of collider that will response to the event.
+        /// </summary>
+        public List<string> TrigTags = new List<string>();
+
+        /// <summary>
+        /// ShootType = ShootTypes.Raycast only.
+        /// </summary>
+        public bool IsKill = true;
+
+        /// <summary>
+        /// ShootType = ShootTypes.Raycast only.
+        /// </summary>
+        public float KillHealth = 0f;
+
+        /// <summary>
         /// Reference to the GunAttack related objects.
         /// </summary>
         public GameObject Gun;
@@ -53,6 +68,11 @@ namespace Arena
         /// Reference to the GunAttack related objects.
         /// </summary>
         public GameObject BulletEmitter;
+
+        /// <summary>
+        /// Reference to the GunAttack related objects.
+        /// </summary>
+        public GameObject RaycastEmitter;
 
         /// <summary>
         /// Reference to the GunAttack related objects.
@@ -248,10 +268,25 @@ namespace Arena
 
             if (AllowGunAttack) {
                 if (Gun == null) {
-                    Debug.LogError("Must have a Gun assigned to AllowGunAttack");
+                    Debug.LogWarning("Better have a Gun assigned when AllowGunAttack, just for appearence.");
+                    if (Gun.GetComponentInChildren<Rigidbody>() != null) {
+                        Debug.LogWarning("Just for appearence, no Rigidbody needed.");
+                    }
+                    if (Gun.GetComponentInChildren<Collider>() != null) {
+                        Debug.LogWarning("Just for appearence, no Collider needed.");
+                    }
                 }
-                if (BulletEmitter == null) {
-                    Debug.LogError("Must have a BulletEmitter assigned to AllowGunAttack");
+                if (ShootType == ShootTypes.Raycast) {
+                    if (RaycastEmitter == null) {
+                        Debug.LogError("Must have a RaycastEmitter assigned.");
+                    }
+                    if (!IsShowAimLine) {
+                        Debug.LogError("Raycast must enable IsShowAimLine.");
+                    }
+                } else if (ShootType == ShootTypes.Bullet) {
+                    if (BulletEmitter == null) {
+                        Debug.LogError("Must have a BulletEmitter assigned.");
+                    }
                 }
                 UIPercentageBars["AM"].Enable();
             } else {
@@ -298,11 +333,11 @@ namespace Arena
 
             if (AllowGunAttack) {
                 if (IsShowAimLine) {
-                    if (Physics.Raycast(BulletEmitter.transform.position, BulletEmitter.transform.up,
+                    if (Physics.Raycast(RaycastEmitter.transform.position, RaycastEmitter.transform.up,
                       out AimRaycast))
                     {
-                        AimLine.DrawLineInGameView(BulletEmitter.transform.position,
-                          BulletEmitter.transform.position + BulletEmitter.transform.up * AimRaycast.distance,
+                        AimLine.DrawLineInGameView(RaycastEmitter.transform.position,
+                          RaycastEmitter.transform.position + RaycastEmitter.transform.up * AimRaycast.distance,
                           (Action_ == Attack) ? AimLineColorWhenAttack : AimLineColor);
                     }
                 }
@@ -311,7 +346,16 @@ namespace Arena
                     case Attack:
                         if ((NumBullet > 0) && !Reloading) {
                             if (ShootType == ShootTypes.Raycast) {
-                                //
+                                if (TrigTags.Contains(AimRaycast.collider.gameObject.tag)) {
+                                    ArenaNode SubjectNode = Utils.GetBottomLevelArenaNodeInGameObject(
+                                        AimRaycast.collider.gameObject);
+                                    if (IsKill) {
+                                        SubjectNode.Kill();
+                                    }
+                                    if (KillHealth != 0f) {
+                                        SubjectNode.IncrementHealth(-KillHealth);
+                                    }
+                                }
                             } else if (ShootType == ShootTypes.Bullet) {
                                 GameObject Temp_Bullet_Handeler;
                                 Temp_Bullet_Handeler = Instantiate(Bullet, BulletEmitter.transform.position,
