@@ -124,7 +124,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f215c0f3e4c804c6795258b5ff8a9a64, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AliveDuration: -1
+  AliveDuration: 3
 --- !u!114 &3936367478776074480
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -140,6 +140,7 @@ MonoBehaviour:
   ExceptTags:
   - Bullet
   - Boom
+  Delay: 0
 --- !u!114 &30
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -156,6 +157,9 @@ MonoBehaviour:
   - Player
   - Body
   - HeartTower
+  SubjectType: 0
+  IsMatchNodeCoordinate: 0
   IsKill: 1
   IncrementHealth: 0
   IncrementEnergy: 0
+  IsCarried: 0

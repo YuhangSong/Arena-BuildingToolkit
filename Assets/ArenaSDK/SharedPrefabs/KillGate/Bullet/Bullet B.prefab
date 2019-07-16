@@ -123,7 +123,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f215c0f3e4c804c6795258b5ff8a9a64, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AliveDuration: -1
+  AliveDuration: 3
 --- !u!114 &30
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -136,12 +136,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8beffda8b34d945948afa0f3c246068a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  KillType: 0
   TrigTags:
   - Player
   - Body
-  TeamIDToMatch: -1
-  AgentIDToMatch: -1
+  SubjectType: 0
+  IsMatchNodeCoordinate: 0
+  IsKill: 1
+  IncrementHealth: 0
+  IncrementEnergy: 0
+  IsCarried: 0
 --- !u!114 &3936367478776074480
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -157,3 +160,4 @@ MonoBehaviour:
   ExceptTags:
   - Bullet
   - Boom
+  Delay: 0

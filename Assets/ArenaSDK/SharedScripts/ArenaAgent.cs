@@ -36,6 +36,14 @@ namespace Arena
         /// </summary>
         public bool AllowGunAttack = false;
 
+        public enum ShootTypes {
+            Raycast,
+            Bullet
+        }
+        public ShootTypes ShootType = ShootTypes.Raycast;
+
+        public bool IsShowAimLine = true;
+
         /// <summary>
         /// Reference to the GunAttack related objects.
         /// </summary>
@@ -269,6 +277,11 @@ namespace Arena
             UpdateCanvas();
         } // InitializeAgent
 
+        private LineDrawer AimLine = new LineDrawer();
+        private RaycastHit AimRaycast;
+        private Color AimLineColor = new Color(0, 0, 1, 0.5f);
+        private Color AimLineColorWhenAttack = new Color(1, 0, 0, 0.5f);
+
         /// <summary>
         /// Default Step function for disceret action space.
         /// Called at each step, environment transit by Action_ from this method.
@@ -282,16 +295,30 @@ namespace Arena
                 Debug.LogError("ActionSpaceType is not Discrete, DiscreteStep() should not be called.");
             }
 
+
             if (AllowGunAttack) {
+                if (IsShowAimLine) {
+                    if (Physics.Raycast(BulletEmitter.transform.position, BulletEmitter.transform.up,
+                      out AimRaycast))
+                    {
+                        AimLine.DrawLineInGameView(BulletEmitter.transform.position,
+                          BulletEmitter.transform.position + BulletEmitter.transform.up * AimRaycast.distance,
+                          (Action_ == Attack) ? AimLineColorWhenAttack : AimLineColor);
+                    }
+                }
+
                 switch (Action_) {
                     case Attack:
                         if ((NumBullet > 0) && !Reloading) {
-                            GameObject Temp_Bullet_Handeler;
-                            Temp_Bullet_Handeler = Instantiate(Bullet, BulletEmitter.transform.position,
-                                BulletEmitter.transform.rotation) as GameObject;
-                            Temp_Bullet_Handeler.GetComponent<Rigidbody>().AddForce(
-                                BulletEmitter.transform.up * BulletFarwardForce);
-                            Destroy(Temp_Bullet_Handeler, 3.0f);
+                            if (ShootType == ShootTypes.Raycast) {
+                                //
+                            } else if (ShootType == ShootTypes.Bullet) {
+                                GameObject Temp_Bullet_Handeler;
+                                Temp_Bullet_Handeler = Instantiate(Bullet, BulletEmitter.transform.position,
+                                    BulletEmitter.transform.rotation) as GameObject;
+                                Temp_Bullet_Handeler.GetComponent<Rigidbody>().AddForce(
+                                    BulletEmitter.transform.up * BulletFarwardForce);
+                            }
                             NumBullet -= 1.0f;
                             UIPercentageBars["AM"].UpdatePercentage(GetBulletPercentage());
                             if (NumBullet < 1.0f) {
