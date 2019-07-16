@@ -44,6 +44,10 @@ namespace Arena
 
         public bool IsShowAimLine = true;
 
+        public Color AimLineColor = new Color(0, 0, 1, 0.5f);
+
+        public Color AimLineColorWhenAttack = new Color(1, 0, 0, 0.5f);
+
         /// <summary>
         /// ShootType = ShootTypes.Raycast only. Tag of collider that will response to the event.
         /// </summary>
@@ -276,18 +280,25 @@ namespace Arena
                         Debug.LogWarning("Just for appearence, no Collider needed.");
                     }
                 }
+
                 if (ShootType == ShootTypes.Raycast) {
                     if (RaycastEmitter == null) {
                         Debug.LogError("Must have a RaycastEmitter assigned.");
                     }
-                    if (!IsShowAimLine) {
-                        Debug.LogError("Raycast must enable IsShowAimLine.");
-                    }
                 } else if (ShootType == ShootTypes.Bullet) {
+                    Debug.LogWarning(
+                        "It is not recommanded to use ShootType == ShootTypes.Bullet. Since if your bullet goes too fast, some collision may be ignored. Use ShootType == ShootTypes.Raycast instead.");
                     if (BulletEmitter == null) {
                         Debug.LogError("Must have a BulletEmitter assigned.");
                     }
                 }
+
+                if (IsShowAimLine) {
+                    if (RaycastEmitter == null) {
+                        Debug.LogError("Must have a RaycastEmitter assigned.");
+                    }
+                }
+
                 UIPercentageBars["AM"].Enable();
             } else {
                 if (Gun != null) {
@@ -314,8 +325,7 @@ namespace Arena
 
         private LineDrawer AimLine = new LineDrawer();
         private RaycastHit AimRaycast;
-        private Color AimLineColor = new Color(0, 0, 1, 0.5f);
-        private Color AimLineColorWhenAttack = new Color(1, 0, 0, 0.5f);
+        private bool IsHit;
 
         /// <summary>
         /// Default Step function for disceret action space.
@@ -333,27 +343,46 @@ namespace Arena
 
             if (AllowGunAttack) {
                 if (IsShowAimLine) {
-                    if (Physics.Raycast(RaycastEmitter.transform.position, RaycastEmitter.transform.up,
-                      out AimRaycast))
-                    {
+                    IsHit = Physics.Raycast(RaycastEmitter.transform.position, RaycastEmitter.transform.up,
+                        out AimRaycast);
+
+                    if (IsHit) {
                         AimLine.DrawLineInGameView(RaycastEmitter.transform.position,
                           RaycastEmitter.transform.position + RaycastEmitter.transform.up * AimRaycast.distance,
                           (Action_ == Attack) ? AimLineColorWhenAttack : AimLineColor);
                     }
+                } else  {
+                    AimLine.DrawLineInGameView(RaycastEmitter.transform.position,
+                      RaycastEmitter.transform.position + RaycastEmitter.transform.up * 0f,
+                      AimLineColor);
                 }
 
                 switch (Action_) {
                     case Attack:
                         if ((NumBullet > 0) && !Reloading) {
                             if (ShootType == ShootTypes.Raycast) {
-                                if (TrigTags.Contains(AimRaycast.collider.gameObject.tag)) {
-                                    ArenaNode SubjectNode = Utils.GetBottomLevelArenaNodeInGameObject(
-                                        AimRaycast.collider.gameObject);
-                                    if (IsKill) {
-                                        SubjectNode.Kill();
+                                if (!IsShowAimLine) {
+                                    // not showing aim line, so raycast need to be done here
+                                    IsHit = Physics.Raycast(RaycastEmitter.transform.position,
+                                        RaycastEmitter.transform.up,
+                                        out AimRaycast);
+                                    if (IsHit) {
+                                        AimLine.DrawLineInGameView(RaycastEmitter.transform.position,
+                                          RaycastEmitter.transform.position + RaycastEmitter.transform.up * AimRaycast.distance,
+                                          AimLineColorWhenAttack);
                                     }
-                                    if (KillHealth != 0f) {
-                                        SubjectNode.IncrementHealth(-KillHealth);
+                                }
+
+                                if (IsHit) {
+                                    if (TrigTags.Contains(AimRaycast.collider.gameObject.tag)) {
+                                        ArenaNode SubjectNode = Utils.GetBottomLevelArenaNodeInGameObject(
+                                            AimRaycast.collider.gameObject);
+                                        if (IsKill) {
+                                            SubjectNode.Kill();
+                                        }
+                                        if (KillHealth != 0f) {
+                                            SubjectNode.IncrementHealth(-KillHealth);
+                                        }
                                     }
                                 }
                             } else if (ShootType == ShootTypes.Bullet) {
