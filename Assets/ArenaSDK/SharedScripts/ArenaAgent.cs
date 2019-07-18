@@ -2,7 +2,6 @@ using UnityEngine;
 using UnityEngine.UI;
 using MLAgents;
 using System.Collections.Generic;
-using MyDictionary;
 
 namespace Arena
 {
@@ -20,6 +19,15 @@ namespace Arena
         /// </summary>
         public GameObject ID;
 
+        /// <summary>
+        /// Override attributes initial values (default is 1f).
+        /// </summary>
+        [SerializeField]
+        public MyDictionary.StringStringDictionary AttributesInitialValues;
+
+        /// <summary>
+        /// Increment attributes at each step (default is no increment).
+        /// </summary>
         [SerializeField]
         public MyDictionary.StringStringDictionary IncrementAttributesAtStep;
 
@@ -143,15 +151,9 @@ namespace Arena
         };
 
         protected Dictionary<string, float> Attributes = new Dictionary<string, float>(){
-            { "Health", -1f },
-            { "Energy", -1f },
-            { "Nutrition", -1f },
-        };
-
-        protected Dictionary<string, float> AttributesInitialValues = new Dictionary<string, float>(){
             { "Health", 1f },
             { "Energy", 1f },
-            { "Nutrition", 0f },
+            { "Nutrition", 1f },
         };
 
         protected Dictionary<string, float> AttributesMinValues = new Dictionary<string, float>(){
@@ -204,7 +206,11 @@ namespace Arena
         ResetAttributes()
         {
             foreach (string Key_ in AttributesKeys) {
-                Attributes[Key_] = AttributesInitialValues[Key_];
+                if (AttributesInitialValues.ContainsKey(Key_)) {
+                    Attributes[Key_] = float.Parse(AttributesInitialValues[Key_]);
+                } else {
+                    Attributes[Key_] = 1f;
+                }
                 if (UIPercentageBars[Key_].IsEnabled()) {
                     UIPercentageBars[Key_].UpdatePercentage(Attributes[Key_]);
                 } else {
@@ -631,12 +637,22 @@ namespace Arena
             return Mathf.Clamp(((float) NumBullet / (float) FullNumBullet), 0f, 1f);
         }
 
+        private float LastTimeAgentStep   = -1f;
+        protected float DeltTimeAgentStep = 0f;
+
         /// <summary>
         /// Called at agent step. This is an interface override from MLAgents.
         /// </summary>
         public override void
         AgentAction(float[] vectorAction, string textAction)
         {
+            if (LastTimeAgentStep == -1f) {
+                DeltTimeAgentStep = 0f;
+            } else {
+                DeltTimeAgentStep = Time.time - LastTimeAgentStep;
+            }
+            LastTimeAgentStep = Time.time;
+
             if (IsLiving()) {
                 // // call turn based game step
                 // if (globalManager.isTurnBasedGame()) {

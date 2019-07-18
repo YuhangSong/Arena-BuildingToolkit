@@ -1,4 +1,3 @@
-﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -8,30 +7,83 @@ namespace Arena
     {
         [Header("Snake Settings")][Space(10)]
 
-        public float MaxNumBodies   = 20f;
-        public float MovementSpeed  = 5f;
-        public float TurnSpeed      = 150f;
-        public int InitialNumBodies = 3;
-        public List<GameObject> Bodies;
+        /// <summary>
+        /// </summary>
+        public float MaxNumBodies = 20f;
 
+        /// <summary>
+        /// </summary>
+        public float MovementSpeed = 5f;
+
+        /// <summary>
+        /// </summary>
+        public float TurnSpeed = 150f;
+
+        /// <summary>
+        /// </summary>
+        public float DistanceBetweenBodies = 0.5f;
+
+        /// <summary>
+        /// </summary>
         public GameObject Head;
+
+        /// <summary>
+        /// </summary>
         public GameObject BodyPrefab;
-        public float Distance = 0.5f;
 
-        private float CurrentRotation;
+        /// <summary>
+        /// </summary>
+        private List<GameObject> Bodies = new List<GameObject>();
 
+        /// <summary>
+        /// </summary>
+        public GameObject
+        GetHead()
+        {
+            return Head;
+        }
+
+        /// <summary>
+        /// </summary>
+        public List<GameObject>
+        GetBodies()
+        {
+            return Bodies;
+        }
+
+        /// <summary>
+        /// </summary>
+        public int
+        GetNumBodies()
+        {
+            return Bodies.Count;
+        }
+
+        /// <summary>
+        /// </summary>
         override public void
         IncrementAttribute(string Key_, float IncrementValue_)
         {
             base.IncrementAttribute(Key_, IncrementValue_);
             if (Key_ == "Nutrition") {
-                int NumSegmentExpected_ = (int) (Attributes["Nutrition"] / (1f / MaxNumBodies));
-                while (GetNumSegment() < NumSegmentExpected_) {
-                    AddSegment();
-                }
+                UpdateBodiesFromNutrition();
             }
         }
 
+        /// <summary>
+        /// </summary>
+        private void
+        UpdateBodiesFromNutrition()
+        {
+            int NumSegmentExpected_ = (int) (Attributes["Nutrition"] / (1f / MaxNumBodies));
+
+            while (GetNumBodies() < NumSegmentExpected_) {
+                AddBody();
+            }
+        }
+
+        /// <summary>
+        /// </summary>
         override protected void
         DiscreteStep(int Action_)
         {
@@ -39,36 +91,30 @@ namespace Arena
 
             switch (Action_) {
                 case TurnRight:
-                    CurrentRotation += TurnSpeed * Time.deltaTime;
+                    Head.transform.eulerAngles = new Vector3(Head.transform.eulerAngles.x,
+                        Head.transform.eulerAngles.y + TurnSpeed * DeltTimeAgentStep,
+                        Head.transform.eulerAngles.z);
                     break;
                 case TurnLeft:
-                    CurrentRotation -= TurnSpeed * Time.deltaTime;
+                    Head.transform.eulerAngles = new Vector3(Head.transform.eulerAngles.x,
+                        Head.transform.eulerAngles.y - TurnSpeed * DeltTimeAgentStep,
+                        Head.transform.eulerAngles.z);
                     break;
                 default:
                     break;
             }
+
+            // keep moving forward
+            Head.transform.position += Head.transform.forward * MovementSpeed * DeltTimeAgentStep;
+
+            // update bodies
+            foreach (GameObject Body_ in Bodies) {
+                Body_.GetComponent<SnakeBody>().UpdateBody();
+            }
         } // DiscreteStep
 
-        public void
-        FixedUpdate()
-        {
-            Rotate();
-            MoveFWD();
-        }
-
-        void
-        Rotate()
-        {
-            Head.transform.rotation =
-              Quaternion.Euler(new Vector3(Head.transform.rotation.x, CurrentRotation, Head.transform.rotation.z));
-        }
-
-        void
-        MoveFWD()
-        {
-            Head.transform.position += Head.transform.forward * MovementSpeed * Time.deltaTime;
-        }
-
+        /// <summary>
+        /// </summary>
         public override void
         AgentReset()
         {
@@ -77,35 +123,29 @@ namespace Arena
             for (int i = 0; i < Bodies.Count; i++) {
                 Destroy(Bodies[i]);
             }
-
             Bodies.Clear();
 
-            for (int i = 0; i < InitialNumBodies; i++) {
-                GameObject bp =
-                  Instantiate(BodyPrefab,
-                    new Vector3(Head.transform.position.x, Head.transform.position.y,
-                    Head.transform.position.z - (i + 1) * Distance), Quaternion.identity);
-                bp.transform.SetParent(transform);
-                Bodies.Add(bp);
-            }
+            UpdateBodiesFromNutrition();
         }
 
+        /// <summary>
+        /// </summary>
         public void
-        AddSegment()
+        AddBody()
         {
-            int newPartN = Bodies.Count;
-            Transform lastSegment = Bodies[newPartN - 1].transform;
-            Vector3 newPos        = lastSegment.position - lastSegment.forward.normalized * Distance;
-            GameObject bp         = Instantiate(BodyPrefab, newPos, Quaternion.identity);
+            Transform LastBodyTransform;
 
-            bp.transform.SetParent(transform);
-            Bodies.Add(bp);
-        }
-
-        public int
-        GetNumSegment()
-        {
-            return Bodies.Count;
+            if (GetNumBodies() < 1) {
+                LastBodyTransform = Head.transform;
+            } else {
+                LastBodyTransform = Bodies[GetNumBodies() - 1].transform;
+            }
+            GameObject Body_ = Instantiate(
+                BodyPrefab,
+                LastBodyTransform.position,
+                LastBodyTransform.rotation);
+            Body_.GetComponent<SnakeBody>().Initialize(this, GetNumBodies(), DistanceBetweenBodies / 5f);
+            Bodies.Add(Body_);
         }
     }
 }

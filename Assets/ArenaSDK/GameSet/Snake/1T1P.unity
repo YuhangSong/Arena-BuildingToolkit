@@ -179,6 +179,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 45
       objectReference: {fileID: 0}
+    - target: {fileID: 6667926215698300823, guid: 2775149d5d8314c97b068e1986748f4d,
+        type: 3}
+      propertyPath: TrigTags.Array.data[0]
+      value: Head
+      objectReference: {fileID: 0}
+    - target: {fileID: 6547239190674991321, guid: 2775149d5d8314c97b068e1986748f4d,
+        type: 3}
+      propertyPath: ExceptTags.Array.data[0]
+      value: Body
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2775149d5d8314c97b068e1986748f4d, type: 3}
 --- !u!1 &835411616 stripped
@@ -753,6 +763,11 @@ PrefabInstance:
       propertyPath: TransformReinitializors.Array.data[19].RandomPositionMax.z
       value: 15
       objectReference: {fileID: 0}
+    - target: {fileID: 3867823387640647876, guid: 4b63a9e7ccc524afb8785d333e726f0d,
+        type: 3}
+      propertyPath: IsRewardRanking
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5229130780062887955, guid: 4b63a9e7ccc524afb8785d333e726f0d,
         type: 3}
       propertyPath: maxSteps
@@ -843,6 +858,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6638129405525032722, guid: 3947dbaafcb3c408183a2abe248f1ece,
+        type: 3}
+      propertyPath: m_TagString
+      value: Head
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3947dbaafcb3c408183a2abe248f1ece, type: 3}
