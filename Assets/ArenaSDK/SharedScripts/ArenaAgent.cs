@@ -31,6 +31,13 @@ namespace Arena
         [SerializeField]
         public MyDictionary.StringStringDictionary IncrementAttributesAtStep;
 
+        /// <summary>
+        /// Give step reward at attributes incrementing,
+        /// set this for the coefficient of computing step reward from incremented attributes
+        /// </summary>
+        [SerializeField]
+        public MyDictionary.StringStringDictionary RewardWithIncrementAttributes;
+
         [Header("Reward Scheme")][Space(10)]
 
         /// <summary>
@@ -194,6 +201,11 @@ namespace Arena
                 if (Attributes[Key_] < 0f) {
                     gameObject.GetComponent<ArenaNode>().Kill();
                 }
+            }
+
+            // give step reward at attributes incrementing,
+            if (RewardWithIncrementAttributes.ContainsKey(Key_)) {
+                AddReward(IncrementValue_ * float.Parse(RewardWithIncrementAttributes[Key_]));
             }
 
             // update UIPercentageBars
