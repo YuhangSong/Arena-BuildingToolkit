@@ -145,6 +145,7 @@ namespace Arena
                 LastBodyTransform.position,
                 LastBodyTransform.rotation);
             Body_.GetComponent<SnakeBody>().Initialize(this, GetNumBodies(), DistanceBetweenBodies / 5f);
+            Body_.transform.SetParent(transform);
             Bodies.Add(Body_);
         }
     }
