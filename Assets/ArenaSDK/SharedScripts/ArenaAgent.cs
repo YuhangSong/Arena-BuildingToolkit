@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using MLAgents;
 using System.Collections.Generic;
+using MyDictionary;
 
 namespace Arena
 {
@@ -19,8 +20,8 @@ namespace Arena
         /// </summary>
         public GameObject ID;
 
-        public float HealthInterment = 0f;
-        public float EnergyInterment = 0f;
+        [SerializeField]
+        public MyDictionary.StringStringDictionary IncrementAttributesAtStep;
 
         [Header("Reward Scheme")][Space(10)]
 
@@ -135,61 +136,80 @@ namespace Arena
             return Living;
         }
 
-        /// <summary>
-        /// </summary>
-        private float Health = 1f;
+        protected List<string> AttributesKeys = new List<string>(){
+            "Health",
+            "Energy",
+            "Nutrition",
+        };
+
+        protected Dictionary<string, float> Attributes = new Dictionary<string, float>(){
+            { "Health", -1f },
+            { "Energy", -1f },
+            { "Nutrition", -1f },
+        };
+
+        protected Dictionary<string, float> AttributesInitialValues = new Dictionary<string, float>(){
+            { "Health", 1f },
+            { "Energy", 1f },
+            { "Nutrition", 0f },
+        };
+
+        protected Dictionary<string, float> AttributesMinValues = new Dictionary<string, float>(){
+            { "Health", 0f },
+            { "Energy", 0f },
+            { "Nutrition", 0f },
+        };
+
+        protected Dictionary<string, float> AttributesMaxValues = new Dictionary<string, float>(){
+            { "Health", 1f },
+            { "Energy", 1f },
+            { "Nutrition", 1f },
+        };
 
         /// <summary>
         /// </summary>
-        public void
-        IncrementHealth(float IncrementHealth_)
+        virtual public void
+        IncrementAttribute(string Key_, float IncrementValue_)
         {
-            Health += IncrementHealth_;
-            if (Health > 1f) {
-                Health = 1f;
-            } else if (Health < 0f) {
-                gameObject.GetComponent<ArenaNode>().Kill();
+            // increment
+            if (Attributes.ContainsKey(Key_)) {
+                // Debug.Log(GetLogTag() + " IncrementAttribute " + Key_ + " for " + IncrementValue_);
+                Attributes[Key_] += IncrementValue_;
+            } else {
+                Debug.LogError("Invalid Key_: " + Key_);
+                return;
             }
-            UIPercentageBars["HL"].UpdatePercentage(Health);
-        }
 
-        /// <summary>
-        /// </summary>
-        public void
-        ResetHealth()
-        {
-            if (Health != 1f) {
-                Health = 1f;
-                UIPercentageBars["HL"].UpdatePercentage(Health);
+            // bound
+            if (Attributes[Key_] < AttributesMinValues[Key_]) {
+                Attributes[Key_] = AttributesMinValues[Key_];
+            } else if (Attributes[Key_] > AttributesMaxValues[Key_]) {
+                Attributes[Key_] = AttributesMaxValues[Key_];
             }
-        }
 
-        /// <summary>
-        /// </summary>
-        private float Energy = 1f;
-
-        /// <summary>
-        /// </summary>
-        public void
-        IncrementEnergy(float IncrementEnergy_)
-        {
-            Energy += IncrementEnergy_;
-            if (Energy > 1f) {
-                Energy = 1f;
-            } else if (Energy < 0f) {
-                gameObject.GetComponent<ArenaNode>().Kill();
+            // customize event
+            if (Key_ == "Health") {
+                if (Attributes[Key_] < 0f) {
+                    gameObject.GetComponent<ArenaNode>().Kill();
+                }
             }
-            UIPercentageBars["EG"].UpdatePercentage(Energy);
-        }
+
+            // update UIPercentageBars
+            UIPercentageBars[Key_].UpdatePercentage(Attributes[Key_]);
+        } // IncrementAttribute
 
         /// <summary>
         /// </summary>
         public void
-        ResetEnergy()
+        ResetAttributes()
         {
-            if (Energy != 1f) {
-                Energy = 1f;
-                UIPercentageBars["EG"].UpdatePercentage(Energy);
+            foreach (string Key_ in AttributesKeys) {
+                Attributes[Key_] = AttributesInitialValues[Key_];
+                if (UIPercentageBars[Key_].IsEnabled()) {
+                    UIPercentageBars[Key_].UpdatePercentage(Attributes[Key_]);
+                } else {
+                    UIPercentageBars[Key_].Enable(Attributes[Key_]);
+                }
             }
         }
 
@@ -198,7 +218,7 @@ namespace Arena
         protected bool
         HasEnergy()
         {
-            return (Energy > 0f);
+            return (Attributes["Energy"] > 0f);
         }
 
         /// <summary>
@@ -262,8 +282,6 @@ namespace Arena
                 UIPercentageBars.Add(UIPercentageBar_.ID, UIPercentageBar_);
             }
             UIPercentageBars["ER"].Enable();
-            UIPercentageBars["HL"].Enable(1f);
-            UIPercentageBars["EG"].Enable(1f);
 
             /** initialize reference to UITexts **/
             foreach (UIText UIText_ in GetComponentsInChildren<UIText>()) {
@@ -351,7 +369,7 @@ namespace Arena
                           RaycastEmitter.transform.position + RaycastEmitter.transform.up * AimRaycast.distance,
                           (Action_ == Attack) ? AimLineColorWhenAttack : AimLineColor);
                     }
-                } else  {
+                } else {
                     AimLine.DrawLineInGameView(RaycastEmitter.transform.position,
                       RaycastEmitter.transform.position + RaycastEmitter.transform.up * 0f,
                       AimLineColor);
@@ -381,7 +399,7 @@ namespace Arena
                                             SubjectNode.Kill();
                                         }
                                         if (KillHealth != 0f) {
-                                            SubjectNode.IncrementHealth(-KillHealth);
+                                            SubjectNode.IncrementAttribute("Health", -KillHealth);
                                         }
                                     }
                                 }
@@ -436,11 +454,10 @@ namespace Arena
         virtual protected void
         DiscreteContinuousStep()
         {
-            if (HealthInterment != 0f) {
-                IncrementHealth(HealthInterment);
-            }
-            if (EnergyInterment != 0f) {
-                IncrementEnergy(EnergyInterment);
+            foreach (string Key_ in IncrementAttributesAtStep.Keys) {
+                if (float.Parse(IncrementAttributesAtStep[Key_]) != 0f) {
+                    IncrementAttribute(Key_, float.Parse(IncrementAttributesAtStep[Key_]));
+                }
             }
         }
 
@@ -589,8 +606,7 @@ namespace Arena
         AgentReset()
         {
             base.AgentReset();
-            ResetHealth();
-            ResetEnergy();
+            ResetAttributes();
             ResetLiving();
 
             Debug.Log(

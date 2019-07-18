@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using MLAgents;
+using MyDictionary;
 
 namespace Arena
 {
@@ -29,13 +30,8 @@ namespace Arena
         /// </summary>
         public bool IsKill = true;
 
-        /// <summary>
-        /// </summary>
-        public float IncrementHealth = 0f;
-
-        /// <summary>
-        /// </summary>
-        public float IncrementEnergy = 0f;
+        [SerializeField]
+        public MyDictionary.StringStringDictionary IncrementAttributes;
 
         public bool IsCarried = false;
 
@@ -85,12 +81,18 @@ namespace Arena
                 if (IsKill) {
                     SubjectNode.Kill();
                 }
-                if (IncrementHealth != 0f) {
-                    SubjectNode.IncrementHealth(IncrementHealth);
+
+                foreach (string Attribute_ in IncrementAttributes.Keys) {
+                    if (float.Parse(IncrementAttributes[Attribute_]) != 0f) {
+                        float Scale_ = 1f;
+                        if (CompareTag("Eatable")) {
+                            Scale_ = transform.localScale.y;
+                        }
+                        SubjectNode.IncrementAttribute(Attribute_,
+                          float.Parse(IncrementAttributes[Attribute_]) * Scale_);
+                    }
                 }
-                if (IncrementEnergy != 0f) {
-                    SubjectNode.IncrementEnergy(IncrementEnergy);
-                }
+
                 if (IsCarried) {
                     ToFollow         = other;
                     RelativePosition = transform.position - ToFollow.transform.position;

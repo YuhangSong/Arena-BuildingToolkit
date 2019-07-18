@@ -110,8 +110,11 @@ MonoBehaviour:
   SubjectType: 0
   IsMatchNodeCoordinate: 0
   IsKill: 0
-  IncrementHealth: 0
-  IncrementEnergy: 0.1
+  IncrementAttributes:
+    m_keys:
+    - Energy
+    m_values:
+    - 0.1
   IsCarried: 0
 --- !u!114 &520963049509397524
 MonoBehaviour:

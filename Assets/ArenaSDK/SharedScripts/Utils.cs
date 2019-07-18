@@ -77,6 +77,13 @@ namespace Arena
         AtLeastSpecificPortionLiving
     }
 
+    [System.Serializable]
+    public class Attribute
+    {
+        public string Key;
+        public float Value;
+    }
+
     public struct LineDrawer {
         private LineRenderer lineRenderer;
         private float        lineSize;

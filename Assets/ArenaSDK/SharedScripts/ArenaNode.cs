@@ -308,41 +308,21 @@ namespace Arena
         }
 
         /// <summary>
-        /// Increment health for this node (top-down)
-        ///   increment the same health for all child node
+        /// Increment attribute for this node (top-down)
+        ///   increment the same attribute for all child node
         /// </summary>
-        /// <param name="IncrementHealth_">.</param>
+        /// <param name="Key_">.</param>
+        /// <param name="IncrementValue_">.</param>
         public void
-        IncrementHealth(float IncrementHealth_)
+        IncrementAttribute(string Key_, float IncrementValue_)
         {
             if (GetNumChildNodes() > 0) {
                 foreach (ArenaNode ChildNode_ in GetChildNodes()) {
-                    ChildNode_.IncrementHealth(IncrementHealth_);
+                    ChildNode_.IncrementAttribute(Key_, IncrementValue_);
                 }
             } else {
                 if (gameObject.GetComponent<ArenaAgent>() != null) {
-                    gameObject.GetComponent<ArenaAgent>().IncrementHealth(IncrementHealth_);
-                } else {
-                    Debug.LogError("The very bottom ArenaNode should be attached with the ArenaAgent");
-                }
-            }
-        }
-
-        /// <summary>
-        /// Increment Energy for this node (top-down)
-        ///   increment the same Energy for all child node
-        /// </summary>
-        /// <param name="IncrementEnergy_">.</param>
-        public void
-        IncrementEnergy(float IncrementEnergy_)
-        {
-            if (GetNumChildNodes() > 0) {
-                foreach (ArenaNode ChildNode_ in GetChildNodes()) {
-                    ChildNode_.IncrementEnergy(IncrementEnergy_);
-                }
-            } else {
-                if (gameObject.GetComponent<ArenaAgent>() != null) {
-                    gameObject.GetComponent<ArenaAgent>().IncrementEnergy(IncrementEnergy_);
+                    gameObject.GetComponent<ArenaAgent>().IncrementAttribute(Key_, IncrementValue_);
                 } else {
                     Debug.LogError("The very bottom ArenaNode should be attached with the ArenaAgent");
                 }

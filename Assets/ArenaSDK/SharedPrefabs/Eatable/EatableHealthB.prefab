@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 4033311834041344399}
   m_Layer: 0
   m_Name: EatableHealthB
-  m_TagString: Untagged
+  m_TagString: Eatable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -110,8 +110,11 @@ MonoBehaviour:
   SubjectType: 0
   IsMatchNodeCoordinate: 0
   IsKill: 0
-  IncrementHealth: 0.1
-  IncrementEnergy: 0
+  IncrementAttributes:
+    m_keys:
+    - Health
+    m_values:
+    - 0.1
   IsCarried: 0
 --- !u!114 &4033311834041344399
 MonoBehaviour:

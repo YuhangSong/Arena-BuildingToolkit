@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.45138168, g: 0.5004407, b: 0.5699877, a: 1}
+  m_IndirectSpecularColor: {r: 0.45138156, g: 0.5004408, b: 0.56998736, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -540,6 +540,22 @@ PrefabInstance:
       propertyPath: m_TagString
       value: AgentB
       objectReference: {fileID: 0}
+    - target: {fileID: 8621091053191485367, guid: 352d75807c5b84e469e2c7bf069d85d6,
+        type: 3}
+      propertyPath: Competitor
+      value: 
+      objectReference: {fileID: 580162654}
+    - target: {fileID: 8621091053191485367, guid: 352d75807c5b84e469e2c7bf069d85d6,
+        type: 3}
+      propertyPath: globalManager
+      value: 
+      objectReference: {fileID: 449593178}
+    - target: {fileID: 8621091053191485367, guid: 352d75807c5b84e469e2c7bf069d85d6,
+        type: 3}
+      propertyPath: brain
+      value: 
+      objectReference: {fileID: 11400000, guid: d57e439358d00c14e83fca4f6cbdb20a,
+        type: 2}
     - target: {fileID: 8621091051723636860, guid: 352d75807c5b84e469e2c7bf069d85d6,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -595,22 +611,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8621091053191485367, guid: 352d75807c5b84e469e2c7bf069d85d6,
-        type: 3}
-      propertyPath: Competitor
-      value: 
-      objectReference: {fileID: 580162654}
-    - target: {fileID: 8621091053191485367, guid: 352d75807c5b84e469e2c7bf069d85d6,
-        type: 3}
-      propertyPath: globalManager
-      value: 
-      objectReference: {fileID: 449593178}
-    - target: {fileID: 8621091053191485367, guid: 352d75807c5b84e469e2c7bf069d85d6,
-        type: 3}
-      propertyPath: brain
-      value: 
-      objectReference: {fileID: 11400000, guid: d57e439358d00c14e83fca4f6cbdb20a,
-        type: 2}
     - target: {fileID: 8621091051518700956, guid: 352d75807c5b84e469e2c7bf069d85d6,
         type: 3}
       propertyPath: m_NormalizedViewPortRect.x
@@ -676,7 +676,7 @@ MonoBehaviour:
   broadcastHub:
     broadcastingBrains: []
     _brainsToControl: []
-  maxSteps: 0
+  maxSteps: 100
   trainingConfiguration:
     width: 80
     height: 80
@@ -911,6 +911,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: AgentA
       objectReference: {fileID: 0}
+    - target: {fileID: 8621091053191485367, guid: 352d75807c5b84e469e2c7bf069d85d6,
+        type: 3}
+      propertyPath: Competitor
+      value: 
+      objectReference: {fileID: 889886438}
+    - target: {fileID: 8621091053191485367, guid: 352d75807c5b84e469e2c7bf069d85d6,
+        type: 3}
+      propertyPath: globalManager
+      value: 
+      objectReference: {fileID: 449593178}
     - target: {fileID: 8621091051723636860, guid: 352d75807c5b84e469e2c7bf069d85d6,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -966,15 +976,5 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8621091053191485367, guid: 352d75807c5b84e469e2c7bf069d85d6,
-        type: 3}
-      propertyPath: Competitor
-      value: 
-      objectReference: {fileID: 889886438}
-    - target: {fileID: 8621091053191485367, guid: 352d75807c5b84e469e2c7bf069d85d6,
-        type: 3}
-      propertyPath: globalManager
-      value: 
-      objectReference: {fileID: 449593178}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 352d75807c5b84e469e2c7bf069d85d6, type: 3}

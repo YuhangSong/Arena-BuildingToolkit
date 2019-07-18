@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.45064038, g: 0.49866188, b: 0.56453824, a: 1}
+  m_IndirectSpecularColor: {r: 0.45064014, g: 0.49866217, b: 0.5645387, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -241,7 +241,7 @@ MonoBehaviour:
   broadcastHub:
     broadcastingBrains: []
     _brainsToControl: []
-  maxSteps: 0
+  maxSteps: 1000
   trainingConfiguration:
     width: 80
     height: 80
@@ -378,6 +378,22 @@ PrefabInstance:
       propertyPath: m_TagString
       value: AgentB
       objectReference: {fileID: 0}
+    - target: {fileID: 3399088284726427351, guid: 9a1980869cd78d240a059af27407cb0e,
+        type: 3}
+      propertyPath: Competitor
+      value: 
+      objectReference: {fileID: 127030393}
+    - target: {fileID: 3399088284726427351, guid: 9a1980869cd78d240a059af27407cb0e,
+        type: 3}
+      propertyPath: globalManager
+      value: 
+      objectReference: {fileID: 1869587785}
+    - target: {fileID: 3399088284726427351, guid: 9a1980869cd78d240a059af27407cb0e,
+        type: 3}
+      propertyPath: brain
+      value: 
+      objectReference: {fileID: 11400000, guid: 6e1ca66227713b146a94ab9ec17016bf,
+        type: 2}
     - target: {fileID: 3399088284726427348, guid: 9a1980869cd78d240a059af27407cb0e,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -433,22 +449,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3399088284726427351, guid: 9a1980869cd78d240a059af27407cb0e,
-        type: 3}
-      propertyPath: Competitor
-      value: 
-      objectReference: {fileID: 127030393}
-    - target: {fileID: 3399088284726427351, guid: 9a1980869cd78d240a059af27407cb0e,
-        type: 3}
-      propertyPath: globalManager
-      value: 
-      objectReference: {fileID: 1869587785}
-    - target: {fileID: 3399088284726427351, guid: 9a1980869cd78d240a059af27407cb0e,
-        type: 3}
-      propertyPath: brain
-      value: 
-      objectReference: {fileID: 11400000, guid: 6e1ca66227713b146a94ab9ec17016bf,
-        type: 2}
     - target: {fileID: 3399088284570368262, guid: 9a1980869cd78d240a059af27407cb0e,
         type: 3}
       propertyPath: m_NormalizedViewPortRect.x
@@ -1557,6 +1557,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: AgentA
       objectReference: {fileID: 0}
+    - target: {fileID: 3399088284726427351, guid: 9a1980869cd78d240a059af27407cb0e,
+        type: 3}
+      propertyPath: globalManager
+      value: 
+      objectReference: {fileID: 1869587785}
+    - target: {fileID: 3399088284726427351, guid: 9a1980869cd78d240a059af27407cb0e,
+        type: 3}
+      propertyPath: Competitor
+      value: 
+      objectReference: {fileID: 344460373}
     - target: {fileID: 3399088284726427348, guid: 9a1980869cd78d240a059af27407cb0e,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1612,16 +1622,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3399088284726427351, guid: 9a1980869cd78d240a059af27407cb0e,
-        type: 3}
-      propertyPath: globalManager
-      value: 
-      objectReference: {fileID: 1869587785}
-    - target: {fileID: 3399088284726427351, guid: 9a1980869cd78d240a059af27407cb0e,
-        type: 3}
-      propertyPath: Competitor
-      value: 
-      objectReference: {fileID: 344460373}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9a1980869cd78d240a059af27407cb0e, type: 3}
 --- !u!1001 &3700434926277791961
