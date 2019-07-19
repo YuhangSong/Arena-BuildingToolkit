@@ -75,9 +75,9 @@ namespace Arena
         private void
         UpdateBodiesFromNutrition()
         {
-            int NumSegmentExpected_ = (int) (Attributes["Nutrition"] / (1f / MaxNumBodies));
+            int NumBodiesExpected_ = (int) (Attributes["Nutrition"] / (1f / MaxNumBodies));
 
-            while (GetNumBodies() < NumSegmentExpected_) {
+            while (GetNumBodies() < NumBodiesExpected_) {
                 AddBody();
             }
         }
@@ -107,9 +107,9 @@ namespace Arena
             // keep moving forward
             Head.transform.position += Head.transform.forward * MovementSpeed * DeltTimeAgentStep;
 
-            // update bodies
+            // update the movement of the bodies
             foreach (GameObject Body_ in Bodies) {
-                Body_.GetComponent<SnakeBody>().UpdateBody();
+                Body_.GetComponent<SnakeBody>().UpdateMovement();
             }
         } // DiscreteStep
 
@@ -120,11 +120,13 @@ namespace Arena
         {
             base.AgentReset();
 
+            // clear Bodies
             for (int i = 0; i < Bodies.Count; i++) {
                 Destroy(Bodies[i]);
             }
             Bodies.Clear();
 
+            // for initial bodies
             UpdateBodiesFromNutrition();
         }
 
@@ -140,12 +142,17 @@ namespace Arena
             } else {
                 LastBodyTransform = Bodies[GetNumBodies() - 1].transform;
             }
+
             GameObject Body_ = Instantiate(
                 BodyPrefab,
                 LastBodyTransform.position,
                 LastBodyTransform.rotation);
             Body_.GetComponent<SnakeBody>().Initialize(this, GetNumBodies(), DistanceBetweenBodies / 5f);
+
+            // do make sure any component of the agent is the transform child of the agent, so that Arena can handle the social tree correctly
             Body_.transform.SetParent(transform);
+
+            // add to bodies list
             Bodies.Add(Body_);
         }
     }

@@ -4,34 +4,41 @@ using UnityEngine;
 
 namespace Arena
 {
-    public class SnakeBody : MonoBehaviour
+    public class SnakeBody : ArenaMovingObject
     {
+        /// <summary>
+        /// </summary>
         private SnakeAgent SnakeAgentParent;
-        private int MyPlace = -1;
+
+        /// <summary>
+        /// </summary>
+        private int MyPlace;
+
+        /// <summary>
+        /// </summary>
         private float SmoothTime;
 
+        /// <summary>
+        /// </summary>
         public void
         Initialize(SnakeAgent SnakeAgentParent_, int MyPlace_, float SmoothTime_)
         {
+            base.Initialize();
             SnakeAgentParent = SnakeAgentParent_;
             MyPlace    = MyPlace_;
             SmoothTime = SmoothTime_;
         }
 
+        /// <summary>
+        /// </summary>
         private Vector3 CurrentVelocity = Vector3.zero;
 
-        private float LastTimeAgentStep   = -1f;
-        protected float DeltTimeAgentStep = 0f;
-
-        public void
-        UpdateBody()
+        /// <summary>
+        /// </summary>
+        public override void
+        UpdateMovement()
         {
-            if (LastTimeAgentStep == -1f) {
-                DeltTimeAgentStep = 0f;
-            } else {
-                DeltTimeAgentStep = Time.time - LastTimeAgentStep;
-            }
-            LastTimeAgentStep = Time.time;
+            base.UpdateMovement();
 
             GameObject previousPart;
             if (MyPlace < 1) {
@@ -45,7 +52,7 @@ namespace Arena
                 previousPart.transform.position - previousPart.transform.forward.normalized * SnakeAgentParent.DistanceBetweenBodies,
                 ref CurrentVelocity,
                 SmoothTime, Mathf.Infinity,
-                DeltTimeAgentStep);
+                DeltTimeUpdateMovement);
             transform.LookAt(previousPart.transform.position);
         }
     }
