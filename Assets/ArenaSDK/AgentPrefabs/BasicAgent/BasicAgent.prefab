@@ -110,8 +110,9 @@ MonoBehaviour:
   SubjectType: 0
   IsMatchNodeCoordinate: 0
   IsKill: 1
-  IncrementHealth: 0
-  IncrementEnergy: 0
+  IncrementAttributes:
+    m_keys: []
+    m_values: []
   IsCarried: 0
 --- !u!1 &703348489692098525
 GameObject:
@@ -352,12 +353,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   NodeID: 0
+  MaxNumLivingSteps: 0
   LivingCondition: 1
   AtLeastSpecificNumberLiving: 1
   AtLeastSpecificPortion: 0.5
   RewardSchemeScale: 1
   IsRewardRanking: 0
   RankingWinType: 0
+  RewardRankingAt: 0
+  RankingOffset: 0
   IsRewardDistance: 0
   DistanceBase1: {fileID: 0}
   DistanceBase2: {fileID: 0}
@@ -398,8 +402,15 @@ MonoBehaviour:
     onDemandDecision: 0
     numberOfActionsBetweenDecisions: 1
   ID: {fileID: 4139960366113134066}
-  HealthInterment: 0
-  EnergyInterment: 0
+  AttributesInitialValues:
+    m_keys: []
+    m_values: []
+  IncrementAttributesAtStep:
+    m_keys: []
+    m_values: []
+  RewardWithIncrementAttributes:
+    m_keys: []
+    m_values: []
   RewardSchemeScale: 1
   AllowGunAttack: 1
   ShootType: 0
@@ -416,7 +427,7 @@ MonoBehaviour:
   RaycastEmitter: {fileID: 1929659164803749337}
   Bullet: {fileID: 23, guid: 2b4d7185054f84ae99b2a1e17d2161bc, type: 3}
   BulletFarwardForce: 150
-  NumBulletPerLoad: 0.5
+  NumBulletPerLoad: 0.2
   FullNumBullet: 30
   AllowSwordAttack: 0
   Sword: {fileID: 515885250365602886}

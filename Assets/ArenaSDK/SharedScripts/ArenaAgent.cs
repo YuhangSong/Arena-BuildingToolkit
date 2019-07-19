@@ -80,6 +80,35 @@ namespace Arena
         public float KillHealth = 0f;
 
         /// <summary>
+        /// after each attack, should take NumCoolingSteps to cool down, before able to attack again
+        /// if using ShootType = ShootTypes.Raycast, at least set it to 1, avoid the kill is trigged faster then academy step
+        /// </summary>
+        public int NumCoolingSteps = 1;
+
+        /// <summary>
+        /// </summary>
+        private int CoolingSteps = 0;
+
+        /// <summary>
+        /// GunAttack related configuration.
+        /// </summary>
+        public float BulletFarwardForce = 500f;
+
+        /// <summary>
+        /// GunAttack related configuration.
+        /// </summary>
+        public float NumBulletPerLoad = 0.5f;
+
+        /// <summary>
+        /// GunAttack related configuration.
+        /// </summary>
+        public float FullNumBullet = 30f;
+
+        /// <summary>
+        /// </summary>
+        public bool RandomizeNumBulletAtReset = true;
+
+        /// <summary>
         /// Reference to the GunAttack related objects.
         /// </summary>
         public GameObject Gun;
@@ -98,21 +127,6 @@ namespace Arena
         /// Reference to the GunAttack related objects.
         /// </summary>
         public GameObject Bullet;
-
-        /// <summary>
-        /// GunAttack related configuration.
-        /// </summary>
-        public float BulletFarwardForce = 500f;
-
-        /// <summary>
-        /// GunAttack related configuration.
-        /// </summary>
-        public float NumBulletPerLoad = 0.5f;
-
-        /// <summary>
-        /// GunAttack related configuration.
-        /// </summary>
-        public float FullNumBullet = 30f;
 
         /// <summary>
         /// GunAttack related variables.
@@ -385,7 +399,8 @@ namespace Arena
                     if (IsHit) {
                         AimLine.DrawLineInGameView(RaycastEmitter.transform.position,
                           RaycastEmitter.transform.position + RaycastEmitter.transform.up * AimRaycast.distance,
-                          (Action_ == Attack) ? AimLineColorWhenAttack : AimLineColor);
+                          ((Action_ == Attack) && (NumBullet > 0) &&
+                          (!Reloading) && (CoolingSteps == 0)) ? AimLineColorWhenAttack : AimLineColor);
                     }
                 } else {
                     AimLine.DrawLineInGameView(RaycastEmitter.transform.position,
@@ -395,7 +410,8 @@ namespace Arena
 
                 switch (Action_) {
                     case Attack:
-                        if ((NumBullet > 0) && !Reloading) {
+                        if ((NumBullet > 0) && (!Reloading) && (CoolingSteps == 0)) {
+                            CoolingSteps = NumCoolingSteps + 1;
                             if (ShootType == ShootTypes.Raycast) {
                                 if (!IsShowAimLine) {
                                     // not showing aim line, so raycast need to be done here
@@ -437,6 +453,10 @@ namespace Arena
                         break;
                     default:
                         break;
+                }
+
+                if (CoolingSteps > 0) {
+                    CoolingSteps--;
                 }
 
                 if (Reloading) {
@@ -638,7 +658,11 @@ namespace Arena
             // }
 
             if (AllowGunAttack) {
-                NumBullet = Random.Range(0, FullNumBullet);
+                if (RandomizeNumBulletAtReset) {
+                    NumBullet = Random.Range(0, FullNumBullet);
+                } else {
+                    NumBullet = FullNumBullet;
+                }
                 UIPercentageBars["AM"].UpdatePercentage(GetBulletPercentage());
             }
         }

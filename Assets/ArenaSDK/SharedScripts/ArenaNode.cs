@@ -188,12 +188,8 @@ namespace Arena
 
         public RankingWinTypes RankingWinType;
 
-        public enum RewardRankingAtTypes {
-            ThisNodeDie
-        }
-
-        public RewardRankingAtTypes RewardRankingAt = RewardRankingAtTypes.ThisNodeDie;
-
+        /// <summary>
+        /// </summary>
         public bool IsPenalizeTie = false;
 
         /// <summary>
@@ -498,32 +494,50 @@ namespace Arena
                     if (GetParentNode().IsRewardRanking) {
                         // record my ranking of being killed
                         SetKilledRanking(GetParentNode().GetChildKilledRanking());
-
-                        // Depreciated
-                        // // compute reward based on ranking
-                        // if (GetParentNode().RewardRankingAt == RewardRankingAtTypes.ChildNodeDie) {
-                        //     RewardRanking(GetParentNode(), this);
-                        // }
                     }
                 }
 
                 if (IsRewardRanking) {
-                    if (RewardRankingAt == RewardRankingAtTypes.ThisNodeDie) {
-                        // compute reward based on ranking
-                        foreach (ArenaNode ChildNode_ in GetChildNodes()) {
-                            RewardRanking(this, ChildNode_);
+                    // penalize tie
+                    if (IsPenalizeTie) {
+                        // detect if tie
+                        bool IsTie_        = true;
+                        int KilledRanking_ = -1;
+                        for (int i = 0; i < GetNumChildNodes(); i++) {
+                            if (i == 0) {
+                                KilledRanking_ = GetChildNodes()[i].GetKilledRanking();
+                            } else {
+                                if (GetChildNodes()[i].GetKilledRanking() != KilledRanking_) {
+                                    IsTie_ = false;
+                                    break;
+                                }
+                            }
                         }
+
+                        // penalize tie
+                        if (IsTie_) {
+                            foreach (ArenaNode ChildNode_ in GetChildNodes()) {
+                                // add the computed reward
+                                ChildNode_.AddReward(
+                                    -1f * globalManager.RewardRankingCoefficient * RewardSchemeScale);
+                            }
+                        }
+                    }
+
+                    // reward based on ranking
+                    foreach (ArenaNode ChildNode_ in GetChildNodes()) {
+                        RewardRanking(this, ChildNode_);
                     }
                 }
 
                 // notice parent node that a child has been killed
                 if (GetParentNode() != null) {
-                    if (GetParentNode().IsRewardRanking) {
-                        if (!IsInternalKill_) {
+                    if (!IsInternalKill_) {
+                        if (GetParentNode().IsRewardRanking) {
                             GetParentNode().IncrementChildKilledRanking();
                         }
+                        GetParentNode().OnChildNodeKilled();
                     }
-                    GetParentNode().OnChildNodeKilled();
                 } else {
                     gameObject.GetComponent<GlobalManager>().Done();
                 }
