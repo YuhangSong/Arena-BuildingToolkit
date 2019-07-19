@@ -253,7 +253,6 @@ namespace Arena
 
         /// <summary>
         /// Get the NumberOfActionsBetweenDecisions.
-        /// All ArenaAgents and Academy will by default use maxSteps set in the GlobalManager.
         /// </summary>
         /// <returns>NumberOfActionsBetweenDecisions.</returns>
         public int
@@ -433,7 +432,7 @@ namespace Arena
         AcademyStep()
         {
             gameObject.GetComponent<ArenaNode>().Step();
-            UIPercentageBars["EL"].UpdateValue(GetStepCount());
+            UIPercentageBars["EL"].UpdateValue(GetComponent<ArenaNode>().GetNumLivingSteps());
         }
 
         /// <summary>
@@ -447,7 +446,7 @@ namespace Arena
 
             // Debug.Log(GetLogTag() + " Reset");
 
-            UIPercentageBars["EL"].UpdateValue(GetStepCount());
+            UIPercentageBars["EL"].UpdateValue(GetComponent<ArenaNode>().GetNumLivingSteps());
 
             // respawn and destroy
             RespawnObjectsInTags();

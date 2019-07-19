@@ -142,7 +142,23 @@ namespace Arena
             return ParentNode;
         }
 
-        [Header("Living Condition Based On Child Nodes")][Space(10)]
+        [Header("Living Condition")][Space(10)]
+
+        /// <summary>
+        /// </summary>
+        public int MaxNumLivingSteps = 0;
+
+        /// <summary>
+        /// </summary>
+        private int NumLivingSteps = 0;
+
+        /// <summary>
+        /// </summary>
+        public int
+        GetNumLivingSteps()
+        {
+            return NumLivingSteps;
+        }
 
         /// <summary>
         /// Condition at which the node is considerred to be living.
@@ -173,11 +189,10 @@ namespace Arena
         public RankingWinTypes RankingWinType;
 
         public enum RewardRankingAtTypes {
-            ChildNodeDie,
             ThisNodeDie
         }
 
-        public RewardRankingAtTypes RewardRankingAt = RewardRankingAtTypes.ChildNodeDie;
+        public RewardRankingAtTypes RewardRankingAt = RewardRankingAtTypes.ThisNodeDie;
 
         public bool IsPenalizeTie = false;
 
@@ -274,7 +289,8 @@ namespace Arena
         {
             CheckNumChildNodes();
 
-            Living = true;
+            NumLivingSteps = 0;
+            Living         = true;
 
             ResetUtils();
             ResetRewardFunction();
@@ -314,6 +330,13 @@ namespace Arena
                     Debug.LogError("The very bottom ArenaNode should be attached with the ArenaAgent");
                 }
             }
+
+            if (MaxNumLivingSteps > 0) {
+                if (NumLivingSteps >= (MaxNumLivingSteps - 1)) {
+                    Kill();
+                }
+            }
+            NumLivingSteps++;
         }
 
         /// <summary>
@@ -445,14 +468,23 @@ namespace Arena
         public void
         Kill()
         {
+            Kill(false);
+        }
+
+        /// <summary>
+        /// </summary>
+        public void
+        Kill(bool IsInternalKill_)
+        {
             if (IsLiving()) {
                 Living = false;
 
                 // kill child nodes
                 if (GetNumChildNodes() > 0) {
                     foreach (ArenaNode ChildNode_ in GetChildNodes()) {
-                        ChildNode_.Kill();
+                        ChildNode_.Kill(true);
                     }
+                    IncrementChildKilledRanking();
                 } else {
                     if (gameObject.GetComponent<ArenaAgent>() != null) {
                         gameObject.GetComponent<ArenaAgent>().Kill();
@@ -467,10 +499,11 @@ namespace Arena
                         // record my ranking of being killed
                         SetKilledRanking(GetParentNode().GetChildKilledRanking());
 
-                        // compute reward based on ranking
-                        if (GetParentNode().RewardRankingAt == RewardRankingAtTypes.ChildNodeDie) {
-                            RewardRanking(GetParentNode(), this);
-                        }
+                        // Depreciated
+                        // // compute reward based on ranking
+                        // if (GetParentNode().RewardRankingAt == RewardRankingAtTypes.ChildNodeDie) {
+                        //     RewardRanking(GetParentNode(), this);
+                        // }
                     }
                 }
 
@@ -486,7 +519,9 @@ namespace Arena
                 // notice parent node that a child has been killed
                 if (GetParentNode() != null) {
                     if (GetParentNode().IsRewardRanking) {
-                        GetParentNode().IncrementChildKilledRanking();
+                        if (!IsInternalKill_) {
+                            GetParentNode().IncrementChildKilledRanking();
+                        }
                     }
                     GetParentNode().OnChildNodeKilled();
                 } else {

@@ -47,17 +47,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   NodeID: 0
+  MaxNumLivingSteps: 1000
   LivingCondition: 2
   AtLeastSpecificNumberLiving: 2
   AtLeastSpecificPortion: 0.5
   RewardSchemeScale: 100
   IsRewardRanking: 1
   RankingWinType: 0
+  RewardRankingAt: 0
+  IsPenalizeTie: 0
   IsRewardDistance: 0
   DistanceBase1: {fileID: 0}
   DistanceBase2: {fileID: 0}
   IsRewardTime: 0
   TimeWinType: 0
+  TransformReinitializors: []
 --- !u!114 &5229130780062887955
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -75,7 +79,7 @@ MonoBehaviour:
     - {fileID: 11400000, guid: f723645b60672466c8a8ac56e5c017c7, type: 2}
     _brainsToControl:
     - {fileID: 11400000, guid: 3358b44c8745e4a55837b8c8f04010fc, type: 2}
-  maxSteps: 1000
+  maxSteps: 0
   trainingConfiguration:
     width: 80
     height: 80
@@ -96,6 +100,7 @@ MonoBehaviour:
   RespawnTags: []
   DestroyTags:
   - Bullet
+  IgnoreCollisionTagPairs: []
   TeamMaterials:
   - {fileID: 2100000, guid: 7a3180b035cc24561bc6a2e1cb11a21c, type: 2}
   - {fileID: 2100000, guid: f8e6847f603704798bd480f4fd8860de, type: 2}

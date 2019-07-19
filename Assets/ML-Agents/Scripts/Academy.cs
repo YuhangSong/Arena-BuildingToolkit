@@ -407,7 +407,7 @@ namespace MLAgents
             if (isInference) {
                 ConfigureEnvironmentHelper(inferenceConfiguration);
                 Monitor.SetActive(true);
-            } else   {
+            } else {
                 ConfigureEnvironmentHelper(trainingConfiguration);
                 Monitor.SetActive(false);
             }
@@ -604,7 +604,7 @@ namespace MLAgents
                     Application.Quit();
                     return;
                 }
-            } else if (!firstAcademyReset)   {
+            } else if (!firstAcademyReset) {
                 UpdateResetParameters();
                 ForcedFullReset();
             }
