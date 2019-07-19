@@ -42,11 +42,16 @@ namespace Arena
         private bool Enabled = false;
 
         void
-        Awake()
+        Start()
         {
-            // by default, it is disabled
-            setText(string.Format("{0}: {1}", ID, "Disabled"));
-            ImageOnDisplay.fillAmount = 0f;
+            // just for initial refresh
+            if (IsEnabled()) {
+                Disable();
+                Enable();
+            } else {
+                Enable();
+                Disable();
+            }
         }
 
         /// <summary>

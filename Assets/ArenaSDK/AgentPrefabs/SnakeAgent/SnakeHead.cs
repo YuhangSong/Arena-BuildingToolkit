@@ -9,7 +9,7 @@ namespace Arena
         protected override void
         TrigEvent(GameObject other)
         {
-            // if collid with body
+            // if collid with body, according to https://www.youtube.com/watch?v=35lpSHgvibU
             if (other.CompareTag("Body")) {
                 ArenaNode OtherNode = Utils.GetBottomLevelArenaNodeInGameObject(other);
                 ArenaNode ThisNode  = Utils.GetBottomLevelArenaNodeInGameObject(gameObject);

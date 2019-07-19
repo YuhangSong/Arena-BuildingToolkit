@@ -172,6 +172,15 @@ namespace Arena
 
         public RankingWinTypes RankingWinType;
 
+        public enum RewardRankingAtTypes {
+            ChildNodeDie,
+            ThisNodeDie
+        }
+
+        public RewardRankingAtTypes RewardRankingAt = RewardRankingAtTypes.ChildNodeDie;
+
+        public bool IsPenalizeTie = false;
+
         /// <summary>
         /// Storage the current ranking of the killing (How many teams have been killed till now.).
         /// </summary>
@@ -408,6 +417,29 @@ namespace Arena
             }
         }
 
+        private void
+        RewardRanking(ArenaNode ParentNode, ArenaNode ChildNode)
+        {
+            // compute reward based on ranking
+            float StepReward_ = 0f;
+
+            if (ParentNode.RankingWinType == RankingWinTypes.Survive) {
+                // Survive: dead ranking at 1 means reward 0, the higher the dead ranking, the better
+                StepReward_ += (float) ChildNode.GetKilledRanking()
+                  * globalManager.RewardRankingCoefficient;
+            } else if (ParentNode.RankingWinType == RankingWinTypes.Depart) {
+                // Depart: dead last (ranking getNumTeams()) means reward 0, the lower the dead ranking, the better
+                StepReward_ +=
+                  ((float) ParentNode.GetNumChildNodes() - (float) ChildNode.GetKilledRanking() - 1f)
+                  * globalManager.RewardRankingCoefficient;
+            } else {
+                Debug.LogError("RankingWinType is invalid.");
+            }
+
+            // add the computed reward
+            ChildNode.AddReward(StepReward_ * ParentNode.RewardSchemeScale);
+        }
+
         /// <summary>
         /// </summary>
         public void
@@ -429,30 +461,25 @@ namespace Arena
                     }
                 }
 
-                // record my ranking of being killed, for parent node to compute reward based on ranking
+                // record my ranking of being killed, then compute reward based on ranking
                 if (GetParentNode() != null) {
                     if (GetParentNode().IsRewardRanking) {
+                        // record my ranking of being killed
                         SetKilledRanking(GetParentNode().GetChildKilledRanking());
+
+                        // compute reward based on ranking
+                        if (GetParentNode().RewardRankingAt == RewardRankingAtTypes.ChildNodeDie) {
+                            RewardRanking(GetParentNode(), this);
+                        }
                     }
                 }
 
-                // compute reward of ranking for child nodes
                 if (IsRewardRanking) {
-                    foreach (ArenaNode ChildNode_ in GetChildNodes()) {
-                        float StepReward_ = 0f;
-                        if (RankingWinType == RankingWinTypes.Survive) {
-                            // Survive: dead ranking at 1 means reward 0, the higher the dead ranking, the better
-                            StepReward_ += (float) ChildNode_.GetKilledRanking()
-                              * globalManager.RewardRankingCoefficient;
-                        } else if (RankingWinType == RankingWinTypes.Depart) {
-                            // Depart: dead last (ranking getNumTeams()) means reward 0, the lower the dead ranking, the better
-                            StepReward_ += ((float) GetNumChildNodes() - (float) ChildNode_.GetKilledRanking() - 1f)
-                              * globalManager.RewardRankingCoefficient;
-                        } else {
-                            Debug.LogError("RankingWinType is invalid.");
+                    if (RewardRankingAt == RewardRankingAtTypes.ThisNodeDie) {
+                        // compute reward based on ranking
+                        foreach (ArenaNode ChildNode_ in GetChildNodes()) {
+                            RewardRanking(this, ChildNode_);
                         }
-
-                        ChildNode_.AddReward(StepReward_ * RewardSchemeScale);
                     }
                 }
 
