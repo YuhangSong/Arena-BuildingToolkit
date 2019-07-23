@@ -73,9 +73,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b29724baddfa457da6eeab446fa49ca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxJointSpring: 0
-  jointDampen: 0
-  maxJointForceLimit: 0
+  maxJointSpring: 40000
+  jointDampen: 3000
+  maxJointForceLimit: 10000
   bodyPartsList: []
 --- !u!114 &6384572436896903385
 MonoBehaviour:
@@ -1871,7 +1871,7 @@ PrefabInstance:
     - target: {fileID: 7944127489056584336, guid: 3496c4b5a87ba44ffbf86655893a3304,
         type: 3}
       propertyPath: m_Name
-      value: ID (1)
+      value: ID
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3496c4b5a87ba44ffbf86655893a3304, type: 3}
