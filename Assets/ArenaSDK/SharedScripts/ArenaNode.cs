@@ -498,35 +498,35 @@ namespace Arena
                 }
 
                 if (IsRewardRanking) {
-                    // penalize tie
-                    if (IsPenalizeTie) {
-                        // detect if tie
-                        bool IsTie_        = true;
-                        int KilledRanking_ = -1;
-                        for (int i = 0; i < GetNumChildNodes(); i++) {
-                            if (i == 0) {
-                                KilledRanking_ = GetChildNodes()[i].GetKilledRanking();
-                            } else {
-                                if (GetChildNodes()[i].GetKilledRanking() != KilledRanking_) {
-                                    IsTie_ = false;
-                                    break;
-                                }
+                    // detect if tie
+                    bool IsTie_        = true;
+                    int KilledRanking_ = -1;
+                    for (int i = 0; i < GetNumChildNodes(); i++) {
+                        if (i == 0) {
+                            KilledRanking_ = GetChildNodes()[i].GetKilledRanking();
+                        } else {
+                            if (GetChildNodes()[i].GetKilledRanking() != KilledRanking_) {
+                                IsTie_ = false;
+                                break;
                             }
                         }
+                    }
 
+                    // penalize tie
+                    if (IsTie_) {
                         // penalize tie
-                        if (IsTie_) {
+                        if (IsPenalizeTie) {
                             foreach (ArenaNode ChildNode_ in GetChildNodes()) {
                                 // add the computed reward
                                 ChildNode_.AddReward(
                                     -1f * globalManager.RewardRankingCoefficient * RewardSchemeScale);
                             }
                         }
-                    }
-
-                    // reward based on ranking
-                    foreach (ArenaNode ChildNode_ in GetChildNodes()) {
-                        RewardRanking(this, ChildNode_);
+                    } else {
+                        // reward based on ranking
+                        foreach (ArenaNode ChildNode_ in GetChildNodes()) {
+                            RewardRanking(this, ChildNode_);
+                        }
                     }
                 }
 
