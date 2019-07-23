@@ -234,7 +234,7 @@ PrefabInstance:
     - target: {fileID: 1293425214980650690, guid: cd4dda5d80c78924b88e1494b4e967bf,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 4.38
+      value: 0.64
       objectReference: {fileID: 0}
     - target: {fileID: 1293425214980650690, guid: cd4dda5d80c78924b88e1494b4e967bf,
         type: 3}
@@ -387,7 +387,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   NodeID: 0
-  MaxNumLivingSteps: 0
+  MaxNumLivingSteps: 1000
   LivingCondition: 2
   AtLeastSpecificNumberLiving: 1
   AtLeastSpecificPortion: 0.5
@@ -415,11 +415,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   broadcastHub:
     broadcastingBrains:
-    - {fileID: 11400000, guid: c01f11e42ccdd415490a5a4e2bc435c5, type: 2}
+    - {fileID: 11400000, guid: b752b21d81b0a487c814eb53c1ab9c3e, type: 2}
     _brainsToControl:
     - {fileID: 11400000, guid: 3358b44c8745e4a55837b8c8f04010fc, type: 2}
     - {fileID: 11400000, guid: b752b21d81b0a487c814eb53c1ab9c3e, type: 2}
-  maxSteps: 1000
+  maxSteps: 0
   trainingConfiguration:
     width: 80
     height: 80
