@@ -1,4 +1,4 @@
-<img src="./images/Cover.png" align="middle" width="2000"/>
+<!-- <img src="./images/Cover.png" align="middle" width="2000"/> -->
 
 # Introduction
 
@@ -8,7 +8,7 @@ Multi-agent intelligence is still at the stage where many problems remain unexpl
 More resources can be found in [Arena Home](https://sites.google.com/view/arena-unity/).
 If you use this repository to conduct research, we kindly ask that you [cite the paper](#citation) as a reference.
 
-## Status: Pre-release
+## Status: Release
 
 We are currently open to any suggestions or pull requests from the community to make Arena a better platform.
 To contribute to the project, [contact us via Slack](https://join.slack.com/t/arena-ml/shared_invite/enQtNjc1NDE1MTY0MjU3LWMxMjZiMTYyNTE3OWIzM2QxZjU5YmI1NTM2YzYzZDZlNjY0NzllMDFlMjA3MGZiN2QxODA1NTJhZDkzOTI3Nzg).
