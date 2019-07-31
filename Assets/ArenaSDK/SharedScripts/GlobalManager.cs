@@ -37,12 +37,6 @@ namespace Arena
         }
 
         /// <summary>
-        /// Set LightIntensityRandom to positive number so that all light in
-        /// the game will be randomlized at each episode.
-        /// </summary>
-        public float LightIntensityRandom = 0f;
-
-        /// <summary>
         /// A lsit of LightReinitializor to reinitialize all lights in the game.
         /// </summary>
         private List<LightReinitializor> LightReinitializors = new List<LightReinitializor>();
@@ -53,9 +47,9 @@ namespace Arena
         private void
         InitLightReinitializors()
         {
-            if (LightIntensityRandom > 0f) {
+            if (RandomizeLightIntensity > 0f) {
                 foreach (Light light_ in GetComponentsInChildren<Light>()) {
-                    LightReinitializors.Add(new LightReinitializor(light_, LightIntensityRandom));
+                    LightReinitializors.Add(new LightReinitializor(light_, RandomizeLightIntensity));
                 }
             }
         }
@@ -179,6 +173,28 @@ namespace Arena
                 return StateTextColor[1];
             }
         }
+
+        [Header("Global Randomization Settings")][Space(10)]
+
+        /// <summary>
+        /// Set RandomizeLightIntensity to positive number so that all light in
+        /// the game will be randomlized at each episode.
+        /// </summary>
+        public float RandomizeLightIntensity = 0f;
+
+        /// <summary>
+        /// Set these values so that the corresponding physical properties will be randomized
+        /// at the reset of every episode around the default value.
+        /// </summary>
+        [SerializeField]
+        public MyDictionary.StringStringDictionary RandomizePhysicalProperties =
+          new MyDictionary.StringStringDictionary(){
+            { "mass", "0" },
+            { "gravity", "0" },
+            { "bounceThreshold", "0" },
+            { "drag", "0" },
+            { "angularDrag", "0" },
+        };
 
         [Header("Global Agent Settings")][Space(10)]
 
