@@ -320,9 +320,7 @@ namespace Arena
                     ChildNode_.Step();
                 }
             } else {
-                if (gameObject.GetComponent<ArenaAgent>() != null) {
-                    return;
-                } else {
+                if (gameObject.GetComponent<ArenaAgent>() != null) { } else {
                     Debug.LogError("The very bottom ArenaNode should be attached with the ArenaAgent");
                 }
             }
