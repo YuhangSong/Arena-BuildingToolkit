@@ -212,7 +212,7 @@ namespace Arena
 
             // customize event
             if (Key_ == "HTH") {
-                if (Attributes[Key_] < 0f) {
+                if (Attributes[Key_] <= 0f) {
                     gameObject.GetComponent<ArenaNode>().Kill();
                 }
             }
