@@ -158,6 +158,20 @@ namespace Arena
             return true;
         }
 
+        public static void
+        ApplyMaterial(Material Material_, GameObject GameObject_)
+        {
+            if (GameObject_.GetComponent<MeshRenderer>() != null) {
+                // There is a MeshRenderer attached to the GameObject
+                // only apply to this MeshRenderer
+                GameObject_.GetComponent<MeshRenderer>().material = Material_;
+            } else if (GameObject_.GetComponent<SkinnedMeshRenderer>() != null) {
+                GameObject_.GetComponent<SkinnedMeshRenderer>().material = Material_;
+            } else {
+                Debug.LogWarning("There is no MeshRenderer attached to the GameObject");
+            }
+        }
+
         public static List<ArenaNode>
         GetTopLevelArenaNodesInChildren(GameObject GameObject_)
         {

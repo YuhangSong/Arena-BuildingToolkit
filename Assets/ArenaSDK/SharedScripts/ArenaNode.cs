@@ -579,8 +579,7 @@ namespace Arena
             float StepReward_ = 0f;
 
             if (IsRewardDistance) {
-                StepReward_ += (RewardFunctionDistance.StepGetReward() * globalManager.RewardDistanceCoefficient
-                  * RewardSchemeScale);
+                StepReward_ += (RewardFunctionDistance.StepGetReward() * globalManager.RewardDistanceCoefficient);
             }
 
             if (IsRewardTime) {
@@ -593,7 +592,7 @@ namespace Arena
                 }
             }
 
-            AddReward(StepReward_);
+            AddReward(StepReward_ * RewardSchemeScale);
         }
 
         [Header("Utils")][Space(10)]

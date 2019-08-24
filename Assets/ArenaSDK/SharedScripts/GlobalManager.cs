@@ -66,6 +66,17 @@ namespace Arena
         }
 
         /// <summary>
+        /// Reinitialize MaterialReinitializors.
+        /// </summary>
+        private void
+        ReinitilizeMaterialReinitializors()
+        {
+            foreach (MaterialReinitializor MaterialReinitializor_ in GetComponentsInChildren<MaterialReinitializor>()) {
+                MaterialReinitializor_.Reinitialize();
+            }
+        }
+
+        /// <summary>
         /// Set objects you want to respawn at the reset of every
         /// episode, identified by tag.
         /// </summary>
@@ -240,30 +251,6 @@ namespace Arena
                     "Not enough TeamMaterials are assigned, requiring " + (TeamID_ + 1) + ", but got "
                     + TeamMaterials.Count);
                 return null;
-            }
-        }
-
-        /// <summary>
-        /// Apply TeamMaterial of a team to a GameObject.
-        /// Example: apply team material to a GameObject that is the child of an ArenaTeam
-        //    GetComponentInParent<GlobalManager>().ApplyTeamMaterial(
-        //      GetComponentInParent<ArenaTeam>().getTeamID(),
-        //      GameObject_,
-        //    )
-        /// </summary>
-        /// <param name="TeamID_">TeamID of which the TeamMaterial will be applied.</param>
-        /// <param name="GameObject_">GameObject to be applied with TeamMaterial.</param>
-        public void
-        ApplyTeamMaterial(int TeamID_, GameObject GameObject_)
-        {
-            if (GameObject_.GetComponent<MeshRenderer>() != null) {
-                // There is a MeshRenderer attached to the GameObject
-                // only apply to this MeshRenderer
-                GameObject_.GetComponent<MeshRenderer>().material = getTeamMaterial(TeamID_);
-            } else if (GameObject_.GetComponent<SkinnedMeshRenderer>() != null) {
-                GameObject_.GetComponent<SkinnedMeshRenderer>().material = getTeamMaterial(TeamID_);
-            } else {
-                Debug.LogWarning("There is no MeshRenderer attached to the GameObject");
             }
         }
 
@@ -468,8 +455,9 @@ namespace Arena
             RespawnObjectsInTags();
             DestroyObjectsInDestroyTags();
 
-            // reinitialize lights
+            // reinitialize lights, materials
             ReinitilizeLightReinitializors();
+            ReinitilizeMaterialReinitializors();
 
             gameObject.GetComponent<ArenaNode>().Reset();
 

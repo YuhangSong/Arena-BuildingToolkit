@@ -229,7 +229,8 @@ namespace Arena {
                   (RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ
                   | RigidbodyConstraints.FreezePositionY)))
                 {
-                    LogWarningFreezeRotationXZ();
+                    Debug.LogWarning(
+                        "When AllowTurn, player should freeze rotatation on X and Z, as it does not support rotation on these axises. See example Fallflat if you want the player to rotated on these axises.");
                 }
             } else {
                 if ((Player.GetComponentInChildren<Rigidbody>().constraints !=
@@ -238,7 +239,8 @@ namespace Arena {
                   (RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ
                   | RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezePositionY)))
                 {
-                    LogWarningFreezeRotationXZ();
+                    Debug.LogWarning(
+                        "When not AllowTurn, player should freeze rotatation on X, Z and Y, as it does not support rotation on these axises. See example Fallflat if you want the player to rotated on these axises.");
                 }
             }
         }

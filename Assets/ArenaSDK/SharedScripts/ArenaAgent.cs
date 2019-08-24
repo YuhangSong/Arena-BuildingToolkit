@@ -516,17 +516,6 @@ namespace Arena
         }
 
         /// <summary>
-        /// Apply TeamMaterial of the agent to a GameObject.
-        /// </summary>
-        /// <param name="GameObject_">GameObject to be applied with TeamMaterial.</param>
-        protected void
-        ApplyTeamMaterial(GameObject GameObject_)
-        {
-            globalManager.ApplyTeamMaterial(
-                getTeamID(), GameObject_);
-        }
-
-        /// <summary>
         /// Pre-defined action space: NoAction.
         /// </summary>
         protected const int NoAction = 0;
@@ -812,6 +801,16 @@ namespace Arena
 
             UITexts["Status"].setColor(globalManager.getStateTextColor(IsLiving()));
             UITexts["Status"].setText(ToDisplay_);
+        }
+
+        /// <summary>
+        /// Apply TeamMaterial of the agent to a GameObject.
+        /// </summary>
+        /// <param name="GameObject_">GameObject to be applied with TeamMaterial.</param>
+        protected void
+        ApplyTeamMaterial(GameObject GameObject_)
+        {
+            Utils.ApplyMaterial(globalManager.getTeamMaterial(getTeamID()), GameObject_);
         }
 
         /// <summary>
