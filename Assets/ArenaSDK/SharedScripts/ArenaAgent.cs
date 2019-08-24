@@ -166,27 +166,27 @@ namespace Arena
         }
 
         protected List<string> AttributesKeys = new List<string>(){
-            "Health",
-            "Energy",
-            "Nutrition",
+            "HTH",
+            "EG",
+            "NTR",
         };
 
         protected Dictionary<string, float> Attributes = new Dictionary<string, float>(){
-            { "Health", 1f },
-            { "Energy", 1f },
-            { "Nutrition", 1f },
+            { "HTH", 1f },
+            { "EG", 1f },
+            { "NTR", 1f },
         };
 
         protected Dictionary<string, float> AttributesMinValues = new Dictionary<string, float>(){
-            { "Health", 0f },
-            { "Energy", 0f },
-            { "Nutrition", 0f },
+            { "HTH", 0f },
+            { "EG", 0f },
+            { "NTR", 0f },
         };
 
         protected Dictionary<string, float> AttributesMaxValues = new Dictionary<string, float>(){
-            { "Health", 1f },
-            { "Energy", 1f },
-            { "Nutrition", 1f },
+            { "HTH", 1f },
+            { "EG", 1f },
+            { "NTR", 1f },
         };
 
         /// <summary>
@@ -211,8 +211,8 @@ namespace Arena
             }
 
             // customize event
-            if (Key_ == "Health") {
-                if (Attributes[Key_] < 0f) {
+            if (Key_ == "HTH") {
+                if (Attributes[Key_] <= 0f) {
                     gameObject.GetComponent<ArenaNode>().Kill();
                 }
             }
@@ -250,7 +250,7 @@ namespace Arena
         protected bool
         HasEnergy()
         {
-            return (Attributes["Energy"] > 0f);
+            return (Attributes["EG"] > 0f);
         }
 
         /// <summary>
@@ -314,6 +314,7 @@ namespace Arena
                 UIPercentageBars.Add(UIPercentageBar_.ID, UIPercentageBar_);
             }
             UIPercentageBars["ER"].Enable();
+            UIPercentageBars["EL"].Enable();
 
             /** initialize reference to UITexts **/
             foreach (UIText UIText_ in GetComponentsInChildren<UIText>()) {
@@ -433,7 +434,7 @@ namespace Arena
                                             SubjectNode.Kill();
                                         }
                                         if (KillHealth != 0f) {
-                                            SubjectNode.IncrementAttribute("Health", -KillHealth);
+                                            SubjectNode.IncrementAttribute("HTH", -KillHealth);
                                         }
                                     }
                                 }
@@ -652,6 +653,7 @@ namespace Arena
                 + GetCumulativeReward());
 
             UIPercentageBars["ER"].UpdateValue(GetCumulativeReward());
+            UIPercentageBars["EL"].UpdateValue(GetComponent<ArenaNode>().GetNumLivingSteps());
 
             // if (globalManager.isTurnBasedGame()) {
             //     ResetTurnBasedGame();
@@ -735,6 +737,8 @@ namespace Arena
             } else {
                 StepDead();
             }
+            UIPercentageBars["EL"].UpdateValue(GetComponent<ArenaNode>().GetNumLivingSteps());
+
             if (globalManager.isDebugging()) {
                 if ((getTeamID() == 0) && (getAgentID() == 0)) {
                     print(GetLogTag() + " GetCumulativeReward " + GetCumulativeReward());

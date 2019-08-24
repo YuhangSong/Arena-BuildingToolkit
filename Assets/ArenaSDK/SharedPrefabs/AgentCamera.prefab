@@ -261,6 +261,7 @@ RectTransform:
   - {fileID: 3384877273400510874}
   - {fileID: 7879541671422533805}
   - {fileID: 3947198312425142817}
+  - {fileID: 4634995678119618118}
   - {fileID: 210389799703283336}
   - {fileID: 7645042469954560056}
   - {fileID: 7117713661399114952}
@@ -383,7 +384,7 @@ PrefabInstance:
     - target: {fileID: 3521466413392887311, guid: 7b96d9433d2554f55acc593664b4ced9,
         type: 3}
       propertyPath: m_RootOrder
-      value: 7
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 3521466413392887311, guid: 7b96d9433d2554f55acc593664b4ced9,
         type: 3}
@@ -408,7 +409,7 @@ PrefabInstance:
     - target: {fileID: 3521466413392887311, guid: 7b96d9433d2554f55acc593664b4ced9,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -170
+      value: -200
       objectReference: {fileID: 0}
     - target: {fileID: 3521466413392887311, guid: 7b96d9433d2554f55acc593664b4ced9,
         type: 3}
@@ -453,7 +454,7 @@ PrefabInstance:
     - target: {fileID: 7875719640731296982, guid: 7b96d9433d2554f55acc593664b4ced9,
         type: 3}
       propertyPath: ID
-      value: Nutrition
+      value: NTR
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7b96d9433d2554f55acc593664b4ced9, type: 3}
@@ -773,7 +774,7 @@ PrefabInstance:
     - target: {fileID: 3521466413392887311, guid: 7b96d9433d2554f55acc593664b4ced9,
         type: 3}
       propertyPath: m_RootOrder
-      value: 4
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 3521466413392887311, guid: 7b96d9433d2554f55acc593664b4ced9,
         type: 3}
@@ -798,7 +799,7 @@ PrefabInstance:
     - target: {fileID: 3521466413392887311, guid: 7b96d9433d2554f55acc593664b4ced9,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -80
+      value: -110
       objectReference: {fileID: 0}
     - target: {fileID: 3521466413392887311, guid: 7b96d9433d2554f55acc593664b4ced9,
         type: 3}
@@ -864,6 +865,136 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: UIPercentageBar Energy
+      objectReference: {fileID: 0}
+    - target: {fileID: 3521466413392887311, guid: 7b96d9433d2554f55acc593664b4ced9,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3521466413392887311, guid: 7b96d9433d2554f55acc593664b4ced9,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3521466413392887311, guid: 7b96d9433d2554f55acc593664b4ced9,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3521466413392887311, guid: 7b96d9433d2554f55acc593664b4ced9,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3521466413392887311, guid: 7b96d9433d2554f55acc593664b4ced9,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3521466413392887311, guid: 7b96d9433d2554f55acc593664b4ced9,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3521466413392887311, guid: 7b96d9433d2554f55acc593664b4ced9,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3521466413392887311, guid: 7b96d9433d2554f55acc593664b4ced9,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 3521466413392887311, guid: 7b96d9433d2554f55acc593664b4ced9,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3521466413392887311, guid: 7b96d9433d2554f55acc593664b4ced9,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3521466413392887311, guid: 7b96d9433d2554f55acc593664b4ced9,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3521466413392887311, guid: 7b96d9433d2554f55acc593664b4ced9,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 160
+      objectReference: {fileID: 0}
+    - target: {fileID: 3521466413392887311, guid: 7b96d9433d2554f55acc593664b4ced9,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -170
+      objectReference: {fileID: 0}
+    - target: {fileID: 3521466413392887311, guid: 7b96d9433d2554f55acc593664b4ced9,
+        type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 300
+      objectReference: {fileID: 0}
+    - target: {fileID: 3521466413392887311, guid: 7b96d9433d2554f55acc593664b4ced9,
+        type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 3521466413392887311, guid: 7b96d9433d2554f55acc593664b4ced9,
+        type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3521466413392887311, guid: 7b96d9433d2554f55acc593664b4ced9,
+        type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3521466413392887311, guid: 7b96d9433d2554f55acc593664b4ced9,
+        type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3521466413392887311, guid: 7b96d9433d2554f55acc593664b4ced9,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3521466413392887311, guid: 7b96d9433d2554f55acc593664b4ced9,
+        type: 3}
+      propertyPath: m_Pivot.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3521466413392887311, guid: 7b96d9433d2554f55acc593664b4ced9,
+        type: 3}
+      propertyPath: m_Pivot.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7875719640731296982, guid: 7b96d9433d2554f55acc593664b4ced9,
+        type: 3}
+      propertyPath: ID
+      value: EG
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 7b96d9433d2554f55acc593664b4ced9, type: 3}
+--- !u!224 &7117713661399114952 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 3521466413392887311, guid: 7b96d9433d2554f55acc593664b4ced9,
+    type: 3}
+  m_PrefabInstance: {fileID: 5916025489140734663}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &6541028297473187383
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 7548111465112685239}
+    m_Modifications:
+    - target: {fileID: 1540246883505788409, guid: 7b96d9433d2554f55acc593664b4ced9,
+        type: 3}
+      propertyPath: m_Name
+      value: UIPercentageBar Health
       objectReference: {fileID: 0}
     - target: {fileID: 3521466413392887311, guid: 7b96d9433d2554f55acc593664b4ced9,
         type: 3}
@@ -973,17 +1104,17 @@ PrefabInstance:
     - target: {fileID: 7875719640731296982, guid: 7b96d9433d2554f55acc593664b4ced9,
         type: 3}
       propertyPath: ID
-      value: Energy
+      value: HTH
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7b96d9433d2554f55acc593664b4ced9, type: 3}
---- !u!224 &7117713661399114952 stripped
+--- !u!224 &7645042469954560056 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 3521466413392887311, guid: 7b96d9433d2554f55acc593664b4ced9,
     type: 3}
-  m_PrefabInstance: {fileID: 5916025489140734663}
+  m_PrefabInstance: {fileID: 6541028297473187383}
   m_PrefabAsset: {fileID: 0}
---- !u!1001 &6541028297473187383
+--- !u!1001 &8109877957071870025
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -993,7 +1124,7 @@ PrefabInstance:
     - target: {fileID: 1540246883505788409, guid: 7b96d9433d2554f55acc593664b4ced9,
         type: 3}
       propertyPath: m_Name
-      value: UIPercentageBar Health
+      value: UIPercentageBar Episode Length
       objectReference: {fileID: 0}
     - target: {fileID: 3521466413392887311, guid: 7b96d9433d2554f55acc593664b4ced9,
         type: 3}
@@ -1033,7 +1164,7 @@ PrefabInstance:
     - target: {fileID: 3521466413392887311, guid: 7b96d9433d2554f55acc593664b4ced9,
         type: 3}
       propertyPath: m_RootOrder
-      value: 5
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 3521466413392887311, guid: 7b96d9433d2554f55acc593664b4ced9,
         type: 3}
@@ -1058,7 +1189,7 @@ PrefabInstance:
     - target: {fileID: 3521466413392887311, guid: 7b96d9433d2554f55acc593664b4ced9,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -110
+      value: -80
       objectReference: {fileID: 0}
     - target: {fileID: 3521466413392887311, guid: 7b96d9433d2554f55acc593664b4ced9,
         type: 3}
@@ -1103,13 +1234,13 @@ PrefabInstance:
     - target: {fileID: 7875719640731296982, guid: 7b96d9433d2554f55acc593664b4ced9,
         type: 3}
       propertyPath: ID
-      value: Health
+      value: EL
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7b96d9433d2554f55acc593664b4ced9, type: 3}
---- !u!224 &7645042469954560056 stripped
+--- !u!224 &4634995678119618118 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 3521466413392887311, guid: 7b96d9433d2554f55acc593664b4ced9,
     type: 3}
-  m_PrefabInstance: {fileID: 6541028297473187383}
+  m_PrefabInstance: {fileID: 8109877957071870025}
   m_PrefabAsset: {fileID: 0}
