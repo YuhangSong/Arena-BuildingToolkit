@@ -357,7 +357,6 @@ MonoBehaviour:
     resetParameters: []
   Debugging: 0
   AgentCameraDisplayMode: 0
-  LightIntensityRandom: 0
   RespawnTags: []
   DestroyTags:
   - Bullet
@@ -373,6 +372,20 @@ MonoBehaviour:
   StateTextColor:
   - {r: 0.36320752, g: 1, b: 0.36320752, a: 1}
   - {r: 1, g: 0.3726415, b: 0.3726415, a: 1}
+  RandomizeLightIntensity: 0
+  RandomizePhysicalProperties:
+    m_keys:
+    - mass
+    - gravity
+    - bounceThreshold
+    - drag
+    - angularDrag
+    m_values:
+    - 0
+    - 0
+    - 0
+    - 0
+    - 0
   NumberOfActionsBetweenDecisions: 5
   RewardRankingCoefficient: 1
   RewardDistanceCoefficient: 1
