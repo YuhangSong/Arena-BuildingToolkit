@@ -213,7 +213,7 @@ namespace Arena
             // customize event
             if (Key_ == "HTH") {
                 if (Attributes[Key_] <= 0f) {
-                    gameObject.GetComponent<ArenaNode>().Kill();
+                    GetArenaNode().Kill();
                 }
             }
 
@@ -604,7 +604,7 @@ namespace Arena
         public string
         GetLogTag()
         {
-            return gameObject.GetComponent<ArenaNode>().GetLogTag() + "-" + tag;
+            return GetArenaNode().GetLogTag() + "-" + tag;
         }
 
         /// <summary>
@@ -813,6 +813,12 @@ namespace Arena
             Utils.ApplyMaterial(globalManager.getTeamMaterial(getTeamID()), GameObject_);
         }
 
+        public ArenaNode
+        GetArenaNode()
+        {
+            return gameObject.GetComponent<ArenaNode>();
+        }
+
         /// <summary>
         /// Initialize the display of ID, including:
         /// 1, remove Collider
@@ -826,23 +832,28 @@ namespace Arena
                 DestroyCollider(ID);
                 ApplyTeamMaterial(ID);
                 Utils.TransparentObject(ID);
-                Utils.TextAllTextMeshesInChild(ID, gameObject.GetComponent<ArenaNode>().GetLogTag());
+                Utils.TextAllTextMeshesInChild(ID, GetArenaNode().GetLogTag());
             } else {
                 Debug.Log(
                     "No ID in this agent, this may cause the agent teammates hard to identidy each other, add the ID prefab in your agent.");
             }
+
+            Debug.LogWarning(
+                "Coordinate of this agent in social tree is " + GetArenaNode().GetCoordinate()
+                + ", try to display it in binary encoder here");
+            // a string version of GetArenaNode().GetCoordinate() is GetArenaNode().GetLogTag()
         }
 
         public int
         getTeamID()
         {
-            return gameObject.GetComponent<ArenaNode>().GetParentNode().GetNodeID();
+            return GetArenaNode().GetParentNode().GetNodeID();
         }
 
         public int
         getAgentID()
         {
-            return gameObject.GetComponent<ArenaNode>().GetNodeID();
+            return GetArenaNode().GetNodeID();
         }
 
         /// <summary>
