@@ -833,15 +833,13 @@ namespace Arena
                 ApplyTeamMaterial(ID);
                 Utils.TransparentObject(ID);
                 Utils.TextAllTextMeshesInChild(ID, GetArenaNode().GetLogTag());
+
+                ID.GetComponentInChildren<BinaryComms>().Initialize();
+                ID.GetComponentInChildren<BinaryComms>().DisplaySocialID(GetSocialID());
             } else {
                 Debug.Log(
                     "No ID in this agent, this may cause the agent teammates hard to identidy each other, add the ID prefab in your agent.");
             }
-
-            Debug.LogWarning(
-                "Coordinate of this agent in social tree is " + GetArenaNode().GetCoordinate()
-                + ", try to display it in binary encoder here");
-            // a string version of GetArenaNode().GetCoordinate() is GetArenaNode().GetLogTag()
         }
 
         public int
@@ -854,6 +852,31 @@ namespace Arena
         getAgentID()
         {
             return GetArenaNode().GetNodeID();
+        }
+
+        /// <summary>
+        /// ID in the social tree.
+        /// This is differnt from ID, it is an ID in the context of entire social tree.
+        /// It identifies the ArenaAgent uniquely.
+        /// </summary>
+        private int SocialID = -1;
+
+        /// <summary>
+        /// Getter of SocialID.
+        /// </summary>
+        /// <returns>SocialID.</returns>
+        public int
+        GetSocialID()
+        {
+            if (SocialID < 0) {
+                SocialID = 0;
+                int Index = 0;
+                foreach (int Coordinate in GetArenaNode().GetCoordinate_ChildToParent()) {
+                    SocialID += (int) (Coordinate * Mathf.Pow(globalManager.GetMaxNumChildNodePerParentNode(), Index));
+                    Index++;
+                }
+            }
+            return SocialID;
         }
 
         /// <summary>

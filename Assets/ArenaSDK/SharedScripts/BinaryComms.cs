@@ -1,70 +1,83 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-//using UnityEditor;
 
-public class BinaryComms : MonoBehaviour
+namespace Arena
 {
-    public bool UseCommunication;
-    public int BitCount;
-    private GameObject BitObject;
-    public bool[] BitValues;
-
-    private GameObject[] BitArray;
-    [SerializeField]
-    Material M_zero;
-    [SerializeField]
-    Material M_one;
-    
-
-    void Start()
+    public class BinaryComms : ArenaBase
     {
-        SetBitObject();
-        if (UseCommunication)
+        public Material MaterialZero;
+        public Material MaterialOne;
+
+        private int MaxNumBits = -1;
+
+        private GameObject BitObject;
+        private GameObject[] BitGameObjectArray;
+
+        private uint BitValues;
+
+        public void
+        DisplaySocialID(int SocialID)
         {
-            BitValues   = new bool[BitCount];
-            BitArray    = new GameObject[BitCount];
-            SpawnBits();
-            for (int i = 0; i < BitCount; i++) // random initial values
-            {                
-                if (Random.value >= 0.5)
-                {   BitValues[i] = true;    }
-                else
-                {   BitValues[i] = false;   }
+            BitValues |= (uint) SocialID;
+            RefreshBits();
+        }
+
+        public int
+        GetMaxNumBits()
+        {
+            if (MaxNumBits < 0) {
+                MaxNumBits = (int) Mathf.Log(globalManager.GetMaxNumAgents() + 1, 2f);
             }
-            SetBitValues();
-        }
-    }
-
-    void SetBitObject()
-    {
-        BitObject = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
-        BitObject.transform.localScale = new Vector3(0.3f, 0.08f, 0.3f);
-    }
-
-    void SpawnBits()
-    {
-        for (int i = 0; i < BitCount; i++)
-        {
-            Vector3 agentPos = transform.position;
-            Vector3 bitPos = new Vector3(agentPos.x, (agentPos.y + 0.5f +(0.162f*i)), agentPos.z);
-            GameObject bit = Instantiate(BitObject, bitPos, Quaternion.identity, this.transform);
-            BitArray[i] = bit;
+            return MaxNumBits;
         }
 
-    }
-    void SetBitValues()         //method to set black/white materials according to the changes in BitValues array
-    {
-        if (UseCommunication)
+        public override void
+        Initialize()
         {
-            for (int i = 0; i < BitValues.Length; i++)
-            {
-                if (BitValues[i])
-                {                    
-                    BitArray[i].GetComponent<Renderer>().material = M_one;  
+            base.Initialize();
+
+            // Bits	Range
+            // 8	    0 to 2^8-1 (255)
+            BitGameObjectArray = new GameObject[GetMaxNumBits()];
+
+            SetBitObject();
+            SpawnBits();
+
+            BitValues = 0;
+            RefreshBits();
+        }
+
+        private void
+        SetBitObject()
+        {
+            BitObject = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
+            BitObject.transform.localScale = new Vector3(0.3f, 0.08f, 0.3f);
+        }
+
+        private void
+        SpawnBits()
+        {
+            for (int i = 0; i < GetMaxNumBits(); i++) {
+                Vector3 agentPos = transform.position;
+                Vector3 bitPos   = new Vector3(agentPos.x, (agentPos.y + 0.5f + (0.162f * i)), agentPos.z);
+                GameObject bit   = Instantiate(BitObject, bitPos, Quaternion.identity, this.transform);
+                BitGameObjectArray[i] = bit;
+            }
+        }
+
+        /// <summary>
+        /// Set black/white materials according to the changes in BitValues array
+        /// </summary>
+        private void
+        RefreshBits()
+        {
+            for (int i = 0; i < GetMaxNumBits(); i++) {
+                if (Utils.GetBit(BitValues, i)) {
+                    BitGameObjectArray[i].GetComponent<Renderer>().material = MaterialOne;
+                } else {
+                    BitGameObjectArray[i].GetComponent<Renderer>().material = MaterialZero;
                 }
-                else
-                { BitArray[i].GetComponent<Renderer>().material = M_zero; }
             }
         }
     }

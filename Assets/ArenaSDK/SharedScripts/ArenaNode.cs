@@ -41,23 +41,36 @@ namespace Arena
         }
 
         /// <summary>
-        /// Get the coordinate of the node.
+        /// Get the coordinate of the node. In format of List<int>(parent, ..., child).
         /// </summary>
         /// <returns>Coordinate of the node.</returns>
         public List<int>
-        GetCoordinate()
+        GetCoordinate_ParentToChild()
         {
             List<int> ThisCoordinate_ = new List<int>();
 
             ThisCoordinate_.Add(GetNodeID());
 
             if (GetParentNode() != null) {
-                List<int> FullCoordinate_ = GetParentNode().GetCoordinate();
+                List<int> FullCoordinate_ = GetParentNode().GetCoordinate_ParentToChild();
                 FullCoordinate_.AddRange(ThisCoordinate_);
                 return FullCoordinate_;
             } else {
                 return ThisCoordinate_;
             }
+        }
+
+        /// <summary>
+        /// Get the coordinate of the node. In format of List<int>(child, ..., parent).
+        /// </summary>
+        /// <returns>Coordinate of the node.</returns>
+        public List<int>
+        GetCoordinate_ChildToParent()
+        {
+            List<int> Coordinate_ChildToParent = GetCoordinate_ParentToChild();
+
+            Coordinate_ChildToParent.Reverse();
+            return Coordinate_ChildToParent;
         }
 
         [Header("Node Settings")][Space(10)]
@@ -100,6 +113,11 @@ namespace Arena
         CheckNumChildNodes()
         {
             NumChildNodes = Utils.GetTopLevelArenaNodesInChildren(gameObject).Count;
+            if (NumChildNodes > globalManager.GetMaxNumChildNodePerParentNode()) {
+                Debug.LogWarning(
+                    GetLogTag() + " Got " + NumChildNodes + " ChildNodes, but MaxChildNodePerParentNode in GlobalManager is set to be " + globalManager.GetMaxNumChildNodePerParentNode()
+                    + ", exceeding the limit could cause problems, such as in BinaryComms");
+            }
         }
 
         /// <summary>

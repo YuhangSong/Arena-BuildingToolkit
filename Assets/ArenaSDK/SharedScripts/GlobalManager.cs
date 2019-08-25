@@ -12,6 +12,43 @@ namespace Arena
         [Header("Global Environment Settings")][Space(10)]
 
         /// <summary>
+        /// The maximal number of child ArenaNode for each parent ArenaNode
+        /// </summary>
+        public int MaxNumChildNodePerParentNode = 4;
+
+        /// <summary>
+        /// Getter of MaxNumChildNodePerParentNode.
+        /// </summary>
+        public int
+        GetMaxNumChildNodePerParentNode()
+        {
+            return MaxNumChildNodePerParentNode;
+        }
+
+        /// <summary>
+        /// The maximal depth of social tree
+        /// </summary>
+        public int MaxDepthSocialTree = 4;
+
+        /// <summary>
+        /// Getter of MaxDepthSocialTree.
+        /// </summary>
+        public int
+        GetMaxDepthSocialTree()
+        {
+            return MaxDepthSocialTree;
+        }
+
+        /// <summary>
+        /// Get maximal number of agents.
+        /// </summary>
+        public int
+        GetMaxNumAgents()
+        {
+            return (int) Mathf.Pow(GetMaxNumChildNodePerParentNode(), GetMaxDepthSocialTree());
+        }
+
+        /// <summary>
         /// If debugging, arena will log more information.
         /// If not debugging, arena will log only necessary information. Also, arena will remove all objects with tag of Debug
         /// </summary>

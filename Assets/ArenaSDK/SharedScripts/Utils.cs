@@ -158,6 +158,12 @@ namespace Arena
             return true;
         }
 
+        public static bool
+        GetBit(uint x, int index)
+        {
+            return (x & (1 << index)) != 0;
+        }
+
         public static void
         ApplyMaterial(Material Material_, GameObject GameObject_)
         {
