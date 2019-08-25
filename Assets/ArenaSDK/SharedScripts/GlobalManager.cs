@@ -12,6 +12,43 @@ namespace Arena
         [Header("Global Environment Settings")][Space(10)]
 
         /// <summary>
+        /// The maximal number of child ArenaNode for each parent ArenaNode
+        /// </summary>
+        public int MaxNumChildNodePerParentNode = 4;
+
+        /// <summary>
+        /// Getter of MaxNumChildNodePerParentNode.
+        /// </summary>
+        public int
+        GetMaxNumChildNodePerParentNode()
+        {
+            return MaxNumChildNodePerParentNode;
+        }
+
+        /// <summary>
+        /// The maximal depth of social tree
+        /// </summary>
+        public int MaxDepthSocialTree = 4;
+
+        /// <summary>
+        /// Getter of MaxDepthSocialTree.
+        /// </summary>
+        public int
+        GetMaxDepthSocialTree()
+        {
+            return MaxDepthSocialTree;
+        }
+
+        /// <summary>
+        /// Get maximal number of agents.
+        /// </summary>
+        public int
+        GetMaxNumAgents()
+        {
+            return (int) Mathf.Pow(GetMaxNumChildNodePerParentNode(), GetMaxDepthSocialTree());
+        }
+
+        /// <summary>
         /// If debugging, arena will log more information.
         /// If not debugging, arena will log only necessary information. Also, arena will remove all objects with tag of Debug
         /// </summary>
@@ -62,6 +99,17 @@ namespace Arena
         {
             foreach (LightReinitializor LightReinitializor_ in LightReinitializors) {
                 LightReinitializor_.Reinitialize();
+            }
+        }
+
+        /// <summary>
+        /// Reinitialize MaterialReinitializors.
+        /// </summary>
+        private void
+        ReinitilizeMaterialReinitializors()
+        {
+            foreach (MaterialReinitializor MaterialReinitializor_ in GetComponentsInChildren<MaterialReinitializor>()) {
+                MaterialReinitializor_.Reinitialize();
             }
         }
 
@@ -240,30 +288,6 @@ namespace Arena
                     "Not enough TeamMaterials are assigned, requiring " + (TeamID_ + 1) + ", but got "
                     + TeamMaterials.Count);
                 return null;
-            }
-        }
-
-        /// <summary>
-        /// Apply TeamMaterial of a team to a GameObject.
-        /// Example: apply team material to a GameObject that is the child of an ArenaTeam
-        //    GetComponentInParent<GlobalManager>().ApplyTeamMaterial(
-        //      GetComponentInParent<ArenaTeam>().getTeamID(),
-        //      GameObject_,
-        //    )
-        /// </summary>
-        /// <param name="TeamID_">TeamID of which the TeamMaterial will be applied.</param>
-        /// <param name="GameObject_">GameObject to be applied with TeamMaterial.</param>
-        public void
-        ApplyTeamMaterial(int TeamID_, GameObject GameObject_)
-        {
-            if (GameObject_.GetComponent<MeshRenderer>() != null) {
-                // There is a MeshRenderer attached to the GameObject
-                // only apply to this MeshRenderer
-                GameObject_.GetComponent<MeshRenderer>().material = getTeamMaterial(TeamID_);
-            } else if (GameObject_.GetComponent<SkinnedMeshRenderer>() != null) {
-                GameObject_.GetComponent<SkinnedMeshRenderer>().material = getTeamMaterial(TeamID_);
-            } else {
-                Debug.LogWarning("There is no MeshRenderer attached to the GameObject");
             }
         }
 
@@ -468,8 +492,9 @@ namespace Arena
             RespawnObjectsInTags();
             DestroyObjectsInDestroyTags();
 
-            // reinitialize lights
+            // reinitialize lights, materials
             ReinitilizeLightReinitializors();
+            ReinitilizeMaterialReinitializors();
 
             gameObject.GetComponent<ArenaNode>().Reset();
 

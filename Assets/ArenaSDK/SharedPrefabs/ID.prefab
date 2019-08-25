@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 7592086539741285191}
   - component: {fileID: 3549220575506392288}
   - component: {fileID: 1048529454066879167}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: AgentID (2)
   m_TagString: ID
   m_Icon: {fileID: 0}
@@ -102,7 +102,7 @@ GameObject:
   - component: {fileID: 3318321376947523937}
   - component: {fileID: 1191264967775257438}
   - component: {fileID: 6941598199563187803}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: AgentID (1)
   m_TagString: ID
   m_Icon: {fileID: 0}
@@ -193,7 +193,7 @@ GameObject:
   - component: {fileID: 6312395998389680795}
   - component: {fileID: 1928361677785249797}
   - component: {fileID: 3966357747848173794}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: AgentID
   m_TagString: ID
   m_Icon: {fileID: 0}
@@ -284,7 +284,7 @@ GameObject:
   - component: {fileID: 523152718565890717}
   - component: {fileID: 3017897038586897111}
   - component: {fileID: 8739000840360756688}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: AgentID (4)
   m_TagString: ID
   m_Icon: {fileID: 0}
@@ -375,7 +375,7 @@ GameObject:
   - component: {fileID: 3796367776253124161}
   - component: {fileID: 2640889537129886137}
   - component: {fileID: 7156306033722345712}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: AgentID (3)
   m_TagString: ID
   m_Icon: {fileID: 0}
@@ -466,7 +466,8 @@ GameObject:
   - component: {fileID: 4034352613381587835}
   - component: {fileID: 3971890316248567762}
   - component: {fileID: 1841418707497581694}
-  m_Layer: 0
+  - component: {fileID: 1756562598570988640}
+  m_Layer: 9
   m_Name: ID
   m_TagString: ID
   m_Icon: {fileID: 0}
@@ -537,3 +538,17 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!114 &1756562598570988640
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7944127489056584336}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d2e364d9dbf958a4f88a7e0e490bc4c6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MaterialZero: {fileID: 2100000, guid: 14218f97b6e944615aa84731ef603a2b, type: 2}
+  MaterialOne: {fileID: 2100000, guid: 38d64b68a04ac4296aba0f0d8572cf63, type: 2}

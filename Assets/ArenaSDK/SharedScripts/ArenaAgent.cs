@@ -213,7 +213,7 @@ namespace Arena
             // customize event
             if (Key_ == "HTH") {
                 if (Attributes[Key_] <= 0f) {
-                    gameObject.GetComponent<ArenaNode>().Kill();
+                    GetArenaNode().Kill();
                 }
             }
 
@@ -516,17 +516,6 @@ namespace Arena
         }
 
         /// <summary>
-        /// Apply TeamMaterial of the agent to a GameObject.
-        /// </summary>
-        /// <param name="GameObject_">GameObject to be applied with TeamMaterial.</param>
-        protected void
-        ApplyTeamMaterial(GameObject GameObject_)
-        {
-            globalManager.ApplyTeamMaterial(
-                getTeamID(), GameObject_);
-        }
-
-        /// <summary>
         /// Pre-defined action space: NoAction.
         /// </summary>
         protected const int NoAction = 0;
@@ -615,7 +604,7 @@ namespace Arena
         public string
         GetLogTag()
         {
-            return gameObject.GetComponent<ArenaNode>().GetLogTag() + "-" + tag;
+            return GetArenaNode().GetLogTag() + "-" + tag;
         }
 
         /// <summary>
@@ -815,6 +804,22 @@ namespace Arena
         }
 
         /// <summary>
+        /// Apply TeamMaterial of the agent to a GameObject.
+        /// </summary>
+        /// <param name="GameObject_">GameObject to be applied with TeamMaterial.</param>
+        protected void
+        ApplyTeamMaterial(GameObject GameObject_)
+        {
+            Utils.ApplyMaterial(globalManager.getTeamMaterial(getTeamID()), GameObject_);
+        }
+
+        public ArenaNode
+        GetArenaNode()
+        {
+            return gameObject.GetComponent<ArenaNode>();
+        }
+
+        /// <summary>
         /// Initialize the display of ID, including:
         /// 1, remove Collider
         /// 2, apply TeamMaterial, and make transparent
@@ -827,7 +832,10 @@ namespace Arena
                 DestroyCollider(ID);
                 ApplyTeamMaterial(ID);
                 Utils.TransparentObject(ID);
-                Utils.TextAllTextMeshesInChild(ID, gameObject.GetComponent<ArenaNode>().GetLogTag());
+                Utils.TextAllTextMeshesInChild(ID, GetArenaNode().GetLogTag());
+
+                ID.GetComponentInChildren<BinaryComms>().Initialize();
+                ID.GetComponentInChildren<BinaryComms>().DisplaySocialID(GetSocialID());
             } else {
                 Debug.Log(
                     "No ID in this agent, this may cause the agent teammates hard to identidy each other, add the ID prefab in your agent.");
@@ -837,13 +845,38 @@ namespace Arena
         public int
         getTeamID()
         {
-            return gameObject.GetComponent<ArenaNode>().GetParentNode().GetNodeID();
+            return GetArenaNode().GetParentNode().GetNodeID();
         }
 
         public int
         getAgentID()
         {
-            return gameObject.GetComponent<ArenaNode>().GetNodeID();
+            return GetArenaNode().GetNodeID();
+        }
+
+        /// <summary>
+        /// ID in the social tree.
+        /// This is differnt from ID, it is an ID in the context of entire social tree.
+        /// It identifies the ArenaAgent uniquely.
+        /// </summary>
+        private int SocialID = -1;
+
+        /// <summary>
+        /// Getter of SocialID.
+        /// </summary>
+        /// <returns>SocialID.</returns>
+        public int
+        GetSocialID()
+        {
+            if (SocialID < 0) {
+                SocialID = 0;
+                int Index = 0;
+                foreach (int Coordinate in GetArenaNode().GetCoordinate_ChildToParent()) {
+                    SocialID += (int) (Coordinate * Mathf.Pow(globalManager.GetMaxNumChildNodePerParentNode(), Index));
+                    Index++;
+                }
+            }
+            return SocialID;
         }
 
         /// <summary>

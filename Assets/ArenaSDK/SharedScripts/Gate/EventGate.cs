@@ -42,12 +42,18 @@ namespace Arena
         /// </summary>
         private GameObject ToFollow;
 
+        private ArenaNode OtherNode;
+        private ArenaNode ThisNode;
+
+        protected virtual void
+        BeforeTrigKill(){ }
+
         protected override void
         TrigEvent(GameObject other)
         {
             if (TrigTags.Contains(other.tag)) {
-                ArenaNode OtherNode = Utils.GetBottomLevelArenaNodeInGameObject(other);
-                ArenaNode ThisNode  = Utils.GetBottomLevelArenaNodeInGameObject(gameObject);
+                OtherNode = Utils.GetBottomLevelArenaNodeInGameObject(other);
+                ThisNode  = Utils.GetBottomLevelArenaNodeInGameObject(gameObject);
 
                 ArenaNode SubjectNode;
                 if (SubjectType == SubjectTypes.This) {
@@ -64,8 +70,8 @@ namespace Arena
                     if ((ThisNode == null) || (OtherNode == null)) {
                         return;
                     } else {
-                        List<int> ThisNodeCoordinate  = ThisNode.GetCoordinate();
-                        List<int> OtherNodeCoordinate = OtherNode.GetCoordinate();
+                        List<int> ThisNodeCoordinate  = ThisNode.GetCoordinate_ParentToChild();
+                        List<int> OtherNodeCoordinate = OtherNode.GetCoordinate_ParentToChild();
                         if (!Utils.IsListEqual(ThisNodeCoordinate, OtherNodeCoordinate,
                           Mathf.Min(ThisNodeCoordinate.Count, OtherNodeCoordinate.Count)))
                         {
@@ -74,8 +80,8 @@ namespace Arena
                     }
                 }
 
-
                 if (IsKill) {
+                    BeforeTrigKill();
                     SubjectNode.Kill();
                 }
 

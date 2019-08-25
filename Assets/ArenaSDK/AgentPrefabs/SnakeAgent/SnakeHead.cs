@@ -13,8 +13,8 @@ namespace Arena
             if (other.CompareTag("Body")) {
                 ArenaNode OtherNode = Utils.GetBottomLevelArenaNodeInGameObject(other);
                 ArenaNode ThisNode  = Utils.GetBottomLevelArenaNodeInGameObject(gameObject);
-                List<int> ThisNodeCoordinate  = ThisNode.GetCoordinate();
-                List<int> OtherNodeCoordinate = OtherNode.GetCoordinate();
+                List<int> ThisNodeCoordinate  = ThisNode.GetCoordinate_ParentToChild();
+                List<int> OtherNodeCoordinate = OtherNode.GetCoordinate_ParentToChild();
                 if (!Utils.IsListEqual(ThisNodeCoordinate, OtherNodeCoordinate,
                   Mathf.Min(ThisNodeCoordinate.Count, OtherNodeCoordinate.Count)))
                 {
