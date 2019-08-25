@@ -53,15 +53,16 @@ namespace Arena
         {
             BitObject = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
             BitObject.transform.localScale = new Vector3(0.3f, 0.08f, 0.3f);
+            BitObject.layer = 10;
         }
 
         private void
         SpawnBits()
         {
             for (int i = 0; i < GetMaxNumBits(); i++) {
-                Vector3 agentPos = transform.position;
-                Vector3 bitPos   = new Vector3(agentPos.x, (agentPos.y + 0.5f + (0.162f * i)), agentPos.z);
-                GameObject bit   = Instantiate(BitObject, bitPos, Quaternion.identity, this.transform);
+                Vector3 basePos = transform.position;
+                Vector3 bitPos  = new Vector3(basePos.x, (basePos.y + 0.0f + (0.162f * i)), basePos.z);
+                GameObject bit  = Instantiate(BitObject, bitPos, Quaternion.identity, this.transform);
                 BitGameObjectArray[i] = bit;
             }
         }

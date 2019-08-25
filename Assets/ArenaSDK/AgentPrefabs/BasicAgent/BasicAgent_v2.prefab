@@ -821,6 +821,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: Brain_w_Dsiaply
       objectReference: {fileID: 0}
+    - target: {fileID: 100004, guid: 3af579dba924a9c47b6bdf012629234c, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 100008, guid: 3af579dba924a9c47b6bdf012629234c, type: 3}
+      propertyPath: m_Name
+      value: Sword
+      objectReference: {fileID: 0}
+    - target: {fileID: 100008, guid: 3af579dba924a9c47b6bdf012629234c, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 3af579dba924a9c47b6bdf012629234c, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -865,7 +877,23 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2300008, guid: 3af579dba924a9c47b6bdf012629234c, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 3e5d8d5a5644f3d4186cfb9d866c7d27, type: 2}
+    - target: {fileID: 2300004, guid: 3af579dba924a9c47b6bdf012629234c, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 3e5d8d5a5644f3d4186cfb9d866c7d27, type: 2}
     - target: {fileID: 2300000, guid: 3af579dba924a9c47b6bdf012629234c, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 3e5d8d5a5644f3d4186cfb9d866c7d27, type: 2}
+    - target: {fileID: 2300010, guid: 3af579dba924a9c47b6bdf012629234c, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 3e5d8d5a5644f3d4186cfb9d866c7d27, type: 2}
+    - target: {fileID: 2300006, guid: 3af579dba924a9c47b6bdf012629234c, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 3e5d8d5a5644f3d4186cfb9d866c7d27, type: 2}
@@ -877,34 +905,6 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[1]
       value: 
       objectReference: {fileID: 2100000, guid: c957579192bedb144b92022cd80a1642, type: 2}
-    - target: {fileID: 100004, guid: 3af579dba924a9c47b6bdf012629234c, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 100008, guid: 3af579dba924a9c47b6bdf012629234c, type: 3}
-      propertyPath: m_Name
-      value: Sword
-      objectReference: {fileID: 0}
-    - target: {fileID: 100008, guid: 3af579dba924a9c47b6bdf012629234c, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2300004, guid: 3af579dba924a9c47b6bdf012629234c, type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: 3e5d8d5a5644f3d4186cfb9d866c7d27, type: 2}
-    - target: {fileID: 2300006, guid: 3af579dba924a9c47b6bdf012629234c, type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: 3e5d8d5a5644f3d4186cfb9d866c7d27, type: 2}
-    - target: {fileID: 2300008, guid: 3af579dba924a9c47b6bdf012629234c, type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: 3e5d8d5a5644f3d4186cfb9d866c7d27, type: 2}
-    - target: {fileID: 2300010, guid: 3af579dba924a9c47b6bdf012629234c, type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: 3e5d8d5a5644f3d4186cfb9d866c7d27, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3af579dba924a9c47b6bdf012629234c, type: 3}
 --- !u!1 &1548838215565128215 stripped
@@ -945,7 +945,7 @@ PrefabInstance:
     - target: {fileID: 4034352613381587835, guid: 3496c4b5a87ba44ffbf86655893a3304,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.09
+      value: 0.741
       objectReference: {fileID: 0}
     - target: {fileID: 4034352613381587835, guid: 3496c4b5a87ba44ffbf86655893a3304,
         type: 3}
