@@ -17,7 +17,12 @@ namespace Arena
         /// </summary>
         public GameObject ReinitializedGameObject;
 
-        private List<GameObject> ReinitializedGameObjects = new List<GameObject>();
+        /// <summary>
+        /// Reference to the GameObjects, use this if you want to added many object.
+        /// </summary>
+        public List<GameObject> ReinitializedGameObjects;
+
+        private List<GameObject> ReinitializedGameObjectsWithDuplications = new List<GameObject>();
 
         /// <summary>
         /// Number of duplicatoins of the GameObject.
@@ -89,6 +94,19 @@ namespace Arena
         /// </summary>
         public Vector3 RandomForceMax;
 
+        /// <summary>
+        /// If avoid overlap of GameObjects in this TransformReinitializor.
+        /// </summary>
+        public bool IsAvoidOverlap = false;
+
+        /// <summary>
+        /// </summary>
+        public float AvoidOverlapRadius = 1f;
+
+        /// <summary>
+        /// </summary>
+        public int MaxSpawnAttemptsPerGameObject = 10;
+
         public TransformReinitializor()
         { }
 
@@ -128,18 +146,30 @@ namespace Arena
         public void
         Initialize()
         {
+            // create ReinitializedGameObjects
             if (ReinitializedGameObject != null) {
                 ReinitializedGameObjects.Add(ReinitializedGameObject);
             }
 
-            for (int i = 0; i < NumDuplications; i++) {
-                GameObject Temp_;
-                Temp_ = GameObject.Instantiate(ReinitializedGameObject, ReinitializedGameObject.transform.position,
-                    ReinitializedGameObject.transform.rotation) as GameObject;
-                ReinitializedGameObjects.Add(Temp_);
+            // create ReinitializedGameObjectsWithDuplications
+            if (ReinitializedGameObjects.Count > 0) {
+                foreach (GameObject ReinitializedGameObject_ in ReinitializedGameObjects) {
+                    ReinitializedGameObjectsWithDuplications.Add(ReinitializedGameObject_);
+                }
             }
 
             foreach (GameObject ReinitializedGameObject_ in ReinitializedGameObjects) {
+                for (int i = 0; i < NumDuplications; i++) {
+                    GameObject Temp_;
+                    Temp_ = GameObject.Instantiate(ReinitializedGameObject_,
+                        ReinitializedGameObject_.transform.position,
+                        ReinitializedGameObject_.transform.rotation) as GameObject;
+                    ReinitializedGameObjectsWithDuplications.Add(Temp_);
+                }
+            }
+
+            // record all initialize information
+            foreach (GameObject ReinitializedGameObject_ in ReinitializedGameObjectsWithDuplications) {
                 OriginalPosition.Add(ReinitializedGameObject_.transform.position);
                 OriginalEulerAngles.Add(ReinitializedGameObject_.transform.eulerAngles);
                 OriginalScales.Add(ReinitializedGameObject_.transform.localScale);
@@ -152,52 +182,88 @@ namespace Arena
         override public void
         Reinitialize()
         {
-            for (int i = 0; i < ReinitializedGameObjects.Count; i++) {
-                ReinitializedGameObjects[i].SetActive(true);
+            for (int i = 0; i < ReinitializedGameObjectsWithDuplications.Count; i++) {
+                ReinitializedGameObjectsWithDuplications[i].SetActive(true);
 
-                // Reinitialize the ReinitializedGameObjects[i] to a position and EulerAngles that has some randomness
-                ReinitializedGameObjects[i].transform.position = new Vector3(
-                    OriginalPosition[i].x + Utils.RandomSign_Float()
-                    * Random.Range(RandomPositionMin.x, RandomPositionMax.x),
-                    OriginalPosition[i].y + Utils.RandomSign_Float()
-                    * Random.Range(RandomPositionMin.y, RandomPositionMax.y),
-                    OriginalPosition[i].z + Utils.RandomSign_Float()
-                    * Random.Range(RandomPositionMin.z, RandomPositionMax.z)
-                );
+                // whether or not we can spawn in this position
+                bool validPosition = false;
 
-                ReinitializedGameObjects[i].transform.eulerAngles = new Vector3(
-                    OriginalEulerAngles[i].x + Utils.RandomSign_Float() * Random.Range(RandomEulerAnglesMin.x,
-                    RandomEulerAnglesMax.x),
-                    OriginalEulerAngles[i].y + Utils.RandomSign_Float() * Random.Range(RandomEulerAnglesMin.y,
-                    RandomEulerAnglesMax.y),
-                    OriginalEulerAngles[i].z + Utils.RandomSign_Float() * Random.Range(RandomEulerAnglesMin.z,
-                    RandomEulerAnglesMax.z)
-                );
+                // How many times we've attempted to spawn this obstacle
+                int spawnAttempts = 0;
 
-                if (RandomUniformScaleMax <= 0f) {
-                    ReinitializedGameObjects[i].transform.localScale = new Vector3(
-                        OriginalScales[i].x + Utils.RandomSign_Float() * Random.Range(RandomScaleMin.x,
-                        RandomScaleMax.x),
-                        OriginalScales[i].y + Utils.RandomSign_Float() * Random.Range(RandomScaleMin.y,
-                        RandomScaleMax.y),
-                        OriginalScales[i].z + Utils.RandomSign_Float() * Random.Range(RandomScaleMin.z,
-                        RandomScaleMax.z)
+                // While we don't have a valid position
+                // and we haven't tried spawning this GameObject too many times
+                while (!validPosition && spawnAttempts < MaxSpawnAttemptsPerGameObject) {
+                    // Increase our spawn attempts
+                    spawnAttempts++;
+
+                    ReinitializedGameObjectsWithDuplications[i].transform.position = new Vector3(
+                        OriginalPosition[i].x + Utils.RandomSign_Float()
+                        * Random.Range(RandomPositionMin.x, RandomPositionMax.x),
+                        OriginalPosition[i].y + Utils.RandomSign_Float()
+                        * Random.Range(RandomPositionMin.y, RandomPositionMax.y),
+                        OriginalPosition[i].z + Utils.RandomSign_Float()
+                        * Random.Range(RandomPositionMin.z, RandomPositionMax.z)
                     );
-                } else {
-                    float RandomIncrement_ = Utils.RandomSign_Float() * Random.Range(RandomUniformScaleMin,
-                        RandomUniformScaleMax);
-                    ReinitializedGameObjects[i].transform.localScale = new Vector3(
-                        OriginalScales[i].x + RandomIncrement_,
-                        OriginalScales[i].y + RandomIncrement_,
-                        OriginalScales[i].z + RandomIncrement_
+
+                    ReinitializedGameObjectsWithDuplications[i].transform.eulerAngles = new Vector3(
+                        OriginalEulerAngles[i].x + Utils.RandomSign_Float() * Random.Range(RandomEulerAnglesMin.x,
+                        RandomEulerAnglesMax.x),
+                        OriginalEulerAngles[i].y + Utils.RandomSign_Float() * Random.Range(RandomEulerAnglesMin.y,
+                        RandomEulerAnglesMax.y),
+                        OriginalEulerAngles[i].z + Utils.RandomSign_Float() * Random.Range(RandomEulerAnglesMin.z,
+                        RandomEulerAnglesMax.z)
                     );
+
+                    if (RandomUniformScaleMax <= 0f) {
+                        ReinitializedGameObjectsWithDuplications[i].transform.localScale = new Vector3(
+                            OriginalScales[i].x + Utils.RandomSign_Float() * Random.Range(RandomScaleMin.x,
+                            RandomScaleMax.x),
+                            OriginalScales[i].y + Utils.RandomSign_Float() * Random.Range(RandomScaleMin.y,
+                            RandomScaleMax.y),
+                            OriginalScales[i].z + Utils.RandomSign_Float() * Random.Range(RandomScaleMin.z,
+                            RandomScaleMax.z)
+                        );
+                    } else {
+                        float RandomIncrement_ = Utils.RandomSign_Float() * Random.Range(RandomUniformScaleMin,
+                            RandomUniformScaleMax);
+                        ReinitializedGameObjectsWithDuplications[i].transform.localScale = new Vector3(
+                            OriginalScales[i].x + RandomIncrement_,
+                            OriginalScales[i].y + RandomIncrement_,
+                            OriginalScales[i].z + RandomIncrement_
+                        );
+                    }
+
+                    // This position is valid until proven invalid
+                    validPosition = true;
+
+                    if (IsAvoidOverlap) {
+                        // Go through all previous things
+                        for (int j = 0; j < i; j++) {
+                            float Distance_ = Vector3.Distance(
+                                ReinitializedGameObjectsWithDuplications[j].transform.position,
+                                ReinitializedGameObjectsWithDuplications[i].transform.position);
+                            if (Distance_ < AvoidOverlapRadius) {
+                                validPosition = false;
+                                break;
+                            }
+                        }
+
+                        // if this position is still invlid, but spawnAttempts has reached MaxSpawnAttemptsPerGameObject
+                        if ((!validPosition) && (spawnAttempts == MaxSpawnAttemptsPerGameObject)) {
+                            Debug.LogWarning(
+                                "spawnAttempts has reached MaxSpawnAttemptsPerGameObject, but no still no valid position found, try increase MaxSpawnAttemptsPerGameObject or decrease AvoidOverlapRadius");
+                        }
+                    }
                 }
 
 
-                if (ReinitializedGameObjects[i].GetComponent<Rigidbody>() != null) {
-                    ReinitializedGameObjects[i].GetComponent<Rigidbody>().velocity        = Vector3.zero;
-                    ReinitializedGameObjects[i].GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
-                    ReinitializedGameObjects[i].GetComponent<Rigidbody>().AddForce(
+                if (ReinitializedGameObjectsWithDuplications[i].GetComponent<Rigidbody>() != null) {
+                    ReinitializedGameObjectsWithDuplications[i].GetComponent<Rigidbody>().velocity =
+                      Vector3.zero;
+                    ReinitializedGameObjectsWithDuplications[i].GetComponent<Rigidbody>().angularVelocity =
+                      Vector3.zero;
+                    ReinitializedGameObjectsWithDuplications[i].GetComponent<Rigidbody>().AddForce(
                         new Vector3(
                             Utils.RandomSign_Float() * Random.Range(RandomForceMin.x, RandomForceMax.x),
                             Utils.RandomSign_Float() * Random.Range(RandomForceMin.y, RandomForceMax.y),
