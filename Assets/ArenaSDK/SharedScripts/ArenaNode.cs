@@ -331,6 +331,7 @@ namespace Arena
         {
             CheckNumChildNodes();
 
+            StepUtils();
             StepRewardFunction();
 
             if (GetNumChildNodes() > 0) {
@@ -610,6 +611,17 @@ namespace Arena
                 }
             }
 
+            foreach (TransformReinitializor TransformReinitializor_ in TransformReinitializors) {
+                if (TransformReinitializor_.IsRewardMeanDistanceToCenter) {
+                    StepReward_ += TransformReinitializor_.GetRewardMeanDistanceToCenter()
+                      * globalManager.RewardDistanceCoefficient;
+                }
+                if (TransformReinitializor_.IsPunishMeanDistanceToCenter) {
+                    StepReward_ += TransformReinitializor_.GetPunishMeanDistanceToCenter()
+                      * globalManager.RewardDistanceCoefficient;
+                }
+            }
+
             AddReward(StepReward_ * RewardSchemeScale);
         }
 
@@ -632,6 +644,10 @@ namespace Arena
                 TransformReinitializor_.Reinitialize();
             }
         }
+
+        private void
+        StepUtils()
+        { }
 
         // /// <summary>
         // /// Get the NodeID of the Team that is current on turn.

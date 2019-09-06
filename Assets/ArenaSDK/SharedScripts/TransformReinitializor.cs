@@ -107,6 +107,14 @@ namespace Arena
         /// </summary>
         public int MaxSpawnAttemptsPerGameObject = 10;
 
+        /// <summary>
+        /// </summary>
+        public bool IsRewardMeanDistanceToCenter = false;
+
+        /// <summary>
+        /// </summary>
+        public bool IsPunishMeanDistanceToCenter = false;
+
         public TransformReinitializor()
         { }
 
@@ -174,6 +182,60 @@ namespace Arena
                 OriginalEulerAngles.Add(ReinitializedGameObject_.transform.eulerAngles);
                 OriginalScales.Add(ReinitializedGameObject_.transform.localScale);
             }
+
+            // MaxSpawnAttemptsPerGameObject should be at least 1
+            if (MaxSpawnAttemptsPerGameObject < 1) {
+                MaxSpawnAttemptsPerGameObject = 1;
+            }
+
+            if (IsRewardMeanDistanceToCenter && IsPunishMeanDistanceToCenter) {
+                Debug.LogWarning("IsRewardMeanDistanceToCenter and IsPunishMeanDistanceToCenter is controversial");
+            }
+        } // Initialize
+
+        public Vector3
+        GetGeographicalCenter()
+        {
+            Vector3 GeographicalCenter = new Vector3();
+
+            foreach (GameObject ReinitializedGameObject_ in ReinitializedGameObjectsWithDuplications) {
+                GeographicalCenter += ReinitializedGameObject_.transform.position;
+            }
+            GeographicalCenter /= ReinitializedGameObjectsWithDuplications.Count;
+
+            return GeographicalCenter;
+        }
+
+        public float
+        GetMeanDistanceToCenter()
+        {
+            Vector3 GeographicalCenter = GetGeographicalCenter();
+            float MeanDistanceToCenter = 0f;
+
+            foreach (GameObject ReinitializedGameObject_ in ReinitializedGameObjectsWithDuplications) {
+                MeanDistanceToCenter +=
+                  Vector3.Distance(ReinitializedGameObject_.transform.position, GeographicalCenter);
+            }
+            MeanDistanceToCenter /= ReinitializedGameObjectsWithDuplications.Count;
+            return MeanDistanceToCenter;
+        }
+
+        private float LastMeanDistanceToCenter = 0f;
+
+        public float
+        GetRewardMeanDistanceToCenter()
+        {
+            float MeanDistanceToCenter       = GetMeanDistanceToCenter();
+            float RewardMeanDistanceToCenter = MeanDistanceToCenter - LastMeanDistanceToCenter;
+
+            LastMeanDistanceToCenter = MeanDistanceToCenter;
+            return RewardMeanDistanceToCenter;
+        }
+
+        public float
+        GetPunishMeanDistanceToCenter()
+        {
+            return -GetRewardMeanDistanceToCenter();
         }
 
         /// <summary>
@@ -271,6 +333,10 @@ namespace Arena
                         )
                     );
                 }
+            }
+
+            if (IsRewardMeanDistanceToCenter || IsPunishMeanDistanceToCenter) {
+                LastMeanDistanceToCenter = GetMeanDistanceToCenter();
             }
         } // Reinitialize
     }
