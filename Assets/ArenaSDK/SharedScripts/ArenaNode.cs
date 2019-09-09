@@ -612,14 +612,7 @@ namespace Arena
             }
 
             foreach (TransformReinitializor TransformReinitializor_ in TransformReinitializors) {
-                if (TransformReinitializor_.IsRewardMeanDistanceToCenter) {
-                    StepReward_ += TransformReinitializor_.GetRewardMeanDistanceToCenter()
-                      * globalManager.RewardDistanceCoefficient;
-                }
-                if (TransformReinitializor_.IsPunishMeanDistanceToCenter) {
-                    StepReward_ += TransformReinitializor_.GetPunishMeanDistanceToCenter()
-                      * globalManager.RewardDistanceCoefficient;
-                }
+                StepReward_ += TransformReinitializor_.StepRewardFunction();
             }
 
             AddReward(StepReward_ * RewardSchemeScale);
@@ -633,7 +626,7 @@ namespace Arena
         InitUtils()
         {
             foreach (TransformReinitializor TransformReinitializor_ in TransformReinitializors) {
-                TransformReinitializor_.Initialize();
+                TransformReinitializor_.Initialize(globalManager);
             }
         }
 

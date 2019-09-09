@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -109,11 +109,19 @@ namespace Arena
 
         /// <summary>
         /// </summary>
-        public bool IsRewardMeanDistanceToCenter = false;
+        public bool IsStepReward_MeanDistanceToCenter = false;
 
         /// <summary>
         /// </summary>
         public bool IsPunishMeanDistanceToCenter = false;
+
+        /// <summary>
+        /// </summary>
+        public bool IsRewardShapeOfGroup = false;
+
+        /// <summary>
+        /// </summary>
+        public char ShapeOfGroupToCompare = 'A';
 
         public TransformReinitializor()
         { }
@@ -151,7 +159,19 @@ namespace Arena
             RandomForceMax = RandomForceMax_;
         }
 
+        /// <summary>
+        /// Reference to the GlobalManager.
+        /// </summary>
+        private GlobalManager globalManager;
+
         public void
+        Initialize(GlobalManager globalManager_)
+        {
+            globalManager = globalManager_;
+            Initialize();
+        }
+
+        private void
         Initialize()
         {
             // create ReinitializedGameObjects
@@ -188,60 +208,15 @@ namespace Arena
                 MaxSpawnAttemptsPerGameObject = 1;
             }
 
-            if (IsRewardMeanDistanceToCenter && IsPunishMeanDistanceToCenter) {
-                Debug.LogWarning("IsRewardMeanDistanceToCenter and IsPunishMeanDistanceToCenter is controversial");
+            if (IsStepReward_MeanDistanceToCenter && IsPunishMeanDistanceToCenter) {
+                Debug.LogWarning("IsStepReward_MeanDistanceToCenter and IsPunishMeanDistanceToCenter is controversial");
             }
         } // Initialize
-
-        public Vector3
-        GetGeographicalCenter()
-        {
-            Vector3 GeographicalCenter = new Vector3();
-
-            foreach (GameObject ReinitializedGameObject_ in ReinitializedGameObjectsWithDuplications) {
-                GeographicalCenter += ReinitializedGameObject_.transform.position;
-            }
-            GeographicalCenter /= ReinitializedGameObjectsWithDuplications.Count;
-
-            return GeographicalCenter;
-        }
-
-        public float
-        GetMeanDistanceToCenter()
-        {
-            Vector3 GeographicalCenter = GetGeographicalCenter();
-            float MeanDistanceToCenter = 0f;
-
-            foreach (GameObject ReinitializedGameObject_ in ReinitializedGameObjectsWithDuplications) {
-                MeanDistanceToCenter +=
-                  Vector3.Distance(ReinitializedGameObject_.transform.position, GeographicalCenter);
-            }
-            MeanDistanceToCenter /= ReinitializedGameObjectsWithDuplications.Count;
-            return MeanDistanceToCenter;
-        }
-
-        private float LastMeanDistanceToCenter = 0f;
-
-        public float
-        GetRewardMeanDistanceToCenter()
-        {
-            float MeanDistanceToCenter       = GetMeanDistanceToCenter();
-            float RewardMeanDistanceToCenter = MeanDistanceToCenter - LastMeanDistanceToCenter;
-
-            LastMeanDistanceToCenter = MeanDistanceToCenter;
-            return RewardMeanDistanceToCenter;
-        }
-
-        public float
-        GetPunishMeanDistanceToCenter()
-        {
-            return -GetRewardMeanDistanceToCenter();
-        }
 
         /// <summary>
         /// Every Reinitializor should implement this method.
         /// </summary>
-        override public void
+        public override void
         Reinitialize()
         {
             for (int i = 0; i < ReinitializedGameObjectsWithDuplications.Count; i++) {
@@ -335,9 +310,99 @@ namespace Arena
                 }
             }
 
-            if (IsRewardMeanDistanceToCenter || IsPunishMeanDistanceToCenter) {
-                LastMeanDistanceToCenter = GetMeanDistanceToCenter();
+            if (IsStepReward_MeanDistanceToCenter || IsPunishMeanDistanceToCenter) {
+                Last_MeanDistanceToCenter = GetMeanDistanceToCenter();
+            }
+            if (IsRewardShapeOfGroup) {
+                Last_EpisodeReward_ShapeOfGroup = GetEpisodeReward_ShapeOfGroup();
             }
         } // Reinitialize
+
+        /// <summary>
+        /// Step reward function.
+        /// </summary>
+        public float
+        StepRewardFunction()
+        {
+            float StepReward_ = 0f;
+
+            if (IsStepReward_MeanDistanceToCenter) {
+                StepReward_ += GetStepReward_MeanDistanceToCenter();
+            } else if (IsPunishMeanDistanceToCenter) {
+                StepReward_ += GetStepPunish_MeanDistanceToCenter();
+            }
+
+            if (IsRewardShapeOfGroup) {
+                StepReward_ += GetStepReward_ShapeOfGroup();
+            }
+
+            return StepReward_;
+        }
+
+        private float Last_MeanDistanceToCenter = 0f;
+
+        public float
+        GetStepReward_MeanDistanceToCenter()
+        {
+            float MeanDistanceToCenter = GetMeanDistanceToCenter();
+            float StepReward_MeanDistanceToCenter = MeanDistanceToCenter - Last_MeanDistanceToCenter;
+
+            Last_MeanDistanceToCenter = MeanDistanceToCenter;
+
+            return StepReward_MeanDistanceToCenter * globalManager.RewardDistanceCoefficient;
+        }
+
+        public float
+        GetStepPunish_MeanDistanceToCenter()
+        {
+            return -GetStepReward_MeanDistanceToCenter();
+        }
+
+        public Vector3
+        GetGeographicalCenter()
+        {
+            Vector3 GeographicalCenter = new Vector3();
+
+            foreach (GameObject ReinitializedGameObject_ in ReinitializedGameObjectsWithDuplications) {
+                GeographicalCenter += ReinitializedGameObject_.transform.position;
+            }
+            GeographicalCenter /= ReinitializedGameObjectsWithDuplications.Count;
+
+            return GeographicalCenter;
+        }
+
+        public float
+        GetMeanDistanceToCenter()
+        {
+            Vector3 GeographicalCenter = GetGeographicalCenter();
+            float MeanDistanceToCenter = 0f;
+
+            foreach (GameObject ReinitializedGameObject_ in ReinitializedGameObjectsWithDuplications) {
+                MeanDistanceToCenter +=
+                  Vector3.Distance(ReinitializedGameObject_.transform.position, GeographicalCenter);
+            }
+            MeanDistanceToCenter /= ReinitializedGameObjectsWithDuplications.Count;
+            return MeanDistanceToCenter;
+        }
+
+        private float Last_EpisodeReward_ShapeOfGroup = 0f;
+
+        public float
+        GetStepReward_ShapeOfGroup()
+        {
+            // ShapeOfGroupToCompare
+            float EpisodeReward_ShapeOfGroup = GetEpisodeReward_ShapeOfGroup();
+            float StepReward_ShapeOfGroup    = EpisodeReward_ShapeOfGroup - Last_EpisodeReward_ShapeOfGroup;
+
+            Last_EpisodeReward_ShapeOfGroup = EpisodeReward_ShapeOfGroup;
+
+            return StepReward_ShapeOfGroup * globalManager.RewardShapeOfGroupCoefficient;
+        }
+
+        public float
+        GetEpisodeReward_ShapeOfGroup()
+        {
+            return 0.99f;
+        }
     }
 }

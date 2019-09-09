@@ -268,11 +268,12 @@ namespace Arena
         /// Coeffient for integrating different reward functions
         /// Applies to all reward functions at all levels
         /// </summary>
-        public float RewardRankingCoefficient   = 1.0f;
-        public float RewardDistanceCoefficient  = 1.0f;
-        public float RewardVelocityCoefficient  = 0.03f;
-        public float RewardDirectionCoefficient = 0.01f;
-        public float RewardTimeCoefficient      = 0.001f;
+        public float RewardRankingCoefficient      = 1.0f;
+        public float RewardDistanceCoefficient     = 1.0f;
+        public float RewardVelocityCoefficient     = 0.03f;
+        public float RewardDirectionCoefficient    = 0.01f;
+        public float RewardTimeCoefficient         = 0.001f;
+        public float RewardShapeOfGroupCoefficient = 1.0f;
 
         /// <summary>
         /// Get the TeamMaterial by TeamID.
