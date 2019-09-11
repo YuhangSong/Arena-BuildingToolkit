@@ -6,12 +6,12 @@ namespace Arena
 {
     public class BinaryComms : ArenaBase
     {
+        public GameObject BitObject;
         public Material MaterialZero;
         public Material MaterialOne;
 
         private int MaxNumBits = -1;
 
-        private GameObject BitObject;
         private GameObject[] BitGameObjectArray;
 
         private uint BitValues;
@@ -41,19 +41,10 @@ namespace Arena
             // 8	    0 to 2^8-1 (255)
             BitGameObjectArray = new GameObject[GetMaxNumBits()];
 
-            SetBitObject();
             SpawnBits();
 
             BitValues = 0;
             RefreshBits();
-        }
-
-        private void
-        SetBitObject()
-        {
-            BitObject = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
-            BitObject.transform.localScale = new Vector3(0.3f, 0.08f, 0.3f);
-            BitObject.layer = 10;
         }
 
         private void
