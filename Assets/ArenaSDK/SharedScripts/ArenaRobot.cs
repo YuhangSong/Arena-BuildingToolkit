@@ -32,8 +32,6 @@ namespace Arena {
 
         protected JointDriveController jdController;
 
-        private TransformReinitializor PlayerReinitializor;
-
         // Keep as in the prefab is you are not creating new robot
         protected bool isNewDecisionStep;
         protected int currentDecisionStep;
@@ -49,13 +47,6 @@ namespace Arena {
             currentDecisionStep = 1;
 
             InitializeBody();
-
-            PlayerReinitializor = new TransformReinitializor(
-                this.gameObject,
-                Vector3.zero, Vector3.zero,
-                Vector3.zero, Vector3.zero,
-                Vector3.zero, Vector3.zero);
-            PlayerReinitializor.Reinitialize();
         } // InitializeAgent
 
         private void
@@ -187,7 +178,6 @@ namespace Arena {
         AgentReset()
         {
             base.AgentReset();
-            PlayerReinitializor.Reinitialize();
             ResetRobot();
             ResetRewardFunction();
         } // AgentReset
