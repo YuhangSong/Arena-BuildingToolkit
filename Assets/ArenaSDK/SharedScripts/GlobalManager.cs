@@ -64,16 +64,6 @@ namespace Arena
         }
 
         /// <summary>
-        /// If Single, only one agent camera is displayed, use key c to switch to others.
-        /// If All, all agents' camera will be displayed
-        /// </summary>
-        public AgentCameraDisplayModes AgentCameraDisplayMode = AgentCameraDisplayModes.Single;
-        public enum AgentCameraDisplayModes {
-            Single,
-            All
-        }
-
-        /// <summary>
         /// A lsit of LightReinitializor to reinitialize all lights in the game.
         /// </summary>
         private List<LightReinitializor> LightReinitializors = new List<LightReinitializor>();
@@ -319,8 +309,12 @@ namespace Arena
             return broadcastHub.broadcastingBrains[0];
         }
 
-        protected Dictionary<string, UIPercentageBar> UIPercentageBars = new Dictionary<string, UIPercentageBar>();
-        protected Dictionary<string, UIText> UITexts = new Dictionary<string, UIText>();
+        protected Dictionary<string, UIPercentageBar> UIPercentageBarsTopDownCamera = new Dictionary<string,
+            UIPercentageBar>();
+        protected Dictionary<string, UIPercentageBar> UIPercentageBarsVisualizationCamera = new Dictionary<string,
+            UIPercentageBar>();
+        protected Dictionary<string, UIText> UITextsTopDownCamera       = new Dictionary<string, UIText>();
+        protected Dictionary<string, UIText> UITextsVisualizationCamera = new Dictionary<string, UIText>();
 
         protected List<Camera> Cameras = new List<Camera>();
 
@@ -352,23 +346,47 @@ namespace Arena
             //     InitTurnBasedGame();
             // }
 
-            // initialize reference to UIPercentageBars
+            // initialize reference of TopDownCamera
+            if (GameObject.FindGameObjectWithTag("TopDownCamera") == null) {
+                Debug.LogError("Add prefab ArenaSDK/SharedPrefabs/TopDownCamera in your game sence");
+            }
+
+            // initialize reference to UIPercentageBarsTopDownCamera
             foreach (UIPercentageBar UIPercentageBar_ in GameObject.FindGameObjectWithTag("TopDownCamera").
               GetComponentsInChildren<UIPercentageBar>())
             {
-                UIPercentageBars.Add(UIPercentageBar_.ID, UIPercentageBar_);
+                UIPercentageBarsTopDownCamera.Add(UIPercentageBar_.ID, UIPercentageBar_);
             }
+            UIPercentageBarsTopDownCamera["EL"].Enable();
 
-            UIPercentageBars["EL"].Enable();
-
-            // initialize reference to UIText
+            // initialize reference to UITextsTopDownCamera
             foreach (UIText UIText_ in GameObject.FindGameObjectWithTag("TopDownCamera").
               GetComponentsInChildren<UIText>())
             {
-                UITexts.Add(UIText_.ID, UIText_);
+                UITextsTopDownCamera.Add(UIText_.ID, UIText_);
+            }
+            UITextsTopDownCamera["Status"].setText("Top Down Camera");
+
+            // initialize reference to VisualizationCamera
+            if (GameObject.FindGameObjectWithTag("VisualizationCamera") == null) {
+                Debug.LogError("Add prefab ArenaSDK/SharedPrefabs/VisualizationCamera in your game sence");
             }
 
-            UITexts["Status"].setText("Top Down Camera");
+            // initialize reference to UIPercentageBarsVisualizationCamera
+            foreach (UIPercentageBar UIPercentageBar_ in GameObject.FindGameObjectWithTag("VisualizationCamera").
+              GetComponentsInChildren<UIPercentageBar>())
+            {
+                UIPercentageBarsVisualizationCamera.Add(UIPercentageBar_.ID, UIPercentageBar_);
+            }
+            UIPercentageBarsVisualizationCamera["EL"].Enable();
+
+            // initialize reference to UITextsVisualizationCamera
+            foreach (UIText UIText_ in GameObject.FindGameObjectWithTag("VisualizationCamera").
+              GetComponentsInChildren<UIText>())
+            {
+                UITextsVisualizationCamera.Add(UIText_.ID, UIText_);
+            }
+            UITextsVisualizationCamera["Status"].setText("Visualization Camera");
 
             // initialize reference to Camera
             foreach (Camera Camera_ in GetComponentsInChildren<Camera>()) {
@@ -378,22 +396,17 @@ namespace Arena
                 if (Camera_.CompareTag("TopDownCamera")) {
                     ID_ = "TopDownCamera";
                     InitialCameraDepth = UpperCameraDepth;
-
-                    if (AgentCameraDisplayMode == AgentCameraDisplayModes.All) {
-                        Debug.LogWarning(
-                            "AgentCameraDisplayMode = AgentCameraDisplayModes.All is not recommended, as it results in camera feild that is too small and UI will be resized.");
-                        Camera_.rect = new Rect(0.5f, 0f, 0.5f, 1f);
-                    } else if (AgentCameraDisplayMode == AgentCameraDisplayModes.Single) {
-                        Camera_.rect = new Rect(0f, 0f, 1f, 1f);
-                    } else {
-                        Debug.LogError("Invalid AgentCameraDisplayMode");
-                    }
+                    Camera_.rect       = new Rect(0f, 0f, 1f, 1f);
+                } else if (Camera_.CompareTag("VisualizationCamera")) {
+                    ID_ = "VisualizationCamera";
+                    InitialCameraDepth = DownerCameraDepth;
+                    Camera_.rect       = new Rect(0f, 0f, 1f, 1f);
                 } else if (Camera_.CompareTag("AgentCamera")) {
                     ID_ = Camera_.GetComponentInParent<ArenaAgent>().GetLogTag();
                     InitialCameraDepth = DownerCameraDepth;
                 } else {
                     Debug.LogError(
-                        "A camera in Arena should be either TopDownCamera or AgentCamera, use corresponding prefab provided in ArenaSDK/SharedPrefabs");
+                        "A camera in Arena should be either TopDownCamera or VisualizationCamera or AgentCamera, use corresponding prefab provided in ArenaSDK/SharedPrefabs");
                     ID_ = "None";
                 }
 
@@ -473,7 +486,8 @@ namespace Arena
         AcademyStep()
         {
             gameObject.GetComponent<ArenaNode>().Step();
-            UIPercentageBars["EL"].UpdateValue(GetComponent<ArenaNode>().GetNumLivingSteps());
+            UIPercentageBarsTopDownCamera["EL"].UpdateValue(GetComponent<ArenaNode>().GetNumLivingSteps());
+            UIPercentageBarsVisualizationCamera["EL"].UpdateValue(GetComponent<ArenaNode>().GetNumLivingSteps());
         }
 
         /// <summary>
@@ -487,7 +501,8 @@ namespace Arena
 
             // Debug.Log(GetLogTag() + " Reset");
 
-            UIPercentageBars["EL"].UpdateValue(GetComponent<ArenaNode>().GetNumLivingSteps());
+            UIPercentageBarsTopDownCamera["EL"].UpdateValue(GetComponent<ArenaNode>().GetNumLivingSteps());
+            UIPercentageBarsVisualizationCamera["EL"].UpdateValue(GetComponent<ArenaNode>().GetNumLivingSteps());
 
             // respawn and destroy
             RespawnObjectsInTags();
@@ -522,16 +537,7 @@ namespace Arena
         public Rect
         getAgentViewPortRect(int TeamID_, int AgentID_)
         {
-            if (AgentCameraDisplayMode == AgentCameraDisplayModes.All) {
-                Debug.LogError(
-                    "Since we are supporting multiple levels of nodes, we depreciate AgentCameraDisplayMode = AgentCameraDisplayModes.All");
-                return new Rect(0f, 0f, 1f, 1f);
-            } else if (AgentCameraDisplayMode == AgentCameraDisplayModes.Single) {
-                return new Rect(0f, 0f, 1f, 1f);
-            } else {
-                Debug.LogError("Invalid AgentCameraDisplayMode");
-                return new Rect(0f, 0f, 1f, 1f);
-            }
+            return new Rect(0f, 0f, 1f, 1f);
         }
 
         /// <summary>
