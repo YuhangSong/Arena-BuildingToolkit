@@ -313,8 +313,8 @@ namespace Arena
             foreach (UIPercentageBar UIPercentageBar_ in GetComponentsInChildren<UIPercentageBar>()) {
                 UIPercentageBars.Add(UIPercentageBar_.ID, UIPercentageBar_);
             }
-            UIPercentageBars["ER"].Enable();
-            UIPercentageBars["EL"].Enable();
+            UIPercentageBars["Episode Reward"].Enable();
+            UIPercentageBars["Episode Length"].Enable();
 
             /** initialize reference to UITexts **/
             foreach (UIText UIText_ in GetComponentsInChildren<UIText>()) {
@@ -641,8 +641,8 @@ namespace Arena
                 GetLogTag() + " Reset, CumulativeReward: "
                 + GetCumulativeReward());
 
-            UIPercentageBars["ER"].UpdateValue(GetCumulativeReward());
-            UIPercentageBars["EL"].UpdateValue(GetComponent<ArenaNode>().GetNumLivingSteps());
+            UIPercentageBars["Episode Reward"].UpdateValue(GetCumulativeReward());
+            UIPercentageBars["Episode Length"].UpdateValue(GetComponent<ArenaNode>().GetNumLivingSteps());
 
             // if (globalManager.isTurnBasedGame()) {
             //     ResetTurnBasedGame();
@@ -722,11 +722,11 @@ namespace Arena
                     DiscreteContinuousStep();
                 }
 
-                UIPercentageBars["ER"].UpdateValue(GetCumulativeReward());
+                UIPercentageBars["Episode Reward"].UpdateValue(GetCumulativeReward());
             } else {
                 StepDead();
             }
-            UIPercentageBars["EL"].UpdateValue(GetComponent<ArenaNode>().GetNumLivingSteps());
+            UIPercentageBars["Episode Length"].UpdateValue(GetComponent<ArenaNode>().GetNumLivingSteps());
 
             if (globalManager.isDebugging()) {
                 if ((getTeamID() == 0) && (getAgentID() == 0)) {

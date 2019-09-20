@@ -357,7 +357,7 @@ namespace Arena
             {
                 UIPercentageBarsTopDownCamera.Add(UIPercentageBar_.ID, UIPercentageBar_);
             }
-            UIPercentageBarsTopDownCamera["EL"].Enable();
+            UIPercentageBarsTopDownCamera["Episode Length"].Enable();
 
             // initialize reference to UITextsTopDownCamera
             foreach (UIText UIText_ in GameObject.FindGameObjectWithTag("TopDownCamera").
@@ -378,7 +378,7 @@ namespace Arena
             {
                 UIPercentageBarsVisualizationCamera.Add(UIPercentageBar_.ID, UIPercentageBar_);
             }
-            UIPercentageBarsVisualizationCamera["EL"].Enable();
+            UIPercentageBarsVisualizationCamera["Episode Length"].Enable();
 
             // initialize reference to UITextsVisualizationCamera
             foreach (UIText UIText_ in GameObject.FindGameObjectWithTag("VisualizationCamera").
@@ -486,8 +486,9 @@ namespace Arena
         AcademyStep()
         {
             gameObject.GetComponent<ArenaNode>().Step();
-            UIPercentageBarsTopDownCamera["EL"].UpdateValue(GetComponent<ArenaNode>().GetNumLivingSteps());
-            UIPercentageBarsVisualizationCamera["EL"].UpdateValue(GetComponent<ArenaNode>().GetNumLivingSteps());
+            UIPercentageBarsTopDownCamera["Episode Length"].UpdateValue(GetComponent<ArenaNode>().GetNumLivingSteps());
+            UIPercentageBarsVisualizationCamera["Episode Length"].UpdateValue(
+                GetComponent<ArenaNode>().GetNumLivingSteps());
         }
 
         /// <summary>
@@ -501,8 +502,9 @@ namespace Arena
 
             // Debug.Log(GetLogTag() + " Reset");
 
-            UIPercentageBarsTopDownCamera["EL"].UpdateValue(GetComponent<ArenaNode>().GetNumLivingSteps());
-            UIPercentageBarsVisualizationCamera["EL"].UpdateValue(GetComponent<ArenaNode>().GetNumLivingSteps());
+            UIPercentageBarsTopDownCamera["Episode Length"].UpdateValue(GetComponent<ArenaNode>().GetNumLivingSteps());
+            UIPercentageBarsVisualizationCamera["Episode Length"].UpdateValue(
+                GetComponent<ArenaNode>().GetNumLivingSteps());
 
             // respawn and destroy
             RespawnObjectsInTags();
