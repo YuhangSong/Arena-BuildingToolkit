@@ -166,27 +166,27 @@ namespace Arena
         }
 
         protected List<string> AttributesKeys = new List<string>(){
-            "HTH",
-            "EG",
-            "NTR",
+            "Health",
+            "Energy",
+            "Nutrition",
         };
 
         protected Dictionary<string, float> Attributes = new Dictionary<string, float>(){
-            { "HTH", 1f },
-            { "EG", 1f },
-            { "NTR", 1f },
+            { "Health", 1f },
+            { "Energy", 1f },
+            { "Nutrition", 1f },
         };
 
         protected Dictionary<string, float> AttributesMinValues = new Dictionary<string, float>(){
-            { "HTH", 0f },
-            { "EG", 0f },
-            { "NTR", 0f },
+            { "Health", 0f },
+            { "Energy", 0f },
+            { "Nutrition", 0f },
         };
 
         protected Dictionary<string, float> AttributesMaxValues = new Dictionary<string, float>(){
-            { "HTH", 1f },
-            { "EG", 1f },
-            { "NTR", 1f },
+            { "Health", 1f },
+            { "Energy", 1f },
+            { "Nutrition", 1f },
         };
 
         /// <summary>
@@ -211,7 +211,7 @@ namespace Arena
             }
 
             // customize event
-            if (Key_ == "HTH") {
+            if (Key_ == "Health") {
                 if (Attributes[Key_] <= 0f) {
                     GetArenaNode().Kill();
                 }
@@ -250,7 +250,7 @@ namespace Arena
         protected bool
         HasEnergy()
         {
-            return (Attributes["EG"] > 0f);
+            return (Attributes["Energy"] > 0f);
         }
 
         /// <summary>
@@ -350,7 +350,7 @@ namespace Arena
                     }
                 }
 
-                UIPercentageBars["AM"].Enable();
+                UIPercentageBars["Ammo"].Enable();
             } else {
                 if (Gun != null) {
                     Gun.gameObject.SetActive(false);
@@ -358,7 +358,7 @@ namespace Arena
                 if (BulletEmitter != null) {
                     BulletEmitter.gameObject.SetActive(false);
                 }
-                UIPercentageBars["AM"].Disable();
+                UIPercentageBars["Ammo"].Disable();
             }
 
             if (AllowSwordAttack) {
@@ -434,7 +434,7 @@ namespace Arena
                                             SubjectNode.Kill();
                                         }
                                         if (KillHealth != 0f) {
-                                            SubjectNode.IncrementAttribute("HTH", -KillHealth);
+                                            SubjectNode.IncrementAttribute("Health", -KillHealth);
                                         }
                                     }
                                 }
@@ -446,7 +446,7 @@ namespace Arena
                                     BulletEmitter.transform.up * BulletFarwardForce);
                             }
                             NumBullet -= 1.0f;
-                            UIPercentageBars["AM"].UpdatePercentage(GetBulletPercentage());
+                            UIPercentageBars["Ammo"].UpdatePercentage(GetBulletPercentage());
                             if (NumBullet < 1.0f) {
                                 Reloading = true;
                             }
@@ -462,7 +462,7 @@ namespace Arena
 
                 if (Reloading) {
                     NumBullet += NumBulletPerLoad;
-                    UIPercentageBars["AM"].UpdatePercentage(GetBulletPercentage());
+                    UIPercentageBars["Ammo"].UpdatePercentage(GetBulletPercentage());
                     if (NumBullet >= FullNumBullet) {
                         Reloading = false;
                     }
@@ -654,7 +654,7 @@ namespace Arena
                 } else {
                     NumBullet = FullNumBullet;
                 }
-                UIPercentageBars["AM"].UpdatePercentage(GetBulletPercentage());
+                UIPercentageBars["Ammo"].UpdatePercentage(GetBulletPercentage());
             }
         }
 

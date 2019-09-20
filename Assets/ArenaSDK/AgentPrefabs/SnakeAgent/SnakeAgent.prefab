@@ -92,6 +92,7 @@ MonoBehaviour:
   TimeWinType: 0
   TransformReinitializors:
   - ReinitializedGameObject: {fileID: 6638129405525032722}
+    ReinitializedGameObjects: []
     NumDuplications: 0
     RandomPositionMin: {x: 0, y: 0, z: 0}
     RandomPositionMax: {x: 0, y: 0, z: 0}
@@ -103,6 +104,13 @@ MonoBehaviour:
     RandomUniformScaleMax: 0
     RandomForceMin: {x: 0, y: 0, z: 0}
     RandomForceMax: {x: 0, y: 0, z: 0}
+    IsAvoidOverlap: 0
+    AvoidOverlapRadius: 1
+    MaxSpawnAttemptsPerGameObject: 10
+    IsStepReward_MeanDistanceToCenter: 0
+    IsPunishMeanDistanceToCenter: 0
+    IsRewardShapeOfGroup: 0
+    ShapeOfGroupToCompare: 65
 --- !u!114 &7660074419165887719
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -296,6 +304,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 889855571193993110}
     m_Modifications:
+    - target: {fileID: 5635778872768905943, guid: 0c3bd765e9ac04581b8f64b17b9c2950,
+        type: 3}
+      propertyPath: m_Name
+      value: AgentCamera
+      objectReference: {fileID: 0}
     - target: {fileID: 5635778872768905940, guid: 0c3bd765e9ac04581b8f64b17b9c2950,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -351,10 +364,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 5635778872768905943, guid: 0c3bd765e9ac04581b8f64b17b9c2950,
+    - target: {fileID: 3384877273400510874, guid: 0c3bd765e9ac04581b8f64b17b9c2950,
         type: 3}
-      propertyPath: m_Name
-      value: AgentCamera
+      propertyPath: m_AnchoredPosition.y
+      value: -39.19995
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0c3bd765e9ac04581b8f64b17b9c2950, type: 3}
