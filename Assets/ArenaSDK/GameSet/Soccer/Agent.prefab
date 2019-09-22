@@ -294,25 +294,40 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   NodeID: 0
+  MaxNumLivingSteps: 0
   LivingCondition: 1
   AtLeastSpecificNumberLiving: 1
   AtLeastSpecificPortion: 0.5
   RewardSchemeScale: 1
   IsRewardRanking: 0
   RankingWinType: 0
+  IsPenalizeTie: 0
   IsRewardDistance: 0
   DistanceBase1: {fileID: 0}
   DistanceBase2: {fileID: 0}
   IsRewardTime: 0
   TimeWinType: 0
   TransformReinitializors:
-  - gameObject: {fileID: 1025358259259551978}
+  - ReinitializedGameObject: {fileID: 1025358259259551978}
+    ReinitializedGameObjects: []
+    NumDuplications: 0
     RandomPositionMin: {x: 0, y: 0, z: 0}
     RandomPositionMax: {x: 0, y: 0, z: 0}
     RandomEulerAnglesMin: {x: 0, y: 0, z: 0}
     RandomEulerAnglesMax: {x: 0, y: 0, z: 0}
+    RandomScaleMin: {x: 0, y: 0, z: 0}
+    RandomScaleMax: {x: 0, y: 0, z: 0}
+    RandomUniformScaleMin: 0
+    RandomUniformScaleMax: 0
     RandomForceMin: {x: 0, y: 0, z: 0}
     RandomForceMax: {x: 0, y: 0, z: 0}
+    IsAvoidOverlap: 0
+    AvoidOverlapRadius: 1
+    MaxSpawnAttemptsPerGameObject: 10
+    IsStepReward_MeanDistanceToCenter: 0
+    IsPunishMeanDistanceToCenter: 0
+    IsRewardShapeOfGroup: 0
+    ShapeOfGroupToCompare: 65
 --- !u!114 &1412011761205165115
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -335,14 +350,33 @@ MonoBehaviour:
     onDemandDecision: 0
     numberOfActionsBetweenDecisions: 1
   ID: {fileID: 7452224983749897809}
+  AttributesInitialValues:
+    m_keys: []
+    m_values: []
+  IncrementAttributesAtStep:
+    m_keys: []
+    m_values: []
+  RewardWithIncrementAttributes:
+    m_keys: []
+    m_values: []
   RewardSchemeScale: 1
   AllowGunAttack: 0
-  Gun: {fileID: 0}
-  BulletEmitter: {fileID: 0}
-  Bullet: {fileID: 0}
+  ShootType: 0
+  IsShowAimLine: 1
+  AimLineColor: {r: 0, g: 0, b: 1, a: 0.5}
+  AimLineColorWhenAttack: {r: 1, g: 0, b: 0, a: 0.5}
+  TrigTags: []
+  IsKill: 1
+  KillHealth: 0
+  NumCoolingSteps: 1
   BulletFarwardForce: 500
   NumBulletPerLoad: 0.5
   FullNumBullet: 30
+  RandomizeNumBulletAtReset: 1
+  Gun: {fileID: 0}
+  BulletEmitter: {fileID: 0}
+  RaycastEmitter: {fileID: 0}
+  Bullet: {fileID: 0}
   AllowSwordAttack: 0
   Sword: {fileID: 0}
   IsRewardDistanceToTarget: 0

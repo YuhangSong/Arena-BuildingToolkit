@@ -163,7 +163,7 @@ PrefabInstance:
     - target: {fileID: 1536619095124437567, guid: 7a9390829078646ab813ede1706e824b,
         type: 3}
       propertyPath: m_RootOrder
-      value: 3
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 1536619095124437567, guid: 7a9390829078646ab813ede1706e824b,
         type: 3}
@@ -203,6 +203,81 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8844175141875541565, guid: 73d2fce91ff844e199fa7a8bd000bda2,
     type: 3}
   m_PrefabInstance: {fileID: 8844175142398816418}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &680488092
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 717821735924921648}
+    m_Modifications:
+    - target: {fileID: 709761302133079208, guid: d2556a01e551f458ea8d00719d6c8826,
+        type: 3}
+      propertyPath: m_Name
+      value: VisualizationCamera
+      objectReference: {fileID: 0}
+    - target: {fileID: 4366682423779066287, guid: d2556a01e551f458ea8d00719d6c8826,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -4.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 4366682423779066287, guid: d2556a01e551f458ea8d00719d6c8826,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 4366682423779066287, guid: d2556a01e551f458ea8d00719d6c8826,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -9.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 4366682423779066287, guid: d2556a01e551f458ea8d00719d6c8826,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0.25000006
+      objectReference: {fileID: 0}
+    - target: {fileID: 4366682423779066287, guid: d2556a01e551f458ea8d00719d6c8826,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.25000006
+      objectReference: {fileID: 0}
+    - target: {fileID: 4366682423779066287, guid: d2556a01e551f458ea8d00719d6c8826,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0.06698733
+      objectReference: {fileID: 0}
+    - target: {fileID: 4366682423779066287, guid: d2556a01e551f458ea8d00719d6c8826,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.9330127
+      objectReference: {fileID: 0}
+    - target: {fileID: 4366682423779066287, guid: d2556a01e551f458ea8d00719d6c8826,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4366682423779066287, guid: d2556a01e551f458ea8d00719d6c8826,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 4366682423779066287, guid: d2556a01e551f458ea8d00719d6c8826,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 4366682423779066287, guid: d2556a01e551f458ea8d00719d6c8826,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: d2556a01e551f458ea8d00719d6c8826, type: 3}
+--- !u!4 &680488093 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4366682423779066287, guid: d2556a01e551f458ea8d00719d6c8826,
+    type: 3}
+  m_PrefabInstance: {fileID: 680488092}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1254724113
 PrefabInstance:
@@ -291,6 +366,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4118171765547594582}
+  - {fileID: 680488093}
   - {fileID: 1578636025846777233}
   - {fileID: 1370645476}
   - {fileID: 444985293}
@@ -347,9 +423,9 @@ MonoBehaviour:
     targetFrameRate: 60
   resetParameters:
     resetParameters: []
+  MaxNumChildNodePerParentNode: 4
+  MaxDepthSocialTree: 4
   Debugging: 0
-  AgentCameraDisplayMode: 0
-  LightIntensityRandom: 0
   RespawnTags: []
   DestroyTags:
   - Bullet
@@ -367,12 +443,27 @@ MonoBehaviour:
   StateTextColor:
   - {r: 0.36320752, g: 1, b: 0.36320752, a: 1}
   - {r: 1, g: 0.3726415, b: 0.3726415, a: 1}
+  RandomizeLightIntensity: 0
+  RandomizePhysicalProperties:
+    m_keys:
+    - mass
+    - gravity
+    - bounceThreshold
+    - drag
+    - angularDrag
+    m_values:
+    - 0
+    - 0
+    - 0
+    - 0
+    - 0
   NumberOfActionsBetweenDecisions: 5
   RewardRankingCoefficient: 1
   RewardDistanceCoefficient: 1
   RewardVelocityCoefficient: 0.03
   RewardDirectionCoefficient: 0.01
   RewardTimeCoefficient: 0.001
+  RewardShapeOfGroupCoefficient: 1
 --- !u!1001 &1536619093754055131
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -423,7 +514,7 @@ PrefabInstance:
     - target: {fileID: 1536619095124437567, guid: 7a9390829078646ab813ede1706e824b,
         type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 1536619095124437567, guid: 7a9390829078646ab813ede1706e824b,
         type: 3}
@@ -456,7 +547,7 @@ Transform:
   - {fileID: 550606495}
   - {fileID: 1254724114}
   m_Father: {fileID: 717821735924921648}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1578636025846777234
 GameObject:
@@ -567,25 +658,40 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   NodeID: 0
+  MaxNumLivingSteps: 500
   LivingCondition: 2
   AtLeastSpecificNumberLiving: 2
   AtLeastSpecificPortion: 0.5
-  RewardSchemeScale: 100
+  RewardSchemeScale: 1
   IsRewardRanking: 1
   RankingWinType: 0
+  IsPenalizeTie: 1
   IsRewardDistance: 0
   DistanceBase1: {fileID: 0}
   DistanceBase2: {fileID: 0}
   IsRewardTime: 0
   TimeWinType: 0
   TransformReinitializors:
-  - gameObject: {fileID: 1254724115}
+  - ReinitializedGameObject: {fileID: 1254724115}
+    ReinitializedGameObjects: []
+    NumDuplications: 0
     RandomPositionMin: {x: 0, y: 0, z: 0}
     RandomPositionMax: {x: 0.4, y: 0, z: 0.4}
     RandomEulerAnglesMin: {x: 0, y: 0, z: 0}
     RandomEulerAnglesMax: {x: 0, y: 0, z: 0}
+    RandomScaleMin: {x: 0, y: 0, z: 0}
+    RandomScaleMax: {x: 0, y: 0, z: 0}
+    RandomUniformScaleMin: 0
+    RandomUniformScaleMax: 0
     RandomForceMin: {x: 0, y: 0, z: 0}
     RandomForceMax: {x: 10, y: 0, z: 10}
+    IsAvoidOverlap: 0
+    AvoidOverlapRadius: 1
+    MaxSpawnAttemptsPerGameObject: 10
+    IsStepReward_MeanDistanceToCenter: 0
+    IsPunishMeanDistanceToCenter: 0
+    IsRewardShapeOfGroup: 0
+    ShapeOfGroupToCompare: 65
 --- !u!1001 &8844175142398816418
 PrefabInstance:
   m_ObjectHideFlags: 0
