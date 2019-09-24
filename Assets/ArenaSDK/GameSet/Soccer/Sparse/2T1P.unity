@@ -190,6 +190,11 @@ PrefabInstance:
       propertyPath: NodeID
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 6561092239292010072, guid: 7a9390829078646ab813ede1706e824b,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -39.19995
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7a9390829078646ab813ede1706e824b, type: 3}
 --- !u!4 &444985293 stripped
@@ -405,10 +410,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   broadcastHub:
     broadcastingBrains:
-    - {fileID: 11400000, guid: f723645b60672466c8a8ac56e5c017c7, type: 2}
+    - {fileID: 11400000, guid: 3358b44c8745e4a55837b8c8f04010fc, type: 2}
     _brainsToControl:
     - {fileID: 11400000, guid: 3358b44c8745e4a55837b8c8f04010fc, type: 2}
-  maxSteps: 1000
+  maxSteps: 0
   trainingConfiguration:
     width: 80
     height: 80
@@ -530,6 +535,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6561092239292010072, guid: 7a9390829078646ab813ede1706e824b,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -39.19995
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7a9390829078646ab813ede1706e824b, type: 3}
@@ -658,14 +668,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   NodeID: 0
-  MaxNumLivingSteps: 500
+  MaxNumLivingSteps: 1000
   LivingCondition: 2
   AtLeastSpecificNumberLiving: 2
   AtLeastSpecificPortion: 0.5
   RewardSchemeScale: 1
   IsRewardRanking: 1
   RankingWinType: 0
-  IsPenalizeTie: 1
+  IsPenalizeTie: 0
   IsRewardDistance: 0
   DistanceBase1: {fileID: 0}
   DistanceBase2: {fileID: 0}
