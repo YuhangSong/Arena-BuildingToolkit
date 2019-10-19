@@ -267,7 +267,10 @@ namespace Arena {
                 if (FreezePositionWhenNoAction) {
                     switch (Action_) {
                         case NoAction:
-                            Player.GetComponentInChildren<Rigidbody>().velocity = Vector3.zero;
+                            Vector3 v = Player.GetComponentInChildren<Rigidbody>().velocity;
+                            v.x = 0f;
+                            v.z = 0f;
+                            Player.GetComponentInChildren<Rigidbody>().velocity = v;
                             break;
                         default:
                             break;
@@ -369,7 +372,7 @@ namespace Arena {
                         // Only works if the agent is on the ground.
                         // However, this judgement of if agent is on the groud could be buggy.
                         // But no better way avaible for now.
-                        if (Player.GetComponentInChildren<Rigidbody>().velocity.y < 0.01f) {
+                        if (IsGrounded()) {
                             Player.GetComponentInChildren<Rigidbody>().AddForce(
                                 Player.transform.TransformVector(
                                     Vector3.up * JumpForceMax
@@ -449,5 +452,12 @@ namespace Arena {
                     * RewardSchemeScale);
             }
         } // DiscreteContinuousStep
+
+        protected bool
+        IsGrounded()
+        {
+            return Physics.Raycast(Player.transform.position, -Vector3.up,
+                     Player.GetComponent<Collider>().bounds.extents.y + 0.1f);
+        }
     }
 }

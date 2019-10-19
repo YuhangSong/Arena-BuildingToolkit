@@ -47,12 +47,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   NodeID: 0
+  MaxNumLivingSteps: 0
   LivingCondition: 1
   AtLeastSpecificNumberLiving: 1
   AtLeastSpecificPortion: 0.5
   RewardSchemeScale: 10
   IsRewardRanking: 0
   RankingWinType: 0
+  IsPenalizeTie: 0
   IsRewardDistance: 0
   DistanceBase1: {fileID: 0}
   DistanceBase2: {fileID: 0}
@@ -60,13 +62,25 @@ MonoBehaviour:
   TimeWinType: 0
   TransformReinitializors:
   - ReinitializedGameObject: {fileID: 1892426732891621260}
+    ReinitializedGameObjects: []
     NumDuplications: 0
     RandomPositionMin: {x: 0, y: 0, z: 0}
     RandomPositionMax: {x: 0, y: 0, z: 0}
     RandomEulerAnglesMin: {x: 0, y: 0, z: 0}
     RandomEulerAnglesMax: {x: 0, y: 0, z: 0}
+    RandomScaleMin: {x: 0, y: 0, z: 0}
+    RandomScaleMax: {x: 0, y: 0, z: 0}
+    RandomUniformScaleMin: 0
+    RandomUniformScaleMax: 0
     RandomForceMin: {x: 0, y: 0, z: 0}
     RandomForceMax: {x: 0, y: 0, z: 0}
+    IsAvoidOverlap: 0
+    AvoidOverlapRadius: 1
+    MaxSpawnAttemptsPerGameObject: 10
+    IsStepReward_MeanDistanceToCenter: 0
+    IsPunishMeanDistanceToCenter: 0
+    IsRewardShapeOfGroup: 0
+    ShapeOfGroupToCompare: 65
 --- !u!114 &886468485622114636
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -84,8 +98,10 @@ MonoBehaviour:
   SubjectType: 0
   IsMatchNodeCoordinate: 1
   IsKill: 1
-  IncrementHealth: 0
-  IncrementEnergy: 0
+  IncrementAttributes:
+    m_keys: []
+    m_values: []
+  IsCarried: 0
 --- !u!1001 &886468485622114639
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -319,6 +335,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3875539347434451261, guid: e2c8cd26def184d9ab5fc2a793f653d0,
+        type: 3}
+      propertyPath: AllowGunAttack
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3875539347434451261, guid: e2c8cd26def184d9ab5fc2a793f653d0,
+        type: 3}
+      propertyPath: AllowJump
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e2c8cd26def184d9ab5fc2a793f653d0, type: 3}
