@@ -8,6 +8,7 @@ namespace Arena
     {
         /// <summary>
         /// Get lidar frame (in its original shape: h*w).
+        /// This is essitially a depth map
         /// </summary>
         public float[,]
         GetFrame()
