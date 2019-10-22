@@ -147,6 +147,8 @@ namespace Arena
 
     static public class Utils
     {
+        public static Vector3 Ones = new Vector3(1f, 1f, 1f);
+
         public static bool
         IsListEqual(List<int> ListA, List<int> ListB, int Count)
         {
