@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using MLAgents;
+using System;
 using System.Collections.Generic;
 
 namespace Arena
@@ -37,6 +38,13 @@ namespace Arena
         /// </summary>
         [SerializeField]
         public MyDictionary.StringStringDictionary RewardWithIncrementAttributes;
+
+        [Header("Vector Observation")][Space(10)]
+
+        public bool AddSelfCoordinatesAsCoordinate = false;
+        public bool AddSelfCoordinatesAsSocialID   = false;
+
+        // for now, you cannot observe the others social coordinate in vectorObservation
 
         [Header("Reward Scheme")][Space(10)]
 
@@ -650,7 +658,7 @@ namespace Arena
 
             if (AllowGunAttack) {
                 if (RandomizeNumBulletAtReset) {
-                    NumBullet = Random.Range(0, FullNumBullet);
+                    NumBullet = UnityEngine.Random.Range(0, FullNumBullet);
                 } else {
                     NumBullet = FullNumBullet;
                 }
@@ -900,17 +908,25 @@ namespace Arena
             GetComponentInChildren<Camera>().rect = globalManager.getAgentViewPortRect(getTeamID(), getAgentID());
         }
 
-        // /// <summary>
-        // /// Collect Ram obs.
-        // /// Depreciated
-        // /// </summary>
-        // public override void
-        // CollectObservations()
-        // {
-        //     AddVectorObs(getTeamID());
-        //     AddVectorObs(getAgentID());
-        //     // AddVectorObs(globalManager.getRam());
-        // }
+        /// <summary>
+        /// Collect VectorObs.
+        /// </summary>
+        public override void
+        CollectObservations()
+        {
+            // add lidar obs
+            foreach (Lidar lidar in GetComponentsInChildren<Lidar>()) {
+                AddVectorObs(lidar.GetFrame());
+            }
+            // add social tree information
+            if (AddSelfCoordinatesAsCoordinate) {
+                List<float> _Coordinate = GetArenaNode().GetCoordinate_ChildToParent().ConvertAll(x => (float) x);
+                AddVectorObs(_Coordinate);
+            }
+            if (AddSelfCoordinatesAsSocialID) {
+                AddVectorObs(GetSocialID());
+            }
+        }
 
         /// <summary>
         /// Check if various configurations are valid or not.
