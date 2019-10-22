@@ -6,8 +6,21 @@ namespace Arena
 {
     public class Lidar : MonoBehaviour
     {
-        public float[]
+        /// <summary>
+        /// Get lidar frame (in its original shape: h*w).
+        /// </summary>
+        public float[,]
         GetFrame()
+        {
+            float[,] x = new float[10, 10];
+            return x;
+        }
+
+        /// <summary>
+        /// Get lidar frame in a flatten float array.
+        /// </summary>
+        public float[]
+        GetFlattenFrame()
         {
             float[] x = new float[10];
             return x;

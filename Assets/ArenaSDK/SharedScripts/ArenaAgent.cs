@@ -916,7 +916,7 @@ namespace Arena
         {
             // add lidar obs
             foreach (Lidar lidar in GetComponentsInChildren<Lidar>()) {
-                AddVectorObs(lidar.GetFrame());
+                AddVectorObs(lidar.GetFlattenFrame());
             }
             // add social tree information
             if (AddSelfCoordinatesAsCoordinate) {
