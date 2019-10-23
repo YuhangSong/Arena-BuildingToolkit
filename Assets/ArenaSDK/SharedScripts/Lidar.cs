@@ -7,6 +7,20 @@ namespace Arena
     public class Lidar : ArenaBase
     {
         /// <summary>
+        /// </summary>
+        public int FrameHeight = 1;
+
+        /// <summary>
+        /// </summary>
+        public int FrameWidth = 84;
+
+        /// <summary>
+        /// ScanFramePerSecond
+        /// -1 means refreshing all data at each GetFrame
+        /// </summary>
+        public float ScanFramePerSecond = -1f;
+
+        /// <summary>
         /// Within this bound, lidar returns 0
         /// </summary>
         public GameObject InnerBound;
@@ -36,6 +50,10 @@ namespace Arena
         /// </summary>
         private Vector3 FrontV;
 
+        /// <summary>
+        /// </summary>
+        private int NumDataPerFrame;
+
         public override void
         Initialize()
         {
@@ -51,6 +69,8 @@ namespace Arena
             OutterBoundR = GetBoundRFromBound(OutterBound);
             FrontV       = (Front.transform.position - transform.position)
               / (Front.transform.position - transform.position).magnitude;
+
+            NumDataPerFrame = FrameHeight * FrameWidth;
         }
 
         private float
@@ -67,6 +87,8 @@ namespace Arena
             return BoundR;
         }
 
+        private float LastTimeGetFrame = 0f;
+
         /// <summary>
         /// Get lidar frame (in its original shape: h*w).
         /// This is essitially a depth map
@@ -74,6 +96,23 @@ namespace Arena
         public float[,]
         GetFrame()
         {
+            float DeltaTime       = Time.time - LastTimeGetFrame;
+            int NumDataPerRefresh = 0;
+
+            if (ScanFramePerSecond < 0f) {
+                NumDataPerRefresh = NumDataPerFrame;
+            } else {
+                NumDataPerRefresh = (int) (DeltaTime * ScanFramePerSecond * NumDataPerFrame);
+                if (NumDataPerRefresh > 0) {
+                    // it is possible that NumDataPerRefresh=0, which means waiting for several GetFrame() to have a positive NumDataPerRefresh
+                    LastTimeGetFrame = Time.time;
+                } else if (NumDataPerRefresh > NumDataPerFrame)     {
+                    // the maximal ScanFramePerSecond results in a complete scan per GetFrame
+                    NumDataPerRefresh = NumDataPerFrame;
+                }
+            }
+
+            // only update NumDataPerRefresh data points at each GetFrame()
             float[,] x = new float[10, 10];
 
             return x;
@@ -85,6 +124,7 @@ namespace Arena
         public float[]
         GetFlattenFrame()
         {
+            float[,] y = GetFrame();
             float[] x = new float[10];
             return x;
         }
