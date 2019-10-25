@@ -46,12 +46,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   NodeID: 0
+  MaxNumLivingSteps: 0
   LivingCondition: 1
   AtLeastSpecificNumberLiving: 1
   AtLeastSpecificPortion: 0.5
   RewardSchemeScale: 10
   IsRewardRanking: 0
   RankingWinType: 0
+  IsPenalizeTie: 0
   IsRewardDistance: 0
   DistanceBase1: {fileID: 2903027153049345022}
   DistanceBase2: {fileID: 0}
@@ -164,7 +166,7 @@ PrefabInstance:
     - target: {fileID: 8646676105349321885, guid: 263b05f6ed7e84367a6dfb64a6b8aefd,
         type: 3}
       propertyPath: m_Name
-      value: Agent
+      value: AirHockeyAgent
       objectReference: {fileID: 0}
     - target: {fileID: 8646676105349321859, guid: 263b05f6ed7e84367a6dfb64a6b8aefd,
         type: 3}
