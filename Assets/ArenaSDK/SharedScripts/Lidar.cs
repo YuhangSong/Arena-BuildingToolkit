@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
 namespace Arena
 {
+    [RequireComponent(typeof(LidarCast))]
     public class Lidar : ArenaBase
     {
         /// <summary>
@@ -123,10 +125,8 @@ namespace Arena
         /// </summary>
         public float[]
         GetFlattenFrame()
-        {
-            float[,] y = GetFrame();
-            float[] x = new float[10];
-            return x;
+                {
+            return gameObject.GetComponent<LidarCast>().LidarValue;
         }
 
         /// <summary>
