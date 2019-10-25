@@ -44,6 +44,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ce3e60b2103b4049a06ba1534b989b2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  FrameHeight: 1
+  FrameWidth: 84
+  ScanFramePerSecond: -1
+  InnerBound: {fileID: 0}
+  OutterBound: {fileID: 0}
+  Front: {fileID: 0}
 --- !u!114 &114380547574118662
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -57,8 +63,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   h: 10
-  H_FOV: 75
-  Range: 5
-  Offset: 0.35
+  H_FOV: 99
+  Range: 5.7
+  Offset: 0.51
   Raycolor: {r: 0.7, g: 0.81, b: 0.4, a: 1}
   LidarValue: []

@@ -108,13 +108,14 @@ namespace Arena
                 if (NumDataPerRefresh > 0) {
                     // it is possible that NumDataPerRefresh=0, which means waiting for several GetFrame() to have a positive NumDataPerRefresh
                     LastTimeGetFrame = Time.time;
-                } else if (NumDataPerRefresh > NumDataPerFrame)     {
+                } else if (NumDataPerRefresh > NumDataPerFrame) {
                     // the maximal ScanFramePerSecond results in a complete scan per GetFrame
                     NumDataPerRefresh = NumDataPerFrame;
                 }
             }
 
             // only update NumDataPerRefresh data points at each GetFrame()
+            // TODO
             float[,] x = new float[10, 10];
 
             return x;
@@ -125,7 +126,8 @@ namespace Arena
         /// </summary>
         public float[]
         GetFlattenFrame()
-                {
+        {
+            print(gameObject.GetComponent<LidarCast>().LidarValue.Length);
             return gameObject.GetComponent<LidarCast>().LidarValue;
         }
 
