@@ -908,6 +908,8 @@ namespace Arena
             GetComponentInChildren<Camera>().rect = globalManager.getAgentViewPortRect(getTeamID(), getAgentID());
         }
 
+        private bool FirstTimeCollectObservations = true;
+
         /// <summary>
         /// Collect VectorObs.
         /// </summary>

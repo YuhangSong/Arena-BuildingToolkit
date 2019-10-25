@@ -360,7 +360,7 @@ namespace MLAgents
 
             if (brain != null) {
                 ResetData();
-            } else   {
+            } else {
                 // Debug.Log(
                 //     string.Format(
                 //         "The Agent component attached to the " +
@@ -545,7 +545,7 @@ namespace MLAgents
                 if (param.vectorActionSpaceType == SpaceType.continuous) {
                     action.vectorActions     = new float[param.vectorActionSize[0]];
                     info.storedVectorActions = new float[param.vectorActionSize[0]];
-                } else   {
+                } else {
                     action.vectorActions     = new float[param.vectorActionSize.Length];
                     info.storedVectorActions = new float[param.vectorActionSize.Length];
                 }
@@ -1040,12 +1040,12 @@ namespace MLAgents
                             _AgentReset();
                             hasAlreadyReset = true;
                         }
-                    } else if (requestDecision)   {
+                    } else if (requestDecision) {
                         // If not event based, the agent must wait to request a
                         // decsion before reseting to keep multiple agents in sync.
                         _AgentReset();
                     }
-                } else   {
+                } else {
                     terminate = true;
                     RequestDecision();
                 }
