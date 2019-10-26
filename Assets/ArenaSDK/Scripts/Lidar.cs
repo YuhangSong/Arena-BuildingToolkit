@@ -48,7 +48,7 @@ namespace Arena
         [Tooltip(
             "Inside this bound, lidar detection returns 1, set to 0 to disable the outter bound. This avoids selfcollision with the agent")
         ]
-        [Range(0.0f, 2f)]
+        [Range(0.0f, 50f)]
         public float InnerBound = 0.5f;
 
         [Tooltip("Outside this bound, lidar detection returns 1, set to 0 to disable the outter bound.")]
@@ -199,7 +199,7 @@ namespace Arena
             // only update NumDataThisRefresh data points at each GetFrame()
             for (int i = 0; i < NumDataThisRefresh; i++) {
                 Vector3 direction = (Directions[CurrentFramePointer] * gameObject.transform.forward).normalized;
-                Vector3 origin    = transform.position + direction;
+                Vector3 origin    = transform.position + InnerBound * direction;
                 if (Physics.Raycast(origin, direction, out Hit,
                   maxDistance)) //  add a layer mask value if you need to ignore certain type of objects
                 {
