@@ -16,7 +16,7 @@ namespace Arena
 
         /// <summary>
         /// </summary>
-        [Range(1, 2)]
+        [Range(1, 256)]
         public int FrameHeight = 1;
 
         /// <summary>
@@ -27,7 +27,7 @@ namespace Arena
         /// <summary>
         /// </summary>
         [Tooltip("Height of Field-of-View in degrees")]
-        [Range(1f, 2f)]
+        [Range(1f, 359f)]
         public float FieldHeight = 150; // Horizontal field of view
 
         /// <summary>
@@ -125,9 +125,9 @@ namespace Arena
 
             for (int h = 0; h < FrameHeight; h++) {
                 for (int w = 0; w < FrameWidth; w++) {
-                    int i = h * FrameHeight + w;
+                    int i = h * FrameWidth + w;
                     Directions[i] = Quaternion.Euler(
-                        0,
+                        (-FieldHeight / 2) + StepAngleHeight / 2 + StepAngleHeight * (h),
                         (-FieldWidth / 2) + StepAngleWidth / 2 + StepAngleWidth * (w),
                         0
                     );
