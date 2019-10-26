@@ -918,7 +918,7 @@ namespace Arena
         {
             // add lidar obs
             foreach (Lidar lidar in GetComponentsInChildren<Lidar>()) {
-                AddVectorObs(lidar.GetFlattenFrame());
+                AddVectorObs(lidar.GetFrame());
             }
             // add social tree information
             if (AddSelfCoordinatesAsCoordinate) {
@@ -927,6 +927,10 @@ namespace Arena
             }
             if (AddSelfCoordinatesAsSocialID) {
                 AddVectorObs(GetSocialID());
+            }
+
+            if (FirstTimeCollectObservations) {
+                FirstTimeCollectObservations = false;
             }
         }
 

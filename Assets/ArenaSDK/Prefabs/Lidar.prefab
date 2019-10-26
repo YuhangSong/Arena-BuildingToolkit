@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4278576706285888872}
   - component: {fileID: 8436108899429943452}
-  - component: {fileID: 114380547574118662}
   m_Layer: 11
   m_Name: Lidar
   m_TagString: Untagged
@@ -44,27 +43,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ce3e60b2103b4049a06ba1534b989b2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  IsVisualize: 1
   FrameHeight: 1
   FrameWidth: 84
+  FieldHeight: 150
+  FieldWidth: 150
   ScanFramePerSecond: -1
-  InnerBound: {fileID: 0}
-  OutterBound: {fileID: 0}
-  Front: {fileID: 0}
---- !u!114 &114380547574118662
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1616845896633586623}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7adf7a3d5a9a3ad448fe74801c14df69, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  h: 10
-  H_FOV: 99
-  Range: 5.7
-  Offset: 0.51
-  Raycolor: {r: 0.7, g: 0.81, b: 0.4, a: 1}
-  LidarValue: []
+  InnerBound: 1.46
+  OutterBound: 13.7
+  LidarColorHit: {r: 0, g: 1, b: 0, a: 1}
+  LidarColorNoHit: {r: 1, g: 0, b: 0, a: 1}

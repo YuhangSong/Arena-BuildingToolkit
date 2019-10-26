@@ -5,16 +5,36 @@ using UnityEngine;
 
 namespace Arena
 {
-    [RequireComponent(typeof(LidarCast))]
+    [ExecuteInEditMode]
     public class Lidar : ArenaBase
     {
         /// <summary>
         /// </summary>
+        [Tooltip("If visualize lidar")]
+        public bool IsVisualize = true;
+
+
+        /// <summary>
+        /// </summary>
+        [Range(1, 2)]
         public int FrameHeight = 1;
 
         /// <summary>
         /// </summary>
+        [Range(1, 256)]
         public int FrameWidth = 84;
+
+        /// <summary>
+        /// </summary>
+        [Tooltip("Height of Field-of-View in degrees")]
+        [Range(1f, 2f)]
+        public float FieldHeight = 150; // Horizontal field of view
+
+        /// <summary>
+        /// </summary>
+        [Tooltip("Width of Field-of-View in degrees")]
+        [Range(1f, 359f)]
+        public float FieldWidth = 150;
 
         /// <summary>
         /// ScanFramePerSecond
@@ -25,32 +45,39 @@ namespace Arena
         /// <summary>
         /// Within this bound, lidar returns 0
         /// </summary>
-        public GameObject InnerBound;
+        [Tooltip(
+            "Inside this bound, lidar detection returns 1, set to 0 to disable the outter bound. This avoids selfcollision with the agent")
+        ]
+        [Range(0.0f, 2f)]
+        public float InnerBound = 0.5f;
+
+        [Tooltip("Outside this bound, lidar detection returns 1, set to 0 to disable the outter bound.")]
+        [Range(0.0f, 50f)]
+        public float OutterBound = 5f;
 
         /// <summary>
-        /// Exceed this bound, lidar returns 1
         /// </summary>
-        public GameObject OutterBound;
+        public Color LidarColorHit;
 
         /// <summary>
-        /// Direction to the front
         /// </summary>
-        public GameObject Front;
+        public Color LidarColorNoHit;
 
         /// <summary>
-        /// Within this bound, lidar returns 0
         /// </summary>
-        private float InnerBoundR;
+        private Quaternion[] Directions;
 
         /// <summary>
-        /// Exceed this bound, lidar returns 1
         /// </summary>
-        private float OutterBoundR;
+        private RaycastHit Hit;
 
         /// <summary>
-        /// Direction to the front
         /// </summary>
-        private Vector3 FrontV;
+        private float[] Distances;
+
+        /// <summary>
+        /// </summary>
+        private float[] NormedDistances;
 
         /// <summary>
         /// </summary>
@@ -61,32 +88,63 @@ namespace Arena
         {
             base.Initialize();
 
+            CheckConfig();
+            CreateLidar();
+
             // Debug.Log(GetLogTag() + " Initialize");
         }
+
+        private float maxDistance;
+
+        private float StepAngleHeight;
+        private float StepAngleWidth;
 
         private void
         CheckConfig()
         {
-            InnerBoundR  = GetBoundRFromBound(InnerBound);
-            OutterBoundR = GetBoundRFromBound(OutterBound);
-            FrontV       = (Front.transform.position - transform.position)
-              / (Front.transform.position - transform.position).magnitude;
-
             NumDataPerFrame = FrameHeight * FrameWidth;
+
+            maxDistance = OutterBound - InnerBound;
+
+            StepAngleHeight = FieldHeight / FrameHeight;
+            StepAngleWidth  = FieldWidth / FrameWidth;
+
+            if (OutterBound == 0f) {
+                maxDistance = Mathf.Infinity;
+            }
+
+            if (maxDistance < 0) {
+                Debug.LogError("OutterBound - InnerBound < 0");
+            }
         }
 
-        private float
-        GetBoundRFromBound(GameObject Bound)
+        private void
+        CreateLidar()
         {
-            float BoundR;
+            Directions = new Quaternion[NumDataPerFrame];
 
-            if ((Bound.transform.lossyScale / Bound.transform.lossyScale.magnitude).Equals(Utils.Ones)) {
-                BoundR = Bound.transform.lossyScale.magnitude;
-            } else {
-                Debug.LogError(GetLogTag() + " Bound " + Bound + " is not Ones.");
-                BoundR = 0f;
+            for (int h = 0; h < FrameHeight; h++) {
+                for (int w = 0; w < FrameWidth; w++) {
+                    int i = h * FrameHeight + w;
+                    Directions[i] = Quaternion.Euler(
+                        0,
+                        (-FieldWidth / 2) + StepAngleWidth / 2 + StepAngleWidth * (w),
+                        0
+                    );
+                }
             }
-            return BoundR;
+
+            Distances       = new float[NumDataPerFrame];
+            NormedDistances = new float[NumDataPerFrame];
+        }
+
+        void
+        Update()
+        {
+            if (!Application.isPlaying) {
+                Initialize();
+                GetFrame();
+            }
         }
 
         private float LastTimeGetFrame = 0f;
@@ -96,40 +154,75 @@ namespace Arena
         /// This is essitially a depth map
         /// </summary>
         public float[,]
-        GetFrame()
+        GetFrameImg()
         {
-            float DeltaTime       = Time.time - LastTimeGetFrame;
-            int NumDataPerRefresh = 0;
-
-            if (ScanFramePerSecond < 0f) {
-                NumDataPerRefresh = NumDataPerFrame;
-            } else {
-                NumDataPerRefresh = (int) (DeltaTime * ScanFramePerSecond * NumDataPerFrame);
-                if (NumDataPerRefresh > 0) {
-                    // it is possible that NumDataPerRefresh=0, which means waiting for several GetFrame() to have a positive NumDataPerRefresh
-                    LastTimeGetFrame = Time.time;
-                } else if (NumDataPerRefresh > NumDataPerFrame) {
-                    // the maximal ScanFramePerSecond results in a complete scan per GetFrame
-                    NumDataPerRefresh = NumDataPerFrame;
-                }
-            }
-
-            // only update NumDataPerRefresh data points at each GetFrame()
-            // TODO
+            Step();
             float[,] x = new float[10, 10];
-
             return x;
         }
+
+        private int CurrentFramePointer = 0;
 
         /// <summary>
         /// Get lidar frame in a flatten float array.
         /// </summary>
         public float[]
-        GetFlattenFrame()
+        GetFrame()
         {
-            print(gameObject.GetComponent<LidarCast>().LidarValue.Length);
-            return gameObject.GetComponent<LidarCast>().LidarValue;
-        }
+            Step();
+            return NormedDistances;
+        } // GetFrame
+
+        private void
+        Step()
+        {
+            int NumDataThisRefresh = 0;
+
+            if (Application.isPlaying) {
+                float DeltaTime = Time.time - LastTimeGetFrame;
+                if (ScanFramePerSecond < 0f) {
+                    NumDataThisRefresh = NumDataPerFrame;
+                } else {
+                    NumDataThisRefresh = (int) (DeltaTime * ScanFramePerSecond * NumDataPerFrame);
+                    if (NumDataThisRefresh > 0) {
+                        // it is possible that NumDataThisRefresh=0, which means waiting for several GetFrame() to have a positive NumDataThisRefresh
+                        LastTimeGetFrame = Time.time;
+                    } else if (NumDataThisRefresh > NumDataPerFrame) {
+                        // the maximal ScanFramePerSecond results in a complete scan per GetFrame
+                        NumDataThisRefresh = NumDataPerFrame;
+                    }
+                }
+            } else {
+                NumDataThisRefresh = NumDataPerFrame;
+            }
+
+            // only update NumDataThisRefresh data points at each GetFrame()
+            for (int i = 0; i < NumDataThisRefresh; i++) {
+                Vector3 direction = (Directions[CurrentFramePointer] * gameObject.transform.forward).normalized;
+                Vector3 origin    = transform.position + direction;
+                if (Physics.Raycast(origin, direction, out Hit,
+                  maxDistance)) //  add a layer mask value if you need to ignore certain type of objects
+                {
+                    if (IsVisualize) {
+                        Debug.DrawLine(origin, origin + direction * Hit.distance,
+                          LidarColorHit);
+                    }
+                    Distances[CurrentFramePointer]       = Hit.distance;
+                    NormedDistances[CurrentFramePointer] = Hit.distance / maxDistance;
+                } else {
+                    Distances[CurrentFramePointer]       = Mathf.Infinity;
+                    NormedDistances[CurrentFramePointer] = 1f;
+                    if (IsVisualize) {
+                        Debug.DrawLine(origin, origin + direction * maxDistance, LidarColorNoHit);
+                    }
+                }
+
+                CurrentFramePointer++;
+                if (CurrentFramePointer >= NumDataPerFrame) {
+                    CurrentFramePointer = 0;
+                }
+            }
+        } // Step
 
         /// <summary>
         /// Get the log tag of the object.
