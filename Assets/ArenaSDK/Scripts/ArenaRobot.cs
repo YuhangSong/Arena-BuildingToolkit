@@ -7,7 +7,7 @@ namespace Arena {
         [Header("Reward Functions (Isolated)")][Space(10)]
 
         public bool IsRewardDistanceToTarget = false;
-        private RewardFunctionGeneratorDistanceToTarget RewardFunctionDistanceToTarget;
+        private RewardFunctionDistance RewardFunctionDistanceToTarget;
 
         public bool IsRewardVelocityToTarget = false;
         private RewardFunctionGeneratorVelocityToTarget RewardFunctionVelocityToTarget;
@@ -71,9 +71,10 @@ namespace Arena {
 
             // create reward functions
             if (IsRewardDistanceToTarget) {
-                RewardFunctionDistanceToTarget = new RewardFunctionGeneratorDistanceToTarget(
+                RewardFunctionDistanceToTarget = new RewardFunctionDistance(
                     BodyCore,
-                    Target
+                    Target,
+                    -1f
                 );
             }
             if (IsRewardVelocityToTarget) {

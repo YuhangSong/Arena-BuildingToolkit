@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 6259358339972336448}
   - component: {fileID: 6384572436896903385}
   m_Layer: 0
-  m_Name: ArenaCrawlerAgent-v2
+  m_Name: ArenaCrawlerAgent
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -27,7 +27,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1265327976712827609}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 4.38, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 2381857835905360150}
@@ -55,9 +55,7 @@ MonoBehaviour:
   IsRewardRanking: 0
   RankingWinType: 0
   IsPenalizeTie: 0
-  IsRewardDistance: 0
-  DistanceBase1: {fileID: 0}
-  DistanceBase2: {fileID: 0}
+  RewardFunctionDistances: []
   IsRewardTime: 0
   TimeWinType: 0
   TransformReinitializors:
@@ -128,6 +126,8 @@ MonoBehaviour:
   RewardWithIncrementAttributes:
     m_keys: []
     m_values: []
+  AddSelfCoordinatesAsCoordinate: 0
+  AddSelfCoordinatesAsSocialID: 0
   RewardSchemeScale: 1
   AllowGunAttack: 0
   ShootType: 0

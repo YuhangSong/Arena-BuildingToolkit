@@ -1,46 +1,59 @@
 using UnityEngine;
+using System.Collections.Generic;
+using MLAgents;
 
 namespace Arena {
-    public class RewardFunctionGeneratorDistanceToTarget {
-        private GameObject BaseObject;
-        private GameObject TargetObject;
+    [System.Serializable]
+    public class RewardFunction {
+        public float Coefficient = 1f;
 
-        private float DistanceToTargetLastTime;
+        public RewardFunction(
+            float Coefficient_
+        )
+        {
+            Coefficient = Coefficient_;
+        }
+    }
+
+    [System.Serializable]
+    public class RewardFunctionDistance : RewardFunction {
+        public List<GameObject> GameObjects = new List<GameObject>();
+
+        private float DistanceLastStep;
 
         /// <summary>
         /// Constructor.
-        /// Generate reward base on the distance from BaseObject to TargetObject
-        /// 1, Reward moving towards Target
-        /// 2, Penalize moving away from Target.
-        /// CumulativeReward: 7
+        /// Generate reward base on the distance from ObjectA to ObjectB
         /// </summary>
-        /// <param name="BaseObject">Reference to the object, with the respect of which you want measure the distance to the target.</param>
-        /// <param name="TargetObject">The target object.</param>
-        public RewardFunctionGeneratorDistanceToTarget(
-            GameObject BaseObject_,
-            GameObject TargetObject_)
+        public RewardFunctionDistance(
+            GameObject ObjectA,
+            GameObject ObjectB,
+            float      Coefficient_
+        ) : base(Coefficient_)
         {
-            BaseObject   = BaseObject_;
-            TargetObject = TargetObject_;
+            GameObjects.Add(ObjectA);
+            GameObjects.Add(ObjectB);
         }
 
         public void
         Reset()
         {
-            DistanceToTargetLastTime = Vector3.Distance(
-                BaseObject.transform.position, TargetObject.transform.position);
+            // Debug.Log(GameObjects[1].transform.position);
+            DistanceLastStep = Vector3.Distance(
+                GameObjects[0].transform.position, GameObjects[1].transform.position
+            );
         }
 
         public float
         StepGetReward()
         {
-            float DistanceToTargetThisTime = Vector3.Distance(
-                BaseObject.transform.position, TargetObject.transform.position);
-            float DistanceMoveClosing = DistanceToTargetLastTime - DistanceToTargetThisTime;
+            float DistanceThisStep = Vector3.Distance(
+                GameObjects[0].transform.position, GameObjects[1].transform.position);
+            float DeltaDistance = DistanceThisStep - DistanceLastStep;
 
-            DistanceToTargetLastTime = DistanceToTargetThisTime;
+            DistanceLastStep = DistanceThisStep;
 
-            return DistanceMoveClosing;
+            return DeltaDistance * Coefficient;
         }
     }
 

@@ -236,6 +236,8 @@ namespace Arena
 
         [Header("Global Agent Settings")][Space(10)]
 
+        public Brain SharedBrain;
+
         /// <summary>
         /// All ArenaAgents will by default use NumberOfActionsBetweenDecisions set in the GlobalManager.
         /// </summary>
@@ -328,10 +330,21 @@ namespace Arena
         public override void
         InitializeAcademy()
         {
-            base.InitializeAcademy();
-
             tag = "GlobalManager";
             // Debug.Log(GetLogTag() + " Initialize");
+
+            broadcastHub.Clear();
+            broadcastHub.broadcastingBrains.Add(SharedBrain);
+            // if (!Application.isEditor) {
+            //     broadcastHub.SetControlled(SharedBrain, true);
+            // }
+
+            foreach (ArenaAgent ArenaAgent_ in GetComponentsInChildren<ArenaAgent>()) {
+                ArenaAgent_.brain = SharedBrain;
+            }
+
+            base.InitializeAcademy();
+
 
             InitGameObjectToBeRespawned();
             InitLightReinitializors();

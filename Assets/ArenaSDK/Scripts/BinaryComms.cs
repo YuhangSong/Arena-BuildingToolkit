@@ -45,6 +45,8 @@ namespace Arena
 
             BitValues = 0;
             RefreshBits();
+
+            DisplaySocialID(GetComponentInParent<ArenaAgent>().GetSocialID());
         }
 
         private void

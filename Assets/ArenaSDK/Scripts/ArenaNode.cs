@@ -23,7 +23,7 @@ namespace Arena
             // if (globalManager.isTurnBasedGame()) {
             //     InitTurnBasedGame();
             // }
-            InitializeRewardFunction();
+            InitializeRewardFunctions();
         }
 
         /// <summary>
@@ -255,24 +255,8 @@ namespace Arena
         [Header("Reward Functions (Collaborative)")][Space(10)]
 
         /// <summary>
-        /// Reward function based on the distance between DistanceBase1 and DistanceBase2.
         /// </summary>
-        public bool IsRewardDistance = false;
-
-        /// <summary>
-        /// See IsRewardDistance.
-        /// </summary>
-        public GameObject DistanceBase1;
-
-        /// <summary>
-        /// See IsRewardDistance.
-        /// </summary>
-        public GameObject DistanceBase2;
-
-        /// <summary>
-        /// See IsRewardDistance.
-        /// </summary>
-        private RewardFunctionGeneratorDistanceToTarget RewardFunctionDistance;
+        public List<RewardFunctionDistance> RewardFunctionDistances = new List<RewardFunctionDistance>();
 
         public bool IsRewardTime = false;
 
@@ -307,7 +291,7 @@ namespace Arena
             Living         = true;
 
             ResetUtils();
-            ResetRewardFunction();
+            ResetRewardFunctions();
             ResetChildKilledRanking();
 
             if (GetNumChildNodes() > 0) {
@@ -565,27 +549,20 @@ namespace Arena
         /// Initlize reward function.
         /// 1, check if RewardFunction is valid;
         /// 2, initalize according to RewardFunction;
-        /// Customize InitializeRewardFunction should override InitializeRewardFunction() and call base.InitializeRewardFunction() before adding customized code.
+        /// Customize InitializeRewardFunctions should override InitializeRewardFunctions() and call base.InitializeRewardFunctions() before adding customized code.
         /// </summary>
         protected virtual void
-        InitializeRewardFunction()
-        {
-            if (IsRewardDistance) {
-                RewardFunctionDistance = new RewardFunctionGeneratorDistanceToTarget(
-                    DistanceBase1,
-                    DistanceBase2
-                );
-            }
-        }
+        InitializeRewardFunctions()
+        { }
 
         /// <summary>
         /// Reset reward function.
         /// </summary>
         protected virtual void
-        ResetRewardFunction()
+        ResetRewardFunctions()
         {
-            if (IsRewardDistance) {
-                RewardFunctionDistance.Reset();
+            foreach (RewardFunctionDistance RewardFunctionDistance_ in RewardFunctionDistances) {
+                RewardFunctionDistance_.Reset();
             }
         }
 
@@ -597,8 +574,8 @@ namespace Arena
         {
             float StepReward_ = 0f;
 
-            if (IsRewardDistance) {
-                StepReward_ += (RewardFunctionDistance.StepGetReward() * globalManager.RewardDistanceCoefficient);
+            foreach (RewardFunctionDistance RewardFunctionDistance_ in RewardFunctionDistances) {
+                StepReward_ += RewardFunctionDistance_.StepGetReward() * globalManager.RewardDistanceCoefficient;
             }
 
             if (IsRewardTime) {

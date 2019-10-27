@@ -93,7 +93,7 @@ namespace MLAgents
     public abstract class Academy : MonoBehaviour
     {
         [SerializeField]
-        public BroadcastHub broadcastHub = new BroadcastHub();
+        [HideInInspector] public BroadcastHub broadcastHub = new BroadcastHub();
 
         private const string kApiVersion = "API-8";
 

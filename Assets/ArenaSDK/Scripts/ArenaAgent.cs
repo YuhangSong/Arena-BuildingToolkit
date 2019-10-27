@@ -306,7 +306,6 @@ namespace Arena
 
             globalManager = GetComponentInParent<GlobalManager>();
             agentParameters.numberOfActionsBetweenDecisions = globalManager.getNumberOfActionsBetweenDecisions();
-            brain = globalManager.getAgentBrain();
 
             CheckConfig();
             InitializeDisplayID();
@@ -841,9 +840,6 @@ namespace Arena
                 ApplyTeamMaterial(ID);
                 Utils.TransparentObject(ID);
                 Utils.TextAllTextMeshesInChild(ID, GetArenaNode().GetLogTag());
-
-                ID.GetComponentInChildren<BinaryComms>().Initialize();
-                ID.GetComponentInChildren<BinaryComms>().DisplaySocialID(GetSocialID());
             } else {
                 Debug.Log(
                     "No ID in this agent, this may cause the agent teammates hard to identidy each other, add the ID prefab in your agent.");

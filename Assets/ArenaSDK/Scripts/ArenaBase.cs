@@ -25,7 +25,7 @@ namespace Arena
         {
             globalManager = GetComponentInParent<GlobalManager>();
             if (globalManager == null) {
-                globalManager = GameObject.FindGameObjectWithTag("GlobalManager").GetComponent<GlobalManager>();
+                globalManager = GetComponent<GlobalManager>();
             }
             if (globalManager == null) {
                 Debug.LogError("Cannot find the GlobalManager");

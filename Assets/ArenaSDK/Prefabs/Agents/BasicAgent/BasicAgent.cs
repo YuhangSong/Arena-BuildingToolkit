@@ -16,7 +16,7 @@ namespace Arena {
         public bool IsRewardTimePenalty = false; // Hurry up
 
         // reward functions
-        private RewardFunctionGeneratorDistanceToTarget RewardFunctionDistanceToTarget;
+        private RewardFunctionDistance RewardFunctionDistanceToTarget;
         private RewardFunctionGeneratorFacingTarget RewardFunctionFacingTarget;
         private RewardFunctionGeneratorTimePenalty RewardFunctionTimePenalty;
 
@@ -136,9 +136,10 @@ namespace Arena {
             base.InitializeRewardFunction();
             // create reward functions
             if (IsRewardDistanceToTarget) {
-                RewardFunctionDistanceToTarget = new RewardFunctionGeneratorDistanceToTarget(
+                RewardFunctionDistanceToTarget = new RewardFunctionDistance(
                     Player,
-                    Target
+                    Target,
+                    -1f
                 );
             }
             if (IsRewardFacingTarget) {
