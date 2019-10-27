@@ -335,9 +335,9 @@ namespace Arena
 
             broadcastHub.Clear();
             broadcastHub.broadcastingBrains.Add(SharedBrain);
-            // if (!Application.isEditor) {
-            //     broadcastHub.SetControlled(SharedBrain, true);
-            // }
+            if (!Application.isEditor) {
+                broadcastHub.SetControlled(SharedBrain, true);
+            }
 
             foreach (ArenaAgent ArenaAgent_ in GetComponentsInChildren<ArenaAgent>()) {
                 ArenaAgent_.brain = SharedBrain;

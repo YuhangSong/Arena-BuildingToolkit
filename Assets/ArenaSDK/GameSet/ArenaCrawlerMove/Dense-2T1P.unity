@@ -184,10 +184,20 @@ PrefabInstance:
       propertyPath: NodeID
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 6384572436896903385, guid: cd4dda5d80c78924b88e1494b4e967bf,
+        type: 3}
+      propertyPath: IsRewardDistanceToTarget
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6384572436896903385, guid: cd4dda5d80c78924b88e1494b4e967bf,
+        type: 3}
+      propertyPath: Target
+      value: 
+      objectReference: {fileID: 672416116155559944}
     - target: {fileID: 3517528174867515889, guid: cd4dda5d80c78924b88e1494b4e967bf,
         type: 3}
       propertyPath: m_ConnectedAnchor.x
-      value: -0.3535025
+      value: -0.35350227
       objectReference: {fileID: 0}
     - target: {fileID: 3517528174867515889, guid: cd4dda5d80c78924b88e1494b4e967bf,
         type: 3}
@@ -197,7 +207,7 @@ PrefabInstance:
     - target: {fileID: 5366275141348281802, guid: cd4dda5d80c78924b88e1494b4e967bf,
         type: 3}
       propertyPath: m_ConnectedAnchor.x
-      value: -0.30962348
+      value: -0.30962372
       objectReference: {fileID: 0}
     - target: {fileID: 5366275141348281802, guid: cd4dda5d80c78924b88e1494b4e967bf,
         type: 3}
@@ -217,7 +227,7 @@ PrefabInstance:
     - target: {fileID: 1354468244955964759, guid: cd4dda5d80c78924b88e1494b4e967bf,
         type: 3}
       propertyPath: m_ConnectedAnchor.x
-      value: 0.35358906
+      value: 0.35358882
       objectReference: {fileID: 0}
     - target: {fileID: 1354468244955964759, guid: cd4dda5d80c78924b88e1494b4e967bf,
         type: 3}
@@ -227,12 +237,12 @@ PrefabInstance:
     - target: {fileID: 5516908483073564679, guid: cd4dda5d80c78924b88e1494b4e967bf,
         type: 3}
       propertyPath: m_ConnectedAnchor.x
-      value: -0.71097493
+      value: -0.71097505
       objectReference: {fileID: 0}
     - target: {fileID: 5516908483073564679, guid: cd4dda5d80c78924b88e1494b4e967bf,
         type: 3}
       propertyPath: m_ConnectedAnchor.y
-      value: 0.0073313117
+      value: 0.0073310733
       objectReference: {fileID: 0}
     - target: {fileID: 8320803411259152941, guid: cd4dda5d80c78924b88e1494b4e967bf,
         type: 3}
@@ -247,12 +257,12 @@ PrefabInstance:
     - target: {fileID: 7701815627742477402, guid: cd4dda5d80c78924b88e1494b4e967bf,
         type: 3}
       propertyPath: m_ConnectedAnchor.x
-      value: -0.71097445
+      value: -0.71097434
       objectReference: {fileID: 0}
     - target: {fileID: 7701815627742477402, guid: cd4dda5d80c78924b88e1494b4e967bf,
         type: 3}
       propertyPath: m_ConnectedAnchor.y
-      value: 0.007330656
+      value: 0.007330835
       objectReference: {fileID: 0}
     - target: {fileID: 2774948495007032443, guid: cd4dda5d80c78924b88e1494b4e967bf,
         type: 3}
@@ -333,6 +343,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6384572436896903385, guid: cd4dda5d80c78924b88e1494b4e967bf,
+        type: 3}
+      propertyPath: IsRewardDistanceToTarget
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6384572436896903385, guid: cd4dda5d80c78924b88e1494b4e967bf,
+        type: 3}
+      propertyPath: Target
+      value: 
+      objectReference: {fileID: 672416116155559944}
     - target: {fileID: 3517528174867515889, guid: cd4dda5d80c78924b88e1494b4e967bf,
         type: 3}
       propertyPath: m_ConnectedAnchor.x
@@ -510,3 +530,9 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 01a5637afc4664de2a2dab6400261b84, type: 3}
+--- !u!1 &672416116155559944 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8187188206951132663, guid: 01a5637afc4664de2a2dab6400261b84,
+    type: 3}
+  m_PrefabInstance: {fileID: 672416116155559943}
+  m_PrefabAsset: {fileID: 0}
