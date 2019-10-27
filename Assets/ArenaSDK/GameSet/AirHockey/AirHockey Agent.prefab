@@ -30,6 +30,7 @@ Transform:
   m_Children:
   - {fileID: 8646676107148292877}
   - {fileID: 4342301916831787317}
+  - {fileID: 2316696680353495438}
   m_Father: {fileID: 8646676105349321859}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
@@ -61,7 +62,7 @@ GameObject:
   - component: {fileID: 7671405793938356544}
   - component: {fileID: 4813193044745755357}
   m_Layer: 0
-  m_Name: AirHockeyAgent
+  m_Name: AirHockey Agent
   m_TagString: AgentA
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -105,9 +106,7 @@ MonoBehaviour:
   IsRewardRanking: 0
   RankingWinType: 0
   IsPenalizeTie: 0
-  IsRewardDistance: 0
-  DistanceBase1: {fileID: 0}
-  DistanceBase2: {fileID: 0}
+  RewardFunctionDistances: []
   IsRewardTime: 0
   TimeWinType: 0
   TransformReinitializors: []
@@ -317,11 +316,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 6825207733689692663}
     m_Modifications:
-    - target: {fileID: 7944127489056584336, guid: 3496c4b5a87ba44ffbf86655893a3304,
-        type: 3}
-      propertyPath: m_Name
-      value: ID
-      objectReference: {fileID: 0}
     - target: {fileID: 4034352613381587835, guid: 3496c4b5a87ba44ffbf86655893a3304,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -392,6 +386,11 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 0.28
       objectReference: {fileID: 0}
+    - target: {fileID: 7944127489056584336, guid: 3496c4b5a87ba44ffbf86655893a3304,
+        type: 3}
+      propertyPath: m_Name
+      value: ID
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3496c4b5a87ba44ffbf86655893a3304, type: 3}
 --- !u!1 &7314170258231974110 stripped
@@ -406,6 +405,86 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 846134419709684302}
   m_PrefabAsset: {fileID: 0}
+--- !u!1001 &1965259950865620198
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 6825207733689692663}
+    m_Modifications:
+    - target: {fileID: 1616845896633586623, guid: 10d0849d340b947429acae4924d1dbae,
+        type: 3}
+      propertyPath: m_Name
+      value: Lidar
+      objectReference: {fileID: 0}
+    - target: {fileID: 4278576706285888872, guid: 10d0849d340b947429acae4924d1dbae,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 1.77
+      objectReference: {fileID: 0}
+    - target: {fileID: 4278576706285888872, guid: 10d0849d340b947429acae4924d1dbae,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.78
+      objectReference: {fileID: 0}
+    - target: {fileID: 4278576706285888872, guid: 10d0849d340b947429acae4924d1dbae,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.02
+      objectReference: {fileID: 0}
+    - target: {fileID: 4278576706285888872, guid: 10d0849d340b947429acae4924d1dbae,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4278576706285888872, guid: 10d0849d340b947429acae4924d1dbae,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4278576706285888872, guid: 10d0849d340b947429acae4924d1dbae,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4278576706285888872, guid: 10d0849d340b947429acae4924d1dbae,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4278576706285888872, guid: 10d0849d340b947429acae4924d1dbae,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4278576706285888872, guid: 10d0849d340b947429acae4924d1dbae,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4278576706285888872, guid: 10d0849d340b947429acae4924d1dbae,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4278576706285888872, guid: 10d0849d340b947429acae4924d1dbae,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8436108899429943452, guid: 10d0849d340b947429acae4924d1dbae,
+        type: 3}
+      propertyPath: InnerBound
+      value: 0.2
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 10d0849d340b947429acae4924d1dbae, type: 3}
+--- !u!4 &2316696680353495438 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4278576706285888872, guid: 10d0849d340b947429acae4924d1dbae,
+    type: 3}
+  m_PrefabInstance: {fileID: 1965259950865620198}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &2214914956343717738
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -413,11 +492,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 8646676105349321859}
     m_Modifications:
-    - target: {fileID: 5635778872768905943, guid: 0c3bd765e9ac04581b8f64b17b9c2950,
-        type: 3}
-      propertyPath: m_Name
-      value: AgentCamera
-      objectReference: {fileID: 0}
     - target: {fileID: 5635778872768905940, guid: 0c3bd765e9ac04581b8f64b17b9c2950,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -472,6 +546,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5635778872768905943, guid: 0c3bd765e9ac04581b8f64b17b9c2950,
+        type: 3}
+      propertyPath: m_Name
+      value: AgentCamera
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0c3bd765e9ac04581b8f64b17b9c2950, type: 3}
