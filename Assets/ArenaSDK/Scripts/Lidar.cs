@@ -173,6 +173,8 @@ namespace Arena
             return NormedDistances;
         } // GetFrame
 
+        private const int LidarIgnoredLayer = 11;
+
         private void
         Step()
         {
@@ -201,7 +203,7 @@ namespace Arena
                 Vector3 direction = (Directions[CurrentFramePointer] * gameObject.transform.forward).normalized;
                 Vector3 origin    = transform.position + InnerBound * direction;
                 if (Physics.Raycast(origin, direction, out Hit,
-                  maxDistance)) //  add a layer mask value if you need to ignore certain type of objects
+                  maxDistance, LidarIgnoredLayer)) //  add a layer mask value if you need to ignore certain type of objects
                 {
                     if (IsVisualize) {
                         Debug.DrawLine(origin, origin + direction * Hit.distance,
