@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -71,7 +71,7 @@ LightmapSettings:
     m_FinalGatherRayCount: 256
     m_ReflectionCompression: 2
     m_MixedBakeMode: 2
-    m_BakeBackend: 2
+    m_BakeBackend: 1
     m_PVRSampling: 1
     m_PVRDirectSampleCount: 32
     m_PVRSampleCount: 500
@@ -195,6 +195,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 5564486735672341658, guid: ad2479eef98a1498890b3441f2b84ce6,
+        type: 3}
+      propertyPath: m_Name
+      value: ArenaWalkerAgent
+      objectReference: {fileID: 0}
     - target: {fileID: 5564486735672341661, guid: ad2479eef98a1498890b3441f2b84ce6,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -249,11 +254,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5564486735672341658, guid: ad2479eef98a1498890b3441f2b84ce6,
-        type: 3}
-      propertyPath: m_Name
-      value: ArenaWalkerAgent
       objectReference: {fileID: 0}
     - target: {fileID: 5564486735442507584, guid: ad2479eef98a1498890b3441f2b84ce6,
         type: 3}

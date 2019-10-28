@@ -30,6 +30,11 @@ namespace Arena
         [SerializeField]
         public MyDictionary.StringStringDictionary IncrementAttributes;
 
+        /// <summary>
+        /// The scale of incremented value is based on transform.localScale.y
+        /// </summary>
+        public bool IncrementAttributesValueBasedOnScale = false;
+
         public bool IsCarried = false;
 
         /// <summary>
@@ -88,7 +93,7 @@ namespace Arena
                 foreach (string Attribute_ in IncrementAttributes.Keys) {
                     if (float.Parse(IncrementAttributes[Attribute_]) != 0f) {
                         float Scale_ = 1f;
-                        if (CompareTag("Eatable")) {
+                        if (IncrementAttributesValueBasedOnScale) {
                             Scale_ = transform.localScale.y;
                         }
                         SubjectNode.IncrementAttribute(Attribute_,

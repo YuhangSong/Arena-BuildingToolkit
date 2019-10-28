@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 342473245615160179}
   - component: {fileID: 342473245615160176}
   m_Layer: 0
-  m_Name: ArenaWalkerAgent-v2
+  m_Name: ArenaWalkerAgent
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -56,9 +56,7 @@ MonoBehaviour:
   IsRewardRanking: 0
   RankingWinType: 0
   IsPenalizeTie: 0
-  IsRewardDistance: 0
-  DistanceBase1: {fileID: 0}
-  DistanceBase2: {fileID: 0}
+  RewardFunctionDistances: []
   IsRewardTime: 0
   TimeWinType: 0
   TransformReinitializors: []
@@ -109,6 +107,8 @@ MonoBehaviour:
   RewardWithIncrementAttributes:
     m_keys: []
     m_values: []
+  AddSelfCoordinatesAsCoordinate: 0
+  AddSelfCoordinatesAsSocialID: 0
   RewardSchemeScale: 1
   AllowGunAttack: 0
   ShootType: 0
@@ -129,7 +129,7 @@ MonoBehaviour:
   Bullet: {fileID: 23, guid: 2b4d7185054f84ae99b2a1e17d2161bc, type: 3}
   AllowSwordAttack: 0
   Sword: {fileID: 342473245964277354}
-  IsRewardDistanceToTarget: 1
+  IsRewardDistanceToTarget: 0
   IsRewardVelocityToTarget: 0
   IsRewardFacingTarget: 0
   Target: {fileID: 0}
@@ -2392,11 +2392,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 342473245963913750}
     m_Modifications:
-    - target: {fileID: 5635778872768905943, guid: 0c3bd765e9ac04581b8f64b17b9c2950,
-        type: 3}
-      propertyPath: m_Name
-      value: AgentCamera
-      objectReference: {fileID: 0}
     - target: {fileID: 5635778872768905940, guid: 0c3bd765e9ac04581b8f64b17b9c2950,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -2452,6 +2447,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5635778872768905943, guid: 0c3bd765e9ac04581b8f64b17b9c2950,
+        type: 3}
+      propertyPath: m_Name
+      value: AgentCamera
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0c3bd765e9ac04581b8f64b17b9c2950, type: 3}
 --- !u!20 &5401780352352996908 stripped
@@ -2467,26 +2467,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 342473245615160180}
     m_Modifications:
-    - target: {fileID: 100034, guid: 848df0ecbb8d2b746be7ef68a4eb0adc, type: 3}
-      propertyPath: m_Name
-      value: hips
-      objectReference: {fileID: 0}
-    - target: {fileID: 100034, guid: 848df0ecbb8d2b746be7ef68a4eb0adc, type: 3}
-      propertyPath: m_TagString
-      value: Body
-      objectReference: {fileID: 0}
-    - target: {fileID: 100060, guid: 848df0ecbb8d2b746be7ef68a4eb0adc, type: 3}
-      propertyPath: m_TagString
-      value: Body
-      objectReference: {fileID: 0}
-    - target: {fileID: 100064, guid: 848df0ecbb8d2b746be7ef68a4eb0adc, type: 3}
-      propertyPath: m_TagString
-      value: Body
-      objectReference: {fileID: 0}
-    - target: {fileID: 100066, guid: 848df0ecbb8d2b746be7ef68a4eb0adc, type: 3}
-      propertyPath: m_TagString
-      value: Body
-      objectReference: {fileID: 0}
     - target: {fileID: 400034, guid: 848df0ecbb8d2b746be7ef68a4eb0adc, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -2535,15 +2515,19 @@ PrefabInstance:
       propertyPath: m_TagString
       value: Gun
       objectReference: {fileID: 0}
-    - target: {fileID: 100062, guid: 848df0ecbb8d2b746be7ef68a4eb0adc, type: 3}
-      propertyPath: m_TagString
-      value: Sword
-      objectReference: {fileID: 0}
     - target: {fileID: 100068, guid: 848df0ecbb8d2b746be7ef68a4eb0adc, type: 3}
       propertyPath: m_TagString
       value: Body
       objectReference: {fileID: 0}
     - target: {fileID: 100070, guid: 848df0ecbb8d2b746be7ef68a4eb0adc, type: 3}
+      propertyPath: m_TagString
+      value: Body
+      objectReference: {fileID: 0}
+    - target: {fileID: 100064, guid: 848df0ecbb8d2b746be7ef68a4eb0adc, type: 3}
+      propertyPath: m_TagString
+      value: Body
+      objectReference: {fileID: 0}
+    - target: {fileID: 100066, guid: 848df0ecbb8d2b746be7ef68a4eb0adc, type: 3}
       propertyPath: m_TagString
       value: Body
       objectReference: {fileID: 0}
@@ -2563,11 +2547,27 @@ PrefabInstance:
       propertyPath: m_TagString
       value: Body
       objectReference: {fileID: 0}
+    - target: {fileID: 100060, guid: 848df0ecbb8d2b746be7ef68a4eb0adc, type: 3}
+      propertyPath: m_TagString
+      value: Body
+      objectReference: {fileID: 0}
+    - target: {fileID: 100062, guid: 848df0ecbb8d2b746be7ef68a4eb0adc, type: 3}
+      propertyPath: m_TagString
+      value: Sword
+      objectReference: {fileID: 0}
     - target: {fileID: 100056, guid: 848df0ecbb8d2b746be7ef68a4eb0adc, type: 3}
       propertyPath: m_TagString
       value: Body
       objectReference: {fileID: 0}
     - target: {fileID: 100058, guid: 848df0ecbb8d2b746be7ef68a4eb0adc, type: 3}
+      propertyPath: m_TagString
+      value: Body
+      objectReference: {fileID: 0}
+    - target: {fileID: 100034, guid: 848df0ecbb8d2b746be7ef68a4eb0adc, type: 3}
+      propertyPath: m_Name
+      value: hips
+      objectReference: {fileID: 0}
+    - target: {fileID: 100034, guid: 848df0ecbb8d2b746be7ef68a4eb0adc, type: 3}
       propertyPath: m_TagString
       value: Body
       objectReference: {fileID: 0}
@@ -2902,11 +2902,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 342473245963913750}
     m_Modifications:
-    - target: {fileID: 7944127489056584336, guid: 3496c4b5a87ba44ffbf86655893a3304,
-        type: 3}
-      propertyPath: m_Name
-      value: ID
-      objectReference: {fileID: 0}
     - target: {fileID: 4034352613381587835, guid: 3496c4b5a87ba44ffbf86655893a3304,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -2971,6 +2966,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalScale.z
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7944127489056584336, guid: 3496c4b5a87ba44ffbf86655893a3304,
+        type: 3}
+      propertyPath: m_Name
+      value: ID
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3496c4b5a87ba44ffbf86655893a3304, type: 3}
