@@ -10,7 +10,7 @@ PrefabInstance:
     - target: {fileID: 6733565792831731545, guid: 946380adf5f6f4e8d8a75fa6c8d8ab98,
         type: 3}
       propertyPath: m_Name
-      value: 1 Agent Team
+      value: 1 Agent Team Variant
       objectReference: {fileID: 0}
     - target: {fileID: 8426850377145285948, guid: 946380adf5f6f4e8d8a75fa6c8d8ab98,
         type: 3}
@@ -66,6 +66,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6104946792813204033, guid: 946380adf5f6f4e8d8a75fa6c8d8ab98,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 946380adf5f6f4e8d8a75fa6c8d8ab98, type: 3}
@@ -127,61 +132,11 @@ PrefabInstance:
       propertyPath: TransformReinitializors.Array.data[0].ReinitializedGameObject
       value: 
       objectReference: {fileID: 7645337656309057489}
-    - target: {fileID: 7557433236156022013, guid: d9a2ee3205cc0ff4aa345c02e702d3af,
-        type: 3}
-      propertyPath: agentParameters.agentCameras.Array.data[0]
-      value: 
-      objectReference: {fileID: 8675889546627832197}
-    - target: {fileID: 7557433236156022013, guid: d9a2ee3205cc0ff4aa345c02e702d3af,
-        type: 3}
-      propertyPath: ID
-      value: 
-      objectReference: {fileID: 4529694043074451582}
-    - target: {fileID: 7557433236156022013, guid: d9a2ee3205cc0ff4aa345c02e702d3af,
-        type: 3}
-      propertyPath: Gun
-      value: 
-      objectReference: {fileID: 3323844234653494439}
-    - target: {fileID: 7557433236156022013, guid: d9a2ee3205cc0ff4aa345c02e702d3af,
-        type: 3}
-      propertyPath: BulletEmitter
-      value: 
-      objectReference: {fileID: 3721411052663168244}
-    - target: {fileID: 7557433236156022013, guid: d9a2ee3205cc0ff4aa345c02e702d3af,
-        type: 3}
-      propertyPath: RaycastEmitter
-      value: 
-      objectReference: {fileID: 8984808435142182565}
-    - target: {fileID: 7557433236156022013, guid: d9a2ee3205cc0ff4aa345c02e702d3af,
-        type: 3}
-      propertyPath: Sword
-      value: 
-      objectReference: {fileID: 3323844234653494443}
-    - target: {fileID: 7557433236156022013, guid: d9a2ee3205cc0ff4aa345c02e702d3af,
-        type: 3}
-      propertyPath: Player
-      value: 
-      objectReference: {fileID: 7645337656309057489}
     - target: {fileID: 1849939543919308301, guid: d9a2ee3205cc0ff4aa345c02e702d3af,
         type: 3}
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 8675889546627832197}
-    - target: {fileID: 3628597916697607162, guid: d9a2ee3205cc0ff4aa345c02e702d3af,
-        type: 3}
-      propertyPath: TextOnDisplay
-      value: 
-      objectReference: {fileID: 6557182913402362867}
-    - target: {fileID: 3628597916697607162, guid: d9a2ee3205cc0ff4aa345c02e702d3af,
-        type: 3}
-      propertyPath: ImageOnDisplay
-      value: 
-      objectReference: {fileID: 6575314077529980669}
-    - target: {fileID: 3605339245804833609, guid: d9a2ee3205cc0ff4aa345c02e702d3af,
-        type: 3}
-      propertyPath: TextOnDisplay
-      value: 
-      objectReference: {fileID: 6152260844706029462}
     - target: {fileID: 4216717074966429450, guid: d9a2ee3205cc0ff4aa345c02e702d3af,
         type: 3}
       propertyPath: TextOnDisplay
@@ -192,6 +147,21 @@ PrefabInstance:
       propertyPath: ImageOnDisplay
       value: 
       objectReference: {fileID: 6025713028111383053}
+    - target: {fileID: 3605339245804833609, guid: d9a2ee3205cc0ff4aa345c02e702d3af,
+        type: 3}
+      propertyPath: TextOnDisplay
+      value: 
+      objectReference: {fileID: 6152260844706029462}
+    - target: {fileID: 3628597916697607162, guid: d9a2ee3205cc0ff4aa345c02e702d3af,
+        type: 3}
+      propertyPath: TextOnDisplay
+      value: 
+      objectReference: {fileID: 6557182913402362867}
+    - target: {fileID: 3628597916697607162, guid: d9a2ee3205cc0ff4aa345c02e702d3af,
+        type: 3}
+      propertyPath: ImageOnDisplay
+      value: 
+      objectReference: {fileID: 6575314077529980669}
     - target: {fileID: 1211112378776844660, guid: d9a2ee3205cc0ff4aa345c02e702d3af,
         type: 3}
       propertyPath: TextOnDisplay
@@ -232,6 +202,41 @@ PrefabInstance:
       propertyPath: ImageOnDisplay
       value: 
       objectReference: {fileID: 4281924776307530941}
+    - target: {fileID: 7557433236156022013, guid: d9a2ee3205cc0ff4aa345c02e702d3af,
+        type: 3}
+      propertyPath: agentParameters.agentCameras.Array.data[0]
+      value: 
+      objectReference: {fileID: 8675889546627832197}
+    - target: {fileID: 7557433236156022013, guid: d9a2ee3205cc0ff4aa345c02e702d3af,
+        type: 3}
+      propertyPath: ID
+      value: 
+      objectReference: {fileID: 4529694043074451582}
+    - target: {fileID: 7557433236156022013, guid: d9a2ee3205cc0ff4aa345c02e702d3af,
+        type: 3}
+      propertyPath: Gun
+      value: 
+      objectReference: {fileID: 3323844234653494439}
+    - target: {fileID: 7557433236156022013, guid: d9a2ee3205cc0ff4aa345c02e702d3af,
+        type: 3}
+      propertyPath: BulletEmitter
+      value: 
+      objectReference: {fileID: 3721411052663168244}
+    - target: {fileID: 7557433236156022013, guid: d9a2ee3205cc0ff4aa345c02e702d3af,
+        type: 3}
+      propertyPath: RaycastEmitter
+      value: 
+      objectReference: {fileID: 8984808435142182565}
+    - target: {fileID: 7557433236156022013, guid: d9a2ee3205cc0ff4aa345c02e702d3af,
+        type: 3}
+      propertyPath: Sword
+      value: 
+      objectReference: {fileID: 3323844234653494443}
+    - target: {fileID: 7557433236156022013, guid: d9a2ee3205cc0ff4aa345c02e702d3af,
+        type: 3}
+      propertyPath: Player
+      value: 
+      objectReference: {fileID: 7645337656309057489}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d9a2ee3205cc0ff4aa345c02e702d3af, type: 3}
 --- !u!1 &7645337656309057489 stripped
