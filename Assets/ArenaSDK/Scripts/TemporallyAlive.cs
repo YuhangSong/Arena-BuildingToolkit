@@ -4,7 +4,7 @@ namespace Arena
 {
     public class TemporallyAlive : ArenaBase
     {
-        // for how long the fire lives, set to nagitive number to make it live forever
+        // for how long the fire lives, set to non-positive number to make it live forever
         public float AliveDuration = 10f;
 
         void

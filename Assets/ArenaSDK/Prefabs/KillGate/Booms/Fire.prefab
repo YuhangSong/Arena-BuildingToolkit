@@ -42,10 +42,9 @@ GameObject:
   - component: {fileID: 4607158932582575022}
   - component: {fileID: 5111655377432746304}
   - component: {fileID: 5345263967675922301}
-  - component: {fileID: 1722103638277961433}
   - component: {fileID: 3539805176785294807}
   m_Layer: 0
-  m_Name: Boom
+  m_Name: Fire
   m_TagString: Boom
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -60,7 +59,7 @@ Transform:
   m_GameObject: {fileID: 7025618740248747020}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 2.5, y: 2.5, z: 2.5}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 6629651542384627107}
   m_Father: {fileID: 0}
@@ -91,7 +90,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 866f7a84824d141dbbe50dd1893207d9, type: 2}
+  - {fileID: 2100000, guid: f0ebae8b404bd4d8a9ff5f323e2bd55f, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -120,28 +119,10 @@ SphereCollider:
   m_GameObject: {fileID: 7025618740248747020}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &1722103638277961433
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7025618740248747020}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3d47299cccac143f2ac27cd333ad839b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  BulletEmitter:
-  - {fileID: 3026643370122893694}
-  Bullet: {fileID: 23, guid: 4ccf63aed502147188d91b28a527dba5, type: 3}
-  ScaleSpeed: 10
-  ScaleMagnititude: 0.08
-  ExplosionTime: 1
 --- !u!54 &3539805176785294807
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -156,5 +137,5 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 126
+  m_Constraints: 116
   m_CollisionDetection: 0

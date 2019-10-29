@@ -4,6 +4,10 @@ namespace Arena
 {
     public class BoomerAgent : BasicAgent
     {
+        [Header("Boomer Agent Settings")][Space(10)]
+
+        public GameObject Boom;
+
         public float MoveSpeed = 5.0f;
 
         public GameObject BulletEmitterForward;
@@ -12,7 +16,7 @@ namespace Arena
         InitializeAgent()
         {
             base.InitializeAgent();
-            UIPercentageBars["AM"].Enable();
+            UIPercentageBars["Ammo"].Enable();
         }
 
         public override void
@@ -21,7 +25,7 @@ namespace Arena
             base.AgentReset();
 
             NumBullet = FullNumBullet;
-            UIPercentageBars["AM"].UpdatePercentage(NumBullet / FullNumBullet);
+            UIPercentageBars["Ammo"].UpdatePercentage(NumBullet / FullNumBullet);
         }
 
         override protected void
@@ -64,11 +68,11 @@ namespace Arena
                 case Attack:
                     if ((NumBullet > 0) && !Reloading) {
                         GameObject Temp_Bullet_Handeler;
-                        Temp_Bullet_Handeler = Instantiate(Bullet, BulletEmitterForward.transform.position,
+                        Temp_Bullet_Handeler = Instantiate(Boom, BulletEmitterForward.transform.position,
                             BulletEmitterForward.transform.rotation) as GameObject;
-                        Temp_Bullet_Handeler.SetActive(true);
+
                         NumBullet -= 1.0f;
-                        UIPercentageBars["AM"].UpdatePercentage(NumBullet / FullNumBullet);
+                        UIPercentageBars["Ammo"].UpdatePercentage(NumBullet / FullNumBullet);
                         if (NumBullet < 1.0f) {
                             Reloading = true;
                         }
@@ -82,7 +86,7 @@ namespace Arena
 
             if (Reloading) {
                 NumBullet += NumBulletPerLoad;
-                UIPercentageBars["AM"].UpdatePercentage(NumBullet / FullNumBullet);
+                UIPercentageBars["Ammo"].UpdatePercentage(NumBullet / FullNumBullet);
                 if (NumBullet >= FullNumBullet) {
                     Reloading = false;
                 }
