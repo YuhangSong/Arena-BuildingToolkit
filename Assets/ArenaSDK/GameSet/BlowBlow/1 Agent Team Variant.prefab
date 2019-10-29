@@ -67,21 +67,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 9178016996837412091, guid: dfd7a28a48871469f98947bfb4634936,
-        type: 3}
-      propertyPath: TransformReinitializors.Array.data[0].ReinitializedGameObject
-      value: 
-      objectReference: {fileID: 2100203693464267546}
-    - target: {fileID: 9178016996837412091, guid: dfd7a28a48871469f98947bfb4634936,
-        type: 3}
-      propertyPath: TransformReinitializors.Array.data[0].RandomPositionMax.x
-      value: 17
-      objectReference: {fileID: 0}
-    - target: {fileID: 9178016996837412091, guid: dfd7a28a48871469f98947bfb4634936,
-        type: 3}
-      propertyPath: TransformReinitializors.Array.data[0].RandomPositionMax.z
-      value: 17
-      objectReference: {fileID: 0}
     - target: {fileID: 700544993, guid: dfd7a28a48871469f98947bfb4634936, type: 3}
       propertyPath: agentParameters.agentCameras.Array.data[0]
       value: 
@@ -106,16 +91,16 @@ PrefabInstance:
       propertyPath: Bullet_EmitterRightEdge
       value: 
       objectReference: {fileID: 574191072839098247}
+    - target: {fileID: 9178016996837412091, guid: dfd7a28a48871469f98947bfb4634936,
+        type: 3}
+      propertyPath: TransformReinitializors.Array.data[0].ReinitializedGameObject
+      value: 
+      objectReference: {fileID: 2100203693464267546}
     - target: {fileID: 5924838403673360486, guid: dfd7a28a48871469f98947bfb4634936,
         type: 3}
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 1106246848682161486}
-    - target: {fileID: 8763358244336954658, guid: dfd7a28a48871469f98947bfb4634936,
-        type: 3}
-      propertyPath: TextOnDisplay
-      value: 
-      objectReference: {fileID: 2476388888602604381}
     - target: {fileID: 3300611516089107320, guid: dfd7a28a48871469f98947bfb4634936,
         type: 3}
       propertyPath: TextOnDisplay
@@ -126,16 +111,16 @@ PrefabInstance:
       propertyPath: ImageOnDisplay
       value: 
       objectReference: {fileID: 8681983819109010655}
-    - target: {fileID: 6583052501369184031, guid: dfd7a28a48871469f98947bfb4634936,
+    - target: {fileID: 3071038084909018709, guid: dfd7a28a48871469f98947bfb4634936,
         type: 3}
       propertyPath: TextOnDisplay
       value: 
-      objectReference: {fileID: 1105343397740983734}
-    - target: {fileID: 6583052501369184031, guid: dfd7a28a48871469f98947bfb4634936,
+      objectReference: {fileID: 9120845275446199548}
+    - target: {fileID: 3071038084909018709, guid: dfd7a28a48871469f98947bfb4634936,
         type: 3}
       propertyPath: ImageOnDisplay
       value: 
-      objectReference: {fileID: 1074400673803260088}
+      objectReference: {fileID: 9163767762954363378}
     - target: {fileID: 1865078709732458449, guid: dfd7a28a48871469f98947bfb4634936,
         type: 3}
       propertyPath: TextOnDisplay
@@ -156,6 +141,21 @@ PrefabInstance:
       propertyPath: ImageOnDisplay
       value: 
       objectReference: {fileID: 2640090302640756422}
+    - target: {fileID: 8763358244336954658, guid: dfd7a28a48871469f98947bfb4634936,
+        type: 3}
+      propertyPath: TextOnDisplay
+      value: 
+      objectReference: {fileID: 2476388888602604381}
+    - target: {fileID: 6583052501369184031, guid: dfd7a28a48871469f98947bfb4634936,
+        type: 3}
+      propertyPath: TextOnDisplay
+      value: 
+      objectReference: {fileID: 1105343397740983734}
+    - target: {fileID: 6583052501369184031, guid: dfd7a28a48871469f98947bfb4634936,
+        type: 3}
+      propertyPath: ImageOnDisplay
+      value: 
+      objectReference: {fileID: 1074400673803260088}
     - target: {fileID: 8777042338967100817, guid: dfd7a28a48871469f98947bfb4634936,
         type: 3}
       propertyPath: TextOnDisplay
@@ -166,16 +166,6 @@ PrefabInstance:
       propertyPath: ImageOnDisplay
       value: 
       objectReference: {fileID: 3205695859661607478}
-    - target: {fileID: 3071038084909018709, guid: dfd7a28a48871469f98947bfb4634936,
-        type: 3}
-      propertyPath: TextOnDisplay
-      value: 
-      objectReference: {fileID: 9120845275446199548}
-    - target: {fileID: 3071038084909018709, guid: dfd7a28a48871469f98947bfb4634936,
-        type: 3}
-      propertyPath: ImageOnDisplay
-      value: 
-      objectReference: {fileID: 9163767762954363378}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dfd7a28a48871469f98947bfb4634936, type: 3}
 --- !u!1 &2100203693464267546 stripped
@@ -436,6 +426,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3401221455910520003, guid: b4d304cb5d83b4ad8aab8dafee64e0ef,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b4d304cb5d83b4ad8aab8dafee64e0ef, type: 3}

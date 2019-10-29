@@ -21,7 +21,15 @@ namespace Arena
 
         public SubjectTypes SubjectType = SubjectTypes.Other;
 
+        /// <summary>
+        /// </summary>
+        [Tooltip("If only take effect when node coordinates are matched")]
         public bool IsMatchNodeCoordinate = false;
+
+        /// <summary>
+        /// </summary>
+        [Tooltip("If only take effect when node coordinates are not matched")]
+        public bool IsDisMatchNodeCoordinate = false;
 
         /// <summary>
         /// </summary>
@@ -71,15 +79,32 @@ namespace Arena
                     return;
                 }
 
-                if (IsMatchNodeCoordinate) {
+
+                if (IsMatchNodeCoordinate || IsDisMatchNodeCoordinate) {
+                    bool IsNodeCoordinateMatched = false;
+
                     if ((ThisNode == null) || (OtherNode == null)) {
-                        return;
+                        Debug.LogError("Event gate has to be located under ArenaNode to take effect.");
                     } else {
                         List<int> ThisNodeCoordinate  = ThisNode.GetCoordinate_ParentToChild();
                         List<int> OtherNodeCoordinate = OtherNode.GetCoordinate_ParentToChild();
-                        if (!Utils.IsListEqual(ThisNodeCoordinate, OtherNodeCoordinate,
+                        if (Utils.IsListEqual(ThisNodeCoordinate, OtherNodeCoordinate,
                           Mathf.Min(ThisNodeCoordinate.Count, OtherNodeCoordinate.Count)))
                         {
+                            IsNodeCoordinateMatched = true;
+                        } else {
+                            IsNodeCoordinateMatched = false;
+                        }
+                    }
+
+                    if (IsMatchNodeCoordinate) {
+                        if (!IsNodeCoordinateMatched) {
+                            return;
+                        }
+                    }
+
+                    if (IsDisMatchNodeCoordinate) {
+                        if (IsNodeCoordinateMatched) {
                             return;
                         }
                     }

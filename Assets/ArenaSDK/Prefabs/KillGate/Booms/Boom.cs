@@ -44,7 +44,7 @@ namespace Arena
             GameObject Temp_Bullet_Handeler;
 
             Temp_Bullet_Handeler = Instantiate(Fire,
-                transform.position + direction * (transform.lossyScale.x + Fire.transform.lossyScale.x) / 2f,
+                transform.position + direction * (transform.lossyScale.x + Fire.transform.lossyScale.x) / 1f,
                 transform.rotation) as GameObject;
             Temp_Bullet_Handeler.SetActive(true);
 
