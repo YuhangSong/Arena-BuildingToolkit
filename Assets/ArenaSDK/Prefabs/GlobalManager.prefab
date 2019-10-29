@@ -78,7 +78,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   NodeID: 0
-  MaxNumLivingSteps: 0
+  MaxNumLivingSteps: 1000
   LivingCondition: 2
   AtLeastSpecificNumberLiving: 1
   AtLeastSpecificPortion: 0.5
@@ -107,7 +107,7 @@ MonoBehaviour:
     - {fileID: 11400000, guid: f723645b60672466c8a8ac56e5c017c7, type: 2}
     _brainsToControl:
     - {fileID: 11400000, guid: 3358b44c8745e4a55837b8c8f04010fc, type: 2}
-  maxSteps: 1000
+  maxSteps: 0
   trainingConfiguration:
     width: 80
     height: 80
@@ -171,6 +171,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2298609148183755060}
     m_Modifications:
+    - target: {fileID: 5890283042853991636, guid: f69414d9f09d343d899b963e57ed80d4,
+        type: 3}
+      propertyPath: m_Name
+      value: TopDownCamera
+      objectReference: {fileID: 0}
     - target: {fileID: 7277389956336536019, guid: f69414d9f09d343d899b963e57ed80d4,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -226,11 +231,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 5890283042853991636, guid: f69414d9f09d343d899b963e57ed80d4,
-        type: 3}
-      propertyPath: m_Name
-      value: TopDownCamera
-      objectReference: {fileID: 0}
     - target: {fileID: 7490799764872222018, guid: f69414d9f09d343d899b963e57ed80d4,
         type: 3}
       propertyPath: orthographic size
@@ -251,6 +251,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2298609148183755060}
     m_Modifications:
+    - target: {fileID: 709761302133079208, guid: d2556a01e551f458ea8d00719d6c8826,
+        type: 3}
+      propertyPath: m_Name
+      value: VisualizationCamera
+      objectReference: {fileID: 0}
     - target: {fileID: 4366682423779066287, guid: d2556a01e551f458ea8d00719d6c8826,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -305,11 +310,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 709761302133079208, guid: d2556a01e551f458ea8d00719d6c8826,
-        type: 3}
-      propertyPath: m_Name
-      value: VisualizationCamera
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d2556a01e551f458ea8d00719d6c8826, type: 3}

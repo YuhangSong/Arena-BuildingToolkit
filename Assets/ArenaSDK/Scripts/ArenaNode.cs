@@ -499,6 +499,8 @@ namespace Arena
                 }
 
                 if (IsRewardRanking) {
+                    // Debug.Log(GetLogTag() + " IsRewardRanking");
+
                     // detect if tie
                     bool IsTie_        = true;
                     int KilledRanking_ = -1;
@@ -515,7 +517,7 @@ namespace Arena
 
                     // penalize tie
                     if (IsTie_) {
-                        Debug.Log(GetLogTag() + " Tie");
+                        // Debug.Log(GetLogTag() + " Tie");
                         // penalize tie
                         if (IsPenalizeTie) {
                             foreach (ArenaNode ChildNode_ in GetChildNodes()) {
