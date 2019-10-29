@@ -69,19 +69,9 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1414103001509682869, guid: 8f00849846aa342c3a2eead18e061415,
         type: 3}
-      propertyPath: RewardFunctionDistances.Array.data[0].GameObjects.Array.data[1]
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 1414103001509682869, guid: 8f00849846aa342c3a2eead18e061415,
-        type: 3}
       propertyPath: RewardFunctionDistances.Array.data[0].GameObjects.Array.data[0]
       value: 
-      objectReference: {fileID: 369084495038198680}
-    - target: {fileID: 1414103001509682869, guid: 8f00849846aa342c3a2eead18e061415,
-        type: 3}
-      propertyPath: TransformReinitializors.Array.data[0].ReinitializedGameObject
-      value: 
-      objectReference: {fileID: 369084495038198680}
+      objectReference: {fileID: 6801043066547732037}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8f00849846aa342c3a2eead18e061415, type: 3}
 --- !u!4 &4081528128927306554 stripped
@@ -90,9 +80,9 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 5950340605384759035}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &369084495038198680 stripped
+--- !u!1 &6801043066547732037 stripped
 GameObject:
-  m_CorrespondingSourceObject: {fileID: 6308587763777250659, guid: 8f00849846aa342c3a2eead18e061415,
+  m_CorrespondingSourceObject: {fileID: 932794757065697470, guid: 8f00849846aa342c3a2eead18e061415,
     type: 3}
   m_PrefabInstance: {fileID: 5950340605384759035}
   m_PrefabAsset: {fileID: 0}
@@ -163,11 +153,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4132292879366038962, guid: cd4dda5d80c78924b88e1494b4e967bf,
-        type: 3}
-      propertyPath: TransformReinitializors.Array.data[0].ReinitializedGameObject
-      value: 
-      objectReference: {fileID: 8810565273617218870}
     - target: {fileID: 6384572436896903385, guid: cd4dda5d80c78924b88e1494b4e967bf,
         type: 3}
       propertyPath: IsRewardDistanceToTarget
@@ -177,7 +162,7 @@ PrefabInstance:
         type: 3}
       propertyPath: Target
       value: 
-      objectReference: {fileID: 369084495038198680}
+      objectReference: {fileID: 6801043066547732037}
     - target: {fileID: 6384572436896903385, guid: cd4dda5d80c78924b88e1494b4e967bf,
         type: 3}
       propertyPath: agentParameters.agentCameras.Array.data[0]
@@ -273,26 +258,11 @@ PrefabInstance:
       propertyPath: foot3
       value: 
       objectReference: {fileID: 8810565273619407844}
-    - target: {fileID: 3517528174867515889, guid: cd4dda5d80c78924b88e1494b4e967bf,
+    - target: {fileID: 4132292879366038962, guid: cd4dda5d80c78924b88e1494b4e967bf,
         type: 3}
-      propertyPath: m_ConnectedAnchor.z
-      value: -0.15429455
-      objectReference: {fileID: 0}
-    - target: {fileID: 3517528174867515889, guid: cd4dda5d80c78924b88e1494b4e967bf,
-        type: 3}
-      propertyPath: m_ConnectedAnchor.x
-      value: -0.35350227
-      objectReference: {fileID: 0}
-    - target: {fileID: 3517528174867515889, guid: cd4dda5d80c78924b88e1494b4e967bf,
-        type: 3}
-      propertyPath: m_ConnectedAnchor.y
-      value: -0.2572193
-      objectReference: {fileID: 0}
-    - target: {fileID: 3517528174867515889, guid: cd4dda5d80c78924b88e1494b4e967bf,
-        type: 3}
-      propertyPath: m_ConnectedBody
+      propertyPath: TransformReinitializors.Array.data[0].ReinitializedGameObject
       value: 
-      objectReference: {fileID: 231165348923620049}
+      objectReference: {fileID: 8810565273617218870}
     - target: {fileID: 5366275141348281802, guid: cd4dda5d80c78924b88e1494b4e967bf,
         type: 3}
       propertyPath: m_ConnectedAnchor.x
@@ -339,6 +309,26 @@ PrefabInstance:
       value: -0.25704002
       objectReference: {fileID: 0}
     - target: {fileID: 1354468244955964759, guid: cd4dda5d80c78924b88e1494b4e967bf,
+        type: 3}
+      propertyPath: m_ConnectedBody
+      value: 
+      objectReference: {fileID: 231165348923620049}
+    - target: {fileID: 3517528174867515889, guid: cd4dda5d80c78924b88e1494b4e967bf,
+        type: 3}
+      propertyPath: m_ConnectedAnchor.z
+      value: -0.15429455
+      objectReference: {fileID: 0}
+    - target: {fileID: 3517528174867515889, guid: cd4dda5d80c78924b88e1494b4e967bf,
+        type: 3}
+      propertyPath: m_ConnectedAnchor.x
+      value: -0.35350227
+      objectReference: {fileID: 0}
+    - target: {fileID: 3517528174867515889, guid: cd4dda5d80c78924b88e1494b4e967bf,
+        type: 3}
+      propertyPath: m_ConnectedAnchor.y
+      value: -0.2572193
+      objectReference: {fileID: 0}
+    - target: {fileID: 3517528174867515889, guid: cd4dda5d80c78924b88e1494b4e967bf,
         type: 3}
       propertyPath: m_ConnectedBody
       value: 
@@ -398,6 +388,11 @@ PrefabInstance:
       propertyPath: m_ConnectedBody
       value: 
       objectReference: {fileID: 3782570804539009915}
+    - target: {fileID: 2934005605009303610, guid: cd4dda5d80c78924b88e1494b4e967bf,
+        type: 3}
+      propertyPath: m_Camera
+      value: 
+      objectReference: {fileID: 2983714794636280078}
     - target: {fileID: 2774948495007032443, guid: cd4dda5d80c78924b88e1494b4e967bf,
         type: 3}
       propertyPath: m_ConnectedAnchor.z
@@ -418,21 +413,6 @@ PrefabInstance:
       propertyPath: m_ConnectedBody
       value: 
       objectReference: {fileID: 9126897606644944356}
-    - target: {fileID: 2934005605009303610, guid: cd4dda5d80c78924b88e1494b4e967bf,
-        type: 3}
-      propertyPath: m_Camera
-      value: 
-      objectReference: {fileID: 2983714794636280078}
-    - target: {fileID: 7164374448062177165, guid: cd4dda5d80c78924b88e1494b4e967bf,
-        type: 3}
-      propertyPath: TextOnDisplay
-      value: 
-      objectReference: {fileID: 7772428955248697656}
-    - target: {fileID: 7164374448062177165, guid: cd4dda5d80c78924b88e1494b4e967bf,
-        type: 3}
-      propertyPath: ImageOnDisplay
-      value: 
-      objectReference: {fileID: 7665910220330648630}
     - target: {fileID: 5769229266804542985, guid: cd4dda5d80c78924b88e1494b4e967bf,
         type: 3}
       propertyPath: TextOnDisplay
@@ -453,16 +433,16 @@ PrefabInstance:
       propertyPath: ImageOnDisplay
       value: 
       objectReference: {fileID: 6795649405072013471}
-    - target: {fileID: 2437956965406998339, guid: cd4dda5d80c78924b88e1494b4e967bf,
+    - target: {fileID: 7164374448062177165, guid: cd4dda5d80c78924b88e1494b4e967bf,
         type: 3}
       propertyPath: TextOnDisplay
       value: 
-      objectReference: {fileID: 2982670065057087990}
-    - target: {fileID: 2437956965406998339, guid: cd4dda5d80c78924b88e1494b4e967bf,
+      objectReference: {fileID: 7772428955248697656}
+    - target: {fileID: 7164374448062177165, guid: cd4dda5d80c78924b88e1494b4e967bf,
         type: 3}
       propertyPath: ImageOnDisplay
       value: 
-      objectReference: {fileID: 2944066429017400568}
+      objectReference: {fileID: 7665910220330648630}
     - target: {fileID: 837433605711280445, guid: cd4dda5d80c78924b88e1494b4e967bf,
         type: 3}
       propertyPath: TextOnDisplay
@@ -473,11 +453,6 @@ PrefabInstance:
       propertyPath: ImageOnDisplay
       value: 
       objectReference: {fileID: 184956881341309574}
-    - target: {fileID: 221622283665362302, guid: cd4dda5d80c78924b88e1494b4e967bf,
-        type: 3}
-      propertyPath: TextOnDisplay
-      value: 
-      objectReference: {fileID: 319619212931106589}
     - target: {fileID: 234396290864922061, guid: cd4dda5d80c78924b88e1494b4e967bf,
         type: 3}
       propertyPath: TextOnDisplay
@@ -488,6 +463,21 @@ PrefabInstance:
       propertyPath: ImageOnDisplay
       value: 
       objectReference: {fileID: 742687186085078646}
+    - target: {fileID: 221622283665362302, guid: cd4dda5d80c78924b88e1494b4e967bf,
+        type: 3}
+      propertyPath: TextOnDisplay
+      value: 
+      objectReference: {fileID: 319619212931106589}
+    - target: {fileID: 2437956965406998339, guid: cd4dda5d80c78924b88e1494b4e967bf,
+        type: 3}
+      propertyPath: TextOnDisplay
+      value: 
+      objectReference: {fileID: 2982670065057087990}
+    - target: {fileID: 2437956965406998339, guid: cd4dda5d80c78924b88e1494b4e967bf,
+        type: 3}
+      propertyPath: ImageOnDisplay
+      value: 
+      objectReference: {fileID: 2944066429017400568}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cd4dda5d80c78924b88e1494b4e967bf, type: 3}
 --- !u!54 &231165348923620049 stripped
