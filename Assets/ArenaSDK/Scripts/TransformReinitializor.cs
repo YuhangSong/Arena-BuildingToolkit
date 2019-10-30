@@ -83,7 +83,7 @@ namespace Arena
         public float RandomUniformScaleMin = 0f;
 
         /// <summary>
-        /// Random localScale range (Max).
+        /// Random localScale range (Max). Set to positive value to take effect.
         /// </summary>
         public float RandomUniformScaleMax = 0f;
 
@@ -267,20 +267,20 @@ namespace Arena
 
                     if (RandomUniformScaleMax <= 0f) {
                         AllReinitializedGameObjects[i].transform.localScale = new Vector3(
-                            OriginalScales[i].x + Utils.RandomSign_Float() * Random.Range(RandomScaleMin.x,
+                            OriginalScales[i].x * Random.Range(RandomScaleMin.x,
                             RandomScaleMax.x),
-                            OriginalScales[i].y + Utils.RandomSign_Float() * Random.Range(RandomScaleMin.y,
+                            OriginalScales[i].y * Random.Range(RandomScaleMin.y,
                             RandomScaleMax.y),
-                            OriginalScales[i].z + Utils.RandomSign_Float() * Random.Range(RandomScaleMin.z,
+                            OriginalScales[i].z * Random.Range(RandomScaleMin.z,
                             RandomScaleMax.z)
                         );
                     } else {
-                        float RandomIncrement_ = Utils.RandomSign_Float() * Random.Range(RandomUniformScaleMin,
+                        float RandomUniformScale = Random.Range(RandomUniformScaleMin,
                             RandomUniformScaleMax);
                         AllReinitializedGameObjects[i].transform.localScale = new Vector3(
-                            OriginalScales[i].x + RandomIncrement_,
-                            OriginalScales[i].y + RandomIncrement_,
-                            OriginalScales[i].z + RandomIncrement_
+                            OriginalScales[i].x * RandomUniformScale,
+                            OriginalScales[i].y * RandomUniformScale,
+                            OriginalScales[i].z * RandomUniformScale
                         );
                     }
 
