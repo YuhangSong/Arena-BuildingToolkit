@@ -52,7 +52,7 @@ namespace Arena
             Utils.IgnoreCollision(Temp_Bullet_Handeler, "Boom");
             Utils.IgnoreCollision(Temp_Bullet_Handeler, "Bullet");
 
-            Vector3 velocity = transform.TransformDirection(Vector3.forward * 100.0f);
+            Vector3 velocity = transform.TransformDirection(direction * 100.0f);
 
             // give the fire initial speed
             print(velocity);
