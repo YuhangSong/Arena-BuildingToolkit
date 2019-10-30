@@ -68,6 +68,16 @@ namespace Arena
         private List<Vector3> OriginalScales = new List<Vector3>();
 
         /// <summary>
+        /// Random localScale range (Min). This can override RandomScaleMin and RandomScaleMax.
+        /// </summary>
+        public float RandomUniformScaleMin;
+
+        /// <summary>
+        /// Random localScale range (Max). This can override RandomScaleMin and RandomScaleMax.
+        /// </summary>
+        public float RandomUniformScaleMax;
+
+        /// <summary>
         /// Random localScale range (Min).
         /// </summary>
         public Vector3 RandomScaleMin;
@@ -76,16 +86,6 @@ namespace Arena
         /// Random localScale range (Max).
         /// </summary>
         public Vector3 RandomScaleMax;
-
-        /// <summary>
-        /// Random localScale range (Min).
-        /// </summary>
-        public float RandomUniformScaleMin = 0f;
-
-        /// <summary>
-        /// Random localScale range (Max). Set to positive value to take effect.
-        /// </summary>
-        public float RandomUniformScaleMax = 0f;
 
         /// <summary>
         /// Random force range (Min).
@@ -224,6 +224,11 @@ namespace Arena
             if (IsStepReward_MeanDistanceToCenter && IsPunishMeanDistanceToCenter) {
                 Debug.LogWarning("IsStepReward_MeanDistanceToCenter and IsPunishMeanDistanceToCenter is controversial");
             }
+
+            RandomScaleMin        += Vector3.one;
+            RandomScaleMax        += Vector3.one;
+            RandomUniformScaleMin += 1f;
+            RandomUniformScaleMax += 1f;
         } // Initialize
 
         /// <summary>
@@ -265,7 +270,7 @@ namespace Arena
                         RandomEulerAnglesMax.z)
                     );
 
-                    if (RandomUniformScaleMax <= 0f) {
+                    if ((RandomUniformScaleMax == 1f) && (RandomUniformScaleMin == 1f)) {
                         AllReinitializedGameObjects[i].transform.localScale = new Vector3(
                             OriginalScales[i].x * Random.Range(RandomScaleMin.x,
                             RandomScaleMax.x),
