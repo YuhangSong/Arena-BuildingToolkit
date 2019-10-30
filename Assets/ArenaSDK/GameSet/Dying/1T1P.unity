@@ -218,6 +218,31 @@ PrefabInstance:
       propertyPath: m_Name
       value: GlobalManager
       objectReference: {fileID: 0}
+    - target: {fileID: 175992649410903378, guid: 7a98d927c181c47e18effbe7a8344d7f,
+        type: 3}
+      propertyPath: RewardTimeCoefficient
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1642958694451750255, guid: 7a98d927c181c47e18effbe7a8344d7f,
+        type: 3}
+      propertyPath: IncrementAttributes.m_keys.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1642958694451750255, guid: 7a98d927c181c47e18effbe7a8344d7f,
+        type: 3}
+      propertyPath: IncrementAttributes.m_values.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1642958694451750255, guid: 7a98d927c181c47e18effbe7a8344d7f,
+        type: 3}
+      propertyPath: IncrementAttributes.m_keys.Array.data[0]
+      value: Health
+      objectReference: {fileID: 0}
+    - target: {fileID: 1642958694451750255, guid: 7a98d927c181c47e18effbe7a8344d7f,
+        type: 3}
+      propertyPath: IncrementAttributes.m_values.Array.data[0]
+      value: 0.02
+      objectReference: {fileID: 0}
     - target: {fileID: 9173161998450826634, guid: 7a98d927c181c47e18effbe7a8344d7f,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -272,11 +297,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 175992649410903378, guid: 7a98d927c181c47e18effbe7a8344d7f,
-        type: 3}
-      propertyPath: RewardTimeCoefficient
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7a98d927c181c47e18effbe7a8344d7f, type: 3}
