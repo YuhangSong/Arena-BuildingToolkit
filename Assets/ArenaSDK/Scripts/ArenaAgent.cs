@@ -230,8 +230,10 @@ namespace Arena
                 AddReward(IncrementValue_ * float.Parse(RewardWithIncrementAttributes[Key_]));
             }
 
-            // update UIPercentageBars
-            UIPercentageBars[Key_].UpdatePercentage(Attributes[Key_]);
+            // update AllAgentCamerasUIPercentageBars
+            foreach (Dictionary<string, UIPercentageBar> UIPercentageBars in AllAgentCamerasUIPercentageBars) {
+                UIPercentageBars[Key_].UpdatePercentage(Attributes[Key_]);
+            }
         } // IncrementAttribute
 
         /// <summary>
@@ -245,10 +247,12 @@ namespace Arena
                 } else {
                     Attributes[Key_] = 1f;
                 }
-                if (UIPercentageBars[Key_].IsEnabled()) {
-                    UIPercentageBars[Key_].UpdatePercentage(Attributes[Key_]);
-                } else {
-                    UIPercentageBars[Key_].Enable(Attributes[Key_]);
+                foreach (Dictionary<string, UIPercentageBar> UIPercentageBars in AllAgentCamerasUIPercentageBars) {
+                    if (UIPercentageBars[Key_].IsEnabled()) {
+                        UIPercentageBars[Key_].UpdatePercentage(Attributes[Key_]);
+                    } else {
+                        UIPercentageBars[Key_].Enable(Attributes[Key_]);
+                    }
                 }
             }
         }
@@ -284,12 +288,13 @@ namespace Arena
         /// <summary>
         /// References to UIPercentageBar.
         /// </summary>
-        protected Dictionary<string, UIPercentageBar> UIPercentageBars = new Dictionary<string, UIPercentageBar>();
+        protected List<Dictionary<string, UIPercentageBar> > AllAgentCamerasUIPercentageBars =
+          new List<Dictionary<string, UIPercentageBar> >();
 
         /// <summary>
         /// References to UIText.
         /// </summary>
-        protected Dictionary<string, UIText> UITexts = new Dictionary<string, UIText>();
+        protected List<Dictionary<string, UIText> > AllAgentCamerasUITexts = new List<Dictionary<string, UIText> >();
 
         /// <summary>
         /// Agent should override InitializeAgent() and call base.InitializeAgent() before adding
@@ -316,17 +321,28 @@ namespace Arena
             //     InitializeTurnBasedGame();
             // }
 
-            /** initialize reference to UIPercentageBars **/
-            foreach (UIPercentageBar UIPercentageBar_ in GetComponentsInChildren<UIPercentageBar>()) {
-                UIPercentageBars.Add(UIPercentageBar_.ID, UIPercentageBar_);
-            }
-            UIPercentageBars["Episode Reward"].Enable();
-            UIPercentageBars["Episode Length"].Enable();
+            foreach (AgentCamera agentCamera in GetComponentsInChildren<AgentCamera>()) {
+                /** initialize reference to AllAgentCamerasUIPercentageBars **/
+                Dictionary<string, UIPercentageBar> UIPercentageBars = new Dictionary<string, UIPercentageBar>();
 
-            /** initialize reference to UITexts **/
-            foreach (UIText UIText_ in GetComponentsInChildren<UIText>()) {
-                UITexts.Add(UIText_.ID, UIText_);
+                foreach (UIPercentageBar UIPercentageBar_ in agentCamera.GetComponentsInChildren<UIPercentageBar>()) {
+                    UIPercentageBars.Add(UIPercentageBar_.ID, UIPercentageBar_);
+                }
+                AllAgentCamerasUIPercentageBars.Add(UIPercentageBars);
+
+                /** initialize reference to AllAgentCamerasUITexts **/
+                Dictionary<string, UIText> UITexts = new Dictionary<string, UIText>();
+                foreach (UIText UIText_ in agentCamera.GetComponentsInChildren<UIText>()) {
+                    UITexts.Add(UIText_.ID, UIText_);
+                }
+                AllAgentCamerasUITexts.Add(UITexts);
             }
+
+            foreach (Dictionary<string, UIPercentageBar> UIPercentageBars in AllAgentCamerasUIPercentageBars) {
+                UIPercentageBars["Episode Reward"].Enable();
+                UIPercentageBars["Episode Length"].Enable();
+            }
+
 
             if (AllowGunAttack) {
                 if (Gun == null) {
@@ -357,7 +373,9 @@ namespace Arena
                     }
                 }
 
-                UIPercentageBars["Ammo"].Enable();
+                foreach (Dictionary<string, UIPercentageBar> UIPercentageBars in AllAgentCamerasUIPercentageBars) {
+                    UIPercentageBars["Ammo"].Enable();
+                }
             } else {
                 if (Gun != null) {
                     Gun.gameObject.SetActive(false);
@@ -365,7 +383,9 @@ namespace Arena
                 if (BulletEmitter != null) {
                     BulletEmitter.gameObject.SetActive(false);
                 }
-                UIPercentageBars["Ammo"].Disable();
+                foreach (Dictionary<string, UIPercentageBar> UIPercentageBars in AllAgentCamerasUIPercentageBars) {
+                    UIPercentageBars["Ammo"].Disable();
+                }
             }
 
             if (AllowSwordAttack) {
@@ -453,7 +473,12 @@ namespace Arena
                                     BulletEmitter.transform.up * BulletFarwardForce);
                             }
                             NumBullet -= 1.0f;
-                            UIPercentageBars["Ammo"].UpdatePercentage(GetBulletPercentage());
+
+                            foreach (Dictionary<string,
+                              UIPercentageBar> UIPercentageBars in AllAgentCamerasUIPercentageBars)
+                            {
+                                UIPercentageBars["Ammo"].UpdatePercentage(GetBulletPercentage());
+                            }
                             if (NumBullet < 1.0f) {
                                 Reloading = true;
                             }
@@ -469,7 +494,9 @@ namespace Arena
 
                 if (Reloading) {
                     NumBullet += NumBulletPerLoad;
-                    UIPercentageBars["Ammo"].UpdatePercentage(GetBulletPercentage());
+                    foreach (Dictionary<string, UIPercentageBar> UIPercentageBars in AllAgentCamerasUIPercentageBars) {
+                        UIPercentageBars["Ammo"].UpdatePercentage(GetBulletPercentage());
+                    }
                     if (NumBullet >= FullNumBullet) {
                         Reloading = false;
                     }
@@ -647,10 +674,10 @@ namespace Arena
             Debug.Log(
                 GetLogTag() + " Reset, CumulativeReward: "
                 + GetCumulativeReward());
-
-            UIPercentageBars["Episode Reward"].UpdateValue(GetCumulativeReward());
-            UIPercentageBars["Episode Length"].UpdateValue(GetComponent<ArenaNode>().GetNumLivingSteps());
-
+            foreach (Dictionary<string, UIPercentageBar> UIPercentageBars in AllAgentCamerasUIPercentageBars) {
+                UIPercentageBars["Episode Reward"].UpdateValue(GetCumulativeReward());
+                UIPercentageBars["Episode Length"].UpdateValue(GetComponent<ArenaNode>().GetNumLivingSteps());
+            }
             // if (globalManager.isTurnBasedGame()) {
             //     ResetTurnBasedGame();
             // }
@@ -661,7 +688,9 @@ namespace Arena
                 } else {
                     NumBullet = FullNumBullet;
                 }
-                UIPercentageBars["Ammo"].UpdatePercentage(GetBulletPercentage());
+                foreach (Dictionary<string, UIPercentageBar> UIPercentageBars in AllAgentCamerasUIPercentageBars) {
+                    UIPercentageBars["Ammo"].UpdatePercentage(GetBulletPercentage());
+                }
             }
         }
 
@@ -728,13 +757,15 @@ namespace Arena
                     }
                     DiscreteContinuousStep();
                 }
-
-                UIPercentageBars["Episode Reward"].UpdateValue(GetCumulativeReward());
+                foreach (Dictionary<string, UIPercentageBar> UIPercentageBars in AllAgentCamerasUIPercentageBars) {
+                    UIPercentageBars["Episode Reward"].UpdateValue(GetCumulativeReward());
+                }
             } else {
                 StepDead();
             }
-            UIPercentageBars["Episode Length"].UpdateValue(GetComponent<ArenaNode>().GetNumLivingSteps());
-
+            foreach (Dictionary<string, UIPercentageBar> UIPercentageBars in AllAgentCamerasUIPercentageBars) {
+                UIPercentageBars["Episode Length"].UpdateValue(GetComponent<ArenaNode>().GetNumLivingSteps());
+            }
             if (globalManager.isDebugging()) {
                 if ((getTeamID() == 0) && (getAgentID() == 0)) {
                     print(GetLogTag() + " GetCumulativeReward " + GetCumulativeReward());
@@ -806,8 +837,11 @@ namespace Arena
             //     }
             // }
 
-            UITexts["Status"].setColor(globalManager.getStateTextColor(IsLiving()));
-            UITexts["Status"].setText(ToDisplay_);
+            foreach (Dictionary<string, UIText> UITexts in AllAgentCamerasUITexts) {
+                UITexts["Status"].setColor(globalManager.getStateTextColor(IsLiving()));
+                UITexts["Status"].setText(
+                    ToDisplay_ + " (" + UITexts["Status"].GetComponentInParent<AgentCamera>().ID + ")");
+            }
         }
 
         /// <summary>
@@ -901,7 +935,9 @@ namespace Arena
         private void
         AutoAssignCameraViewPort()
         {
-            GetComponentInChildren<Camera>().rect = globalManager.getAgentViewPortRect(getTeamID(), getAgentID());
+            foreach (AgentCamera agentCamera in GetComponentsInChildren<AgentCamera>()) {
+                agentCamera.GetComponent<Camera>().rect = globalManager.getAgentViewPortRect(getTeamID(), getAgentID());
+            }
         }
 
         private bool FirstTimeCollectObservations = true;

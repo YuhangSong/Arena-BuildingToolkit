@@ -1,5 +1,8 @@
 using UnityEngine;
-
+using UnityEngine.UI;
+using MLAgents;
+using System;
+using System.Collections.Generic;
 namespace Arena
 {
     public class BoomerAgent : BasicAgent
@@ -16,7 +19,9 @@ namespace Arena
         InitializeAgent()
         {
             base.InitializeAgent();
-            UIPercentageBars["Ammo"].Enable();
+            foreach (Dictionary<string, UIPercentageBar> UIPercentageBars in AllAgentCamerasUIPercentageBars) {
+                UIPercentageBars["Ammo"].Enable();
+            }
         }
 
         public override void
@@ -25,7 +30,9 @@ namespace Arena
             base.AgentReset();
 
             NumBullet = FullNumBullet;
-            UIPercentageBars["Ammo"].UpdatePercentage(NumBullet / FullNumBullet);
+            foreach (Dictionary<string, UIPercentageBar> UIPercentageBars in AllAgentCamerasUIPercentageBars) {
+                UIPercentageBars["Ammo"].UpdatePercentage(NumBullet / FullNumBullet);
+            }
         }
 
         override protected void
@@ -72,7 +79,11 @@ namespace Arena
                             BulletEmitterForward.transform.rotation) as GameObject;
 
                         NumBullet -= 1.0f;
-                        UIPercentageBars["Ammo"].UpdatePercentage(NumBullet / FullNumBullet);
+                        foreach (Dictionary<string,
+                          UIPercentageBar> UIPercentageBars in AllAgentCamerasUIPercentageBars)
+                        {
+                            UIPercentageBars["Ammo"].UpdatePercentage(NumBullet / FullNumBullet);
+                        }
                         if (NumBullet < 1.0f) {
                             Reloading = true;
                         }
@@ -86,7 +97,9 @@ namespace Arena
 
             if (Reloading) {
                 NumBullet += NumBulletPerLoad;
-                UIPercentageBars["Ammo"].UpdatePercentage(NumBullet / FullNumBullet);
+                foreach (Dictionary<string, UIPercentageBar> UIPercentageBars in AllAgentCamerasUIPercentageBars) {
+                    UIPercentageBars["Ammo"].UpdatePercentage(NumBullet / FullNumBullet);
+                }
                 if (NumBullet >= FullNumBullet) {
                     Reloading = false;
                 }

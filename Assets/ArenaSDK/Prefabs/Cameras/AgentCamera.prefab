@@ -84,6 +84,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5635778872768905940}
   - component: {fileID: 5635778872768905938}
+  - component: {fileID: 1188907488840327560}
   m_Layer: 0
   m_Name: AgentCamera
   m_TagString: AgentCamera
@@ -148,6 +149,19 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
+--- !u!114 &1188907488840327560
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5635778872768905943}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d006cf6ad6a654fef9851d4574d4c656, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ID: 
 --- !u!1 &8649679009998651341
 GameObject:
   m_ObjectHideFlags: 0

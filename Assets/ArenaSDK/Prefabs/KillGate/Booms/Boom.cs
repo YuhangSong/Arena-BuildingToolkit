@@ -73,7 +73,7 @@ namespace Arena
             }
 
             // destroy self
-            // Destroy(gameObject, 10f);
+            Destroy(gameObject);
         }
 
         void
