@@ -6,8 +6,12 @@ using Arena;
 
 namespace Arena
 {
-    public class FallflatAgent : BasicAgent
+    public class RollingAgent : BasicAgent
     {
+        override protected void
+        CheckPlayerRotationSettings()
+        { }
+
         override protected void
         DiscreteStep(int Action_)
         {

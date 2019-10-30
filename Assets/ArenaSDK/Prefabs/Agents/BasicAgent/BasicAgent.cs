@@ -223,6 +223,12 @@ namespace Arena {
                     "Player should have and only one Rigidbody, but it has "
                     + Player.GetComponentsInChildren<Rigidbody>().Length);
             }
+            CheckPlayerRotationSettings();
+        }
+
+        virtual protected void
+        CheckPlayerRotationSettings()
+        {
             if (AllowTurn) {
                 if ((Player.GetComponentInChildren<Rigidbody>().constraints !=
                   (RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ)) &&

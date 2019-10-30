@@ -910,6 +910,7 @@ namespace Arena
                 SocialID = 0;
                 int Index = 0;
                 foreach (int Coordinate in GetArenaNode().GetCoordinate_ChildToParent()) {
+                    print(globalManager);
                     SocialID += (int) (Coordinate * Mathf.Pow(globalManager.GetMaxNumChildNodePerParentNode(), Index));
                     Index++;
                 }
