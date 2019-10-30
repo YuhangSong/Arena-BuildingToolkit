@@ -8,6 +8,7 @@ namespace Arena
         public GameObject Fire;
 
         // public config
+        public int NumFireWhenExplode = 8;
         public float ScaleSpeed       = 10f;
         public float ScaleMagnititude = 0.08f;
         public float ExplosionTime    = 1f;
@@ -23,6 +24,8 @@ namespace Arena
             Initialize();
         }
 
+        private float StepSize;
+
         public override void
         Initialize()
         {
@@ -31,42 +34,43 @@ namespace Arena
             Scale     = transform.localScale;
             Material  = new MaterialPropertyBlock();
             TimeStart = Time.time;
+            float StepSize = 360f / NumFireWhenExplode;
 
             Invoke("Explode", ExplosionTime);
         }
 
         void
-        EmmitBullet(Vector3 direction)
+        EmmitBullet(Quaternion direction)
         {
-            // emmit Bullet towards direction
-
             // create Bullet object
             GameObject Temp_Bullet_Handeler;
 
             Temp_Bullet_Handeler = Instantiate(Fire,
-                transform.position + direction * (transform.lossyScale.x + Fire.transform.lossyScale.x) / 1f,
-                transform.rotation) as GameObject;
+                transform.position,
+                direction) as GameObject;
             Temp_Bullet_Handeler.SetActive(true);
 
             // Bullet does not collise with Boom or Bullet
             Utils.IgnoreCollision(Temp_Bullet_Handeler, "Boom");
             Utils.IgnoreCollision(Temp_Bullet_Handeler, "Bullet");
 
-            Vector3 velocity = transform.TransformDirection(direction * 100.0f);
-
             // give the fire initial speed
-            print(velocity);
+            Vector3 velocity = Temp_Bullet_Handeler.transform.TransformDirection(Vector3.forward * 10.0f);
             Temp_Bullet_Handeler.GetComponent<Rigidbody>().velocity = velocity;
-            print(Temp_Bullet_Handeler.GetComponent<Rigidbody>().velocity);
         }
 
         private void
         Explode()
         {
-            EmmitBullet(Vector3.forward);
-            EmmitBullet(Vector3.back);
-            EmmitBullet(Vector3.left);
-            EmmitBullet(Vector3.right);
+            for (int i = 0; i < NumFireWhenExplode; i++) {
+                EmmitBullet(
+                    Quaternion.Euler(
+                        0,
+                        StepSize * i,
+                        0
+                    )
+                );
+            }
 
             // destroy self
             // Destroy(gameObject, 10f);
