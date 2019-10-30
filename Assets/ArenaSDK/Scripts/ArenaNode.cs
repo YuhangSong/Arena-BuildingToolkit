@@ -258,9 +258,7 @@ namespace Arena
         /// </summary>
         public List<RewardFunctionDistance> RewardFunctionDistances = new List<RewardFunctionDistance>();
 
-        public bool IsRewardTime = false;
-
-        public TimeWinTypes TimeWinType = TimeWinTypes.Looger;
+        public float RewardTimeCoefficient = 0f;
 
         /// <summary>
         /// If this node is living.
@@ -581,14 +579,8 @@ namespace Arena
                 StepReward_ += RewardFunctionDistance_.StepGetReward() * globalManager.RewardDistanceCoefficient;
             }
 
-            if (IsRewardTime) {
-                if (TimeWinType == TimeWinTypes.Looger) {
-                    StepReward_ += globalManager.RewardTimeCoefficient;
-                } else if (TimeWinType == TimeWinTypes.Shorter) {
-                    StepReward_ -= globalManager.RewardTimeCoefficient;
-                } else {
-                    Debug.LogError("TimeWinType is invalid.");
-                }
+            if (RewardTimeCoefficient != 0f) {
+                StepReward_ += (globalManager.RewardTimeCoefficient * RewardTimeCoefficient);
             }
 
             foreach (TransformReinitializor TransformReinitializor_ in TransformReinitializors) {

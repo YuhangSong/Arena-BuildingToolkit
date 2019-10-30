@@ -22,7 +22,10 @@ namespace Arena
         /// </summary>
         public List<GameObject> ReinitializedGameObjects;
 
-        private List<GameObject> ReinitializedGameObjectsWithDuplications = new List<GameObject>();
+        private List<GameObject> AllReinitializedGameObjects = new List<GameObject>();
+
+        [Tooltip("If recursively apply transiform reinitialize for all its child objects")]
+        public bool IsRecursively;
 
         /// <summary>
         /// Number of duplicatoins of the GameObject.
@@ -179,10 +182,10 @@ namespace Arena
                 ReinitializedGameObjects.Add(ReinitializedGameObject);
             }
 
-            // create ReinitializedGameObjectsWithDuplications
+            // create AllReinitializedGameObjects
             if (ReinitializedGameObjects.Count > 0) {
                 foreach (GameObject ReinitializedGameObject_ in ReinitializedGameObjects) {
-                    ReinitializedGameObjectsWithDuplications.Add(ReinitializedGameObject_);
+                    AllReinitializedGameObjects.Add(ReinitializedGameObject_);
                 }
             }
 
@@ -192,12 +195,22 @@ namespace Arena
                     Temp_ = GameObject.Instantiate(ReinitializedGameObject_,
                         ReinitializedGameObject_.transform.position,
                         ReinitializedGameObject_.transform.rotation) as GameObject;
-                    ReinitializedGameObjectsWithDuplications.Add(Temp_);
+                    AllReinitializedGameObjects.Add(Temp_);
                 }
             }
 
+            List<GameObject> tmp = new List<GameObject>();
+            if (IsRecursively) {
+                foreach (GameObject ReinitializedGameObject_ in AllReinitializedGameObjects) {
+                    foreach (Transform child in ReinitializedGameObject_.GetComponentsInChildren<Transform>()) {
+                        tmp.Add(child.gameObject);
+                    }
+                }
+            }
+            AllReinitializedGameObjects.AddRange(tmp);
+
             // record all initialize information
-            foreach (GameObject ReinitializedGameObject_ in ReinitializedGameObjectsWithDuplications) {
+            foreach (GameObject ReinitializedGameObject_ in AllReinitializedGameObjects) {
                 OriginalPosition.Add(ReinitializedGameObject_.transform.position);
                 OriginalEulerAngles.Add(ReinitializedGameObject_.transform.eulerAngles);
                 OriginalScales.Add(ReinitializedGameObject_.transform.localScale);
@@ -219,8 +232,8 @@ namespace Arena
         public override void
         Reinitialize()
         {
-            for (int i = 0; i < ReinitializedGameObjectsWithDuplications.Count; i++) {
-                ReinitializedGameObjectsWithDuplications[i].SetActive(true);
+            for (int i = 0; i < AllReinitializedGameObjects.Count; i++) {
+                AllReinitializedGameObjects[i].SetActive(true);
 
                 // whether or not we can spawn in this position
                 bool validPosition = false;
@@ -234,7 +247,7 @@ namespace Arena
                     // Increase our spawn attempts
                     spawnAttempts++;
 
-                    ReinitializedGameObjectsWithDuplications[i].transform.position = new Vector3(
+                    AllReinitializedGameObjects[i].transform.position = new Vector3(
                         OriginalPosition[i].x + Utils.RandomSign_Float()
                         * Random.Range(RandomPositionMin.x, RandomPositionMax.x),
                         OriginalPosition[i].y + Utils.RandomSign_Float()
@@ -243,7 +256,7 @@ namespace Arena
                         * Random.Range(RandomPositionMin.z, RandomPositionMax.z)
                     );
 
-                    ReinitializedGameObjectsWithDuplications[i].transform.eulerAngles = new Vector3(
+                    AllReinitializedGameObjects[i].transform.eulerAngles = new Vector3(
                         OriginalEulerAngles[i].x + Utils.RandomSign_Float() * Random.Range(RandomEulerAnglesMin.x,
                         RandomEulerAnglesMax.x),
                         OriginalEulerAngles[i].y + Utils.RandomSign_Float() * Random.Range(RandomEulerAnglesMin.y,
@@ -253,7 +266,7 @@ namespace Arena
                     );
 
                     if (RandomUniformScaleMax <= 0f) {
-                        ReinitializedGameObjectsWithDuplications[i].transform.localScale = new Vector3(
+                        AllReinitializedGameObjects[i].transform.localScale = new Vector3(
                             OriginalScales[i].x + Utils.RandomSign_Float() * Random.Range(RandomScaleMin.x,
                             RandomScaleMax.x),
                             OriginalScales[i].y + Utils.RandomSign_Float() * Random.Range(RandomScaleMin.y,
@@ -264,7 +277,7 @@ namespace Arena
                     } else {
                         float RandomIncrement_ = Utils.RandomSign_Float() * Random.Range(RandomUniformScaleMin,
                             RandomUniformScaleMax);
-                        ReinitializedGameObjectsWithDuplications[i].transform.localScale = new Vector3(
+                        AllReinitializedGameObjects[i].transform.localScale = new Vector3(
                             OriginalScales[i].x + RandomIncrement_,
                             OriginalScales[i].y + RandomIncrement_,
                             OriginalScales[i].z + RandomIncrement_
@@ -278,8 +291,8 @@ namespace Arena
                         // Go through all previous things
                         for (int j = 0; j < i; j++) {
                             float Distance_ = Vector3.Distance(
-                                ReinitializedGameObjectsWithDuplications[j].transform.position,
-                                ReinitializedGameObjectsWithDuplications[i].transform.position);
+                                AllReinitializedGameObjects[j].transform.position,
+                                AllReinitializedGameObjects[i].transform.position);
                             if (Distance_ < AvoidOverlapRadius) {
                                 validPosition = false;
                                 break;
@@ -295,12 +308,12 @@ namespace Arena
                 }
 
 
-                if (ReinitializedGameObjectsWithDuplications[i].GetComponent<Rigidbody>() != null) {
-                    ReinitializedGameObjectsWithDuplications[i].GetComponent<Rigidbody>().velocity =
+                if (AllReinitializedGameObjects[i].GetComponent<Rigidbody>() != null) {
+                    AllReinitializedGameObjects[i].GetComponent<Rigidbody>().velocity =
                       Vector3.zero;
-                    ReinitializedGameObjectsWithDuplications[i].GetComponent<Rigidbody>().angularVelocity =
+                    AllReinitializedGameObjects[i].GetComponent<Rigidbody>().angularVelocity =
                       Vector3.zero;
-                    ReinitializedGameObjectsWithDuplications[i].GetComponent<Rigidbody>().AddForce(
+                    AllReinitializedGameObjects[i].GetComponent<Rigidbody>().AddForce(
                         new Vector3(
                             Utils.RandomSign_Float() * Random.Range(RandomForceMin.x, RandomForceMax.x),
                             Utils.RandomSign_Float() * Random.Range(RandomForceMin.y, RandomForceMax.y),
@@ -363,10 +376,10 @@ namespace Arena
         {
             Vector3 GeographicalCenter = new Vector3();
 
-            foreach (GameObject ReinitializedGameObject_ in ReinitializedGameObjectsWithDuplications) {
+            foreach (GameObject ReinitializedGameObject_ in AllReinitializedGameObjects) {
                 GeographicalCenter += ReinitializedGameObject_.transform.position;
             }
-            GeographicalCenter /= ReinitializedGameObjectsWithDuplications.Count;
+            GeographicalCenter /= AllReinitializedGameObjects.Count;
 
             return GeographicalCenter;
         }
@@ -377,11 +390,11 @@ namespace Arena
             Vector3 GeographicalCenter = GetGeographicalCenter();
             float MeanDistanceToCenter = 0f;
 
-            foreach (GameObject ReinitializedGameObject_ in ReinitializedGameObjectsWithDuplications) {
+            foreach (GameObject ReinitializedGameObject_ in AllReinitializedGameObjects) {
                 MeanDistanceToCenter +=
                   Vector3.Distance(ReinitializedGameObject_.transform.position, GeographicalCenter);
             }
-            MeanDistanceToCenter /= ReinitializedGameObjectsWithDuplications.Count;
+            MeanDistanceToCenter /= AllReinitializedGameObjects.Count;
             return MeanDistanceToCenter;
         }
 

@@ -34,7 +34,7 @@ namespace Arena
             Scale     = transform.localScale;
             Material  = new MaterialPropertyBlock();
             TimeStart = Time.time;
-            float StepSize = 360f / NumFireWhenExplode;
+            StepSize  = 360f / NumFireWhenExplode;
 
             Invoke("Explode", ExplosionTime);
         }
