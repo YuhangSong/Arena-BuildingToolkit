@@ -260,7 +260,7 @@ namespace MLAgents
         [HideInInspector] public AgentParameters agentParameters;
 
         /// Current Agent information (message sent to Brain).
-        AgentInfo info;
+        protected AgentInfo info;
 
         /// Current Agent action (message sent from Brain).
         AgentAction action;

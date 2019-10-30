@@ -10,9 +10,8 @@ namespace Arena
     {
         /// <summary>
         /// </summary>
-        [Tooltip("If visualize lidar")]
+        [Tooltip("If visualize lidar, only take effect in editor mode")]
         public bool IsVisualize = true;
-
 
         /// <summary>
         /// </summary>
@@ -205,7 +204,7 @@ namespace Arena
                 if (Physics.Raycast(origin, direction, out Hit,
                   maxDistance, LidarIgnoredLayer)) //  add a layer mask value if you need to ignore certain type of objects
                 {
-                    if (IsVisualize) {
+                    if (Application.isEditor && IsVisualize) {
                         Debug.DrawLine(origin, origin + direction * Hit.distance,
                           LidarColorHit);
                     }
@@ -214,7 +213,7 @@ namespace Arena
                 } else {
                     Distances[CurrentFramePointer]       = Mathf.Infinity;
                     NormedDistances[CurrentFramePointer] = 1f;
-                    if (IsVisualize) {
+                    if (Application.isEditor && IsVisualize) {
                         Debug.DrawLine(origin, origin + direction * maxDistance, LidarColorNoHit);
                     }
                 }

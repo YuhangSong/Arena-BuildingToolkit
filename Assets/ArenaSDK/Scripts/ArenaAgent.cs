@@ -44,6 +44,29 @@ namespace Arena
         public bool AddSelfCoordinatesAsCoordinate = false;
         public bool AddSelfCoordinatesAsSocialID   = false;
 
+        [Tooltip("Z scale of VisVecObs")]
+        [Range(0f, 10f)]
+        public float VisVecObsZScale;
+
+        [Tooltip("Z Offset of VisVecObs")]
+        [Range(-1f, 1f)]
+        public float VisVecObsZOffset;
+
+        [Tooltip("Start bit of VisVecObs")]
+        [Range(0, 256)]
+        public int VisVecObsStartBit;
+
+        [Tooltip("End bit of VisVecObs")]
+        [Range(0, 256)]
+        public int VisVecObsEndBit;
+
+        [SerializeField]
+        public List<float> VisVecObsValues;
+
+        public GameObject VisVecObsCube;
+
+        public Color VisVecObsColor;
+
         // for now, you cannot observe the others social coordinate in vectorObservation
 
         [Header("Reward Scheme")][Space(10)]
@@ -942,6 +965,8 @@ namespace Arena
 
         private bool FirstTimeCollectObservations = true;
 
+        private float VisVecObsStepSize;
+
         /// <summary>
         /// Collect VectorObs.
         /// </summary>
@@ -963,8 +988,55 @@ namespace Arena
 
             if (FirstTimeCollectObservations) {
                 FirstTimeCollectObservations = false;
+                if (Application.isEditor) {
+                    // initialize VisVecObs
+                    VisVecObsZScale = VisVecObsCube.transform.lossyScale.z / 2f;
+                    VisVecObsEndBit = info.vectorObservation.Count;
+                } else {
+                    VisVecObsCube.SetActive(false);
+                }
+            }
+
+            if (Application.isEditor) {
+                VisVecObs();
             }
         }
+
+        private void
+        VisVecObs()
+        {
+            if (VisVecObsEndBit > info.vectorObservation.Count) {
+                VisVecObsEndBit = info.vectorObservation.Count;
+            }
+
+            if (VisVecObsStartBit > VisVecObsEndBit) {
+                VisVecObsStartBit = VisVecObsEndBit;
+            }
+
+            VisVecObsValues = info.vectorObservation.GetRange(VisVecObsStartBit, VisVecObsEndBit - VisVecObsStartBit);
+
+            VisVecObsStepSize = VisVecObsCube.transform.lossyScale.x
+              / (VisVecObsEndBit - VisVecObsStartBit);
+
+            for (int i = VisVecObsStartBit; i < VisVecObsEndBit; i++) {
+                Vector3 origin = new Vector3(
+                    VisVecObsCube.transform.position.x
+                    - (VisVecObsCube.transform.lossyScale.x / 2f)
+                    + (i - VisVecObsStartBit) * VisVecObsStepSize,
+                    VisVecObsCube.transform.position.y,
+                    VisVecObsCube.transform.position.z + (info.vectorObservation[i] + VisVecObsZOffset) * VisVecObsZScale
+                );
+                Vector3 delta = new Vector3(
+                    VisVecObsStepSize,
+                    0f,
+                    (info.vectorObservation[i + 1] - info.vectorObservation[i]) * VisVecObsZScale
+                );
+                Debug.DrawLine(origin, origin + delta, VisVecObsColor);
+                if ((i + 2) >= VisVecObsEndBit) {
+                    break;
+                }
+            }
+        } // VisVecObs
 
         /// <summary>
         /// Check if various configurations are valid or not.
