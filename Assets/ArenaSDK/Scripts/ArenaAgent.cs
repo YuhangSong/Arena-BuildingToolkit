@@ -48,6 +48,9 @@ namespace Arena
 
         public bool IsVisVisualObs = false;
 
+        [Range(0f, 1000f)]
+        public float VisVisualObsScale = 1f;
+
         public bool IsVisVecObs = false;
 
         [Tooltip("Z scale of VisVecObs")]
@@ -1036,6 +1039,10 @@ namespace Arena
                 rawImage.texture =
                   brain.brainParameters.cameraResolutions[i].blackAndWhite ?
                   Utils.Texture_RGB2GRAY(info.visualObservations[i]) : info.visualObservations[i];
+                rawImage.GetComponent<RectTransform>().sizeDelta = new Vector2(VisVisualObsScale,
+                    VisVisualObsScale);
+                rawImage.GetComponent<RectTransform>().anchoredPosition = new Vector2(-VisVisualObsScale / 2f,
+                    -VisVisualObsScale / 2f);
             }
         }
 
