@@ -44,6 +44,12 @@ namespace Arena
         public bool AddSelfCoordinatesAsCoordinate = false;
         public bool AddSelfCoordinatesAsSocialID   = false;
 
+        [Header("Visualizations")][Space(10)]
+
+        public bool IsVisVisualObs = false;
+
+        public bool IsVisVecObs = false;
+
         [Tooltip("Z scale of VisVecObs")]
         [Range(0f, 10f)]
         public float VisVecObsZScale;
@@ -988,36 +994,71 @@ namespace Arena
 
             if (FirstTimeCollectObservations) {
                 FirstTimeCollectObservations = false;
-                if (Application.isEditor) {
+
+                if (IsVisVecObs) {
                     // initialize VisVecObs
                     VisVecObsZScale = VisVecObsCube.transform.lossyScale.z / 2f;
                     VisVecObsEndBit = info.vectorObservation.Count;
+                    VisVecObsCube.SetActive(true);
                 } else {
+                    // disable VisVecObs
                     VisVecObsCube.SetActive(false);
+                }
+
+                if (IsVisVisualObs) {
+                    // initialize VisVisualObs
+                    foreach (Camera camera in agentParameters.agentCameras) {
+                        camera.GetComponentInChildren<VisVisualObsRawImage>().gameObject.SetActive(true);
+                    }
+                } else {
+                    // disable VisVisualObs
+                    foreach (Camera camera in agentParameters.agentCameras) {
+                        camera.GetComponentInChildren<VisVisualObsRawImage>().gameObject.SetActive(false);
+                    }
                 }
             }
 
-            if (Application.isEditor) {
+            if (IsVisVecObs) {
                 VisVecObs();
+            }
+
+            if (IsVisVisualObs) {
+                VisVisualObs();
+            }
+        } // CollectObservations
+
+        private void
+        VisVisualObs()
+        {
+            for (int i = 0; i < info.visualObservations.Count; i++) {
+                RawImage rawImage = agentParameters.agentCameras[i].GetComponentInChildren<VisVisualObsRawImage>()
+                  .GetComponent<RawImage>();
+                rawImage.texture =
+                  brain.brainParameters.cameraResolutions[i].blackAndWhite ?
+                  Utils.Texture_RGB2GRAY(info.visualObservations[i]) : info.visualObservations[i];
             }
         }
 
         private void
         VisVecObs()
         {
+            // VisVecObsEndBit cannot be larger than info.vectorObservation.Count
             if (VisVecObsEndBit > info.vectorObservation.Count) {
                 VisVecObsEndBit = info.vectorObservation.Count;
             }
 
+            // VisVecObsStartBit cannot be larger than VisVecObsEndBit
             if (VisVecObsStartBit > VisVecObsEndBit) {
                 VisVecObsStartBit = VisVecObsEndBit;
             }
 
+            // get the part you want observe to VisVecObsValues
             VisVecObsValues = info.vectorObservation.GetRange(VisVecObsStartBit, VisVecObsEndBit - VisVecObsStartBit);
 
             VisVecObsStepSize = VisVecObsCube.transform.lossyScale.x
               / (VisVecObsEndBit - VisVecObsStartBit);
 
+            // draw the curve
             for (int i = VisVecObsStartBit; i < VisVecObsEndBit; i++) {
                 Vector3 origin = new Vector3(
                     VisVecObsCube.transform.position.x
@@ -1056,6 +1097,11 @@ namespace Arena
             // } else {
             //     Debug.LogError("ActionSpaceType is invalid.");
             // }
+
+            if (!Application.isEditor) {
+                // VisVecObs only works in Editor
+                IsVisVecObs = false;
+            }
         }
 
         /// <summary>

@@ -149,6 +149,20 @@ namespace Arena
     {
         public static Vector3 Ones = new Vector3(1f, 1f, 1f);
 
+        public static Texture2D
+        Texture_RGB2GRAY(Texture2D input)
+        {
+            Color[] pix = input.GetPixels();
+            for (int j = 0; j < pix.Length; j++) {
+                pix[j].r = (pix[j].r + pix[j].g + pix[j].b) / 3f;
+                pix[j].g = pix[j].r;
+                pix[j].b = pix[j].r;
+            }
+            Texture2D output = new Texture2D(input.width, input.height);
+            output.SetPixels(pix);
+            return output;
+        }
+
         public static bool
         IsListEqual(List<int> ListA, List<int> ListB, int Count)
         {

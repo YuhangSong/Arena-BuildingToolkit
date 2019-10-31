@@ -144,12 +144,14 @@ MonoBehaviour:
     m_values: []
   AddSelfCoordinatesAsCoordinate: 0
   AddSelfCoordinatesAsSocialID: 0
+  IsVisVisualObs: 1
+  IsVisVecObs: 1
   VisVecObsZScale: 0
   VisVecObsZOffset: 0
   VisVecObsStartBit: 0
   VisVecObsEndBit: 0
   VisVecObsValues: []
-  VisVecObsCube: {fileID: 1422843884758712063}
+  VisVecObsCube: {fileID: 3954730784114476552}
   VisVecObsColor: {r: 1, g: 1, b: 0, a: 1}
   RewardSchemeScale: 1
   AllowGunAttack: 1
@@ -195,7 +197,7 @@ MonoBehaviour:
     Base: 0.3
     Speed: 0.3
     Max: 3
---- !u!1001 &2961514223253931282
+--- !u!1001 &884283561212018149
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -262,13 +264,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4037570568547179026, guid: 14cb619620c604ff29b0eaaa14229c34,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 14cb619620c604ff29b0eaaa14229c34, type: 3}
---- !u!1 &1422843884758712063 stripped
+--- !u!1 &3954730784114476552 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4226519979726502893, guid: 14cb619620c604ff29b0eaaa14229c34,
     type: 3}
-  m_PrefabInstance: {fileID: 2961514223253931282}
+  m_PrefabInstance: {fileID: 884283561212018149}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &4863018293025589175
 PrefabInstance:
