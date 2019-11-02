@@ -229,27 +229,27 @@ namespace Arena {
         virtual protected void
         CheckPlayerRotationSettings()
         {
-            if (AllowTurn) {
-                if ((Player.GetComponentInChildren<Rigidbody>().constraints !=
-                  (RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ)) &&
-                  (Player.GetComponentInChildren<Rigidbody>().constraints !=
-                  (RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ
-                  | RigidbodyConstraints.FreezePositionY)))
-                {
-                    Debug.LogWarning(
-                        "When AllowTurn, player should freeze rotatation on X and Z, as it does not support rotation on these axises. See example Fallflat if you want the player to rotated on these axises.");
-                }
-            } else {
-                if ((Player.GetComponentInChildren<Rigidbody>().constraints !=
-                  (RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ
-                  | RigidbodyConstraints.FreezeRotationY)) && (Player.GetComponentInChildren<Rigidbody>().constraints !=
-                  (RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ
-                  | RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezePositionY)))
-                {
-                    Debug.LogWarning(
-                        "When not AllowTurn, player should freeze rotatation on X, Z and Y, as it does not support rotation on these axises. See example Fallflat if you want the player to rotated on these axises.");
-                }
-            }
+            // if (AllowTurn) {
+            //     if ((Player.GetComponentInChildren<Rigidbody>().constraints !=
+            //       (RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ)) &&
+            //       (Player.GetComponentInChildren<Rigidbody>().constraints !=
+            //       (RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ
+            //       | RigidbodyConstraints.FreezePositionY)))
+            //     {
+            //         Debug.LogWarning(
+            //             "When AllowTurn, player should freeze rotatation on X and Z, as it does not support rotation on these axises. See example Fallflat if you want the player to rotated on these axises.");
+            //     }
+            // } else {
+            //     if ((Player.GetComponentInChildren<Rigidbody>().constraints !=
+            //       (RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ
+            //       | RigidbodyConstraints.FreezeRotationY)) && (Player.GetComponentInChildren<Rigidbody>().constraints !=
+            //       (RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ
+            //       | RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezePositionY)))
+            //     {
+            //         Debug.LogWarning(
+            //             "When not AllowTurn, player should freeze rotatation on X, Z and Y, as it does not support rotation on these axises. See example Fallflat if you want the player to rotated on these axises.");
+            //     }
+            // }
         }
 
         /// <summary>
@@ -379,6 +379,7 @@ namespace Arena {
                         // Only works if the agent is on the ground.
                         // However, this judgement of if agent is on the groud could be buggy.
                         // But no better way avaible for now.
+                        print(IsGrounded());
                         if (IsGrounded()) {
                             Player.GetComponentInChildren<Rigidbody>().AddForce(
                                 Player.transform.TransformVector(
@@ -463,6 +464,9 @@ namespace Arena {
         protected bool
         IsGrounded()
         {
+            // Debug.DrawRay(Player.transform.position, -Vector3.up, Color.red);
+            Debug.DrawLine(Player.transform.position,
+              Player.transform.position - Vector3.up * Player.GetComponent<Collider>().bounds.extents.y, Color.red);
             return Physics.Raycast(Player.transform.position, -Vector3.up,
                      Player.GetComponent<Collider>().bounds.extents.y + 0.1f);
         }
