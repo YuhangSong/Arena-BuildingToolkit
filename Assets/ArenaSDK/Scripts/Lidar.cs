@@ -126,9 +126,9 @@ namespace Arena
                 for (int w = 0; w < FrameWidth; w++) {
                     int i = h * FrameWidth + w;
                     Directions[i] = Quaternion.Euler(
-                        (-FieldHeight / 2) + StepAngleHeight / 2 + StepAngleHeight * (h),
-                        (-FieldWidth / 2) + StepAngleWidth / 2 + StepAngleWidth * (w),
-                        0
+                        transform.rotation.x + (-FieldHeight / 2) + StepAngleHeight / 2 + StepAngleHeight * (h),
+                        transform.rotation.y + (-FieldWidth / 2) + StepAngleWidth / 2 + StepAngleWidth * (w),
+                        transform.rotation.z
                     );
                 }
             }
