@@ -8,45 +8,51 @@ namespace Arena
     [ExecuteInEditMode]
     public class Lidar : ArenaBase
     {
+        
         /// <summary>
         /// </summary>
         [Tooltip("If visualize lidar, only take effect in editor mode")]
         public bool IsVisualize = true;
+        [Space(5)]
+        [Header("Horizontal parameters")]
 
         /// <summary>
         /// </summary>
         [Range(1, 256)]
-        public int FrameHeight = 1;
+        public int HorizontalRayCount = 16;
 
-        /// <summary>
-        /// </summary>
-        [Range(1, 256)]
-        public int FrameWidth = 84;
-
-        /// <summary>
-        /// </summary>
-        [Tooltip("Height of Field-of-View in degrees")]
-        [Range(1f, 359f)]
-        public float FieldHeight = 150; // Horizontal field of view
-
-        /// <summary>
-        /// </summary>
         [Tooltip("Width of Field-of-View in degrees")]
         [Range(1f, 359f)]
-        public float FieldWidth = 150;
+        public float HorizontalFieldOfView = 150;
+
+
+        /// <summary>
+        /// </summary>
+
+
+        [Header("Vertical parameters")]
+        /// <summary>
+        /// </summary>
+        [Range(1, 256)]
+        public int VerticalRayCount = 1;
+
+        [Tooltip("Height of Field-of-View in degrees")]
+        [Range(1f, 359f)]
+        public float VerticalFieldOfView = 150; // Horizontal field of view
+        [Space(5)]
+
 
         /// <summary>
         /// ScanFramePerSecond
         /// -1 means refreshing all data at each GetFrame
         /// </summary>
+        [Tooltip(" 'Refresh rate' of the LIDAR sensor. Set value to '-1' for casting all rays each frame")]
         public float ScanFramePerSecond = -1f;
 
         /// <summary>
         /// Within this bound, lidar returns 0
         /// </summary>
-        [Tooltip(
-            "Inside this bound, lidar detection returns 1, set to 0 to disable the outter bound. This avoids selfcollision with the agent")
-        ]
+        [Tooltip("Inside this bound, lidar detection returns 1, set to 0 to disable the outter bound. This avoids selfcollision with the agent")]
         [Range(0.0f, 50f)]
         public float InnerBound = 0.5f;
 
@@ -56,11 +62,11 @@ namespace Arena
 
         /// <summary>
         /// </summary>
-        public Color LidarColorHit;
+        public Color LidarColorHit = Color.red;
 
         /// <summary>
         /// </summary>
-        public Color LidarColorNoHit;
+        public Color LidarColorNoHit = Color.blue;
 
         /// <summary>
         /// </summary>
@@ -101,12 +107,12 @@ namespace Arena
         private void
         CheckConfig()
         {
-            NumDataPerFrame = FrameHeight * FrameWidth;
+            NumDataPerFrame = VerticalRayCount * HorizontalRayCount;
 
             maxDistance = OutterBound - InnerBound;
 
-            StepAngleHeight = FieldHeight / FrameHeight;
-            StepAngleWidth  = FieldWidth / FrameWidth;
+            StepAngleHeight = VerticalFieldOfView / VerticalRayCount;
+            StepAngleWidth  = HorizontalFieldOfView / HorizontalRayCount;
 
             if (OutterBound == 0f) {
                 maxDistance = Mathf.Infinity;
@@ -122,14 +128,13 @@ namespace Arena
         {
             Directions = new Quaternion[NumDataPerFrame];
 
-            for (int h = 0; h < FrameHeight; h++) {
-                for (int w = 0; w < FrameWidth; w++) {
-                    int i = h * FrameWidth + w;
-                    Directions[i] = Quaternion.Euler(
-                        transform.rotation.x + (-FieldHeight / 2) + StepAngleHeight / 2 + StepAngleHeight * (h),
-                        transform.rotation.y + (-FieldWidth / 2) + StepAngleWidth / 2 + StepAngleWidth * (w),
-                        transform.rotation.z
-                    );
+            for (int h = 0; h < VerticalRayCount; h++) {
+                Quaternion frontDirection = Quaternion.Euler(transform.forward);
+                for (int w = 0; w < HorizontalRayCount; w++) {
+
+                    int i = h * HorizontalRayCount + w;
+                    frontDirection = Quaternion.Euler(transform.forward) * Quaternion.Euler(new Vector3((-VerticalFieldOfView / 2) + StepAngleHeight / 2 + StepAngleHeight * (h), 0,0));
+                    Directions[i] = frontDirection * Quaternion.AngleAxis(((-HorizontalFieldOfView / 2) + StepAngleWidth / 2 + StepAngleWidth * (w)),transform.up);
                 }
             }
 
