@@ -496,6 +496,9 @@ namespace Arena
                                             SubjectNode.IncrementAttribute("Health", -KillHealth);
                                         }
                                     }
+                                    if (AimRaycast.collider.gameObject.tag == "ObstacleDestroyable") {
+                                        AimRaycast.collider.gameObject.GetComponent<Destroyable>().Hitted();
+                                    }
                                 }
                             } else if (ShootType == ShootTypes.Bullet) {
                                 GameObject Temp_Bullet_Handeler;

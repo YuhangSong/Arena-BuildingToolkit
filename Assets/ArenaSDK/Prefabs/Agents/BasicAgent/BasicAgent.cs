@@ -379,7 +379,6 @@ namespace Arena {
                         // Only works if the agent is on the ground.
                         // However, this judgement of if agent is on the groud could be buggy.
                         // But no better way avaible for now.
-                        print(IsGrounded());
                         if (IsGrounded()) {
                             Player.GetComponentInChildren<Rigidbody>().AddForce(
                                 Player.transform.TransformVector(

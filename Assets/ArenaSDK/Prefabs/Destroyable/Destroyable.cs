@@ -30,18 +30,24 @@ namespace Arena
         {
             if (this.LifeTotal > 0) {
                 if (other.gameObject.CompareTag(this.DestoryerByTag)) {
-                    if (EnableExploreEffect) {
-                        GameObject ExplosionEffectPuff =
-                          Instantiate(ExplosionEffect, other.transform.position,
-                            other.transform.rotation) as GameObject;
-                        Destroy(ExplosionEffectPuff, 2);
-                    }
-
-                    this.NumLife -= 1;
-                    if (this.NumLife == 0) {
-                        this.gameObject.SetActive(false);
-                    }
+                    Hitted();
                 }
+            }
+        }
+
+        public void
+        Hitted()
+        {
+            if (EnableExploreEffect) {
+                GameObject ExplosionEffectPuff =
+                  Instantiate(ExplosionEffect, transform.position,
+                    transform.rotation) as GameObject;
+                Destroy(ExplosionEffectPuff, 2);
+            }
+
+            this.NumLife -= 1;
+            if (this.NumLife == 0) {
+                this.gameObject.SetActive(false);
             }
         }
     }
