@@ -8,7 +8,6 @@ namespace Arena
     [ExecuteInEditMode]
     public class Lidar : ArenaBase
     {
-        
         /// <summary>
         /// </summary>
         [Tooltip("If visualize lidar, only take effect in editor mode")]
@@ -52,7 +51,9 @@ namespace Arena
         /// <summary>
         /// Within this bound, lidar returns 0
         /// </summary>
-        [Tooltip("Inside this bound, lidar detection returns 1, set to 0 to disable the outter bound. This avoids selfcollision with the agent")]
+        [Tooltip(
+            "Inside this bound, lidar detection returns 1, set to 0 to disable the outter bound. This avoids selfcollision with the agent")
+        ]
         [Range(0.0f, 50f)]
         public float InnerBound = 0.5f;
 
@@ -91,7 +92,7 @@ namespace Arena
         public override void
         Initialize()
         {
-            base.Initialize();
+            // base.Initialize();
 
             CheckConfig();
             CreateLidar();
@@ -131,10 +132,13 @@ namespace Arena
             for (int h = 0; h < VerticalRayCount; h++) {
                 Quaternion frontDirection = Quaternion.Euler(transform.forward);
                 for (int w = 0; w < HorizontalRayCount; w++) {
-
                     int i = h * HorizontalRayCount + w;
-                    frontDirection = Quaternion.Euler(transform.forward) * Quaternion.Euler(new Vector3((-VerticalFieldOfView / 2) + StepAngleHeight / 2 + StepAngleHeight * (h), 0,0));
-                    Directions[i] = frontDirection * Quaternion.AngleAxis(((-HorizontalFieldOfView / 2) + StepAngleWidth / 2 + StepAngleWidth * (w)),transform.up);
+                    frontDirection = Quaternion.Euler(transform.forward)
+                      * Quaternion.Euler(new Vector3((-VerticalFieldOfView / 2) + StepAngleHeight / 2
+                        + StepAngleHeight * (h), 0, 0));
+                    Directions[i] = frontDirection
+                      * Quaternion.AngleAxis(((-HorizontalFieldOfView / 2) + StepAngleWidth / 2 + StepAngleWidth * (w)),
+                        transform.up);
                 }
             }
 
