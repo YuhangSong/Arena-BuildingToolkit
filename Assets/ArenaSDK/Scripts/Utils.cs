@@ -149,6 +149,22 @@ namespace Arena
     {
         public static Vector3 Ones = new Vector3(1f, 1f, 1f);
 
+        public static void
+        Active(GameObject gameObject)
+        {
+            if (!gameObject.activeInHierarchy) {
+                gameObject.SetActive(true);
+            }
+        }
+
+        public static void
+        Deactive(GameObject gameObject)
+        {
+            if (gameObject.activeInHierarchy) {
+                gameObject.SetActive(false);
+            }
+        }
+
         public static Texture2D
         Texture_RGB2GRAY(Texture2D input)
         {

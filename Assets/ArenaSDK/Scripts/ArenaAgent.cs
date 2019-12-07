@@ -968,31 +968,27 @@ namespace Arena
                 FirstTimeCollectObservations = false;
             }
 
-            if (globalManager.IsVisVecObs) {
-                foreach (Camera camera in agentParameters.agentCameras) {
-                    camera.GetComponent<RenderGraph>().vectorObservation = info.vectorObservation;
-                }
-            }
-
             if (globalManager.IsVisVisualObs) {
                 foreach (Camera camera in agentParameters.agentCameras) {
                     if (camera.GetComponentInChildren<VisVisualObsRawImage>() != null) {
-                        if (!camera.GetComponentInChildren<VisVisualObsRawImage>().gameObject.activeInHierarchy) {
-                            camera.GetComponentInChildren<VisVisualObsRawImage>().gameObject.SetActive(true);
-                        }
+                        Utils.Active(camera.GetComponentInChildren<VisVisualObsRawImage>().gameObject);
                     }
                 }
                 VisVisualObs();
             } else {
                 foreach (Camera camera in agentParameters.agentCameras) {
                     if (camera.GetComponentInChildren<VisVisualObsRawImage>() != null) {
-                        if (camera.GetComponentInChildren<VisVisualObsRawImage>().gameObject.activeInHierarchy) {
-                            camera.GetComponentInChildren<VisVisualObsRawImage>().gameObject.SetActive(false);
-                        }
+                        Utils.Deactive(camera.GetComponentInChildren<VisVisualObsRawImage>().gameObject);
                     }
                 }
             }
         } // CollectObservations
+
+        public List<float>
+        GetVectorObservations()
+        {
+            return info.vectorObservation;
+        }
 
         private void
         VisVisualObs()

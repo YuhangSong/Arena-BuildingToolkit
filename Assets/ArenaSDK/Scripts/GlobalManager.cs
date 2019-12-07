@@ -16,7 +16,11 @@ namespace Arena
 
         [Header("Visualizations")][Space(10)]
 
+        [Tooltip("If visualize vector observation")]
         public bool IsVisVecObs = false;
+
+        [Tooltip("If automatically scaling the curve")]
+        public bool IsAutoScale = false;
 
         [Tooltip("Start bit of VisVecObs")]
         [Range(0, GlobalManager.MaxVecObsSize)]
