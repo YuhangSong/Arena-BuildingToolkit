@@ -971,14 +971,14 @@ namespace Arena
             if (globalManager.IsVisVisualObs) {
                 foreach (Camera camera in agentParameters.agentCameras) {
                     if (camera.GetComponentInChildren<VisVisualObsRawImage>() != null) {
-                        Utils.Active(camera.GetComponentInChildren<VisVisualObsRawImage>().gameObject);
+                        camera.GetComponentInChildren<VisVisualObsRawImage>().enabled = true;
                     }
                 }
                 VisVisualObs();
             } else {
                 foreach (Camera camera in agentParameters.agentCameras) {
                     if (camera.GetComponentInChildren<VisVisualObsRawImage>() != null) {
-                        Utils.Deactive(camera.GetComponentInChildren<VisVisualObsRawImage>().gameObject);
+                        camera.GetComponentInChildren<VisVisualObsRawImage>().enabled = false;
                     }
                 }
             }

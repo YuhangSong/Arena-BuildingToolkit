@@ -43,6 +43,8 @@ namespace Arena
         [Range(0f, 1000f)]
         public float VisVisualObsScale = 1f;
 
+        public bool IsVisLidar = false;
+
 
         [Header("Global Environment Settings")][Space(10)]
 

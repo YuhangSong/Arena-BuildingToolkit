@@ -27,7 +27,7 @@ namespace Arena {
         /// Constructor.
         /// </summary>
         /// <param name="ReinitializedLight_">Reference to the ReinitializedLight object.</param>
-        /// <param name="RandomIntensity_">How much randomness to add on the ReinitializedLight.</param>
+        /// <param name="RandomIntensity_">Randomlized light intensity will be uniform between [OriginalIntensity-RandomIntensity,OriginalIntensity+RandomIntensity].</param>
         public LightReinitializor(Light ReinitializedLight_, float RandomIntensity_)
         {
             ReinitializedLight = ReinitializedLight_;
@@ -41,7 +41,12 @@ namespace Arena {
         override public void
         Reinitialize()
         {
-            ReinitializedLight.intensity = OriginalIntensity + Random.Range(-RandomIntensity, RandomIntensity);
+            float NewIntensity_ = OriginalIntensity + Random.Range(-RandomIntensity, RandomIntensity);
+
+            if (NewIntensity_ < 0f) {
+                NewIntensity_ = 0f;
+            }
+            ReinitializedLight.intensity = NewIntensity_;
         }
     }
 }

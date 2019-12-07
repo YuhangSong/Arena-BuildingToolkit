@@ -11,7 +11,7 @@ namespace Arena
         /// <summary>
         /// </summary>
         [Tooltip("If visualize lidar, only take effect in editor mode")]
-        public bool IsVisualize = true;
+        public bool IsVisLidar = false;
         [Space(5)]
         [Header("Horizontal parameters")]
 
@@ -92,7 +92,7 @@ namespace Arena
         public override void
         Initialize()
         {
-            // base.Initialize();
+            base.Initialize();
 
             CheckConfig();
             CreateLidar();
@@ -186,6 +186,10 @@ namespace Arena
         private void
         Step()
         {
+            if (globalManager != null) {
+                IsVisLidar = globalManager.IsVisLidar;
+            }
+
             int NumDataThisRefresh = 0;
 
             if (Application.isPlaying) {
@@ -213,7 +217,7 @@ namespace Arena
                 if (Physics.Raycast(origin, direction, out Hit,
                   maxDistance, LidarIgnoredLayer)) //  add a layer mask value if you need to ignore certain type of objects
                 {
-                    if (Application.isEditor && IsVisualize) {
+                    if (Application.isEditor && IsVisLidar) {
                         Debug.DrawLine(origin, origin + direction * Hit.distance,
                           LidarColorHit);
                     }
@@ -222,7 +226,7 @@ namespace Arena
                 } else {
                     Distances[CurrentFramePointer]       = Mathf.Infinity;
                     NormedDistances[CurrentFramePointer] = 1f;
-                    if (Application.isEditor && IsVisualize) {
+                    if (Application.isEditor && IsVisLidar) {
                         Debug.DrawLine(origin, origin + direction * maxDistance, LidarColorNoHit);
                     }
                 }
