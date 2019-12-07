@@ -9,6 +9,37 @@ namespace Arena
     /// </summary>
     public class GlobalManager : Academy
     {
+        /// <summary>
+        /// Max size of vector observation.
+        /// </summary>
+        public const int MaxVecObsSize = 84;
+
+        [Header("Visualizations")][Space(10)]
+
+        public bool IsVisVecObs = false;
+
+        [Tooltip("Start bit of VisVecObs")]
+        [Range(0, GlobalManager.MaxVecObsSize)]
+        public int StartBit;
+
+        [Tooltip("End bit of VisVecObs")]
+        [Range(0, GlobalManager.MaxVecObsSize)]
+        public int EndBit;
+
+        [Tooltip("Vertical scale of VisVecObs")]
+        [Range(0.1f, 10f)]
+        public float VerticalZoom = 1;
+
+        [Tooltip("Vertical Offset of VisVecObs")]
+        [Range(-1, 1)]
+        public float VerticalOffset = 0;
+
+        public bool IsVisVisualObs = false;
+
+        [Range(0f, 1000f)]
+        public float VisVisualObsScale = 1f;
+
+
         [Header("Global Environment Settings")][Space(10)]
 
         /// <summary>
@@ -432,7 +463,16 @@ namespace Arena
                     each_gameobject.SetActive(false);
                 }
             }
+
+            InitializeVisVecObs();
         } // InitializeAcademy
+
+        private void
+        InitializeVisVecObs()
+        {
+            StartBit = 0;
+            EndBit   = GlobalManager.MaxVecObsSize;
+        }
 
         void
         OnGUI()

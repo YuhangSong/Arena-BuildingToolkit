@@ -44,40 +44,6 @@ namespace Arena
         public bool AddSelfCoordinatesAsCoordinate = false;
         public bool AddSelfCoordinatesAsSocialID   = false;
 
-        [Header("Visualizations")][Space(10)]
-
-        public bool IsVisVisualObs = false;
-
-        [Range(0f, 1000f)]
-        public float VisVisualObsScale = 1f;
-
-        public bool IsVisVecObs = false;
-
-        [Tooltip("Z scale of VisVecObs")]
-        [Range(0f, 10f)]
-        public float VisVecObsZScale;
-
-        [Tooltip("Z Offset of VisVecObs")]
-        [Range(-1f, 1f)]
-        public float VisVecObsZOffset;
-
-        [Tooltip("Start bit of VisVecObs")]
-        [Range(0, 256)]
-        public int VisVecObsStartBit;
-
-        [Tooltip("End bit of VisVecObs")]
-        [Range(0, 256)]
-        public int VisVecObsEndBit;
-
-        [SerializeField]
-        public List<float> VisVecObsValues;
-
-        public GameObject VisVecObsCube;
-
-        public Color VisVecObsColor;
-
-        // for now, you cannot observe the others social coordinate in vectorObservation
-
         [Header("Reward Scheme")][Space(10)]
 
         /// <summary>
@@ -1000,36 +966,31 @@ namespace Arena
 
             if (FirstTimeCollectObservations) {
                 FirstTimeCollectObservations = false;
+            }
 
-                if (IsVisVecObs) {
-                    // initialize VisVecObs
-                    VisVecObsZScale = VisVecObsCube.transform.lossyScale.z / 2f;
-                    VisVecObsEndBit = info.vectorObservation.Count;
-                    VisVecObsCube.SetActive(true);
-                } else {
-                    // disable VisVecObs
-                    VisVecObsCube.SetActive(false);
-                }
-
-                if (IsVisVisualObs) {
-                    // initialize VisVisualObs
-                    foreach (Camera camera in agentParameters.agentCameras) {
-                        camera.GetComponentInChildren<VisVisualObsRawImage>().gameObject.SetActive(true);
-                    }
-                } else {
-                    // disable VisVisualObs
-                    foreach (Camera camera in agentParameters.agentCameras) {
-                        camera.GetComponentInChildren<VisVisualObsRawImage>().gameObject.SetActive(false);
-                    }
+            if (globalManager.IsVisVecObs) {
+                foreach (Camera camera in agentParameters.agentCameras) {
+                    camera.GetComponent<RenderGraph>().vectorObservation = info.vectorObservation;
                 }
             }
 
-            if (IsVisVecObs) {
-                VisVecObs();
-            }
-
-            if (IsVisVisualObs) {
+            if (globalManager.IsVisVisualObs) {
+                foreach (Camera camera in agentParameters.agentCameras) {
+                    if (camera.GetComponentInChildren<VisVisualObsRawImage>() != null) {
+                        if (!camera.GetComponentInChildren<VisVisualObsRawImage>().gameObject.activeInHierarchy) {
+                            camera.GetComponentInChildren<VisVisualObsRawImage>().gameObject.SetActive(true);
+                        }
+                    }
+                }
                 VisVisualObs();
+            } else {
+                foreach (Camera camera in agentParameters.agentCameras) {
+                    if (camera.GetComponentInChildren<VisVisualObsRawImage>() != null) {
+                        if (camera.GetComponentInChildren<VisVisualObsRawImage>().gameObject.activeInHierarchy) {
+                            camera.GetComponentInChildren<VisVisualObsRawImage>().gameObject.SetActive(false);
+                        }
+                    }
+                }
             }
         } // CollectObservations
 
@@ -1042,52 +1003,13 @@ namespace Arena
                 rawImage.texture =
                   brain.brainParameters.cameraResolutions[i].blackAndWhite ?
                   Utils.Texture_RGB2GRAY(info.visualObservations[i]) : info.visualObservations[i];
-                rawImage.GetComponent<RectTransform>().sizeDelta = new Vector2(VisVisualObsScale,
-                    VisVisualObsScale);
-                rawImage.GetComponent<RectTransform>().anchoredPosition = new Vector2(-VisVisualObsScale / 2f,
-                    -VisVisualObsScale / 2f);
+                rawImage.GetComponent<RectTransform>().sizeDelta = new Vector2(globalManager.VisVisualObsScale,
+                    globalManager.VisVisualObsScale);
+                rawImage.GetComponent<RectTransform>().anchoredPosition = new Vector2(
+                    -globalManager.VisVisualObsScale / 2f,
+                    -globalManager.VisVisualObsScale / 2f);
             }
         }
-
-        private void
-        VisVecObs()
-        {
-            // VisVecObsEndBit cannot be larger than info.vectorObservation.Count
-            if (VisVecObsEndBit > info.vectorObservation.Count) {
-                VisVecObsEndBit = info.vectorObservation.Count;
-            }
-
-            // VisVecObsStartBit cannot be larger than VisVecObsEndBit
-            if (VisVecObsStartBit > VisVecObsEndBit) {
-                VisVecObsStartBit = VisVecObsEndBit;
-            }
-
-            // get the part you want observe to VisVecObsValues
-            VisVecObsValues = info.vectorObservation.GetRange(VisVecObsStartBit, VisVecObsEndBit - VisVecObsStartBit);
-
-            VisVecObsStepSize = VisVecObsCube.transform.lossyScale.x
-              / (VisVecObsEndBit - VisVecObsStartBit);
-
-            // draw the curve
-            for (int i = VisVecObsStartBit; i < VisVecObsEndBit; i++) {
-                Vector3 origin = new Vector3(
-                    VisVecObsCube.transform.position.x
-                    - (VisVecObsCube.transform.lossyScale.x / 2f)
-                    + (i - VisVecObsStartBit) * VisVecObsStepSize,
-                    VisVecObsCube.transform.position.y,
-                    VisVecObsCube.transform.position.z + (info.vectorObservation[i] + VisVecObsZOffset) * VisVecObsZScale
-                );
-                Vector3 delta = new Vector3(
-                    VisVecObsStepSize,
-                    0f,
-                    (info.vectorObservation[i + 1] - info.vectorObservation[i]) * VisVecObsZScale
-                );
-                Debug.DrawLine(origin, origin + delta, VisVecObsColor);
-                if ((i + 2) >= VisVecObsEndBit) {
-                    break;
-                }
-            }
-        } // VisVecObs
 
         /// <summary>
         /// Check if various configurations are valid or not.
@@ -1110,7 +1032,7 @@ namespace Arena
 
             if (!Application.isEditor) {
                 // VisVecObs only works in Editor
-                IsVisVecObs = false;
+                globalManager.IsVisVecObs = false;
             }
         }
 

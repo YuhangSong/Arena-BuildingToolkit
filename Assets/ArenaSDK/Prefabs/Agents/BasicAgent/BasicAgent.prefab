@@ -147,12 +147,11 @@ MonoBehaviour:
   IsVisVisualObs: 0
   VisVisualObsScale: 1
   IsVisVecObs: 0
-  VisVecObsZScale: 0
-  VisVecObsZOffset: 0
-  VisVecObsStartBit: 0
-  VisVecObsEndBit: 0
+  StartBit: 0
+  EndBit: 256
+  VerticalZoom: 1
+  VerticalOffset: 0
   VisVecObsValues: []
-  VisVecObsCube: {fileID: 3954730784114476552}
   VisVecObsColor: {r: 1, g: 1, b: 0, a: 1}
   RewardSchemeScale: 1
   AllowGunAttack: 1
@@ -199,86 +198,6 @@ MonoBehaviour:
     Base: 0.3
     Speed: 0.3
     Max: 3
---- !u!1001 &884283561212018149
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 2321756232426776742}
-    m_Modifications:
-    - target: {fileID: 4226519979726502893, guid: 14cb619620c604ff29b0eaaa14229c34,
-        type: 3}
-      propertyPath: m_Name
-      value: VisVecObsCube
-      objectReference: {fileID: 0}
-    - target: {fileID: 4037570568547179026, guid: 14cb619620c604ff29b0eaaa14229c34,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4037570568547179026, guid: 14cb619620c604ff29b0eaaa14229c34,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4037570568547179026, guid: 14cb619620c604ff29b0eaaa14229c34,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 10.53
-      objectReference: {fileID: 0}
-    - target: {fileID: 4037570568547179026, guid: 14cb619620c604ff29b0eaaa14229c34,
-        type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0.38268343
-      objectReference: {fileID: 0}
-    - target: {fileID: 4037570568547179026, guid: 14cb619620c604ff29b0eaaa14229c34,
-        type: 3}
-      propertyPath: m_LocalRotation.y
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4037570568547179026, guid: 14cb619620c604ff29b0eaaa14229c34,
-        type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4037570568547179026, guid: 14cb619620c604ff29b0eaaa14229c34,
-        type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 0.92387956
-      objectReference: {fileID: 0}
-    - target: {fileID: 4037570568547179026, guid: 14cb619620c604ff29b0eaaa14229c34,
-        type: 3}
-      propertyPath: m_RootOrder
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4037570568547179026, guid: 14cb619620c604ff29b0eaaa14229c34,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4037570568547179026, guid: 14cb619620c604ff29b0eaaa14229c34,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4037570568547179026, guid: 14cb619620c604ff29b0eaaa14229c34,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4037570568547179026, guid: 14cb619620c604ff29b0eaaa14229c34,
-        type: 3}
-      propertyPath: m_LocalScale.y
-      value: 0.1
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 14cb619620c604ff29b0eaaa14229c34, type: 3}
---- !u!1 &3954730784114476552 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4226519979726502893, guid: 14cb619620c604ff29b0eaaa14229c34,
-    type: 3}
-  m_PrefabInstance: {fileID: 884283561212018149}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &4863018293025589175
 PrefabInstance:
   m_ObjectHideFlags: 0
