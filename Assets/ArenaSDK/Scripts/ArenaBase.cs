@@ -23,16 +23,17 @@ namespace Arena
         public virtual void
         Initialize()
         {
-            globalManager = GetComponentInParent<GlobalManager>();
-            if (globalManager == null) {
-                globalManager = GetComponent<GlobalManager>();
+            if (!globalManager) {
+                if (!GetComponent<GlobalManager>()){
+                    GameObject gm = GameObject.FindGameObjectWithTag("GlobalManager");
+                    if (!gm){
+                        Debug.LogError("Cannot find the GlobalManager");
+                    }
+                    else { globalManager = GameObject.FindGameObjectWithTag("GlobalManager").GetComponent<GlobalManager>(); }
+                }
+                else { globalManager = GetComponent<GlobalManager>(); }
             }
-            if (globalManager == null) {
-                globalManager = GameObject.FindGameObjectWithTag("GlobalManager").GetComponent<GlobalManager>();
-            }
-            if (globalManager == null) {
-                Debug.LogError("Cannot find the GlobalManager");
-            }
+            else { globalManager = GetComponentInParent<GlobalManager>(); }
         }
 
         public GlobalManager

@@ -96,7 +96,6 @@ namespace Arena
 
             CheckConfig();
             CreateLidar();
-
             // Debug.Log(GetLogTag() + " Initialize");
         }
 
@@ -149,7 +148,7 @@ namespace Arena
         void
         Update()
         {
-            if (!Application.isPlaying) {
+            if (!Application.isPlaying && IsVisLidar) {                
                 Initialize();
                 GetFrame();
             }

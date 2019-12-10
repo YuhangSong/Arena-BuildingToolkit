@@ -144,15 +144,6 @@ MonoBehaviour:
     m_values: []
   AddSelfCoordinatesAsCoordinate: 0
   AddSelfCoordinatesAsSocialID: 0
-  IsVisVisualObs: 0
-  VisVisualObsScale: 1
-  IsVisVecObs: 0
-  StartBit: 0
-  EndBit: 256
-  VerticalZoom: 1
-  VerticalOffset: 0
-  VisVecObsValues: []
-  VisVecObsColor: {r: 1, g: 1, b: 0, a: 1}
   RewardSchemeScale: 1
   AllowGunAttack: 1
   ShootType: 0
@@ -270,6 +261,11 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: -39.19995
       objectReference: {fileID: 0}
+    - target: {fileID: 6197653999641553768, guid: 526e9bd8b197f47b4bc63a8626f20541,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 3e5d8d5a5644f3d4186cfb9d866c7d27, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 526e9bd8b197f47b4bc63a8626f20541, type: 3}
 --- !u!1 &5856804361836386669 stripped
@@ -327,11 +323,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 5856804361809332743}
     m_Modifications:
-    - target: {fileID: 8216988055785284003, guid: f888dc2c8bfc842f8b0730dbb59e19da,
-        type: 3}
-      propertyPath: m_Name
-      value: AgentCamera TP
-      objectReference: {fileID: 0}
     - target: {fileID: 8216988055785284000, guid: f888dc2c8bfc842f8b0730dbb59e19da,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -386,6 +377,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8216988055785284003, guid: f888dc2c8bfc842f8b0730dbb59e19da,
+        type: 3}
+      propertyPath: m_Name
+      value: AgentCamera TP
       objectReference: {fileID: 0}
     - target: {fileID: 9128653382929956621, guid: f888dc2c8bfc842f8b0730dbb59e19da,
         type: 3}
