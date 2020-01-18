@@ -43,7 +43,7 @@ GameObject:
   - component: {fileID: 2298609148183755067}
   m_Layer: 0
   m_Name: GlobalManager
-  m_TagString: Untagged
+  m_TagString: GlobalManager
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -121,6 +121,15 @@ MonoBehaviour:
     targetFrameRate: 60
   resetParameters:
     resetParameters: []
+  IsVisVecObs: 0
+  IsAutoScale: 0
+  StartBit: 0
+  EndBit: 0
+  VerticalZoom: 1
+  VerticalOffset: 0
+  IsVisVisualObs: 0
+  VisVisualObsScale: 1
+  IsVisLidar: 0
   MaxNumChildNodePerParentNode: 4
   MaxDepthSocialTree: 4
   Debugging: 0

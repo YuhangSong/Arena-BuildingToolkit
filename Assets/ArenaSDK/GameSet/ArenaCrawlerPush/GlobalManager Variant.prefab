@@ -16,10 +16,12 @@ MonoBehaviour:
   - Box
   SubjectType: 0
   IsMatchNodeCoordinate: 0
+  IsDisMatchNodeCoordinate: 0
   IsKill: 1
   IncrementAttributes:
     m_keys: []
     m_values: []
+  IncrementAttributesValueBasedOnScale: 0
   IsCarried: 0
 --- !u!1001 &857919160083575195
 PrefabInstance:
@@ -97,6 +99,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 560287499098601129}
     m_Modifications:
+    - target: {fileID: 8703868936557751655, guid: ba17c132167c2433dbc71afed59c7e8b,
+        type: 3}
+      propertyPath: m_Name
+      value: Goal
+      objectReference: {fileID: 0}
     - target: {fileID: 8703868936557751651, guid: ba17c132167c2433dbc71afed59c7e8b,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -151,11 +158,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8703868936557751655, guid: ba17c132167c2433dbc71afed59c7e8b,
-        type: 3}
-      propertyPath: m_Name
-      value: Goal
       objectReference: {fileID: 0}
     - target: {fileID: 5418723781160420213, guid: ba17c132167c2433dbc71afed59c7e8b,
         type: 3}
@@ -187,6 +189,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: GlobalManager Variant
       objectReference: {fileID: 0}
+    - target: {fileID: 2298609148183755061, guid: 07d68c0d750ad4d53a1c70cb131d33b7,
+        type: 3}
+      propertyPath: m_TagString
+      value: GlobalManager
+      objectReference: {fileID: 0}
     - target: {fileID: 2298609148183755060, guid: 07d68c0d750ad4d53a1c70cb131d33b7,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -241,6 +248,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7738389134084351146, guid: 07d68c0d750ad4d53a1c70cb131d33b7,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 2298609148183755067, guid: 07d68c0d750ad4d53a1c70cb131d33b7,
         type: 3}
@@ -293,11 +305,6 @@ PrefabInstance:
       propertyPath: ImageOnDisplay
       value: 
       objectReference: {fileID: 5023835962365919535}
-    - target: {fileID: 7738389134084351146, guid: 07d68c0d750ad4d53a1c70cb131d33b7,
-        type: 3}
-      propertyPath: m_RootOrder
-      value: 2
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 07d68c0d750ad4d53a1c70cb131d33b7, type: 3}
 --- !u!20 &2621292320626931728 stripped
