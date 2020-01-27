@@ -810,7 +810,9 @@ namespace Arena
             } else {
                 MaskColor_.a = 1f;
             }
-            GetComponentInChildren<Canvas>().GetComponentInChildren<Image>().color = MaskColor_;
+            foreach (AgentCamera agentCamera in GetComponentsInChildren<AgentCamera>()) {
+                agentCamera.GetComponentInChildren<Canvas>().GetComponentInChildren<Image>().color = MaskColor_;
+            }
         }
 
         /// <summary>

@@ -221,6 +221,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2298609148183755067, guid: 07d68c0d750ad4d53a1c70cb131d33b7,
+        type: 3}
+      propertyPath: IgnoreCollisionTagPairs.Array.data[0].TagA
+      value: Body
+      objectReference: {fileID: 0}
+    - target: {fileID: 2298609148183755067, guid: 07d68c0d750ad4d53a1c70cb131d33b7,
+        type: 3}
+      propertyPath: IgnoreCollisionTagPairs.Array.data[0].TagB
+      value: BallWall
+      objectReference: {fileID: 0}
     - target: {fileID: 7123166885751151084, guid: 07d68c0d750ad4d53a1c70cb131d33b7,
         type: 3}
       propertyPath: TransformReinitializors.Array.size
@@ -271,26 +281,26 @@ PrefabInstance:
       propertyPath: TransformReinitializors.Array.data[0].RandomForceMin.z
       value: 3
       objectReference: {fileID: 0}
-    - target: {fileID: 5312585334328622328, guid: 07d68c0d750ad4d53a1c70cb131d33b7,
-        type: 3}
-      propertyPath: m_Camera
-      value: 
-      objectReference: {fileID: 4360708435135074974}
     - target: {fileID: 7610225618879014207, guid: 07d68c0d750ad4d53a1c70cb131d33b7,
         type: 3}
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 2063408255891245913}
-    - target: {fileID: 6591356519475974480, guid: 07d68c0d750ad4d53a1c70cb131d33b7,
+    - target: {fileID: 5312585334328622328, guid: 07d68c0d750ad4d53a1c70cb131d33b7,
+        type: 3}
+      propertyPath: m_Camera
+      value: 
+      objectReference: {fileID: 4360708435135074974}
+    - target: {fileID: 4454909383779488739, guid: 07d68c0d750ad4d53a1c70cb131d33b7,
         type: 3}
       propertyPath: TextOnDisplay
       value: 
-      objectReference: {fileID: 8990803219095279464}
-    - target: {fileID: 6591356519475974480, guid: 07d68c0d750ad4d53a1c70cb131d33b7,
+      objectReference: {fileID: 1558977282718179597}
+    - target: {fileID: 2158895121980721700, guid: 07d68c0d750ad4d53a1c70cb131d33b7,
         type: 3}
-      propertyPath: ImageOnDisplay
+      propertyPath: TextOnDisplay
       value: 
-      objectReference: {fileID: 9041611403970720358}
+      objectReference: {fileID: 3856332816364419274}
     - target: {fileID: 8890061697135741079, guid: 07d68c0d750ad4d53a1c70cb131d33b7,
         type: 3}
       propertyPath: TextOnDisplay
@@ -301,16 +311,16 @@ PrefabInstance:
       propertyPath: ImageOnDisplay
       value: 
       objectReference: {fileID: 6727439398046837665}
-    - target: {fileID: 2158895121980721700, guid: 07d68c0d750ad4d53a1c70cb131d33b7,
+    - target: {fileID: 6591356519475974480, guid: 07d68c0d750ad4d53a1c70cb131d33b7,
         type: 3}
       propertyPath: TextOnDisplay
       value: 
-      objectReference: {fileID: 3856332816364419274}
-    - target: {fileID: 4454909383779488739, guid: 07d68c0d750ad4d53a1c70cb131d33b7,
+      objectReference: {fileID: 8990803219095279464}
+    - target: {fileID: 6591356519475974480, guid: 07d68c0d750ad4d53a1c70cb131d33b7,
         type: 3}
-      propertyPath: TextOnDisplay
+      propertyPath: ImageOnDisplay
       value: 
-      objectReference: {fileID: 1558977282718179597}
+      objectReference: {fileID: 9041611403970720358}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 07d68c0d750ad4d53a1c70cb131d33b7, type: 3}
 --- !u!20 &4360708435135074974 stripped
