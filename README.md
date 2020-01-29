@@ -1,6 +1,6 @@
 <img src="./images/Cover-Landscape-Visual.png" align="middle" width="1000"/>
 
-# Introduction
+# Arena-BuildingToolkit
 
 <img align="left" width="100" height="100" src="./images/Logo.png">
 
@@ -11,15 +11,169 @@ If you use this repository to conduct research, we kindly ask that you [cite the
 ## Status: Release
 
 We are currently open to any suggestions or pull requests from the community to make Arena a better platform.
-To contribute to the project, [contact us via Slack](https://join.slack.com/t/arena-ml/shared_invite/enQtNjc1NDE1MTY0MjU3LWMxMjZiMTYyNTE3OWIzM2QxZjU5YmI1NTM2YzYzZDZlNjY0NzllMDFlMjA3MGZiN2QxODA1NTJhZDkzOTI3Nzg).
+To contribute to the project, [joint us in  Slack](https://join.slack.com/t/arena-ml/shared_invite/enQtNjc1NDE1MTY0MjU3LWMxMjZiMTYyNTE3OWIzM2QxZjU5YmI1NTM2YzYzZDZlNjY0NzllMDFlMjA3MGZiN2QxODA1NTJhZDkzOTI3Nzg), check [To Do list in Trello](https://trello.com/b/dmGHVIM0) as well as check [issues](https://github.com/YuhangSong/Arena-BuildingToolkit/issues) opened in the repo.
 If you have a game in mind you want to study, you are wellcome to [contact us via Slack](https://join.slack.com/t/arena-ml/shared_invite/enQtNjc1NDE1MTY0MjU3LWMxMjZiMTYyNTE3OWIzM2QxZjU5YmI1NTM2YzYzZDZlNjY0NzllMDFlMjA3MGZiN2QxODA1NTJhZDkzOTI3Nzg) or open an issue.
 We are happy to implement it for you, if it's helpful for the community.
 
+## Table of Contents
+
+<!-- TOC depthFrom:1 depthTo:6 withLinks:1 updateOnSave:1 orderedList:0 -->
+
+- [Arena-BuildingToolkit](#arena-buildingtoolkit)
+	- [Status: Release](#status-release)
+	- [Table of Contents](#table-of-contents)
+	- [Get Started](#get-started)
+		- [Get Started: Folder Structure](#get-started-folder-structure)
+		- [Get Started: Game Structure](#get-started-game-structure)
+		- [Utilities: Visualize Vector Observation](#utilities-visualize-vector-observation)
+		- [Utilities: Visualize Visual Observation](#utilities-visualize-visual-observation)
+		- [Utilities: Lidar Sensor](#utilities-lidar-sensor)
+		- [Utilities: Dynamically Change Social Tree Structure](#utilities-dynamically-change-social-tree-structure)
+		- [Reward Function: Reward Function Based on Distance](#reward-function-reward-function-based-on-distance)
+		- [Reward Function: Use Dense Reward Functions](#reward-function-use-dense-reward-functions)
+		- [Agent Prefab: Use More Agent Prefabs](#agent-prefab-use-more-agent-prefabs)
+		- [Agent Prefab: Snake Agent](#agent-prefab-snake-agent)
+		- [[Advanced] Upgrade/Change Version of ML-Agents](#advanced-upgradechange-version-of-ml-agents)
+		- [[Advanced]  Handling Variants of Your Games Efficiently](#advanced-handling-variants-of-your-games-efficiently)
+	- [Citation](#citation)
+	- [License](#license)
+	- [Acknowledgement](#acknowledgement)
+	- [References](#references)
+
+<!-- /TOC -->
+
 ## Get Started
 
-Follow our short and simple tutorials in [Tutorials: Building Toolkit](https://sites.google.com/view/arena-unity/home/tutorials-building-toolkit), which should get you ready in minutes.
+Clone the project to your computer,
+download and install Unity Editor **2018.4.13f1** Personal, download [here](https://unity3d.com/get-unity/download/archive).
+Open the project with Unity Editor.
+
+### Get Started: Folder Structure
+
+- Assets
+  - ML-Agents
+  - ArenaSDK
+    - Brains: where we put shared brains for agents
+    - Code Format: where we put a formating config file that can be used if you are using Atom with package [atom-beautify](https://github.com/Glavin001/atom-beautify). It can be used to format code as we did in the project
+    - GameSet: where we put all the games
+    - Images: images we are using in the project
+    - Materials: materials we are using in the project
+    - PhysicMaterial: physic material we are using in the project
+    - ThirdPartyAssets: third-party assets used in the project
+    - Prefabs: all the prefabs including that of the agents, playgrouds and etc.
+    - Scripts: all the scripts
+
+### Get Started: Game Structure
+
+Before you start, we are expecting you to have basic knowledge on Unity. Thus, you are recommended to finish the [Roll-a-ball tutorial](https://learn.unity.com/project/roll-a-ball-tutorial) to learn some basic concepts of Unity.
+
+A typical game scene in Arena looks like the following picture, where agents are orginized in a tree hierarchy. At each node, you can change the relationship of the agents under this node by selecting different reward functions. The example below shows that
+
+  - under the global node, the two team nodes are competitive, such as which box reaches the target first;
+- under the team node, the two agent nodes are collaborative, such as the distance that the box being moved forward;
+- at the agent node, the agent receive independent rewards, such as that encouraging moving forward.
+
+The tree structure can be easily altered by dragging, duplicating, or deleting nodes in the GUI interface.
+The relationship defined by each node can be easily altered by selecting another reward function from the dropdown list at each node.
 
 <img src="./images/example-tree.png" align="middle" width="2000"/>
+
+The above example game can be found in ```./Assets/ArenaSDK/GameSet/ArenaCrawlerPush/Dense-2T2P```.
+
+This is achieved by attaching scripts in the following manner:
+
+- ```GlobalManager.cs``` ```ArenaNode.cs```
+  - ```ArenaNode.cs```
+    - ```ArenaNode.cs``` ```ArenaAgent.cs```
+    - ```ArenaNode.cs``` ```ArenaAgent.cs```
+  - ```ArenaNode.cs```
+    - ```ArenaNode.cs``` ```ArenaAgent.cs```
+    - ```ArenaNode.cs``` ```ArenaAgent.cs```
+
+Note that there can be hierarchies of more than 3 levels, asymmetry and dynamic hierarchies.
+
+To gain more understanding of Arena framework and work with it, take a look at more games in the ```./Assets/ArenaSDK/GameSet/```. Also, contact us if you find any difficulties, we will add documentations accordingly. (For now, the feedback is that the project is quite easy to understand and get hands on.)
+
+### Utilities: Visualize Vector Observation
+
+[[Video]](https://youtu.be/7kaLTscbmV0)
+
+After you add some vector observations to your agent, you may want to check if they make sense for the agent.
+
+- All ArenaAgent are equipped with this visualization tool by default.
+- It provides flexible ways to investigate/preview the vector observation.
+- It is only enabled in Unity editor, and will not slow down your game when it is compiled for the target platform.
+
+### Utilities: Visualize Visual Observation
+
+[[Video]](https://youtu.be/1dMcLsd72vY)
+
+After you add some visual observations via AgentCamera prefab to your agent, you may want to check if the actual observation for agent (smaller and maybe in grayscale) makes sense.
+
+- All ArenaAgent are equipped with this visualization tool by default.
+- It provides flexible ways to investigate/preview the visual observation.
+- It is also supported in a compiled game, though not recommended, as it slows down your game.
+- The baseline side of Arena project provides better visualization tool for the compiled game.
+
+### Utilities: Lidar Sensor
+
+[[Video]](https://youtu.be/UKIrHM6C43Y)
+
+[Lidar sensor](https://www.slamtec.com/en/Lidar/A3) is widely used in robots to get precise low dimensional representation of the surroundings.
+Lidar sensor is suitable for robotic SLAM applications. It provides 360 degree scan field, certain rotating frequency with certain ranger distance. Lidar is the ideal sensor in cost sensitive areas like robots consumer and hardware hobbyist.
+It is also recently used as a representation for game AI, see [OpenAI Hide-and-seek](https://openai.com/blog/emergent-tool-use/).
+We also included a series of features for visualizing and testing lidar sensor.
+We would recommend using the game ```./Assets/ArenaSDK/GameSet/Tennis``` as an example to play with lidar sensor.
+
+- **Note:** When set ScanFramePerSecond to a positive number, you will still get all the data from lidar at each step, the difference is that some of the data is not refreshed, i.e., only part of data is refreshed at each step. This corresponding to the limited scan frequency of a real lidar sensor.
+
+### Utilities: Dynamically Change Social Tree Structure
+
+Arena-BuildingToolkit now supports dynamically change social tree structure, during an episode, or at the reset of an episode.
+
+This could open up an interesting research direction of multi-agent learning with agents dies or newly born dynamically. We temporally refer to this kind of problem as "social lifelong learning", in contrast to "lifelong learning" in the context of single agent learning. Say: Can the agent learns to give birth to a specific number of babies, based on the resources it has and the stage of the society / population.
+
+### Reward Function: Reward Function Based on Distance
+
+[[Video]](https://youtu.be/EifSl1edwE8)
+
+Use reward function based on distance.
+
+### Reward Function: Use Dense Reward Functions
+
+[[Video]](https://youtu.be/LK7G1apTgZI)
+
+Use multiple off-the-shelf dense reward functions.
+
+### Agent Prefab: Use More Agent Prefabs
+
+[[Video]](https://youtu.be/ExDZA3720fU)
+
+Use multiple off-the-shelf agent prefabs in Arena-BuildingToolkit.
+
+### Agent Prefab: Snake Agent
+
+[[Video]](https://youtu.be/qv5d64y1sLo)
+
+Snake is the common name for a video game concept where the player maneuvers a line which grows in length, with the line itself being a primary obstacle. The concept originated in the 1976 arcade game Blockade, and the ease of implementing Snake has led to hundreds of versions (some of which have the word snake or worm in the title) for many platforms. See [Wiki Page](https://en.wikipedia.org/wiki/Snake_(video_game_genre)).
+
+### [Advanced] Upgrade/Change Version of ML-Agents
+
+How to upgrade or change the version of the Unity ML-Agent dependence.
+Override "Assets/ML-Agents" with the the recent ML-Agent folder here.
+Apply several changes in ML-Agent:
+
+- change "public BroadcastHub broadcastHub = new BroadcastHub();" in "Assets/ML-Agents/Scripts/Academy.cs" to "[HideInInspector] public BroadcastHub broadcastHub = new BroadcastHub();"
+- change "AgentInfo info;" in "Assets/ML-Agents/Scripts/Agent.cs" to "protected AgentInfo info;"
+- change "AgentInfo m_Info;" in "Assets/ML-Agents/Scripts/Agent.cs" to "protected AgentInfo info;"
+
+### [Advanced]  Handling Variants of Your Games Efficiently
+
+[[Video]](https://youtu.be/N21ghyksJd4)
+
+How to handle different configurations of your games with prefabs and prefab variants.
+- Prefab - GlobalManager in "Assets/ArenaSDK/Prefabs/" handles settings of all games.
+- Prefab Variant - GlobalManager Variant in "Assets/ArenaSDK/GameSet/[cool_game]/" handles settings of the specific game [cool_game].
 
 ## Citation
 
