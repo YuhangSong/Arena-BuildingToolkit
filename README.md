@@ -23,18 +23,22 @@ We are happy to implement it for you, if it's helpful for the community.
 	- [Status: Release](#status-release)
 	- [Table of Contents](#table-of-contents)
 	- [Get Started](#get-started)
-		- [Get Started: Folder Structure](#get-started-folder-structure)
-		- [Get Started: Game Structure](#get-started-game-structure)
-		- [Utilities: Visualize Vector Observation](#utilities-visualize-vector-observation)
-		- [Utilities: Visualize Visual Observation](#utilities-visualize-visual-observation)
-		- [Utilities: Lidar Sensor](#utilities-lidar-sensor)
-		- [Utilities: Dynamically Change Social Tree Structure](#utilities-dynamically-change-social-tree-structure)
-		- [Reward Function: Reward Function Based on Distance](#reward-function-reward-function-based-on-distance)
-		- [Reward Function: Use Dense Reward Functions](#reward-function-use-dense-reward-functions)
-		- [Agent Prefab: Use More Agent Prefabs](#agent-prefab-use-more-agent-prefabs)
-		- [Agent Prefab: Snake Agent](#agent-prefab-snake-agent)
-		- [[Advanced] Upgrade/Change Version of ML-Agents](#advanced-upgradechange-version-of-ml-agents)
-		- [[Advanced]  Handling Variants of Your Games Efficiently](#advanced-handling-variants-of-your-games-efficiently)
+		- [Folder Structure](#folder-structure)
+		- [Game Structure](#game-structure)
+	- [Utilities](#utilities)
+		- [Visualize Vector Observation](#visualize-vector-observation)
+		- [Visualize Visual Observation](#visualize-visual-observation)
+		- [Lidar Sensor](#lidar-sensor)
+		- [Dynamically Change Social Tree Structure](#dynamically-change-social-tree-structure)
+	- [Reward Function](#reward-function)
+		- [Reward Function Based on Distance](#reward-function-based-on-distance)
+		- [Use Dense Reward Functions](#use-dense-reward-functions)
+		- [Use More Agent Prefabs](#use-more-agent-prefabs)
+	- [Agent Prefab](#agent-prefab)
+		- [Snake Agent](#snake-agent)
+	- [Advanced](#advanced)
+		- [Upgrade/Change Version of ML-Agents](#upgradechange-version-of-ml-agents)
+		- [Handling Variants of Your Games Efficiently](#handling-variants-of-your-games-efficiently)
 	- [Citation](#citation)
 	- [License](#license)
 	- [Acknowledgement](#acknowledgement)
@@ -48,7 +52,7 @@ Clone the project to your computer,
 download and install Unity Editor **2018.4.13f1** Personal, download [here](https://unity3d.com/get-unity/download/archive).
 Open the project with Unity Editor.
 
-### Get Started: Folder Structure
+### Folder Structure
 
 - Assets
   - ML-Agents
@@ -63,7 +67,7 @@ Open the project with Unity Editor.
     - Prefabs: all the prefabs including that of the agents, playgrouds and etc.
     - Scripts: all the scripts
 
-### Get Started: Game Structure
+### Game Structure
 
 Before you start, we are expecting you to have basic knowledge on Unity. Thus, you are recommended to finish the [Roll-a-ball tutorial](https://learn.unity.com/project/roll-a-ball-tutorial) to learn some basic concepts of Unity.
 
@@ -94,7 +98,9 @@ Note that there can be hierarchies of more than 3 levels, asymmetry and dynamic 
 
 To gain more understanding of Arena framework and work with it, take a look at more games in the ```./Assets/ArenaSDK/GameSet/```. Also, contact us if you find any difficulties, we will add documentations accordingly. (For now, the feedback is that the project is quite easy to understand and get hands on.)
 
-### Utilities: Visualize Vector Observation
+## Utilities
+
+### Visualize Vector Observation
 
 [[Video]](https://youtu.be/7kaLTscbmV0)
 
@@ -104,7 +110,7 @@ After you add some vector observations to your agent, you may want to check if t
 - It provides flexible ways to investigate/preview the vector observation.
 - It is only enabled in Unity editor, and will not slow down your game when it is compiled for the target platform.
 
-### Utilities: Visualize Visual Observation
+### Visualize Visual Observation
 
 [[Video]](https://youtu.be/1dMcLsd72vY)
 
@@ -115,7 +121,7 @@ After you add some visual observations via AgentCamera prefab to your agent, you
 - It is also supported in a compiled game, though not recommended, as it slows down your game.
 - The baseline side of Arena project provides better visualization tool for the compiled game.
 
-### Utilities: Lidar Sensor
+### Lidar Sensor
 
 [[Video]](https://youtu.be/UKIrHM6C43Y)
 
@@ -127,37 +133,43 @@ We would recommend using the game ```./Assets/ArenaSDK/GameSet/Tennis``` as an e
 
 - **Note:** When set ScanFramePerSecond to a positive number, you will still get all the data from lidar at each step, the difference is that some of the data is not refreshed, i.e., only part of data is refreshed at each step. This corresponding to the limited scan frequency of a real lidar sensor.
 
-### Utilities: Dynamically Change Social Tree Structure
+### Dynamically Change Social Tree Structure
 
 Arena-BuildingToolkit now supports dynamically change social tree structure, during an episode, or at the reset of an episode.
 
 This could open up an interesting research direction of multi-agent learning with agents dies or newly born dynamically. We temporally refer to this kind of problem as "social lifelong learning", in contrast to "lifelong learning" in the context of single agent learning. Say: Can the agent learns to give birth to a specific number of babies, based on the resources it has and the stage of the society / population.
 
-### Reward Function: Reward Function Based on Distance
+## Reward Function
+
+### Reward Function Based on Distance
 
 [[Video]](https://youtu.be/EifSl1edwE8)
 
 Use reward function based on distance.
 
-### Reward Function: Use Dense Reward Functions
+### Use Dense Reward Functions
 
 [[Video]](https://youtu.be/LK7G1apTgZI)
 
 Use multiple off-the-shelf dense reward functions.
 
-### Agent Prefab: Use More Agent Prefabs
+### Use More Agent Prefabs
 
 [[Video]](https://youtu.be/ExDZA3720fU)
 
 Use multiple off-the-shelf agent prefabs in Arena-BuildingToolkit.
 
-### Agent Prefab: Snake Agent
+## Agent Prefab
+
+### Snake Agent
 
 [[Video]](https://youtu.be/qv5d64y1sLo)
 
 Snake is the common name for a video game concept where the player maneuvers a line which grows in length, with the line itself being a primary obstacle. The concept originated in the 1976 arcade game Blockade, and the ease of implementing Snake has led to hundreds of versions (some of which have the word snake or worm in the title) for many platforms. See [Wiki Page](https://en.wikipedia.org/wiki/Snake_(video_game_genre)).
 
-### [Advanced] Upgrade/Change Version of ML-Agents
+## Advanced
+
+### Upgrade/Change Version of ML-Agents
 
 How to upgrade or change the version of the Unity ML-Agent dependence.
 Override "Assets/ML-Agents" with the the recent ML-Agent folder here.
@@ -167,7 +179,7 @@ Apply several changes in ML-Agent:
 - change "AgentInfo info;" in "Assets/ML-Agents/Scripts/Agent.cs" to "protected AgentInfo info;"
 - change "AgentInfo m_Info;" in "Assets/ML-Agents/Scripts/Agent.cs" to "protected AgentInfo info;"
 
-### [Advanced]  Handling Variants of Your Games Efficiently
+###  Handling Variants of Your Games Efficiently
 
 [[Video]](https://youtu.be/N21ghyksJd4)
 
