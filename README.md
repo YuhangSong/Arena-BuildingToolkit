@@ -25,19 +25,36 @@ We are happy to implement it for you, if it's helpful for the community.
 	- [Get Started](#get-started)
 		- [Folder Structure](#folder-structure)
 		- [Game Structure](#game-structure)
+		- [Set NodeID](#set-nodeid)
+		- [Switching Between Cameras](#switching-between-cameras)
+		- [Compile Game to Binary File](#compile-game-to-binary-file)
 	- [Utilities](#utilities)
 		- [Visualize Vector Observation](#visualize-vector-observation)
 		- [Visualize Visual Observation](#visualize-visual-observation)
 		- [Lidar Sensor](#lidar-sensor)
+		- [Use Transform Reinitializers](#use-transform-reinitializers)
 		- [Dynamically Change Social Tree Structure](#dynamically-change-social-tree-structure)
+		- [Log Information](#log-information)
+		- [UI Percentage Bar](#ui-percentage-bar)
 	- [Reward Function](#reward-function)
 		- [Reward Function Based on Distance](#reward-function-based-on-distance)
 		- [Use Dense Reward Functions](#use-dense-reward-functions)
 		- [Use More Agent Prefabs](#use-more-agent-prefabs)
-	- [Agent Prefab](#agent-prefab)
+	- [Agent Prefabs](#agent-prefabs)
+		- [Use Gun to Attack](#use-gun-to-attack)
+		- [Show Aim Line](#show-aim-line)
+		- [Gun Attack with Raycast](#gun-attack-with-raycast)
 		- [Snake Agent](#snake-agent)
+	- [Playground Prefabs](#playground-prefabs)
+		- [Use Eatable Prefabs](#use-eatable-prefabs)
+		- [Playground with Maze](#playground-with-maze)
+		- [Playground with Barriers](#playground-with-barriers)
+	- [Randomization](#randomization)
+		- [Light Randomization](#light-randomization)
+		- [Physical Properties Randomization](#physical-properties-randomization)
 	- [Advanced](#advanced)
 		- [Upgrade/Change Version of ML-Agents](#upgradechange-version-of-ml-agents)
+		- [Make Your Game More Neat with Prefabs](#make-your-game-more-neat-with-prefabs)
 		- [Handling Variants of Your Games Efficiently](#handling-variants-of-your-games-efficiently)
 	- [Citation](#citation)
 	- [License](#license)
@@ -77,12 +94,12 @@ A typical game scene in Arena looks like the following picture, where agents are
 - under the team node, the two agent nodes are collaborative, such as the distance that the box being moved forward;
 - at the agent node, the agent receive independent rewards, such as that encouraging moving forward.
 
-The tree structure can be easily altered by dragging, duplicating, or deleting nodes in the GUI interface.
-The relationship defined by each node can be easily altered by selecting another reward function from the dropdown list at each node.
-
 <img src="./images/example-tree.png" align="middle" width="2000"/>
 
 The above example game can be found in ```./Assets/ArenaSDK/GameSet/ArenaCrawlerPush/Dense-2T2P```.
+
+The tree structure can be easily altered by dragging, duplicating, or deleting nodes in the GUI interface.
+The relationship defined by each node can be easily altered by selecting another reward function from the dropdown list at each node. An example of quick creation of social structures can be found in this [[Video]](https://youtu.be/80siqkLI_vY).
 
 This is achieved by attaching scripts in the following manner:
 
@@ -97,6 +114,22 @@ This is achieved by attaching scripts in the following manner:
 Note that there can be hierarchies of more than 3 levels, asymmetry and dynamic hierarchies.
 
 To gain more understanding of Arena framework and work with it, take a look at more games in the ```./Assets/ArenaSDK/GameSet/```. Also, contact us if you find any difficulties, we will add documentations accordingly. (For now, the feedback is that the project is quite easy to understand and get hands on.)
+
+### Set NodeID
+
+[[Video]](https://youtu.be/aT7gEMf4Hqw)
+
+Set valid NodeID.
+
+### Switching Between Cameras
+
+One camera takes the whole window at one time, press F1 and F2 to navigate across different cameras.
+
+### Compile Game to Binary File
+
+[[Video]](https://youtu.be/ASiV61OPRFI)
+
+Compile your game to a binary file, and train with [Arena-Baselines](https://github.com/YuhangSong/Arena-Baselines).
 
 ## Utilities
 
@@ -133,11 +166,29 @@ We would recommend using the game ```./Assets/ArenaSDK/GameSet/Tennis``` as an e
 
 - **Note:** When set ScanFramePerSecond to a positive number, you will still get all the data from lidar at each step, the difference is that some of the data is not refreshed, i.e., only part of data is refreshed at each step. This corresponding to the limited scan frequency of a real lidar sensor.
 
+### Use Transform Reinitializers
+
+[[Video]](https://youtu.be/_A1J4l5xVck)
+
+Use transform reinitializers to re-initialize objects at the reset of each episode.
+
 ### Dynamically Change Social Tree Structure
 
 Arena-BuildingToolkit now supports dynamically change social tree structure, during an episode, or at the reset of an episode.
 
 This could open up an interesting research direction of multi-agent learning with agents dies or newly born dynamically. We temporally refer to this kind of problem as "social lifelong learning", in contrast to "lifelong learning" in the context of single agent learning. Say: Can the agent learns to give birth to a specific number of babies, based on the resources it has and the stage of the society / population.
+
+Other interesting directions under this setting could be ad-hoc teamwork where you need to train an agent (or a group of them) to complement an existing set of teammates.
+
+### Log Information
+
+[[Video]](https://youtu.be/6qb2AMkbaHI)
+
+### UI Percentage Bar
+
+[[Video]](https://youtu.be/5lFUfiUz054)
+
+Identify where the log information comes from.
 
 ## Reward Function
 
@@ -159,13 +210,65 @@ Use multiple off-the-shelf dense reward functions.
 
 Use multiple off-the-shelf agent prefabs in Arena-BuildingToolkit.
 
-## Agent Prefab
+## Agent Prefabs
+
+### Use Gun to Attack
+
+[[Video]](https://youtu.be/uhBbX6qCgg4)
+
+Use gun to fire a bullet, which will kill an agent.
+
+### Show Aim Line
+
+[[Video]](https://youtu.be/sGm78LKt-4k)
+
+Show an aim line for visualizing your gun attack.
+
+### Gun Attack with Raycast
+
+[[Video]](https://youtu.be/Io2-p9j9BOg)
+
+Use Raycast for gun attack, which is safer and more efficient than firing a bullet.
 
 ### Snake Agent
 
 [[Video]](https://youtu.be/qv5d64y1sLo)
 
 Snake is the common name for a video game concept where the player maneuvers a line which grows in length, with the line itself being a primary obstacle. The concept originated in the 1976 arcade game Blockade, and the ease of implementing Snake has led to hundreds of versions (some of which have the word snake or worm in the title) for many platforms. See [Wiki Page](https://en.wikipedia.org/wiki/Snake_(video_game_genre)).
+
+## Playground Prefabs
+
+### Use Eatable Prefabs
+
+[[Video]](https://youtu.be/__kiwrXUTLU)
+
+Add eatable objects to the game.
+
+### Playground with Maze
+
+[[Video]](https://youtu.be/v72ejCHiePQ)
+
+A playground with randomly regenerated maze at the every episode.
+
+### Playground with Barriers
+
+[[Video]](https://youtu.be/GMTCrP-C5_c)
+
+A playground with randomly regenerated barriers at the every episode.
+
+## Randomization
+
+### Light Randomization
+
+[[Video]](https://youtu.be/bO-xZM0sWj0)
+
+Randomize all lights in the game.
+
+### Physical Properties Randomization
+
+[[Video]](https://youtu.be/xUO2KJXjMS0)
+
+Randomize physical properties in the game.
 
 ## Advanced
 
@@ -178,6 +281,12 @@ Apply several changes in ML-Agent:
 - change "public BroadcastHub broadcastHub = new BroadcastHub();" in "Assets/ML-Agents/Scripts/Academy.cs" to "[HideInInspector] public BroadcastHub broadcastHub = new BroadcastHub();"
 - change "AgentInfo info;" in "Assets/ML-Agents/Scripts/Agent.cs" to "protected AgentInfo info;"
 - change "AgentInfo m_Info;" in "Assets/ML-Agents/Scripts/Agent.cs" to "protected AgentInfo info;"
+
+### Make Your Game More Neat with Prefabs
+
+[[Video]](https://youtu.be/Jj9Qjlo-vss)
+
+Suggestions on how to prefab you game so that you can enjoy cleaner project.
 
 ###  Handling Variants of Your Games Efficiently
 
