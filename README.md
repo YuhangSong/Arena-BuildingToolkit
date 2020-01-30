@@ -130,6 +130,11 @@ One camera takes the whole window at one time, press F1 and F2 to navigate acros
 [[Video]](https://youtu.be/ASiV61OPRFI)
 
 Compile your game to a binary file, and train with [Arena-Baselines](https://github.com/YuhangSong/Arena-Baselines).
+You may encounter a warning message as follows:
+
+<img src="./images/ID_issue.png" align="middle" width="1000"/>
+
+just ignore it. It is promoted because with a plus/pro versions of Unity or if you are an member of this project regestered on Unity you get access to things like cloud build and other services, but this isn't needed at all.
 
 ## Utilities
 
