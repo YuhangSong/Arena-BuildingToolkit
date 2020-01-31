@@ -130,7 +130,9 @@ One camera takes the whole window at one time, press F1 and F2 to navigate acros
 [[Video]](https://youtu.be/ASiV61OPRFI)
 
 Compile your game to a binary file, and train with [Arena-Baselines](https://github.com/YuhangSong/Arena-Baselines).
-You may encounter a warning message as follows:
+
+* **Note:** If you intend to run your built game on [Arena-Baselines](https://github.com/YuhangSong/Arena-Baselines), naming the game should follow specific rules as described in [Arena-Benchmark](https://github.com/YuhangSong/Arena-Benchmark)
+* **Note:** You may encounter a warning message as follows:
 
 <img src="./images/ID_issue.png" align="middle" width="1000"/>
 
