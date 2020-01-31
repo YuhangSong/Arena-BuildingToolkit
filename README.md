@@ -90,7 +90,7 @@ Before you start, we are expecting you to have basic knowledge on Unity. Thus, y
 
 A typical game scene in Arena looks like the following picture, where agents are orginized in a tree hierarchy. At each node, you can change the relationship of the agents under this node by selecting different reward functions. The example below shows that
 
-  - under the global node, the two team nodes are competitive, such as which box reaches the target first;
+- under the global node, the two team nodes are competitive, such as which box reaches the target first;
 - under the team node, the two agent nodes are collaborative, such as the distance that the box being moved forward;
 - at the agent node, the agent receive independent rewards, such as that encouraging moving forward.
 
