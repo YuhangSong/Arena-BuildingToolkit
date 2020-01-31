@@ -17,6 +17,8 @@ We are happy to implement it for you, if it's helpful for the community.
 
 ## Table of Contents
 
+**Note:** bare with me on my typos and open up a pull request to fix them, I appreciate it.
+
 <!-- TOC depthFrom:1 depthTo:6 withLinks:1 updateOnSave:1 orderedList:0 -->
 
 - [Arena-BuildingToolkit](#arena-buildingtoolkit)
@@ -63,7 +65,7 @@ We are happy to implement it for you, if it's helpful for the community.
 	- [Acknowledgement](#acknowledgement)
 	- [References](#references)
 
-<!-- /TOC -->!-- TOC depthFrom:1 depthTo:6 withLinks:1 updateOnSave:1 orderedList:0 -->
+<!-- /TOC -->-- TOC depthFrom:1 depthTo:6 withLinks:1 updateOnSave:1 orderedList:0 -->
 
 - [Arena-BuildingToolkit](#arena-buildingtoolkit)
 	- [Status: Release](#status-release)
