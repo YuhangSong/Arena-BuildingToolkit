@@ -65,6 +65,8 @@ We are happy to implement it for you, if it's helpful for the community.
 
 ## Get Started
 
+This section will take you through the entire pipline of making an Arena game.
+
 Clone the project to your computer,
 download and install Unity Editor **2018.4.13f1** Personal, download [here](https://unity3d.com/get-unity/download/archive).
 Open the project with Unity Editor.
@@ -72,7 +74,7 @@ Open the project with Unity Editor.
 ### Folder Structure
 
 - Assets
-  - ML-Agents
+  - ML-Agents: supports from Unity ML-Agents
   - ArenaSDK
     - Brains: where we put shared brains for agents
     - Code Format: where we put a formating config file that can be used if you are using Atom with package [atom-beautify](https://github.com/Glavin001/atom-beautify). It can be used to format code as we did in the project
@@ -84,7 +86,9 @@ Open the project with Unity Editor.
     - Prefabs: all the prefabs including that of the agents, playgrouds and etc.
     - Scripts: all the scripts
 
-### Game Structure
+### Scene Structure
+
+**Note** that we will not be demonstrating how to make an Arena game scene from scretch, we will explain how an Arena game is structured. After this, by looking at and playing with all the example games, you will find it easy to create your own variants or a new one from scretch.
 
 Before you start, we are expecting you to have basic knowledge on Unity. Thus, you are recommended to finish the [Roll-a-ball tutorial](https://learn.unity.com/project/roll-a-ball-tutorial) to learn some basic concepts of Unity.
 
@@ -99,9 +103,11 @@ A typical game scene in Arena looks like the following picture, where agents are
 The above example game can be found in ```./Assets/ArenaSDK/GameSet/ArenaCrawlerPush/Dense-2T2P```.
 
 The tree structure can be easily altered by dragging, duplicating, or deleting nodes in the GUI interface.
-The relationship defined by each node can be easily altered by selecting another reward function from the dropdown list at each node. An example of quick creation of social structures can be found in this [[Video]](https://youtu.be/80siqkLI_vY).
+The relationship defined by each node can be easily altered by selecting another reward function from the dropdown list at each node. An demonstration of quick creation of social structures can be found in this [[Video]](https://youtu.be/80siqkLI_vY).
 
-This is achieved by attaching scripts in the following manner:
+#### Essential Scene Structure
+
+The above is achieved by attaching scripts to the scene in the following manner:
 
 - ```GlobalManager.cs``` ```ArenaNode.cs```
   - ```ArenaNode.cs```
@@ -113,7 +119,25 @@ This is achieved by attaching scripts in the following manner:
 
 Note that there can be hierarchies of more than 3 levels, asymmetry and dynamic hierarchies.
 
-To gain more understanding of Arena framework and work with it, take a look at more games in the ```./Assets/ArenaSDK/GameSet/```. Also, contact us if you find any difficulties, we will add documentations accordingly. (For now, the feedback is that the project is quite easy to understand and get hands on.)
+#### Suggested Scene Structure
+
+The above scene structure is essential to make an Arena environments.
+However, additional components are suggested:
+
+- ```GlobalManager.cs``` ```ArenaNode.cs```
+  - ```TopDownCamera```: this is a prefab, looking down at the playgroud top-down. In this camera, the ID of each agent is visable so that you can see how agents of different IDs interact with each other.
+  - ```VisualizationCamera```: this is a prefab, looking at the playgroud from nice angle, where you have the best view of the game field.
+  - ```World```: this is where you put game objects that belongs to the global world. For example, in the Tennis game, put the ball here.
+  - ```ArenaNode.cs```
+  	- ```World```: this is where you put game objects that belongs to each team. For example, in the game of collaboratively pushing a box, put the box here.
+    - ```ArenaNode.cs``` ```ArenaAgent.cs```
+    - ```ArenaNode.cs``` ```ArenaAgent.cs```
+  - ```ArenaNode.cs```
+    - ```World```
+    - ```ArenaNode.cs``` ```ArenaAgent.cs```
+    - ```ArenaNode.cs``` ```ArenaAgent.cs```
+
+To gain more understanding of games under Arena framework and work with them, take a look at more games in the ```./Assets/ArenaSDK/GameSet/```. Also, contact us if you find any difficulties, we will add documentations accordingly. (For now, the feedback is that it is quite easy to understand and get one's hands on.)
 
 ### Set NodeID
 
@@ -136,9 +160,12 @@ Compile your game to a binary file, and train with [Arena-Baselines](https://git
 
 <img src="./images/ID_issue.png" align="middle" width="1000"/>
 
-just ignore it. It is promoted because with a plus/pro versions of Unity or if you are an member of this project regestered on Unity you get access to things like cloud build and other services, but this isn't needed at all.
+just ignore it. It is promoted because with a plus/pro versions of Unity or if you are an member of this project registered on Unity you get access to things like cloud build and other services, but this isn't needed at all.
 
 ## Utilities
+
+In the above section, you went through the entire pipline of making an Arena game, hope you enjoy it.
+Go on with this section to explore more handy utilities in Arena.
 
 ### Visualize Vector Observation
 
