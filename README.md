@@ -158,13 +158,13 @@ One camera takes the whole window at one time, press F1 and F2 to navigate acros
 [[Video]](https://youtu.be/ASiV61OPRFI)
 
 Compile your game to a binary file, and train with [Arena-Baselines](https://github.com/YuhangSong/Arena-Baselines).
-
-* **Note:** If you intend to run your built game on [Arena-Baselines](https://github.com/YuhangSong/Arena-Baselines), naming the game should follow specific rules as described in [Arena-Benchmark](https://github.com/YuhangSong/Arena-Benchmark)
-* **Note:** You may encounter a warning message as follows:
+You may encounter a warning message as follows:
 
 <img src="./images/ID_issue.png" align="middle" width="1000"/>
 
 just ignore it. It is promoted because with a plus/pro versions of Unity or if you are an member of this project registered on Unity you get access to things like cloud build and other services, but this isn't needed at all.
+
+If you intend to run your built game on [Arena-Baselines](https://github.com/YuhangSong/Arena-Baselines), naming the compiled game file should follow specific rules as described in [Common Naming Rules](https://github.com/YuhangSong/Arena-Benchmark/blob/master/README.md#common-naming-rules). And register the ID of the game in [Arena-Baselines](https://github.com/YuhangSong/Arena-Baselines) according to [Register New Games](https://github.com/YuhangSong/Arena-Baselines#register-new-games).
 
 ## Utilities
 
