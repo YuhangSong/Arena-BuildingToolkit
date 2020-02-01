@@ -4,7 +4,7 @@
 
 <img align="left" width="100" height="100" src="./images/Logo.png">
 
-Multi-agent intelligence is still at the stage where many problems remain unexplored. As a part of [Arena](https://sites.google.com/view/arena-unity/) project, this repository is to provide a building toolkit for researchers to easily invent and build novel multi-agent problems.
+Single/Multi-agent intelligence is still at the stage where many problems remain unexplored. As a part of [Arena](https://sites.google.com/view/arena-unity/) project, this repository is to provide a building toolkit for researchers to easily invent and build novel single/multi-agent problems.
 More resources can be found in [Arena Home](https://sites.google.com/view/arena-unity/).
 If you use this repository to conduct research, we kindly ask that you [cite the paper](#citation) as a reference.
 
