@@ -12,7 +12,7 @@ If you use this repository to conduct research, we kindly ask that you [cite the
 
 Following prefabs can be easily combined with each other, creating your own learning environments.
 
-*  | Agent Prefabs |  *
+[  | Agent Prefabs |  ]
 |:-:|:-:|:-:|
 BasicAgent  |  ArenaCrawler |  ArenaWalker
 ![BasicAgent](images/AgentPrefabs/BasicAgent.gif)  |  ![ArenaCrawler](images/AgentPrefabs/ArenaCrawler.gif) |  ![ArenaWalker](images/AgentPrefabs/ArenaWalker.gif)
