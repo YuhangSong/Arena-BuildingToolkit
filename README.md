@@ -8,6 +8,19 @@ Single/Multi-agent intelligence is still at the stage where many problems remain
 More resources can be found in [Arena Home](https://sites.google.com/view/arena-unity/).
 If you use this repository to conduct research, we kindly ask that you [cite the paper](#citation) as a reference.
 
+## Features
+
+Following prefabs can be easily combined with each other, creating your own learning environments.
+
+*  | Agent Prefabs |  *
+|:-:|:-:|:-:|
+BasicAgent  |  ArenaCrawler |  ArenaWalker
+![BasicAgent](images/AgentPrefabs/BasicAgent.gif)  |  ![ArenaCrawler](images/AgentPrefabs/ArenaCrawler.gif) |  ![ArenaWalker](images/AgentPrefabs/ArenaWalker.gif)
+BlowBlowAgent  |  BoomerAgent |  RollingAgent
+![BlowBlowAgent](images/AgentPrefabs/BlowBlowAgent.gif)  |  ![BoomerAgent](images/AgentPrefabs/BoomerAgent.gif) |  ![RollingAgent](images/AgentPrefabs/RollingAgent.gif)
+SnakeAgent  |  TankAgent |  TennisAgent
+![SnakeAgent](images/AgentPrefabs/SnakeAgent.gif)  |  ![TankAgent](images/AgentPrefabs/TankAgent.gif) |  ![TennisAgent](images/AgentPrefabs/TennisAgent.gif)
+
 ## Status: Release
 
 We are currently open to any suggestions or pull requests from the community to make Arena a better platform.

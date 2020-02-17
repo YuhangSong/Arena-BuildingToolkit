@@ -196,7 +196,7 @@ QualitySettings:
     blendWeights: 4
     textureQuality: 0
     anisotropicTextures: 1
-    antiAliasing: 4
+    antiAliasing: 8
     softParticles: 1
     softVegetation: 1
     realtimeReflectionProbes: 1
@@ -216,4 +216,5 @@ QualitySettings:
     asyncUploadPersistentBuffer: 1
     resolutionScalingFixedDPIFactor: 1
     excludedTargetPlatforms: []
-  m_PerPlatformDefaultQuality: {}
+  m_PerPlatformDefaultQuality:
+    Standalone: 0
