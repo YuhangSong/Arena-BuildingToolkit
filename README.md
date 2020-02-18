@@ -21,6 +21,24 @@ BlowBlowAgent  |  BoomerAgent |  RollingAgent
 SnakeAgent  |  TankAgent |  TennisAgent
 ![SnakeAgent](images/AgentPrefabs/SnakeAgent.gif)  |  ![TankAgent](images/AgentPrefabs/TankAgent.gif) |  ![TennisAgent](images/AgentPrefabs/TennisAgent.gif)
 
+[  | Playground Prefabs |  ]
+|:-:|:-:|:-:|
+Playground  |  PlaygroundWithBarrier |  PlaygroundWithDeadWalls
+![Playground](images/PlaygroundPrefabs/Playground.gif)  |  ![PlaygroundWithBarrier](images/PlaygroundPrefabs/PlaygroundWithBarrier.gif) |  ![PlaygroundWithDeadWalls](images/PlaygroundPrefabs/PlaygroundWithDeadWalls.gif)
+PlaygroundWithLight  |  PlaygroundWithMaze |  PlaygroundWithRooms
+![PlaygroundWithLight](images/PlaygroundPrefabs/PlaygroundWithLight.gif)  |  ![PlaygroundWithMaze](images/PlaygroundPrefabs/PlaygroundWithMaze.gif) |  ![PlaygroundWithRooms](images/PlaygroundPrefabs/PlaygroundWithRooms.gif)
+PlaygroundWithSlopes  |  PlaygroundWithWalls |  PlaygroundWithDestroyables
+![PlaygroundWithSlopes](images/PlaygroundPrefabs/PlaygroundWithSlopes.gif)  |  ![PlaygroundWithWalls](images/PlaygroundPrefabs/PlaygroundWithWalls.gif) |  ![PlaygroundWithDestroyables](images/PlaygroundPrefabs/PlaygroundWithDestroyables.gif)
+
+<!-- [  | NPCs |  ]
+|:-:|:-:|:-:|
+Playground  |  PlaygroundWithBarrier |  PlaygroundWithDeadWalls
+![Playground](images/NPCPrefabs/Playground.gif)  |  ![PlaygroundWithBarrier](images/NPCPrefabs/PlaygroundWithBarrier.gif) |  ![PlaygroundWithDeadWalls](images/NPCPrefabs/PlaygroundWithDeadWalls.gif)
+PlaygroundWithLight  |  PlaygroundWithMaze |  PlaygroundWithRooms
+![PlaygroundWithLight](images/NPCPrefabs/PlaygroundWithLight.gif)  |  ![PlaygroundWithMaze](images/NPCPrefabs/PlaygroundWithMaze.gif) |  ![PlaygroundWithRooms](images/NPCPrefabs/PlaygroundWithRooms.gif)
+PlaygroundWithSlopes  |  PlaygroundWithWalls |  PlaygroundWithDestroyables
+![PlaygroundWithSlopes](images/NPCPrefabs/PlaygroundWithSlopes.gif)  |  ![PlaygroundWithWalls](images/NPCPrefabs/PlaygroundWithWalls.gif) |  ![PlaygroundWithDestroyables](images/NPCPrefabs/PlaygroundWithDestroyables.gif) -->
+
 ## Status: Release
 
 We are currently open to any suggestions or pull requests from the community to make Arena a better platform.
